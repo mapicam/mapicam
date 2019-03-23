@@ -91,22 +91,20 @@ REM gpxpy – встановлюється через pip.
 REM PIL – встановлюється через pip.
 REM piexif
 REM pyexiv2 – встановлюється через встановлювач Windows в залежності від версії системи x32 або x64.
-
 REM ----------------------------------
-cmd
-cd C:\Python27\Scripts\ 
-python -m pip install --upgrade pip
-pip install exifread
-pip install gpxpy 
-pip install Pillow
-pip install piexif
-install pyexiv2
-:: Could not find a version that satisfies the requirement pyexiv2 (from versions: )
-:: No matching distribution found for pyexiv2
-pip install python-dateutil
-pip install python-dateutil --upgrade
-pip install pytz --upgrade
-
+REM cmd
+REM cd C:\Python27\Scripts\ 
+REM python -m pip install --upgrade pip
+REM pip install exifread
+REM pip install gpxpy 
+REM pip install Pillow
+REM pip install piexif
+REM install pyexiv2
+REM :: Could not find a version that satisfies the requirement pyexiv2 (from versions: )
+REM :: No matching distribution found for pyexiv2
+REM pip install python-dateutil
+REM pip install python-dateutil --upgrade
+REM pip install pytz --upgrade
 REM ----------------------------------
 REM Якщо все пройшло без помилок то середовище Python тепер готове до роботи зі скриптами Mapillary Tools.
 REM :: ===================================
