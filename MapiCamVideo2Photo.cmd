@@ -42,9 +42,14 @@ setlocal EnableDelayedExpansion
 @echo #####################
 @echo .
 :: #####################
+@set MapiCamNameXX=00
+@set MapiCamHeadXX=45
+@set MapiCamFpsXX=5
 
-ffmpeg -r 1 %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamImgDateDIR%.flv -r 1 "$%MapiCamImgDateDIR%%03d.png"
+mkdir %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%
+
+%MapiCamFFpath%\ffmpeg.exe -i "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamImgDateDIR%.f4v" -vf fps=%MapiCamFpsXX% "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\mapicam-%MapiCamNameXX%-%MapiCamHeadXX%-%MapiCamImgDateDIR%-%%06d.png"
 
 
-
-
+ECHO ##### GOTOVO :) #####
+pause

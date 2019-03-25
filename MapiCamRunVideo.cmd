@@ -301,7 +301,7 @@ rundll32 user32.dll,MessageBeep
 :: ffmpeg -list_devices true -f dshow -i dummy
 c:\ffmpeg\bin\ffmpegXP.exe -list_devices true -f dshow -i dummy
 :: see options:
-c:\ffmpeg\bin\ffmpegXP.exe -list_options true -f dshow -i video="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&28a58ce8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+c:\ffmpeg\bin\ffmpegXP.exe -list_options true -f dshow -i video="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&39f754f8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 :: #####################
 :: ##### CLUSTER INFO ######################################
 :: 
@@ -475,7 +475,9 @@ rundll32 user32.dll,MessageBeep
 :: %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 5 -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%010d.jpg" 
 
 :: for Win10 (CAMERA CAPTURES) = (1 FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.mpg" 
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 10 -vcodec mjpeg -i video="%MapiCamName%" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%03d.mp4" 
+
+pause
 
 :: %%L	= викидає ERROR
 :: %%s	= викидає ERROR
