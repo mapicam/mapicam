@@ -457,6 +457,9 @@ cd %MapiCamImgDIR%
 :: ##### MapiCam-XX ####################################################################
 :: #####################################################################################
 
+@echo . 001
+pause
+
 :: ERROR WinXP (cmdext.dll)
 :: rundll32.exe cmdext.dll,MessageBeepStub
 rundll32 user32.dll,MessageBeep
@@ -475,8 +478,14 @@ rundll32 user32.dll,MessageBeep
 :: %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 5 -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%010d.jpg" 
 
 :: for Win10 (CAMERA CAPTURES) = (1 FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
+<<<<<<< HEAD
 %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 10 -vcodec mpeg2video -i video=%MapiCamName% "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%03d.mp4" 
+=======
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 10 -vcodec mjpeg -i video=%MapiCamName% "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%03d.mp4" 
 
+>>>>>>> 3c169c6bbc083a3acd7ec9f6713dbd26e151e474
+
+@echo . 002
 pause
 
 :: %%L	= викидає ERROR
