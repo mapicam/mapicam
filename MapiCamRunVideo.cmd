@@ -40,44 +40,44 @@
 @echo . G=180
 @echo . H=225
 @echo . ---------------------
-@echo . create specific .LNK for run you cameras: 
-@echo . fA.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd A"
-@echo . fB.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd B"
-@echo . fC.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd C"
-@echo . fD.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd D"
-@echo . fE.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd E"
-@echo . fF.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd F"
-@echo . fG.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd G"
-@echo . fH.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd H"
+@echo . create specific .LNK for run PHOTO from you cameras: 
+@echo . fA.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd A"
+@echo . fB.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd B"
+@echo . fC.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd C"
+@echo . fD.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd D"
+@echo . fE.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd E"
+@echo . fF.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd F"
+@echo . fG.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd G"
+@echo . fH.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd H"
 @echo . 
-@echo . f01.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 01"
-@echo . f02.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 02"
-@echo . f03.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 03"
-@echo . f04.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 04"
-@echo . f05.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 05"
-@echo . f06.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 06"
-@echo . f07.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 07"
-@echo . f08.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 08"
+@echo . f01.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd 01"
+@echo . f02.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd 02"
+@echo . f03.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd 03"
+@echo . f04.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd 04"
+@echo . f05.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd 05"
+@echo . f06.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd 06"
+@echo . f07.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd 07"
+@echo . f08.LNK :: "D:\mapicam_img\MapiCamRunPhoto.cmd 08"
 @echo . 
 @echo . ---------------------
-@echo . create specific .LNK for run you cameras: 
-@echo . vA.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd A"
-@echo . vB.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd B"
-@echo . vC.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd C"
-@echo . vD.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd D"
-@echo . vE.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd E"
-@echo . vF.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd F"
-@echo . vG.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd G"
-@echo . vH.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd H"
+@echo . create specific .LNK for run VIDEO from you cameras: 
+@echo . vA.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd A"
+@echo . vB.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd B"
+@echo . vC.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd C"
+@echo . vD.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd D"
+@echo . vE.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd E"
+@echo . vF.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd F"
+@echo . vG.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd G"
+@echo . vH.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd H"
 @echo . 
-@echo . v01.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 01"
-@echo . v02.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 02"
-@echo . v03.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 03"
-@echo . v04.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 04"
-@echo . v05.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 05"
-@echo . v06.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 06"
-@echo . v07.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 07"
-@echo . v08.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 08"
+@echo . v01.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd 01"
+@echo . v02.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd 02"
+@echo . v03.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd 03"
+@echo . v04.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd 04"
+@echo . v05.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd 05"
+@echo . v06.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd 06"
+@echo . v07.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd 07"
+@echo . v08.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd 08"
 @echo . 
 :: ====     #1      ====
 :: for Windows-10:
@@ -272,29 +272,33 @@ REM python "D:\mapicam_tools\mapillary_tools-master\mapillary_tools\interpolatio
 :: 
 :: 
 :: 
+
 @echo #####################
 @echo # This is parametrs #
 @echo #####################
 setlocal EnableDelayedExpansion
 @set MapiCamFFpath=c:\ffmpeg\bin
 @set MapiCamGBpath=C:\Progra~2\GPSBabel
-@set MapiCamImgDrive=D:
+@set MapiCamDrive=D:
 @set MapiCamImgFolder=mapicam_img
 @set MapiCamGpxFolder=mapicam_gpx
+@set MapiCamDate=%date:~-4%%date:~3,2%%date:~0,2%
 @set MapiCamImgDIR=00
 @set MapiCamImgDIR=%1%
-@set MapiCamImgDateDIR=%%Y%%m%%d
+@set MapiCamGpsDIR=%MapiCamImgDIR%
 @set MapiCamHead=0
 @echo .
 @echo #####################
 @echo setlocal EnableDelayedExpansion
 @echo MapiCamFFpath		= %MapiCamFFpath%
 @echo MapiCamGBpath     = %MapiCamGBpath%  = C:\Program Files (x86)\GPSBabel
-@echo MapiCamImgDrive	= %MapiCamImgDrive%
+@echo MapiCamDrive	    = %MapiCamDrive%
 @echo MapiCamImgFolder	= %MapiCamImgFolder%
 @echo MapiCamGpxFolder  = %MapiCamGpxFolder%
+@echo MapiCamDate       = default = %MapiCamDate%
+@echo MapiCamImgDateDIR = default = %MapiCamImgDateDIR% = %%Y%%m%%d // OLD
 @echo MapiCamImgDIR     = default = %MapiCamImgDIR%
-@echo MapiCamImgDateDIR = default = %MapiCamImgDateDIR%
+@echo MapiCamGpsDIR     = default = %MapiCamGpsDIR%
 @echo MapiCamHead       = %MapiCamHead%
 @echo #####################
 @echo .
@@ -319,15 +323,21 @@ rundll32 user32.dll,MessageBeep
 @echo MapiCamImgDIR = %MapiCamImgDIR%
 :: set /p MapiCamImgDIR="BBEDiTb HOMEP a6o LiTEPy KAMEPu: "
 @echo .
+@echo #####################
+@echo #####  SETTING  #####
+@echo #####################
+@echo .
+@echo . "Microsoft® LifeCam HD-3000"
+@echo . DirectShow video device options (from video devices)
+@echo #####   PHOTO   #####
+@echo . pixel_format=yuyv422  min s=1280x720 fps=7.5 max s=1280x720 fps=10
+@echo . pixel_format=yuyv422  min s=1280x800 fps=10  max s=1280x800 fps=10
+@echo #####   VIDEO   #####
+@echo . vcodec=mjpeg  min s=1280x720 fps=7.5 max s=1280x720 fps=30
+@echo #####################
 @echo .
 @echo .
 @echo .
-
-
-
-pause
-
-
 @echo ##### CLUSTER INFO ######################################
 @echo .
 @echo ##### CLUSTER:ANT-LSU MaxUsbValidAndCorrecUsePort=3 #####
@@ -360,40 +370,29 @@ pause
 @echo ANT-ACER-H ##### RESERVE #####
  @set MapiCamNameH="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&126c6da&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo . 
-
-
-
-pause
-
-@echo .
 @echo ##### CLUSTER:ANT-PC-SSD MaxUsbValidAndCorrecUsePort=8(6)
-@echo ANT-PC-SSD-L2L[1]
-@set MapiCamName01="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&9767192&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-PC-SSD-L2R[2]
+@echo ANT-PC-SSD-L2L[1] (fix 20190327)
+@set MapiCamName01="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&9767192&5&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-PC-SSD-L2R[2] (fix 20190301)
 @set MapiCamName02="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&1c302237&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-PC-SSD-L3L[]
+@echo ANT-PC-SSD-L3L[]  (fix 20190301)
 @set MapiCamName05="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&6ba0f70&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-PC-SSD-L3R[]
+@echo ANT-PC-SSD-L3R[]  (fix 20190301)
 @set MapiCamName06="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&1973c015&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-PC-SSD-L4L[]
+@echo ANT-PC-SSD-L4L[]  (fix 20190301)
 @set MapiCamName07="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&2c2d70ba&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-PC-SSD-L4R[]
+@echo ANT-PC-SSD-L4R[]  (fix 20190301)
 @set MapiCamName08="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&34c5758&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-PC-SSD-L5L[3]
+@echo ANT-PC-SSD-L5L[3] (fix 20190301)
 @set MapiCamName03="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&2de5f28f&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-PC-SSD-L5R[4]
+@echo ANT-PC-SSD-L5R[4] (fix 20190301)
 @set MapiCamName04="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&504d92d&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-PC-SSD-00
+@echo ANT-PC-SSD-00     (fix 20190301)
 @set MapiCamName00="Microsoft® LifeCam HD-3000"
-:: ##### CLUSTER INFO - END ################################
-
-
-
-pause
-
-
-:: #####################
-IF %MapiCamImgDIR% == A (
+@echo ##### CLUSTER INFO - END ################################
+@echo .
+@echo #####################
+IF %MapiCamImgDIR%== A (
  set MapiCamName=%MapiCamNameA%
  set MapiCamHead=0
  )
@@ -461,58 +460,47 @@ IF %MapiCamImgDIR% == 00 (
  set MapiCamName=%MapiCamName00%
  set set MapiCamHead=0
  )
-:: #####################
-
-
-
-pause
+@echo #####################
+@echo .
 
 
 :: #####################
 :: if you use Windows-XP -> run next command:
 :: https://askdev.info/questions/101927/ffmpeg-command-line-for-capturing-and-recording-audio-and-video-in-720p-from-d
 :: see devices:
-c:\ffmpeg\bin\ffmpeg.exe -list_devices true -f dshow -i dummy
+%MapiCamFFpath%\ffmpeg.exe -list_devices true -f dshow -i dummy
 :: c:\ffmpeg\bin\ffmpegXP.exe -list_devices true -f dshow -i dummy
 :: see options:
-c:\ffmpeg\bin\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamImgDIR%
-:: c:\ffmpeg\bin\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamImgDIR%
+%MapiCamFFpath%\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamName%
+:: c:\ffmpeg\bin\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamName%
 :: #####################
-
-
 
 
 pause
 
-cd..
-cd..
-cd..
-cd..
-
+::
+:: РОЗКОМЕНТУВАТИ ЛИШЕ ДЛЯ тестування і розуміння яких кодеків в системі нема.
 :: %MapiCamFFpath%\ffmpeg.exe -codecs
 :: ffmpeg -codecs
+:: 
 
-%MapiCamImgDrive%
-
-mkdir %MapiCamGpxFolder%
-cd %MapiCamGpxFolder%
-mkdir %MapiCamImgDateDIR%
-cd %MapiCamImgDateDIR%
-mkdir interpolate
-cd..
-cd..
-
-mkdir %MapiCamImgFolder%
-cd %MapiCamImgFolder%
-mkdir %MapiCamImgDIR%
-cd %MapiCamImgDIR%
+pause
 
 
-:: #####################################################################################
-:: ##### MapiCam-XX ####################################################################
-:: #####################################################################################
+cd %MapiCamDrive%
+mkdir %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\interpolate
+mkdir %MapiCamDrive%\%MapiCamGpxFolder%\%MapiCamDate%
+cd %MapiCamDrive%\%MapiCamImgFolder%
 
-@echo . 001
+
+
+
+
+@echo .
+@echo #####################################################################################
+@echo ##### MapiCam-XX ####################################################################
+@echo #####################################################################################
+@echo .
 
 pause
 
@@ -535,10 +523,10 @@ rundll32 user32.dll,MessageBeep
 
 :: for Win10 (CAMERA CAPTURES) = (1 FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
 
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 10 -vcodec mpeg2video -i video=%MapiCamName% "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%03d.mp4" 
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 10 -vcodec mjpeg -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%03d.mp4"
 
 
-@echo . 002
+@echo .
 pause
 
 :: %%L	= викидає ERROR
@@ -563,7 +551,7 @@ sleep 2
 rundll32 user32.dll,MessageBeep
 
 :: for Win10 (CAMERA CAPTURES) ORIGINAL
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.jpg" 
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.jpg" 
 
 sleep 2
 rundll32 user32.dll,MessageBeep
@@ -595,36 +583,36 @@ rundll32 user32.dll,MessageBeep
 
 
 
-:: #####################################################################################
-:: ##### MapiCam-XX - WinXP ############################################################
-:: #####################################################################################
-
-:: ERROR WinXP (cmdext.dll)
-:: rundll32.exe cmdext.dll,MessageBeepStub
+@echo #####################################################################################
+@echo ##### MapiCam-XX - WinXP ############################################################
+@echo #####################################################################################
+@echo 
+@echo :: ERROR WinXP (cmdext.dll)
+@echo :: rundll32.exe cmdext.dll,MessageBeepStub
 rundll32 user32.dll,MessageBeep
 
-:: for WinXP
-:: ERROR -  "the procedure entry point GetNumaNodeProcessorMaskEx could not be located in the dynamic link library KERNEL32.dll"
-:: exception trying to use ffmpeg, since GetNumaNodeProcessorMaskEx sounds like x265, is possible to disable libx265 from being build into ffmpeg? (checked the ffmpeg_options.txt, but there was no mentioning of x265);
-::%MapiCamFFpath%\ffplayXP.exe -f dshow -video_size 320x240 -rtbufsize 2M -framerate 10 -threads 0 -i video=%MapiCamName%
+@echo :: for WinXP
+@echo :: ERROR -  "the procedure entry point GetNumaNodeProcessorMaskEx could not be located in the dynamic link library KERNEL32.dll"
+@echo :: exception trying to use ffmpeg, since GetNumaNodeProcessorMaskEx sounds like x265, is possible to disable libx265 from being build into ffmpeg? (checked the ffmpeg_options.txt, but there was no mentioning of x265);
+@echo :: %MapiCamFFpath%\ffplayXP.exe -f dshow -video_size 320x240 -rtbufsize 2M -framerate 10 -threads 0 -i video=%MapiCamName%
 sleep 2
 rundll32 user32.dll,MessageBeep
 
-:: for WinXP (CAMERA CAPTURES) = (1 FPS)
-%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.jpg" 
-
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-
-:: for WinXP (CAMERA CAPTURES) = (1 FPS)
-%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.jpg" 
+@echo :: for WinXP (CAMERA CAPTURES) = (1 FPS)
+%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.jpg" 
 
 sleep 2
 rundll32 user32.dll,MessageBeep
 sleep 2
 rundll32 user32.dll,MessageBeep
+
+@echo :: for WinXP (CAMERA CAPTURES) = (1 FPS)
+%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.jpg" 
+
+sleep 2
+rundll32 user32.dll,MessageBeep
+sleep 2
+rundll32 user32.dll,MessageBeep
 sleep 2
 rundll32 user32.dll,MessageBeep
 sleep 2
@@ -642,9 +630,9 @@ rundll32 user32.dll,MessageBeep
 sleep 2
 rundll32 user32.dll,MessageBeep
 
-:: #####################################################################################
-:: ##### MapiCam-XX - WinXP - END ######################################################
-:: #####################################################################################
+@echo #####################################################################################
+@echo ##### MapiCam-XX - WinXP - END ######################################################
+@echo #####################################################################################
 
 
 
