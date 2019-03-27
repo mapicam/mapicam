@@ -316,8 +316,8 @@ setlocal EnableDelayedExpansion
 @set MapiCamGpsDIR=%MapiCamImgDIR%
 @set MapiCamHead=0
 @echo ---------------------
-:: True=mjpeg  Ok=|||| Fail=||||||  2test=rawvideo
-@set MapiCamCodec=rawvideo
+:: True = "mjpeg" ONLY!!! Other=Fail!
+@set MapiCamCodec=mjpeg
 @set MapiCamWidth=1280
 @set MapiCamHeight=720
 :: MapiCamFramerateVideo = min7.5 ... 30max
@@ -325,10 +325,17 @@ setlocal EnableDelayedExpansion
 :: MapiCamFrameratePhoto = min7.5 ... 10max
 @set MapiCamFrameratePhoto=10
 @set MapiCamFpsVideo=%MapiCamFramerateVideo%
-:: для ANT-LSU оптимальне значення Fps = 3
+:: for ANT-LSU OptimalFps = 3
 @set MapiCamFpsPhoto=10
-@set MapiCamFormatVideo=mp4
-@set MapiCamFormatPhoto=png
+:: True=mjpeg:mp4|m4v|mpeg(#ПоганаЯкість)|flv(#ПоганаЯкість)|avi(#ПоганаЯкість)
+:: m4v ::  [V: h264 high 4:2:2 L3.1, yuv422p, 1280x720, 5000 kb/s]
+:: mp4 ::  [V: h264 high 4:2:2 L3.1, yuv422p, 1280x720, 4142 kb/s]
+:: avi ::  [Video: FMP4  30fps                1280x720,  500 kb/s]
+:: flv ::  [V: flv1,                 yuv420p, 1280x720,  200 kb/s]
+:: mpeg :: [V: mpeg1video,           yuv420p, 1280x720,  100 kb/s]
+@set MapiCamFormatVideo=m4v
+:: png=2Mb jpg=200kB
+@set MapiCamFormatPhoto=jpg
 @set MapiCamPrefixVideo=mapicam-
 @set MapiCamPrefixPhoto=mapicam-
 @set MapiCamSufixVideo=-%MapiCamWidth%x%MapiCamHeight%-fps%MapiCamFpsVideo%-%MapiCamCodec%
@@ -527,7 +534,7 @@ IF %MapiCamImgDIR% == 00 (
 
 :: #####################
 :: if you use Windows-XP -> run next command:
-:: https://askdev.info/questions/101927/ffmpeg-command-line-for-capturing-and-recording-audio-and-video-in-720p-from-d
+::  https://askdev.info/questions/101927/ffmpeg-command-line-for-capturing-and-recording-audio-and-video-in-720p-from-d
 :: see devices:
 %MapiCamFFpath%\ffmpeg.exe -list_devices true -f dshow -i dummy
 :: c:\ffmpeg\bin\ffmpegXP.exe -list_devices true -f dshow -i dummy
@@ -536,14 +543,17 @@ IF %MapiCamImgDIR% == 00 (
 :: c:\ffmpeg\bin\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamName%
 :: #####################
 
+
 ::
 :: РОЗКОМЕНТУВАТИ ЛИШЕ ДЛЯ тестування і розуміння яких кодеків в системі нема.
-%MapiCamFFpath%\ffmpeg.exe -codecs
+:: %MapiCamFFpath%\ffmpeg.exe -codecs
+:: %MapiCamFFpath%\ffmpeg.exe -formats
 :: ffmpeg -codecs
+:: pause
 :: 
 
 
-pause
+
 
 cd %MapiCamDrive%
 mkdir %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\interpolate
@@ -564,17 +574,10 @@ cd %MapiCamDrive%\%MapiCamImgFolder%
 rundll32 user32.dll,MessageBeep
 
 :: for Win10 (CAMERA PREVIEW)
-%MapiCamFFpath%\ffplay.exe -f dshow -video_size 320x240 -rtbufsize 2M -framerate %MapiCamFramerateVideo% -threads 0 -i video=%MapiCamName%
+%MapiCamFFpath%\ffplay.exe -f dshow -video_size 640x360 -rtbufsize 2M -framerate %MapiCamFramerateVideo% -threads 0 -i video=%MapiCamName%
 
 sleep 2
 rundll32 user32.dll,MessageBeep
-
-
-:: for Win10 (CAMERA CAPTURES) = (3 FPS) (оптимізований під ANT-LSU)
-:: %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 3 -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%010d.jpg" 
-
-:: for Win10 (CAMERA CAPTURES) = (5 FPS) (це ідеальний бітрейт, але на ANT-LSU підтуплює, тому треба ставити менший)
-:: %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 5 -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%010d.jpg" 
 
 :: for Win10 (CAMERA CAPTURES) = (1 FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
 
@@ -584,106 +587,66 @@ rundll32 user32.dll,MessageBeep
 
 @echo .
 
-:: %%L	= викидає ERROR
-:: %%s	= викидає ERROR
-:: %%f	= викидає ERROR
-:: %%t	= викидає ERROR
-:: %%Z	= mapicam-A-0-20190101-011140-Фінляндія (зима).jpg
-:: %%d	= mapicam-A-0-20190101-011140-01.jpg
-:: %%010d = [image2 @ 04fcfa00] Could not get frame filename with strftime // av_interleaved_write_frame(): Invalid argument
-:: frame_pts 1 %%010d.jpg" = викидає ERROR 
-:: %%3N	= викидає ERROR
-:: %%N	= викидає ERROR
 
-
-
-sleep 2
 rundll32 user32.dll,MessageBeep
-sleep 2
 rundll32 user32.dll,MessageBeep
 
 :: for Win10 (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%010d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
 :: for Win10 (CAMERA CAPTURES) RESERVE FPS=1
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFrameratePhoto% -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.%MapiCamFormatPhoto%" 
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
 
 
-sleep 2
 rundll32 user32.dll,MessageBeep
-sleep 2
 rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
+
 
 :: for Win10
-%MapiCamFFpath%\ffplay.exe -f dshow -video_size 320x240 -rtbufsize 2M -framerate 10 -threads 0 -i video=%MapiCamName%
+%MapiCamFFpath%\ffplay.exe -f dshow -video_size 320x180 -rtbufsize 2M -framerate %MapiCamFramerateVideo% -threads 0 -i video=%MapiCamName%
 
-:: #####################################################################################
-:: ##### MapiCam-XX - END ##############################################################
-:: #####################################################################################
+@echo #####################################################################################
+@echo ##### MapiCam-XX - END ##############################################################
+@echo #####################################################################################
 
 
 
 @echo #####################################################################################
 @echo ##### MapiCam-XX - WinXP ############################################################
 @echo #####################################################################################
-@echo 
+
+@echo .
 @echo :: ERROR WinXP (cmdext.dll)
 @echo :: rundll32.exe cmdext.dll,MessageBeepStub
 rundll32 user32.dll,MessageBeep
+@echo .
 
+@echo .
 @echo :: for WinXP
 @echo :: ERROR -  "the procedure entry point GetNumaNodeProcessorMaskEx could not be located in the dynamic link library KERNEL32.dll"
 @echo :: exception trying to use ffmpeg, since GetNumaNodeProcessorMaskEx sounds like x265, is possible to disable libx265 from being build into ffmpeg? (checked the ffmpeg_options.txt, but there was no mentioning of x265);
-@echo :: %MapiCamFFpath%\ffplayXP.exe -f dshow -video_size 320x240 -rtbufsize 2M -framerate 10 -threads 0 -i video=%MapiCamName%
-sleep 2
+%MapiCamFFpath%\ffplayXP.exe -f dshow -video_size 640x360 -rtbufsize 2M -framerate 10 -threads 0 -i video=%MapiCamName%
+
 rundll32 user32.dll,MessageBeep
+rundll32 user32.dll,MessageBeep
+
+@echo .
+@echo :: for WinXP (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
+%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
+
+
+rundll32 user32.dll,MessageBeep
+rundll32 user32.dll,MessageBeep
+
 
 @echo :: for WinXP (CAMERA CAPTURES) = (1 FPS)
-%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.jpg" 
+%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
 
-sleep 2
 rundll32 user32.dll,MessageBeep
-sleep 2
+rundll32 user32.dll,MessageBeep
+rundll32 user32.dll,MessageBeep
+rundll32 user32.dll,MessageBeep
 rundll32 user32.dll,MessageBeep
 
-@echo :: for WinXP (CAMERA CAPTURES) = (1 FPS)
-%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.jpg" 
-
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
-sleep 2
-rundll32 user32.dll,MessageBeep
 
 @echo #####################################################################################
 @echo ##### MapiCam-XX - WinXP - END ######################################################
