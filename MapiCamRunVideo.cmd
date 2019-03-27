@@ -273,6 +273,35 @@ REM python "D:\mapicam_tools\mapillary_tools-master\mapillary_tools\interpolatio
 :: 
 :: 
 
+
+@echo #####################
+@echo #  YYYYMMDD HHMMSS  #
+@echo #####################
+set year=%date:~-4%
+set month=%date:~3,2%
+  if "%month:~0,1%" == " " set month=0%month:~1,1%
+set day=%date:~0,2%
+  if "%day:~0,1%" == " " set day=0%day:~1,1%
+set hour=%time:~0,2%
+  if "%hour:~0,1%" == " " set hour=0%hour:~1,1%
+set min=%time:~3,2%
+  if "%min:~0,1%" == " " set min=0%min:~1,1%
+set secs=%time:~6,2%
+  if "%secs:~0,1%" == " " set secs=0%secs:~1,1%
+set datetimefull=%year%%month%%day%%hour%%min%%secs%
+set MapiCamDate=%year%%month%%day%
+set MapiCamTime=%hour%%min%%secs%
+@echo .
+@echo year         = %year%
+@echo month        = %month%
+@echo day          = %day%
+@echo hour         = %hour%
+@echo min          = %min%
+@echo secs         = %secs%
+@echo datetimefull = %datetimefull%
+@echo MapiCamDate  = %MapiCamDate%
+@echo MapiCamTime  = %MapiCamTime%
+@echo .
 @echo #####################
 @echo # This is parametrs #
 @echo #####################
@@ -282,7 +311,6 @@ setlocal EnableDelayedExpansion
 @set MapiCamDrive=D:
 @set MapiCamImgFolder=mapicam_img
 @set MapiCamGpxFolder=mapicam_gpx
-@set MapiCamDate=%date:~-4%%date:~3,2%%date:~0,2%
 @set MapiCamImgDIR=00
 @set MapiCamImgDIR=%1%
 @set MapiCamGpsDIR=%MapiCamImgDIR%
@@ -296,11 +324,18 @@ setlocal EnableDelayedExpansion
 @echo MapiCamImgFolder	= %MapiCamImgFolder%
 @echo MapiCamGpxFolder  = %MapiCamGpxFolder%
 @echo MapiCamDate       = default = %MapiCamDate%
+@echo MapiCamTime       = default = %MapiCamTime%
 @echo MapiCamImgDateDIR = default = %MapiCamImgDateDIR% = %%Y%%m%%d // OLD
 @echo MapiCamImgDIR     = default = %MapiCamImgDIR%
 @echo MapiCamGpsDIR     = default = %MapiCamGpsDIR%
 @echo MapiCamHead       = %MapiCamHead%
 @echo #####################
+
+
+
+
+pause
+
 @echo .
 @echo #####################
 
@@ -394,7 +429,7 @@ rundll32 user32.dll,MessageBeep
 @echo #####################
 IF %MapiCamImgDIR%== A (
  set MapiCamName=%MapiCamNameA%
- set MapiCamHead=0
+ set MapiCamHead=000
  )
 IF %MapiCamImgDIR% == B (
  set MapiCamName=%MapiCamNameB%
@@ -402,7 +437,7 @@ IF %MapiCamImgDIR% == B (
  )
 IF %MapiCamImgDIR% == C (
  set MapiCamName=%MapiCamNameC%
- set MapiCamHead=45
+ set MapiCamHead=045
  )
 IF %MapiCamImgDIR% == D (
 set MapiCamName=%MapiCamNameD%
@@ -410,7 +445,7 @@ set MapiCamName=%MapiCamNameD%
  )
 IF %MapiCamImgDIR% == E (
  set MapiCamName=%MapiCamNameE%
- set MapiCamHead=90
+ set MapiCamHead=090
  )
 IF %MapiCamImgDIR% == F (
  set MapiCamName=%MapiCamNameF%
@@ -426,7 +461,7 @@ IF %MapiCamImgDIR% == H (
  )
 IF %MapiCamImgDIR% == 01 (
  set MapiCamName=%MapiCamName01%
- set MapiCamHead=0
+ set MapiCamHead=000
  )
 IF %MapiCamImgDIR% == 02 (
  set MapiCamName=%MapiCamName02%
@@ -434,7 +469,7 @@ IF %MapiCamImgDIR% == 02 (
  )
 IF %MapiCamImgDIR% == 03 (
  set MapiCamName=%MapiCamName03%
- set MapiCamHead=45
+ set MapiCamHead=045
  )
 IF %MapiCamImgDIR% == 04 (
  set MapiCamName=%MapiCamName04%
@@ -442,7 +477,7 @@ IF %MapiCamImgDIR% == 04 (
  )
 IF %MapiCamImgDIR% == 05 (
  set MapiCamName=%MapiCamName05%
- set MapiCamHead=90
+ set MapiCamHead=090
  )
 IF %MapiCamImgDIR% == 06 (
  set MapiCamName=%MapiCamName06%
@@ -458,7 +493,7 @@ set MapiCamName=%MapiCamName08%
  )
 IF %MapiCamImgDIR% == 00 (
  set MapiCamName=%MapiCamName00%
- set set MapiCamHead=0
+ set set MapiCamHead=000
  )
 @echo #####################
 @echo .
@@ -475,16 +510,11 @@ IF %MapiCamImgDIR% == 00 (
 :: c:\ffmpeg\bin\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamName%
 :: #####################
 
-
-pause
-
 ::
 :: РОЗКОМЕНТУВАТИ ЛИШЕ ДЛЯ тестування і розуміння яких кодеків в системі нема.
 :: %MapiCamFFpath%\ffmpeg.exe -codecs
 :: ffmpeg -codecs
 :: 
-
-pause
 
 
 cd %MapiCamDrive%
@@ -493,16 +523,13 @@ mkdir %MapiCamDrive%\%MapiCamGpxFolder%\%MapiCamDate%
 cd %MapiCamDrive%\%MapiCamImgFolder%
 
 
-
-
-
 @echo .
 @echo #####################################################################################
 @echo ##### MapiCam-XX ####################################################################
 @echo #####################################################################################
 @echo .
 
-pause
+
 
 :: ERROR WinXP (cmdext.dll)
 :: rundll32.exe cmdext.dll,MessageBeepStub
@@ -523,7 +550,7 @@ rundll32 user32.dll,MessageBeep
 
 :: for Win10 (CAMERA CAPTURES) = (1 FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
 
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 10 -vcodec mjpeg -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%03d.mp4"
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 10 -vcodec mjpeg -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%.mp4"
 
 
 @echo .
@@ -550,8 +577,10 @@ rundll32 user32.dll,MessageBeep
 sleep 2
 rundll32 user32.dll,MessageBeep
 
+
 :: for Win10 (CAMERA CAPTURES) ORIGINAL
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.jpg" 
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.png" 
+
 
 sleep 2
 rundll32 user32.dll,MessageBeep
