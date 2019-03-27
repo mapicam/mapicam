@@ -315,26 +315,53 @@ setlocal EnableDelayedExpansion
 @set MapiCamImgDIR=%1%
 @set MapiCamGpsDIR=%MapiCamImgDIR%
 @set MapiCamHead=0
-@echo .
+@echo ---------------------
+:: True=mjpeg  Ok=|||| Fail=||||||  2test=rawvideo
+@set MapiCamCodec=rawvideo
+@set MapiCamWidth=1280
+@set MapiCamHeight=720
+:: MapiCamFramerateVideo = min7.5 ... 30max
+@set MapiCamFramerateVideo=30
+:: MapiCamFrameratePhoto = min7.5 ... 10max
+@set MapiCamFrameratePhoto=10
+@set MapiCamFpsVideo=%MapiCamFramerateVideo%
+:: для ANT-LSU оптимальне значення Fps = 3
+@set MapiCamFpsPhoto=10
+@set MapiCamFormatVideo=mp4
+@set MapiCamFormatPhoto=png
+@set MapiCamPrefixVideo=mapicam-
+@set MapiCamPrefixPhoto=mapicam-
+@set MapiCamSufixVideo=-%MapiCamWidth%x%MapiCamHeight%-fps%MapiCamFpsVideo%-%MapiCamCodec%
+@set MapiCamSufixPhoto=-%MapiCamWidth%x%MapiCamHeight%-fps%MapiCamFpsPhoto%
+@set MapiCamSufixPhotoFps1=-%MapiCamWidth%x%MapiCamHeight%-fps1
 @echo #####################
 @echo setlocal EnableDelayedExpansion
-@echo MapiCamFFpath		= %MapiCamFFpath%
-@echo MapiCamGBpath     = %MapiCamGBpath%  = C:\Program Files (x86)\GPSBabel
-@echo MapiCamDrive	    = %MapiCamDrive%
-@echo MapiCamImgFolder	= %MapiCamImgFolder%
-@echo MapiCamGpxFolder  = %MapiCamGpxFolder%
-@echo MapiCamDate       = default = %MapiCamDate%
-@echo MapiCamTime       = default = %MapiCamTime%
-@echo MapiCamImgDateDIR = default = %MapiCamImgDateDIR% = %%Y%%m%%d // OLD
-@echo MapiCamImgDIR     = default = %MapiCamImgDIR%
-@echo MapiCamGpsDIR     = default = %MapiCamGpsDIR%
-@echo MapiCamHead       = %MapiCamHead%
+@echo MapiCamFFpath         = %MapiCamFFpath%
+@echo MapiCamGBpath         = %MapiCamGBpath%  = C:\Program Files (x86)\GPSBabel
+@echo MapiCamDrive          = %MapiCamDrive%
+@echo MapiCamImgFolder      = %MapiCamImgFolder%
+@echo MapiCamGpxFolder      = %MapiCamGpxFolder%
+@echo MapiCamDate           = default = %MapiCamDate%
+@echo MapiCamTime           = default = %MapiCamTime%
+@echo MapiCamImgDateDIR     = default = %MapiCamImgDateDIR% = %%Y%%m%%d // OLD
+@echo MapiCamImgDIR         = default = %MapiCamImgDIR%
+@echo MapiCamGpsDIR         = default = %MapiCamGpsDIR%
+@echo MapiCamHead           = %MapiCamHead%
+@echo ---------------------
+@echo MapiCamCodec          = %MapiCamCodec%
+@echo MapiCamWidth          = %MapiCamWidth%
+@echo MapiCamHeight         = %MapiCamHeight%
+@echo MapiCamFramerateVideo = %MapiCamFramerateVideo%
+@echo MapiCamFrameratePhoto = %MapiCamFrameratePhoto%
+@echo MapiCamFormatVideo    = %MapiCamFormatVideo%
+@echo MapiCamFormatPhoto    = %MapiCamFormatPhoto%
+@echo MapiCamPrefixVideo    = %MapiCamPrefixVideo%
+@echo MapiCamPrefixPhoto    = %MapiCamPrefixPhoto%
+@echo MapiCamSufixVideo     = %MapiCamSufixVideo%
+@echo MapiCamSufixPhoto     = %MapiCamSufixPhoto%
 @echo #####################
 
 
-
-
-pause
 
 @echo .
 @echo #####################
@@ -361,13 +388,12 @@ rundll32 user32.dll,MessageBeep
 @echo #####################
 @echo #####  SETTING  #####
 @echo #####################
-@echo .
 @echo . "Microsoft® LifeCam HD-3000"
 @echo . DirectShow video device options (from video devices)
-@echo #####   PHOTO   #####
+@echo -----   PHOTO   -----
 @echo . pixel_format=yuyv422  min s=1280x720 fps=7.5 max s=1280x720 fps=10
 @echo . pixel_format=yuyv422  min s=1280x800 fps=10  max s=1280x800 fps=10
-@echo #####   VIDEO   #####
+@echo -----   VIDEO   -----
 @echo . vcodec=mjpeg  min s=1280x720 fps=7.5 max s=1280x720 fps=30
 @echo #####################
 @echo .
@@ -512,10 +538,12 @@ IF %MapiCamImgDIR% == 00 (
 
 ::
 :: РОЗКОМЕНТУВАТИ ЛИШЕ ДЛЯ тестування і розуміння яких кодеків в системі нема.
-:: %MapiCamFFpath%\ffmpeg.exe -codecs
+%MapiCamFFpath%\ffmpeg.exe -codecs
 :: ffmpeg -codecs
 :: 
 
+
+pause
 
 cd %MapiCamDrive%
 mkdir %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\interpolate
@@ -536,7 +564,7 @@ cd %MapiCamDrive%\%MapiCamImgFolder%
 rundll32 user32.dll,MessageBeep
 
 :: for Win10 (CAMERA PREVIEW)
-%MapiCamFFpath%\ffplay.exe -f dshow -video_size 320x240 -rtbufsize 2M -framerate 10 -threads 0 -i video=%MapiCamName%
+%MapiCamFFpath%\ffplay.exe -f dshow -video_size 320x240 -rtbufsize 2M -framerate %MapiCamFramerateVideo% -threads 0 -i video=%MapiCamName%
 
 sleep 2
 rundll32 user32.dll,MessageBeep
@@ -550,11 +578,11 @@ rundll32 user32.dll,MessageBeep
 
 :: for Win10 (CAMERA CAPTURES) = (1 FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
 
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 10 -vcodec mjpeg -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%.mp4"
+
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -vcodec %MapiCamCodec% -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%%MapiCamSufixVideo%.%MapiCamFormatVideo%"
 
 
 @echo .
-pause
 
 :: %%L	= викидає ERROR
 :: %%s	= викидає ERROR
@@ -569,17 +597,15 @@ pause
 
 
 
-
-
-
 sleep 2
 rundll32 user32.dll,MessageBeep
 sleep 2
 rundll32 user32.dll,MessageBeep
 
-
-:: for Win10 (CAMERA CAPTURES) ORIGINAL
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 1280x720 -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\mapicam-%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S.png" 
+:: for Win10 (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%010d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
+:: for Win10 (CAMERA CAPTURES) RESERVE FPS=1
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFrameratePhoto% -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.%MapiCamFormatPhoto%" 
 
 
 sleep 2
