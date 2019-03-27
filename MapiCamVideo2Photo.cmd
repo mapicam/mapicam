@@ -28,7 +28,7 @@ setlocal EnableDelayedExpansion
 @set MapiCamImgDIR=00
 @set MapiCamImgDIR=%1%
 @set MapiCamHead=0
-@set MapiCamImgDateDIR=20190323
+@set MapiCamImgDateDIR=20190327
 @echo .
 @echo #####################
 @echo setlocal EnableDelayedExpansion
@@ -44,7 +44,7 @@ setlocal EnableDelayedExpansion
 :: #####################
 @set MapiCamNameXX=00
 @set MapiCamHeadXX=45
-@set MapiCamFpsXX=5
+@set MapiCamFpsXX=25
 
 mkdir %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%
 

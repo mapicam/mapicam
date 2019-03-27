@@ -1,55 +1,84 @@
-﻿:: #####################
-:: ###### MapiCam ######
-:: #####################
-:: ## www.t.me/osmUA  ##
-:: ## @velmyshanovnyi ##
-:: ##         (c)2019 ##
-:: #####################
-:: 
-:: https://t.me/osmUA
-:: https://t.me/MapillaryUkraine
-:: https://t.me/MapillaryUkraineChat
-:: https://t.me/joinchat/BYnnNRYLZdfub5u4MMvsRQ (MapiCam Chat)
-:: 
-:: #####################
-:: ####   ReadMe   #####
-:: #####################
-:: Before start. 
-:: complete all items "step by step":
-:: 
-:: ====     #0      ====
-:: this is scheme camera degree:
-::       0            
-::   315    45
-:: 270   x     90
-::   225    135
-::      180
-:: ---------------------
-::      A            
-::   B     C
-:: D    x    E
-::   H     F
-::      G
-:: ---------------------
-:: A=0
-:: B=315
-:: C=45
-:: D=270
-:: E=90
-:: F=135
-:: G=180
-:: H=225
-:: ---------------------
-:: create specific .LNK for run you cameras: 
-:: A.LNK --> "D:\mapicam_img\MapiCamRun.cmd A"
-:: B.LNK --> "D:\mapicam_img\MapiCamRun.cmd B"
-:: C.LNK --> "D:\mapicam_img\MapiCamRun.cmd C"
-:: D.LNK --> "D:\mapicam_img\MapiCamRun.cmd D"
-:: E.LNK --> "D:\mapicam_img\MapiCamRun.cmd E"
-:: F.LNK --> "D:\mapicam_img\MapiCamRun.cmd F"
-:: G.LNK --> "D:\mapicam_img\MapiCamRun.cmd G"
-:: H.LNK --> "D:\mapicam_img\MapiCamRun.cmd H"
-:: 
+﻿@echo #####################
+@echo ###### MapiCam ######
+@echo #####################
+@echo ## www.t.me/osmUA  ##
+@echo ## @velmyshanovnyi ##
+@echo ##         (c)2019 ##
+@echo #####################
+@echo .
+@echo https://t.me/osmUA
+@echo https://t.me/MapillaryUkraine
+@echo https://t.me/MapillaryUkraineChat
+@echo https://t.me/joinchat/BYnnNRYLZdfub5u4MMvsRQ (MapiCam Chat)
+@echo . 
+@echo #####################
+@echo ####   ReadMe   #####
+@echo #####################
+@echo Before start. 
+@echo complete all items "step by step":
+@echo .
+@echo . ====     #0      ====
+@echo . this is scheme camera degree:
+@echo .       0            
+@echo .   315    45
+@echo . 270   x     90
+@echo .   225    135
+@echo .      180
+@echo . ---------------------
+@echo .      A            
+@echo .   B     C
+@echo . D    x    E
+@echo .   H     F
+@echo .      G
+@echo . ---------------------
+@echo . A=0
+@echo . B=315
+@echo . C=45
+@echo . D=270
+@echo . E=90
+@echo . F=135
+@echo . G=180
+@echo . H=225
+@echo . ---------------------
+@echo . create specific .LNK for run you cameras: 
+@echo . fA.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd A"
+@echo . fB.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd B"
+@echo . fC.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd C"
+@echo . fD.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd D"
+@echo . fE.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd E"
+@echo . fF.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd F"
+@echo . fG.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd G"
+@echo . fH.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd H"
+@echo . 
+@echo . f01.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 01"
+@echo . f02.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 02"
+@echo . f03.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 03"
+@echo . f04.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 04"
+@echo . f05.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 05"
+@echo . f06.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 06"
+@echo . f07.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 07"
+@echo . f08.LNK --> "D:\mapicam_img\MapiCamRunPhoto.cmd 08"
+@echo . 
+@echo . ---------------------
+@echo . create specific .LNK for run you cameras: 
+@echo . vA.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd A"
+@echo . vB.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd B"
+@echo . vC.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd C"
+@echo . vD.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd D"
+@echo . vE.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd E"
+@echo . vF.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd F"
+@echo . vG.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd G"
+@echo . vH.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd H"
+@echo . 
+@echo . v01.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 01"
+@echo . v02.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 02"
+@echo . v03.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 03"
+@echo . v04.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 04"
+@echo . v05.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 05"
+@echo . v06.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 06"
+@echo . v07.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 07"
+@echo . v08.LNK --> "D:\mapicam_img\MapiCamRunVideo.cmd 08"
+@echo . 
 :: ====     #1      ====
 :: for Windows-10:
 :: download and install "FFMPEG"
@@ -243,9 +272,9 @@ REM python "D:\mapicam_tools\mapillary_tools-master\mapillary_tools\interpolatio
 :: 
 :: 
 :: 
-:: #####################
-:: # This is parametrs #
-:: #####################
+@echo #####################
+@echo # This is parametrs #
+@echo #####################
 setlocal EnableDelayedExpansion
 @set MapiCamFFpath=c:\ffmpeg\bin
 @set MapiCamGBpath=C:\Progra~2\GPSBabel
@@ -254,8 +283,8 @@ setlocal EnableDelayedExpansion
 @set MapiCamGpxFolder=mapicam_gpx
 @set MapiCamImgDIR=00
 @set MapiCamImgDIR=%1%
+@set MapiCamImgDateDIR=%%Y%%m%%d
 @set MapiCamHead=0
-@set MapiCamImgDateDIR=20190101
 @echo .
 @echo #####################
 @echo setlocal EnableDelayedExpansion
@@ -266,20 +295,20 @@ setlocal EnableDelayedExpansion
 @echo MapiCamGpxFolder  = %MapiCamGpxFolder%
 @echo MapiCamImgDIR     = default = %MapiCamImgDIR%
 @echo MapiCamImgDateDIR = default = %MapiCamImgDateDIR%
+@echo MapiCamHead       = %MapiCamHead%
 @echo #####################
 @echo .
-:: #####################
+@echo #####################
 
+@echo #####################
+@echo ## ADD PORT NUMBER ##
+@echo #####################
+@echo 01 02 03 04 05 06 07 08 09 10
+@echo A B C D E F G H
+@echo 00 = FOR TEST!!!
+@echo #####################
 
-:: #####################
-:: ## ADD PORT NUMBER ##
-:: #####################
-:: 01 02 03 04 05 06 07 08 09 10
-:: A B C D E F G H
-:: 00 = FOR TEST!!!
-:: #####################
-
-:: BEEP SOUND 
+@echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
 
 @echo .
@@ -294,70 +323,76 @@ rundll32 user32.dll,MessageBeep
 @echo .
 @echo .
 
-:: #####################
-:: if you use Windows-XP -> run next command:
-:: https://askdev.info/questions/101927/ffmpeg-command-line-for-capturing-and-recording-audio-and-video-in-720p-from-d
-:: see devices:
-:: ffmpeg -list_devices true -f dshow -i dummy
-c:\ffmpeg\bin\ffmpegXP.exe -list_devices true -f dshow -i dummy
-:: see options:
-c:\ffmpeg\bin\ffmpegXP.exe -list_options true -f dshow -i video="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&39f754f8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-:: #####################
-:: ##### CLUSTER INFO ######################################
-:: 
-:: ##### CLUSTER:ANT-LSU MaxUsbValidAndCorrecUsePort=3 #####
-::ANT-LSU-A
-@set MapiCamNameA="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&39f754f8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::ANT-LSU-B
-@set MapiCamNameB="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&273da453&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::ANT-LSU-C
-@set MapiCamNameC="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&258516cf&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-:: 
-:: ##### CLUSTER:ANT-SB MaxUsbValidAndCorrecUsePort=2
-::ANT-SB-D
-@set MapiCamNameD="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&7028550&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::ANT-SB-E
-@set MapiCamNameE="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&1d29ee0d&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-:: 
-:: ##### CLUSTER:ANT-SMABLYK MaxUsbValidAndCorrecUsePort=1
-::ANT-SMABLYK-F
-@set MapiCamNameF="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&28a58ce8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::ANT-SMABLYK-G
-@set MapiCamNameG="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&15ebdc43&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::ANT-SMABLYK-H 
-@set MapiCamNameH="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&3322b9e&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::
-:: ##### CLUSTER:ANT-ACER MaxUsbValidAndCorrecUsePort=1
-::ANT-ACER-F ##### RESERVE #####
-::@set MapiCamNameF="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&e2531b3&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::ANT-ACER-G ##### RESERVE #####
-::@set MapiCamNameG="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&2a07e03c&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::ANT-ACER-H ##### RESERVE #####
-::@set MapiCamNameH="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&126c6da&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 
-::
-:: ##### CLUSTER:ANT-PC-SSD MaxUsbValidAndCorrecUsePort=8(6)
-::L2L
+
+pause
+
+
+@echo ##### CLUSTER INFO ######################################
+@echo .
+@echo ##### CLUSTER:ANT-LSU MaxUsbValidAndCorrecUsePort=3 #####
+@echo ANT-LSU-A
+@set MapiCamNameA="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&39f754f8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-LSU-B
+@set MapiCamNameB="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&273da453&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-LSU-C
+@set MapiCamNameC="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&258516cf&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo .
+@echo ##### CLUSTER:ANT-SB MaxUsbValidAndCorrecUsePort=2
+@echo ANT-SB-D
+ @set MapiCamNameD="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&7028550&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-SB-E
+ @set MapiCamNameE="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&1d29ee0d&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo . 
+@echo ##### CLUSTER:ANT-SMABLYK MaxUsbValidAndCorrecUsePort=1
+@echo ANT-SMABLYK-F
+ @set MapiCamNameF="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&28a58ce8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-SMABLYK-G
+ @set MapiCamNameG="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&15ebdc43&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-SMABLYK-H 
+ @set MapiCamNameH="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&3322b9e&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo . 
+@echo ##### CLUSTER:ANT-ACER MaxUsbValidAndCorrecUsePort=1
+@echo ANT-ACER-F ##### RESERVE #####
+ @set MapiCamNameF="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&e2531b3&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-ACER-G ##### RESERVE #####
+ @set MapiCamNameG="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&2a07e03c&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-ACER-H ##### RESERVE #####
+ @set MapiCamNameH="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&126c6da&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo . 
+
+
+
+pause
+
+@echo .
+@echo ##### CLUSTER:ANT-PC-SSD MaxUsbValidAndCorrecUsePort=8(6)
+@echo ANT-PC-SSD-L2L[1]
 @set MapiCamName01="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&9767192&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::L2R
+@echo ANT-PC-SSD-L2R[2]
 @set MapiCamName02="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&1c302237&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::L5L
-@set MapiCamName03="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&2de5f28f&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::L5R
-@set MapiCamName04="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&504d92d&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::L3L
+@echo ANT-PC-SSD-L3L[]
 @set MapiCamName05="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&6ba0f70&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::L3R
+@echo ANT-PC-SSD-L3R[]
 @set MapiCamName06="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&1973c015&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::L4L
+@echo ANT-PC-SSD-L4L[]
 @set MapiCamName07="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&2c2d70ba&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::L4R
+@echo ANT-PC-SSD-L4R[]
 @set MapiCamName08="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&34c5758&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-::00
+@echo ANT-PC-SSD-L5L[3]
+@set MapiCamName03="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&2de5f28f&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-PC-SSD-L5R[4]
+@set MapiCamName04="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&504d92d&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@echo ANT-PC-SSD-00
 @set MapiCamName00="Microsoft® LifeCam HD-3000"
 :: ##### CLUSTER INFO - END ################################
-:: #####################
 
+
+
+pause
+
+
+:: #####################
 IF %MapiCamImgDIR% == A (
  set MapiCamName=%MapiCamNameA%
  set MapiCamHead=0
@@ -429,6 +464,26 @@ IF %MapiCamImgDIR% == 00 (
 :: #####################
 
 
+
+pause
+
+
+:: #####################
+:: if you use Windows-XP -> run next command:
+:: https://askdev.info/questions/101927/ffmpeg-command-line-for-capturing-and-recording-audio-and-video-in-720p-from-d
+:: see devices:
+c:\ffmpeg\bin\ffmpeg.exe -list_devices true -f dshow -i dummy
+:: c:\ffmpeg\bin\ffmpegXP.exe -list_devices true -f dshow -i dummy
+:: see options:
+c:\ffmpeg\bin\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamImgDIR%
+:: c:\ffmpeg\bin\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamImgDIR%
+:: #####################
+
+
+
+
+pause
+
 cd..
 cd..
 cd..
@@ -458,6 +513,7 @@ cd %MapiCamImgDIR%
 :: #####################################################################################
 
 @echo . 001
+
 pause
 
 :: ERROR WinXP (cmdext.dll)
