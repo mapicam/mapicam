@@ -334,7 +334,12 @@ setlocal EnableDelayedExpansion
 :: flv ::  [V: flv1,                 yuv420p, 1280x720,  200 kb/s]
 :: mpeg :: [V: mpeg1video,           yuv420p, 1280x720,  100 kb/s]
 @set MapiCamFormatVideo=m4v
-:: png=2Mb jpg=200kB
+:: 1s ::     1 :: png@1 fps =   2 Mb    jpg@1 fps = 200 kB 
+:: 1s ::    10 :: png@10fps =  20 Mb    jpg@10fps =   2 Mb  m4v@30fps =   5 Mb png@30fps#render =  60 Mb = 30 фоток/сек
+:: 1m ::   600 :: png@10fps = 1.2 Gb    jpg@10fps = 120 Mb  m4v@30fps =  30 Mb png@30fps#render = 3.6 Gb = 1.8к фоток/хв.
+:: 1h :: 36000 :: png@10fps =  72 Gb    jpg@10fps = 7.2 Gb  m4v@30fps = 1.8 Gb png@30fps#render = 216 Gb = 108к фоток/год.
+:: ПОЇЗДКА  10Гб/годину (з кожної камери) орієнтовно
+:: ОБРОБКА 100Гб/годину (з кожної камери) орієнтовно
 @set MapiCamFormatPhoto=jpg
 @set MapiCamPrefixVideo=mapicam-
 @set MapiCamPrefixPhoto=mapicam-
@@ -383,6 +388,7 @@ setlocal EnableDelayedExpansion
 
 @echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
+
 
 @echo .
 @echo .
@@ -576,8 +582,9 @@ rundll32 user32.dll,MessageBeep
 :: for Win10 (CAMERA PREVIEW)
 %MapiCamFFpath%\ffplay.exe -f dshow -video_size 640x360 -rtbufsize 2M -framerate %MapiCamFramerateVideo% -threads 0 -i video=%MapiCamName%
 
-sleep 2
+@echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
+
 
 :: for Win10 (CAMERA CAPTURES) = (1 FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
 
@@ -585,11 +592,11 @@ rundll32 user32.dll,MessageBeep
 %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -vcodec %MapiCamCodec% -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%%MapiCamSufixVideo%.%MapiCamFormatVideo%"
 
 
-@echo .
+
+@echo BEEP SOUND 
+rundll32 user32.dll,MessageBeep
 
 
-rundll32 user32.dll,MessageBeep
-rundll32 user32.dll,MessageBeep
 
 :: for Win10 (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
 %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
@@ -597,8 +604,9 @@ rundll32 user32.dll,MessageBeep
 %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
 
 
+@echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
-rundll32 user32.dll,MessageBeep
+
 
 
 :: for Win10
@@ -626,6 +634,7 @@ rundll32 user32.dll,MessageBeep
 @echo :: exception trying to use ffmpeg, since GetNumaNodeProcessorMaskEx sounds like x265, is possible to disable libx265 from being build into ffmpeg? (checked the ffmpeg_options.txt, but there was no mentioning of x265);
 %MapiCamFFpath%\ffplayXP.exe -f dshow -video_size 640x360 -rtbufsize 2M -framerate 10 -threads 0 -i video=%MapiCamName%
 
+@echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
 rundll32 user32.dll,MessageBeep
 
@@ -633,7 +642,7 @@ rundll32 user32.dll,MessageBeep
 @echo :: for WinXP (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
 %MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
 
-
+@echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
 rundll32 user32.dll,MessageBeep
 
@@ -641,8 +650,7 @@ rundll32 user32.dll,MessageBeep
 @echo :: for WinXP (CAMERA CAPTURES) = (1 FPS)
 %MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
 
-rundll32 user32.dll,MessageBeep
-rundll32 user32.dll,MessageBeep
+@echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
 rundll32 user32.dll,MessageBeep
 rundll32 user32.dll,MessageBeep
