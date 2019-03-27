@@ -323,7 +323,7 @@ setlocal EnableDelayedExpansion
 :: MapiCamFramerateVideo = min7.5 ... 30max
 :: ANT-PC-SSD @fpsMax=30
 :: ANT-LSU    @fpsMax=25
-@set MapiCamFramerateVideo=10
+@set MapiCamFramerateVideo=7.5
 :: MapiCamFrameratePhoto = min7.5 ... 10max
 @set MapiCamFrameratePhoto=10
 @set MapiCamFpsVideo=%MapiCamFramerateVideo%
@@ -563,9 +563,10 @@ IF %MapiCamImgDIR% == 00 (
 
 
 cd %MapiCamDrive%
-mkdir %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\interpolate
+mkdir %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%
+mkdir %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%-%MapiCamDate%-%MapiCamTime%
 mkdir %MapiCamDrive%\%MapiCamGpxFolder%\%MapiCamDate%
-cd %MapiCamDrive%\%MapiCamImgFolder%
+cd %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%
 
 
 @echo .
@@ -587,15 +588,10 @@ rundll32 user32.dll,MessageBeep
 rundll32 user32.dll,MessageBeep
 
 
-pause
-
 
 :: for Win10 (CAMERA VIDEO) = (xx FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
 %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -vcodec %MapiCamCodec% -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%%MapiCamSufixVideo%.%MapiCamFormatVideo%"
 
-
-
-pause
 
 
 
@@ -605,7 +601,7 @@ rundll32 user32.dll,MessageBeep
 
 
 :: for Win10 (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFrameratePhoto% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFrameratePhoto% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%-%MapiCamDate%-%MapiCamTime%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
 :: for Win10 (CAMERA CAPTURES) RESERVE FPS=1
 %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
 
