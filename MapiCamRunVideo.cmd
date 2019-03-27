@@ -321,7 +321,9 @@ setlocal EnableDelayedExpansion
 @set MapiCamWidth=1280
 @set MapiCamHeight=720
 :: MapiCamFramerateVideo = min7.5 ... 30max
-@set MapiCamFramerateVideo=30
+:: ANT-PC-SSD @fpsMax=30
+:: ANT-LSU    @fpsMax=25
+@set MapiCamFramerateVideo=10
 :: MapiCamFrameratePhoto = min7.5 ... 10max
 @set MapiCamFrameratePhoto=10
 @set MapiCamFpsVideo=%MapiCamFramerateVideo%
@@ -333,7 +335,7 @@ setlocal EnableDelayedExpansion
 :: avi ::  [Video: FMP4  30fps                1280x720,  500 kb/s]
 :: flv ::  [V: flv1,                 yuv420p, 1280x720,  200 kb/s]
 :: mpeg :: [V: mpeg1video,           yuv420p, 1280x720,  100 kb/s]
-@set MapiCamFormatVideo=m4v
+@set MapiCamFormatVideo=mp4
 :: 1s ::     1 :: png@1 fps =   2 Mb    jpg@1 fps = 200 kB 
 :: 1s ::    10 :: png@10fps =  20 Mb    jpg@10fps =   2 Mb  m4v@30fps =   5 Mb png@30fps#render =  60 Mb = 30 фоток/сек
 :: 1m ::   600 :: png@10fps = 1.2 Gb    jpg@10fps = 120 Mb  m4v@30fps =  30 Mb png@30fps#render = 3.6 Gb = 1.8к фоток/хв.
@@ -560,7 +562,6 @@ IF %MapiCamImgDIR% == 00 (
 
 
 
-
 cd %MapiCamDrive%
 mkdir %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\interpolate
 mkdir %MapiCamDrive%\%MapiCamGpxFolder%\%MapiCamDate%
@@ -586,10 +587,15 @@ rundll32 user32.dll,MessageBeep
 rundll32 user32.dll,MessageBeep
 
 
-:: for Win10 (CAMERA CAPTURES) = (1 FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
+pause
 
 
+:: for Win10 (CAMERA VIDEO) = (xx FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
 %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -vcodec %MapiCamCodec% -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%%MapiCamSufixVideo%.%MapiCamFormatVideo%"
+
+
+
+pause
 
 
 
@@ -599,7 +605,7 @@ rundll32 user32.dll,MessageBeep
 
 
 :: for Win10 (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFrameratePhoto% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
 :: for Win10 (CAMERA CAPTURES) RESERVE FPS=1
 %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
 
@@ -640,7 +646,7 @@ rundll32 user32.dll,MessageBeep
 
 @echo .
 @echo :: for WinXP (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
-%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
+%MapiCamFFpath%\ffmpegXP.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFrameratePhoto% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
 
 @echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
