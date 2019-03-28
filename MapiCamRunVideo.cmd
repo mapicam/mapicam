@@ -321,7 +321,8 @@ set MapiCamTime=%hour%%min%%secs%
 setlocal EnableDelayedExpansion
 @set MapiCamFFpath=c:\ffmpeg\bin
 @set MapiCamGBpath=C:\Progra~2\GPSBabel
-@set MapiCamDrive=D:
+::@set MapiCamDrive=D:
+@set MapiCamDrive=%2%
 @set MapiCamImgFolder=mapicam_img
 @set MapiCamGpxFolder=mapicam_gpx
 @set MapiCamImgDIR=00
