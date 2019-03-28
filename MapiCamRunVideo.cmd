@@ -331,7 +331,7 @@ setlocal EnableDelayedExpansion
 @echo ---------------------
 :: True = "mjpeg" ONLY!!! Other=Fail!
 @set MapiCamCodec=mjpeg
-@set MapiCamRtBufSize=10M
+@set MapiCamRtBufSize=64M
 @set MapiCamWidth=1280
 @set MapiCamHeight=720
 :: MapiCamFramerateVideo = min7.5 ... 30max
