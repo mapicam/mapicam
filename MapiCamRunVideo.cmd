@@ -336,7 +336,7 @@ setlocal EnableDelayedExpansion
 :: MapiCamFramerateVideo = min7.5 ... 30max
 :: ANT-PC-SSD @fpsMax=30
 :: ANT-LSU    @fpsMax=25
-@set MapiCamFramerateVideo=30
+@set MapiCamFramerateVideo=20
 :: MapiCamFrameratePhoto = min7.5 ... 10max
 @set MapiCamFrameratePhoto=10
 @set MapiCamFpsVideo=%MapiCamFramerateVideo%
