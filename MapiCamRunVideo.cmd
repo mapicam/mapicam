@@ -271,8 +271,21 @@ REM python "D:\mapicam_tools\mapillary_tools-master\mapillary_tools\interpolatio
 :: 
 :: 
 :: 
-:: 
+::
 
+
+@echo #####################
+@echo #####  SETTING  #####
+@echo #####################
+@echo . "Microsoft® LifeCam HD-3000"
+@echo . DirectShow video device options (from video devices)
+@echo -----   PHOTO   -----
+@echo . pixel_format=yuyv422  min s=1280x720 fps=7.5 max s=1280x720 fps=10
+@echo . pixel_format=yuyv422  min s=1280x800 fps=10  max s=1280x800 fps=10
+@echo -----   VIDEO   -----
+@echo . vcodec=mjpeg  min s=1280x720 fps=7.5 max s=1280x720 fps=30
+@echo #####################
+@echo .
 
 @echo #####################
 @echo #  YYYYMMDD HHMMSS  #
@@ -323,7 +336,7 @@ setlocal EnableDelayedExpansion
 :: MapiCamFramerateVideo = min7.5 ... 30max
 :: ANT-PC-SSD @fpsMax=30
 :: ANT-LSU    @fpsMax=25
-@set MapiCamFramerateVideo=7.5
+@set MapiCamFramerateVideo=30
 :: MapiCamFrameratePhoto = min7.5 ... 10max
 @set MapiCamFrameratePhoto=10
 @set MapiCamFpsVideo=%MapiCamFramerateVideo%
@@ -336,10 +349,12 @@ setlocal EnableDelayedExpansion
 :: flv ::  [V: flv1,                 yuv420p, 1280x720,  200 kb/s]
 :: mpeg :: [V: mpeg1video,           yuv420p, 1280x720,  100 kb/s]
 @set MapiCamFormatVideo=mp4
-:: 1s ::     1 :: png@1 fps =   2 Mb    jpg@1 fps = 200 kB 
-:: 1s ::    10 :: png@10fps =  20 Mb    jpg@10fps =   2 Mb  m4v@30fps =   5 Mb png@30fps#render =  60 Mb = 30 фоток/сек
-:: 1m ::   600 :: png@10fps = 1.2 Gb    jpg@10fps = 120 Mb  m4v@30fps =  30 Mb png@30fps#render = 3.6 Gb = 1.8к фоток/хв.
-:: 1h :: 36000 :: png@10fps =  72 Gb    jpg@10fps = 7.2 Gb  m4v@30fps = 1.8 Gb png@30fps#render = 216 Gb = 108к фоток/год.
+::---:---:png:-----:jpg:-----:
+::---:---:fps:-----:fps:-----:
+:: 1s:  1:@ 1=  2Mb:@ 1= 200 kB 
+:: 1s: 10:@10= 20Mb:@10=   2 Mb  m4v@30fps =   5 Mb png@30fps#render =  60 Mb = 30 фоток/сек
+:: 1m:600:@10=1.2Gb:@10= 120 Mb  m4v@30fps =  30 Mb png@30fps#render = 3.6 Gb = 1.8к фоток/хв.
+:: 1h:36k:@10= 72Gb:@10= 7.2 Gb  m4v@30fps = 1.8 Gb png@30fps#render = 216 Gb = 108к фоток/год.
 :: ПОЇЗДКА  10Гб/годину (з кожної камери) орієнтовно
 :: ОБРОБКА 100Гб/годину (з кожної камери) орієнтовно
 @set MapiCamFormatPhoto=jpg
@@ -399,18 +414,6 @@ rundll32 user32.dll,MessageBeep
 @echo ONLY THIS: 01 02 03 04 05 06 07 08 09 10 / A B C D E F G H / 00 = FOR TEST!!!
 @echo MapiCamImgDIR = %MapiCamImgDIR%
 :: set /p MapiCamImgDIR="BBEDiTb HOMEP a6o LiTEPy KAMEPu: "
-@echo .
-@echo #####################
-@echo #####  SETTING  #####
-@echo #####################
-@echo . "Microsoft® LifeCam HD-3000"
-@echo . DirectShow video device options (from video devices)
-@echo -----   PHOTO   -----
-@echo . pixel_format=yuyv422  min s=1280x720 fps=7.5 max s=1280x720 fps=10
-@echo . pixel_format=yuyv422  min s=1280x800 fps=10  max s=1280x800 fps=10
-@echo -----   VIDEO   -----
-@echo . vcodec=mjpeg  min s=1280x720 fps=7.5 max s=1280x720 fps=30
-@echo #####################
 @echo .
 @echo .
 @echo .
@@ -542,13 +545,13 @@ IF %MapiCamImgDIR% == 00 (
 
 :: #####################
 :: if you use Windows-XP -> run next command:
-::  https://askdev.info/questions/101927/ffmpeg-command-line-for-capturing-and-recording-audio-and-video-in-720p-from-d
+:: https://askdev.info/questions/101927/ffmpeg-command-line-for-capturing-and-recording-audio-and-video-in-720p-from-d
 :: see devices:
-%MapiCamFFpath%\ffmpeg.exe -list_devices true -f dshow -i dummy
-:: c:\ffmpeg\bin\ffmpegXP.exe -list_devices true -f dshow -i dummy
+:: %MapiCamFFpath%\ffmpeg.exe -list_devices true -f dshow -i dummy
+:: %MapiCamFFpath%\ffmpegXP.exe -list_devices true -f dshow -i dummy
 :: see options:
-%MapiCamFFpath%\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamName%
-:: c:\ffmpeg\bin\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamName%
+:: %MapiCamFFpath%\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamName%
+:: %MapiCamFFpath%\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamName%
 :: #####################
 
 
@@ -556,7 +559,7 @@ IF %MapiCamImgDIR% == 00 (
 :: РОЗКОМЕНТУВАТИ ЛИШЕ ДЛЯ тестування і розуміння яких кодеків в системі нема.
 :: %MapiCamFFpath%\ffmpeg.exe -codecs
 :: %MapiCamFFpath%\ffmpeg.exe -formats
-:: ffmpeg -codecs
+::
 :: pause
 :: 
 
@@ -589,7 +592,7 @@ rundll32 user32.dll,MessageBeep
 
 
 
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 640x360 -framerate 7.5 -vcodec mjpeg -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%-%MapiCamTime%.%MapiCamFormatVideo%"
+:: %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 640x360 -framerate 7.5 -vcodec mjpeg -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%-%MapiCamTime%.%MapiCamFormatVideo%"
 
 
 
