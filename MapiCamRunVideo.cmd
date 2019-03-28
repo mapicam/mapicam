@@ -331,12 +331,13 @@ setlocal EnableDelayedExpansion
 @echo ---------------------
 :: True = "mjpeg" ONLY!!! Other=Fail!
 @set MapiCamCodec=mjpeg
+@set MapiCamRtBufSize=10M
 @set MapiCamWidth=1280
 @set MapiCamHeight=720
 :: MapiCamFramerateVideo = min7.5 ... 30max
 :: ANT-PC-SSD @fpsMax=30
 :: ANT-LSU    @fpsMax=25
-@set MapiCamFramerateVideo=20
+@set MapiCamFramerateVideo=10
 :: MapiCamFrameratePhoto = min7.5 ... 10max
 @set MapiCamFrameratePhoto=10
 @set MapiCamFpsVideo=%MapiCamFramerateVideo%
@@ -378,6 +379,7 @@ setlocal EnableDelayedExpansion
 @echo MapiCamHead           = %MapiCamHead%
 @echo ---------------------
 @echo MapiCamCodec          = %MapiCamCodec%
+@echo MapiCamRtBufSize      = %MapiCamRtBufSize%
 @echo MapiCamWidth          = %MapiCamWidth%
 @echo MapiCamHeight         = %MapiCamHeight%
 @echo MapiCamFramerateVideo = %MapiCamFramerateVideo%
@@ -597,7 +599,7 @@ rundll32 user32.dll,MessageBeep
 
 
 :: for Win10 (CAMERA VIDEO) = (xx FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
-%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -vcodec %MapiCamCodec% -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%%MapiCamSufixVideo%.%MapiCamFormatVideo%"
+%MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight%  -rtbufsize %MapiCamRtBufSize% -framerate %MapiCamFramerateVideo% -vcodec %MapiCamCodec% -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%%MapiCamSufixVideo%.%MapiCamFormatVideo%"
 
 
 
