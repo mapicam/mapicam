@@ -280,10 +280,10 @@ REM python "D:\mapicam_tools\mapillary_tools-master\mapillary_tools\interpolatio
 @echo . "Microsoft® LifeCam HD-3000"
 @echo . DirectShow video device options (from video devices)
 @echo -----   PHOTO   -----
-@echo . pixel_format=yuyv422  min s=1280x720 fps=7.5 max s=1280x720 fps=10
-@echo . pixel_format=yuyv422  min s=1280x800 fps=10  max s=1280x800 fps=10
+@echo . pixel_format=yuyv422  1280x720 fps=7.5 ... 10
+@echo . pixel_format=yuyv422  1280x800 fps=10  ... 10
 @echo -----   VIDEO   -----
-@echo . vcodec=mjpeg  min s=1280x720 fps=7.5 max s=1280x720 fps=30
+@echo . vcodec=mjpeg          1280x720 fps=7.5 ... 30
 @echo #####################
 @echo .
 
@@ -319,7 +319,7 @@ set MapiCamTime=%hour%%min%%secs%
 @echo # This is parametrs #
 @echo #####################
 setlocal EnableDelayedExpansion
-:: @set MapiCamFFpath=c:\ffmpeg\bin
+@set MapiCamFFpath=c:\ffmpeg\bin
 @set MapiCamFFplay=c:\ffmpeg\bin\ffplay.exe
 @set MapiCamFFmpeg=c:\ffmpeg\bin\ffmpeg.exe
 @set MapiCamFFplayXP=c:\ffmpeg\bin\ffplayXP.exe
@@ -336,9 +336,12 @@ setlocal EnableDelayedExpansion
 @echo ---------------------
 :: True = "mjpeg" ONLY!!! Other=Fail!
 @set MapiCamCodec=mjpeg
+@set MapiCamPixelFormat=yuyv422
 @set MapiCamRtBufSize=16M
-@set MapiCamWidth=1280
-@set MapiCamHeight=720
+@set MapiCamWidthVideo=1280
+@set MapiCamHeightVideo=720
+@set MapiCamWidthPhoto=1280
+@set MapiCamHeightPhoto=800
 :: MapiCamFramerateVideo = min7.5 ... 30max
 :: ANT-PC-SSD @fpsMax=30
 :: ANT-LSU    @fpsMax=25
@@ -355,19 +358,19 @@ setlocal EnableDelayedExpansion
 :: flv ::  [V: flv1,                 yuv420p, 1280x720,  200 kb/s]
 :: mpeg :: [V: mpeg1video,           yuv420p, 1280x720,  100 kb/s]
 @set MapiCamFormatVideo=mp4
-::---:---:png:-----:jpg:-----:
-::---:---:fps:-----:fps:-----:
-:: 1s:  1:@ 1=  2Mb:@ 1= 200 kB 
-:: 1s: 10:@10= 20Mb:@10=   2 Mb  m4v@30fps =   5 Mb png@30fps#render =  60 Mb = 30 фоток/сек
-:: 1m:600:@10=1.2Gb:@10= 120 Mb  m4v@30fps =  30 Mb png@30fps#render = 3.6 Gb = 1.8к фоток/хв.
-:: 1h:36k:@10= 72Gb:@10= 7.2 Gb  m4v@30fps = 1.8 Gb png@30fps#render = 216 Gb = 108к фоток/год.
+::---:---:png:-----:jpg:-----:m4v:-----:png.......:-----:
+::---:---:fps:-----:fps:-----:fps:-----:fps#render:-----:
+:: 1s:  1:@ 1=  2Mb:@ 1:200kB:...:.....:..........:.....: 
+:: 1s: 10:@10= 20Mb:@10:  2Mb:@30:  5Mb:@30#render: 60Mb:  30 фоток/сек
+:: 1m:600:@10=1.2Gb:@10:120Mb:@30: 30Mb:@30#render:3.6Gb:1.8k фоток/хв.
+:: 1h:36k:@10= 72Gb:@10:7.2Gb:@30:1.8Gb:@30#render:216Gb:108k фоток/год.
 :: ПОЇЗДКА  10Гб/годину (з кожної камери) орієнтовно
 :: ОБРОБКА 100Гб/годину (з кожної камери) орієнтовно
 @set MapiCamFormatPhoto=jpg
 @set MapiCamPrefixVideo=mapicam-
 @set MapiCamPrefixPhoto=mapicam-
-@set MapiCamSufixVideo=-%MapiCamWidth%x%MapiCamHeight%-fps%MapiCamFpsVideo%-%MapiCamCodec%
-@set MapiCamSufixPhoto=-%MapiCamWidth%x%MapiCamHeight%-fps%MapiCamFpsPhoto%
+@set MapiCamSufixVideo=-%MapiCamWidthVideo%x%MapiCamHeightVideo%-fps%MapiCamFpsVideo%-%MapiCamCodec%
+@set MapiCamSufixPhoto=-%MapiCamWidthPhoto%x%MapiCamHeightPhoto%-fps%MapiCamFpsPhoto%
 @set MapiCamSufixPhotoFps1=-%MapiCamWidth%x%MapiCamHeight%-fps1
 @echo #####################
 @echo setlocal EnableDelayedExpansion
@@ -384,9 +387,12 @@ setlocal EnableDelayedExpansion
 @echo MapiCamHead           = %MapiCamHead%
 @echo ---------------------
 @echo MapiCamCodec          = %MapiCamCodec%
+@echo MapiCamPixelFormat    = %MapiCamPixelFormat%
 @echo MapiCamRtBufSize      = %MapiCamRtBufSize%
-@echo MapiCamWidth          = %MapiCamWidth%
-@echo MapiCamHeight         = %MapiCamHeight%
+@echo MapiCamWidthVideo     = %MapiCamWidthVideo%
+@echo MapiCamHeightVideo    = %MapiCamHeightVideo%
+@echo MapiCamWidthPhoto     = %MapiCamWidthPhoto%
+@echo MapiCamHeightPhoto    = %MapiCamHeightPhoto%
 @echo MapiCamFramerateVideo = %MapiCamFramerateVideo%
 @echo MapiCamFrameratePhoto = %MapiCamFrameratePhoto%
 @echo MapiCamFormatVideo    = %MapiCamFormatVideo%
@@ -557,8 +563,10 @@ IF %MapiCamImgDIR% == 00 (
 :: %MapiCamFFpath%\ffmpeg.exe -list_devices true -f dshow -i dummy
 :: %MapiCamFFpath%\ffmpegXP.exe -list_devices true -f dshow -i dummy
 :: see options:
-:: %MapiCamFFpath%\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamName%
+%MapiCamFFpath%\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamName%
 :: %MapiCamFFpath%\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamName%
+:: audio list options:
+:: %MapiCamFFpath%\ffmpeg.exe -f dshow -list_options true -i audio=virtual-audio-capturer
 :: #####################
 
 
@@ -592,19 +600,130 @@ cd %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%
 rundll32 user32.dll,MessageBeep
 
 :: for Win10 (CAMERA PREVIEW)
-%MapiCamFFplay% -f dshow -video_size 640x360 -rtbufsize 2M -framerate %MapiCamFramerateVideo% -threads 0 -i video=%MapiCamName%
+%MapiCamFFpath%\ffplay.exe ^
+ -f dshow^
+ -video_size 640x480^
+ -rtbufsize 2M^
+ -threads 0^
+ -i video=%MapiCamName%
+
+:: THIS IS OPTIONAL ::
+:: READ THIS MANUAL :: https://ffmpeg.org/ffmpeg.html
+:: -hide_banner
+:: -framerate 10
+
+
+
 
 @echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
 
-
+pause
 
 :: %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 640x360 -framerate 7.5 -vcodec mjpeg -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%-%MapiCamTime%.%MapiCamFormatVideo%"
 
 
 
 :: for Win10 (CAMERA VIDEO) = (xx FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
-%MapiCamFFmpeg% -rtbufsize %MapiCamRtBufSize% -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFramerateVideo% -vcodec %MapiCamCodec% -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%%MapiCamSufixVideo%.%MapiCamFormatVideo%"
+:: READ THIS MANUAL :: https://ffmpeg.org/ffmpeg.html
+
+%MapiCamFFmpeg% -y -hide_banner^
+ -f dshow^
+ -video_size %MapiCamWidthVideo%x%MapiCamHeightVideo%^
+ -rtbufsize %MapiCamRtBufSize%^
+ -framerate %MapiCamFramerateVideo%^
+ -i video=%MapiCamName%^
+ "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%%MapiCamSufixVideo%.%MapiCamFormatVideo%"
+
+:: THIS IS OPTIONAL ::
+:: READ THIS MANUAL :: https://ffmpeg.org/ffmpeg.html
+:: -vcodec %MapiCamCodec%^
+ 
+ 
+ 
+:: ==========
+:: NON USE THIS!
+:: ----------
+:: -b:v 2M 
+:: Option b:v (video bitrate (please use -b:v)) cannot be applied to input url [video=%MapiCamName%] -- you are trying to apply an input option to an output file or vice versa. Move this option before the file it belongs to. 
+:: Error parsing options for input file [video=%MapiCamName%]. 
+:: Error opening input files [video=%MapiCamName%]: Invalid argument
+:: ----------
+:: -pixel_format %MapiCamPixelFormat% 
+:: Pixel format may only be set when video codec is not set or set to rawvideo
+:: ----------
+:: -thread_queue_size 5096^
+:: -indexmem 9999^
+:: -minrate 1M^
+:: -maxrate 16M^
+:: -bufsize 32M^
+:: ==========
+
+
+
+pause
+
+
+REM :: ----- http://qaru.site/questions/16426248/ffmpeg-max-rtbufsize-via-dshow
+REM _____ffmpeg -y -hide_banner -thread_queue_size 9999 -indexmem 9999 -guess_layout_max 0 -f dshow -rtbufsize 2147.48M^
+ REM -i audio="Analog (1+2) (RME Fireface UC)"^
+ REM -thread_queue_size 9999 -indexmem 9999 -guess_layout_max 0 -f dshow -rtbufsize 2147.48M^
+ REM -i audio="ADAT (5+6) (RME Fireface UC)"^
+ REM -thread_queue_size 9999 -indexmem 9999 -guess_layout_max 0 -f dshow -video_size 3840x2160 -rtbufsize 2147.48M^
+ REM -framerate 60 -pixel_format nv12 -i video="Video (00 Pro Capture HDMI 4K+)":audio="ADAT (3+4) (RME Fireface UC)"^
+ REM -thread_queue_size 9999 -indexmem 9999 -guess_layout_max 0 -f dshow -video_size 3840x2160 -rtbufsize 2147.48M^
+ REM -framerate 60 -pixel_format nv12 -i video="AVerMedia HD Capture GC573 1":audio="SPDIF/ADAT (1+2) (RME Fireface UC)"^
+ REM -thread_queue_size 9999 -indexmem 9999 -r 25 -f lavfi -rtbufsize 2147.48M -i color=c=black:s=50x50^
+ REM -map 4,0 -map 0 -c:v libx264 -r 25 -rc-lookahead 50 -forced-idr 1 -sc_threshold 0 -flags +cgop^
+ REM -force_key_frames "expr:gte(t,n_forced*2)" -preset ultrafast -pix_fmt nv12 -b:v 16K -minrate 16K -maxrate 16K -bufsize 16k^
+ REM -c:a aac -ar 44100 -b:a 384k -ac 2 -af "aresample=async=250" -vsync 1 -ss 00:00:01.768^
+ REM -max_muxing_queue_size 9999 -f segment -segment_time 600 -segment_wrap 9 -reset_timestamps 1^
+ REM -segment_format_options max_delay=0 C:\Users\djcim\Videos\Main\Discord\Discord%02d.ts^
+ REM -map 4,1 -map 1 -c:v libx264 -r 25 -rc-lookahead 50 -forced-idr 1 -sc_threshold 0 -flags +cgop^
+ REM -force_key_frames "expr:gte(t,n_forced*2)" -preset ultrafast -pix_fmt nv12 -b:v 16K -minrate 16K -maxrate 16K -bufsize 16k^
+ REM -c:a aac -ar 44100 -b:a 384k -ac 2 -af "aresample=async=250" -vsync 1 -ss 00:00:01.071^
+ REM -max_muxing_queue_size 9999 -f segment -segment_time 600 -segment_wrap 9 -reset_timestamps 1^
+ REM -segment_format_options max_delay=0 C:\Users\djcim\Videos\Main\Soundboard\Soundboard%02d.ts^
+ REM -map 2:0,2:1 -map 2:1 -c:v h264_nvenc -r 60 -rc-lookahead 120 -forced-idr 1 -strict_gop 1 -sc_threshold 0 -flags +cgop^
+ REM -force_key_frames "expr:gte(t,n_forced*2)" -preset: llhp -pix_fmt nv12 -b:v 250M -minrate 250M -maxrate 250M -bufsize 250M^
+ REM -c:a aac -ar 44100 -b:a 384k -ac 2 -af "atrim=0.086, asetpts=PTS-STARTPTS, aresample=async=250" -vsync 1 -ss 00:00:00.102^
+ REM -max_muxing_queue_size 9999 -f segment -segment_time 600 -segment_wrap 9 -reset_timestamps 1^
+ REM -segment_format_options max_delay=0 C:\Users\djcim\Videos\Main\Magewell\Magewell%02d.ts^
+ REM -map 3:0,3:1 -map 3:1 -c:v h264_nvenc -r 60 -rc-lookahead 120 -forced-idr 1 -strict_gop 1 -sc_threshold 0 -flags +cgop^
+ REM -force_key_frames "expr:gte(t,n_forced*2)" -preset: llhp -pix_fmt nv12 -b:v 250M -minrate 250M -maxrate 250M -bufsize 250M^
+ REM -c:a aac -ar 44100 -b:a 384k -ac 2 -af "pan=mono|c0=c0, aresample=async=250" -vsync 1^
+ REM -max_muxing_queue_size 9999 -f segment -segment_time 600 -segment_wrap 9 -reset_timestamps 1^
+ REM -segment_format_options max_delay=0 C:\Users\djcim\Videos\Main\Camera\Camera%02d.ts
+REM :: ----- 
+
+
+REM :: ----- http://qaru.site/questions/15004063/real-time-buffer-too-full-ffmpeg
+REM _____ffmpeg -guess_layout_max 0 -y -f dshow -video_size 3440x1440 -rtbufsize 2147.48M -pixel_format nv12 -framerate 200 ^
+REM -i video="Video (00 Pro Capture HDMI 4K+)":audio="SPDIF/ADAT (1+2) (RME Fireface UC)" -map 0:0,0:1 -map 0:1 ^
+REM -preset: llhp -codec:v h264_nvenc -pix_fmt nv12 -b:v 250M -maxrate:v 250M -minrate:v 250M -bufsize:v 250M -b:a 320k ^
+REM -ac 2 -r 100 -async 1 -vsync 1 -segment_time 600 -segment_wrap 9 -f segment C:\Users\djcim\Videos\PC\PC%02d.mp4 ^
+REM -guess_layout_max 0 -f dshow -rtbufsize 2000M -i audio="Analog (3+4) (RME Fireface UC)" -map 1:0 -b:a 320k -ac 2 ^
+REM -af "adelay=200|200" -segment_time 600 -segment_wrap 9 -f segment C:\Users\djcim\Videos\PC\Voices\Theirs\TPC%02d.wav ^
+REM -guess_layout_max 0 -f dshow -rtbufsize 2000M -i audio="Analog (5+6) (RME Fireface UC)" -map 2:0 -b:a 320k -ac 2 ^
+REM -af "adelay=825|825" -segment_time 600 -segment_wrap 9 -f segment C:\Users\djcim\Videos\PC\Voices\Mine\MPC%02d.wav
+REM :: ----- 
+REM _____ffmpeg -y -thread_queue_size 5096 -guess_layout_max 0 -f dshow -video_size 3440x1440 -rtbufsize 2147.48M -framerate 200 ^
+REM -pixel_format nv12 -i video="Video (00 Pro Capture HDMI 4K+)":audio="SPDIF/ADAT (1+2) (RME Fireface UC)" -map 0:0,0:1 ^
+REM -map 0:1 -preset: llhp -c:v h264_nvenc -pix_fmt nv12 -b:v 250M -minrate 250M -maxrate 250M -bufsize 250M -b:a 320k -ac 2 ^
+REM -r 100 -async 1 -vsync 1 -segment_time 600 -segment_wrap 9 -f segment C:\Users\djcim\Videos\PC\PC%02d.mp4 ^
+REM -guess_layout_max 0 -thread_queue_size 5096 -f dshow -rtbufsize 2000M -i audio="Analog (3+4) (RME Fireface UC)" -map 1:0 ^
+REM -b:a 320k -ac 2 -af "adelay=200|200" -segment_time 600 -segment_wrap 9 -f segment ^
+REM C:\Users\djcim\Videos\PC\Voices\Theirs\TPC%02d.wav ^
+REM -guess_layout_max 0 -thread_queue_size 5096 -f dshow -rtbufsize 2000M -i audio="Analog (5+6) (RME Fireface UC)" -map 2:0 ^
+REM -b:a 320k -ac 2 -af "adelay=825|825" -segment_time 600 -segment_wrap 9 -f segment ^
+REM C:\Users\djcim\Videos\PC\Voices\Mine\MPC%02d.wav
+REM :: ----- 
+
+
+
+
+
+
 
 
 
@@ -614,10 +733,23 @@ rundll32 user32.dll,MessageBeep
 
 
 
-@echo :: for Win10 (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
-%MapiCamFFmpeg% -y -f dshow -rtbufsize %MapiCamRtBufSize% -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFrameratePhoto% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%-%MapiCamDate%-%MapiCamTime%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
+@echo :: for Win10 (CAMERA PHOTO CAPTURES) FPS=%MapiCamFpsPhoto%
 
-@echo :: for Win10 (CAMERA CAPTURES) RESERVE FPS=1
+%MapiCamFFmpeg% -y ^
+ -f dshow^
+ -rtbufsize %MapiCamRtBufSize%^
+ -video_size %MapiCamWidthPhoto%x%MapiCamHeightPhoto%^
+ -framerate %MapiCamFrameratePhoto%^
+ -i video=%MapiCamName%^
+ -r %MapiCamFpsPhoto%^
+ -threads 0^
+ -f image2^
+ -qscale:v 2^
+ -strftime 0^
+ -pixel_format %MapiCamPixelFormat%^
+ "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%-%MapiCamDate%-%MapiCamTime%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
+
+@echo :: for Win10 (CAMERA PHOTO CAPTURES) RESERVE FPS=1
 %MapiCamFFmpeg% -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
 
 
