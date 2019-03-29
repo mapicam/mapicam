@@ -35,3 +35,24 @@ D:\mapicam\MapiCamRunVideo.cmd 01 d:
 - Set Offset         - зміщує кут на значення кута повороту камери.
 
 
+# ERROR
+- Q: Could not run graph (sometimes caused by a device already in use by other application)
+- A: розібратись...
+- A: ...ймовірно (за деякими спостереженнями) це може бути викликане тим, що вебкамера активує мікрофон, і не хоче його деактивовувати, що й призводить до того що "пристрій зайнятий". треба спробувати якимось чином примусово "вимикати" мікрофон.
+
+- Q: Option b:v (video bitrate (please use -b:v)) cannot be applied to input url [video=%MapiCamName%] -- you are trying to apply an input option to an output file or vice versa. Move this option before the file it belongs to. 
+- A: розібратись...
+
+- Q: Error parsing options for input file [video=%MapiCamName%]. 
+- A: розібратись...
+
+- Q: Error opening input files [video=%MapiCamName%]: Invalid argument
+- A: розібратись...
+
+- Q: Pixel format may only be set when video codec is not set or set to rawvideo
+- A: КОСТИЛЬ: прибрати зі скрипта "-pixel_format %MapiCamPixelFormat%" 
+
+
+
+
+

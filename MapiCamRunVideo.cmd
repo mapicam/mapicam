@@ -464,7 +464,8 @@ rundll32 user32.dll,MessageBeep
 @echo . 
 @echo ##### CLUSTER:ANT-PC-SSD MaxUsbValidAndCorrecUsePort=8(6)
 @echo ANT-PC-SSD-L2L[1] (fix 20190327)
-@set MapiCamName01="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&9767192&5&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName01v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&9767192&5&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName01a="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{C5DC6C31-04D8-4244-912E-D7E5433A133F}"
 @echo ANT-PC-SSD-L2R[2] (fix 20190301)
 @set MapiCamName02="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&1c302237&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L3L[]  (fix 20190301)
@@ -486,70 +487,104 @@ rundll32 user32.dll,MessageBeep
 @echo #####################
 IF %MapiCamImgDIR%== A (
  set MapiCamName=%MapiCamNameA%
+ set MapiCamNameV=%MapiCamNameAv%
+ set MapiCamNameA=%MapiCamNameAa%
  set MapiCamHead=000
  )
 IF %MapiCamImgDIR% == B (
  set MapiCamName=%MapiCamNameB%
+ set MapiCamNameV=%MapiCamNameBv%
+ set MapiCamNameA=%MapiCamNameBa%
  set MapiCamHead=315
  )
 IF %MapiCamImgDIR% == C (
  set MapiCamName=%MapiCamNameC%
+ set MapiCamNameV=%MapiCamNameCv%
+ set MapiCamNameA=%MapiCamNameCa%
  set MapiCamHead=045
  )
 IF %MapiCamImgDIR% == D (
 set MapiCamName=%MapiCamNameD%
+ set MapiCamNameV=%MapiCamNameDv%
+ set MapiCamNameA=%MapiCamNameDa%
  set MapiCamHead=270
  )
 IF %MapiCamImgDIR% == E (
  set MapiCamName=%MapiCamNameE%
+ set MapiCamNameV=%MapiCamNameEv%
+ set MapiCamNameA=%MapiCamNameEa%
  set MapiCamHead=090
  )
 IF %MapiCamImgDIR% == F (
  set MapiCamName=%MapiCamNameF%
+ set MapiCamNameV=%MapiCamNameFv%
+ set MapiCamNameA=%MapiCamNameFa%
  set MapiCamHead=135
  )
 IF %MapiCamImgDIR% == G (
  set MapiCamName=%MapiCamNameG%
+ set MapiCamNameV=%MapiCamNameGv%
+ set MapiCamNameA=%MapiCamNameGa%
  set MapiCamHead=180
  )
 IF %MapiCamImgDIR% == H (
  set MapiCamName=%MapiCamNameH%
+ set MapiCamNameV=%MapiCamNameHv%
+ set MapiCamNameA=%MapiCamNameHa%
  set MapiCamHead=225
  )
 IF %MapiCamImgDIR% == 01 (
  set MapiCamName=%MapiCamName01%
+ set MapiCamNameV=%MapiCamName01v%
+ set MapiCamNameA=%MapiCamName01a%
  set MapiCamHead=000
  )
 IF %MapiCamImgDIR% == 02 (
  set MapiCamName=%MapiCamName02%
+ set MapiCamNameV=%MapiCamName02v%
+ set MapiCamNameA=%MapiCamName02a%
  set MapiCamHead=315
  )
 IF %MapiCamImgDIR% == 03 (
  set MapiCamName=%MapiCamName03%
+ set MapiCamNameV=%MapiCamName03v%
+ set MapiCamNameA=%MapiCamName03a%
  set MapiCamHead=045
  )
 IF %MapiCamImgDIR% == 04 (
  set MapiCamName=%MapiCamName04%
+ set MapiCamNameV=%MapiCamName04v%
+ set MapiCamNameA=%MapiCamName04a%
  set MapiCamHead=270
  )
 IF %MapiCamImgDIR% == 05 (
  set MapiCamName=%MapiCamName05%
+ set MapiCamNameV=%MapiCamName05v%
+ set MapiCamNameA=%MapiCamName05a%
  set MapiCamHead=090
  )
 IF %MapiCamImgDIR% == 06 (
  set MapiCamName=%MapiCamName06%
+ set MapiCamNameV=%MapiCamName06v%
+ set MapiCamNameA=%MapiCamName06a%
  set MapiCamHead=135
  )
 IF %MapiCamImgDIR% == 07 (
  set MapiCamName=%MapiCamName07%
+ set MapiCamNameV=%MapiCamName07v%
+ set MapiCamNameA=%MapiCamName07a%
  set MapiCamHead=180
  )
 IF %MapiCamImgDIR% == 08 (
 set MapiCamName=%MapiCamName08%
+ set MapiCamNameV=%MapiCamName08v%
+ set MapiCamNameA=%MapiCamName08a%
  set MapiCamHead=225
  )
 IF %MapiCamImgDIR% == 00 (
  set MapiCamName=%MapiCamName00%
+ set MapiCamNameV=%MapiCamName00v%
+ set MapiCamNameA=%MapiCamName00a%
  set set MapiCamHead=000
  )
 @echo #####################
@@ -560,13 +595,13 @@ IF %MapiCamImgDIR% == 00 (
 :: if you use Windows-XP -> run next command:
 :: https://askdev.info/questions/101927/ffmpeg-command-line-for-capturing-and-recording-audio-and-video-in-720p-from-d
 :: see devices:
-:: %MapiCamFFpath%\ffmpeg.exe -list_devices true -f dshow -i dummy
+%MapiCamFFpath%\ffmpeg.exe -list_devices true -f dshow -i dummy
 :: %MapiCamFFpath%\ffmpegXP.exe -list_devices true -f dshow -i dummy
 :: see options:
 %MapiCamFFpath%\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamName%
 :: %MapiCamFFpath%\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamName%
 :: audio list options:
-:: %MapiCamFFpath%\ffmpeg.exe -f dshow -list_options true -i audio=virtual-audio-capturer
+%MapiCamFFpath%\ffmpeg.exe -f dshow -list_options true -i audio=virtual-audio-capturer
 :: #####################
 
 
@@ -599,12 +634,21 @@ cd %MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%
 :: rundll32.exe cmdext.dll,MessageBeepStub
 rundll32 user32.dll,MessageBeep
 
+:: ERROR
+:: Could not run graph (sometimes caused by a device already in use by other application)
+
+
+%MapiCamFFpath%\ffplay.exe -f dshow -video_size 640x480 -framerate 7.5 -threads 0 -i video=%MapiCamName%
+
+
+pause
+
 :: for Win10 (CAMERA PREVIEW)
 %MapiCamFFpath%\ffplay.exe ^
- -f dshow^
- -video_size 640x480^
- -rtbufsize 2M^
- -threads 0^
+ -f dshow ^
+ -video_size 640x480 ^
+ -rtbufsize 2M ^
+ -threads 0 ^
  -i video=%MapiCamName%
 
 :: THIS IS OPTIONAL ::
