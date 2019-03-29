@@ -433,63 +433,81 @@ rundll32 user32.dll,MessageBeep
 @echo ##### CLUSTER INFO ######################################
 @echo .
 @echo ##### CLUSTER:ANT-LSU MaxUsbValidAndCorrecUsePort=3 #####
-@echo ANT-LSU-A
-@set MapiCamNameA="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&39f754f8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-LSU-B
-@set MapiCamNameB="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&273da453&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo ANT-LSU-C
-@set MapiCamNameC="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&258516cf&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+:: "Microsoft® LifeCam HD-3000"
+@echo ANT-LSU-HP-A
+  @set MapiCamNameAv="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&39f754f8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameAa="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{63F7B6B2-3B5B-4458-935C-A8C93F820925}"
+@echo ANT-LSU-HP-B
+  @set MapiCamNameBv="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&273da453&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameBa="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{F2CA1238-1A06-4AB0-B604-181247FB425D}"
+@echo ANT-LSU-HP-C
+  @set MapiCamNameCv="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&258516cf&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameCa="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{8D955D5F-939E-4A04-B3B3-01AE1DC09A05}"
+:: LSU-HP/Webcam--/"HP Webcam"="@device_pnp_\\?\usb#vid_04f2&pid_b52d&mi_00#6&362501d0&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+:: LSU-HP/Webcam--"Microphone (Realtek High Definition Audio)"="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{DDF253A2-E355-4928-A956-1D74D9197ADA}"
+@echo ANT-LSU-HP-Webcam
+  @set MapiCamNameWebcamv="@device_pnp_\\?\usb#vid_04f2&pid_b52d&mi_00#6&362501d0&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameWebcama="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{DDF253A2-E355-4928-A956-1D74D9197ADA}"
 @echo .
 @echo ##### CLUSTER:ANT-SB MaxUsbValidAndCorrecUsePort=2
+:: "Microsoft® LifeCam HD-3000"
 @echo ANT-SB-D
- @set MapiCamNameD="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&7028550&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameDv="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&7028550&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameDa="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{E61A8800-3A5B-48F7-AFDA-3667CBD7FB75}"
 @echo ANT-SB-E
- @set MapiCamNameE="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&1d29ee0d&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameEv="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&1d29ee0d&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameEa="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{6461F01A-0DDA-4332-B5C0-8461F8E8052C}"
 @echo ANT-SB-OV5648
+:: ANT-SB/planshet-"OV5648"="@device_pnp_\\?\display#int34d7#4&2f2e9f39&0&uid144599#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\{83ce0022-d6ec-41de-b2c3-a0a19f6d380b}"
+:: ANT-SB/planshet-"GC2355"="@device_pnp_\\?\display#int34d7#4&2f2e9f39&0&uid144599#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\{82a248ab-e5f1-4091-892e-a3853f5c675f}"
+:: ANT-SB/planshet-"Microphone (Realtek High Definition Audio(SST))"="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{10E6AD4E-7493-4410-B7AB-8DBECCF38A4B}"
 :: 1920x1080@29.97|1280x720@30 pixel_format=yuyv422
- @set MapiCamNameS1v="@device_pnp_\\?\display#int34d7#4&2f2e9f39&0&uid144599#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\{83ce0022-d6ec-41de-b2c3-a0a19f6d380b}"
- @set MapiCamNameS1a=""
+  @set MapiCamNameSB1v="@device_pnp_\\?\display#int34d7#4&2f2e9f39&0&uid144599#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\{83ce0022-d6ec-41de-b2c3-a0a19f6d380b}"
+  @set MapiCamNameSB1a="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{10E6AD4E-7493-4410-B7AB-8DBECCF38A4B}"
 @echo ANT-SB-GC2355
-  @set MapiCamNameS2v="@device_pnp_\\?\display#int34d7#4&2f2e9f39&0&uid144599#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\{82a248ab-e5f1-4091-892e-a3853f5c675f}"
- @set MapiCamNameS2a=""
- @echo . 
+  @set MapiCamNameSB2v="@device_pnp_\\?\display#int34d7#4&2f2e9f39&0&uid144599#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\{82a248ab-e5f1-4091-892e-a3853f5c675f}"
+  @set MapiCamNameSB2a="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{10E6AD4E-7493-4410-B7AB-8DBECCF38A4B}"
+  @echo . 
 @echo ##### CLUSTER:ANT-SMABLYK MaxUsbValidAndCorrecUsePort=1
 @echo ANT-SMABLYK-F
- @set MapiCamNameF="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&28a58ce8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameF="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&28a58ce8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameF=""
 @echo ANT-SMABLYK-G
- @set MapiCamNameG="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&15ebdc43&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameG="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&15ebdc43&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameG=""
 @echo ANT-SMABLYK-H 
- @set MapiCamNameH="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&3322b9e&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameH="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&3322b9e&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameH=""
 @echo . 
 @echo ##### CLUSTER:ANT-ACER MaxUsbValidAndCorrecUsePort=1
 @echo ANT-ACER-F ##### RESERVE #####
- @set MapiCamNameF="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&e2531b3&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameF="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&e2531b3&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-ACER-G ##### RESERVE #####
- @set MapiCamNameG="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&2a07e03c&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameG="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&2a07e03c&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-ACER-H ##### RESERVE #####
- @set MapiCamNameH="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&126c6da&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamNameH="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&126c6da&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo . 
 @echo ##### CLUSTER:ANT-PC-SSD MaxUsbValidAndCorrecUsePort=8(6)
 @echo ANT-PC-SSD-L2L[1] (fix 20190327)
-@set MapiCamName01v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&9767192&5&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@set MapiCamName01a="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{C5DC6C31-04D8-4244-912E-D7E5433A133F}"
+  @set MapiCamName01v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&9767192&5&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamName01a="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{C5DC6C31-04D8-4244-912E-D7E5433A133F}"
 @echo ANT-PC-SSD-L2R[2] (fix 20190301)
-@set MapiCamName02v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&1c302237&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@set MapiCamName02a=""
+  @set MapiCamName02v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&1c302237&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamName02a=""
 @echo ANT-PC-SSD-L3L[]  (fix 20190301)
-@set MapiCamName05v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&6ba0f70&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamName05v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&6ba0f70&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L3R[]  (fix 20190301)
-@set MapiCamName06v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&1973c015&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamName06v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&1973c015&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L4L[]  (fix 20190301)
-@set MapiCamName07v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&2c2d70ba&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamName07v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&2c2d70ba&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L4R[]  (fix 20190301)
-@set MapiCamName08v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&34c5758&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamName08v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&34c5758&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L5L[3] (fix 20190301)
-@set MapiCamName03v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&2de5f28f&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamName03v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&2de5f28f&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L5R[4] (fix 20190301)
-@set MapiCamName04v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&504d92d&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+  @set MapiCamName04v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&504d92d&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-00     (fix 20190301)
-@set MapiCamName00v="Microsoft® LifeCam HD-3000"
+  @set MapiCamName00v="Microsoft® LifeCam HD-3000"
 @echo ##### CLUSTER INFO - END ################################
 @echo .
 @echo #####################
