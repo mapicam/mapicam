@@ -445,7 +445,14 @@ rundll32 user32.dll,MessageBeep
  @set MapiCamNameD="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&7028550&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-SB-E
  @set MapiCamNameE="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&1d29ee0d&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-@echo . 
+@echo ANT-SB-OV5648
+:: 1920x1080@29.97|1280x720@30 pixel_format=yuyv422
+ @set MapiCamNameS1v="@device_pnp_\\?\display#int34d7#4&2f2e9f39&0&uid144599#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\{83ce0022-d6ec-41de-b2c3-a0a19f6d380b}"
+ @set MapiCamNameS1a=""
+@echo ANT-SB-GC2355
+  @set MapiCamNameS2v="@device_pnp_\\?\display#int34d7#4&2f2e9f39&0&uid144599#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\{82a248ab-e5f1-4091-892e-a3853f5c675f}"
+ @set MapiCamNameS2a=""
+ @echo . 
 @echo ##### CLUSTER:ANT-SMABLYK MaxUsbValidAndCorrecUsePort=1
 @echo ANT-SMABLYK-F
  @set MapiCamNameF="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#6&28a58ce8&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
@@ -467,21 +474,22 @@ rundll32 user32.dll,MessageBeep
 @set MapiCamName01v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&9767192&5&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @set MapiCamName01a="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{C5DC6C31-04D8-4244-912E-D7E5433A133F}"
 @echo ANT-PC-SSD-L2R[2] (fix 20190301)
-@set MapiCamName02="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&1c302237&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName02v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&1c302237&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName02a=""
 @echo ANT-PC-SSD-L3L[]  (fix 20190301)
-@set MapiCamName05="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&6ba0f70&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName05v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&6ba0f70&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L3R[]  (fix 20190301)
-@set MapiCamName06="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&1973c015&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName06v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&1973c015&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L4L[]  (fix 20190301)
-@set MapiCamName07="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&2c2d70ba&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName07v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&2c2d70ba&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L4R[]  (fix 20190301)
-@set MapiCamName08="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&34c5758&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName08v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#8&34c5758&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L5L[3] (fix 20190301)
-@set MapiCamName03="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&2de5f28f&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName03v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&2de5f28f&3&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-L5R[4] (fix 20190301)
-@set MapiCamName04="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&504d92d&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+@set MapiCamName04v="@device_pnp_\\?\usb#vid_045e&pid_0779&mi_00#7&504d92d&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 @echo ANT-PC-SSD-00     (fix 20190301)
-@set MapiCamName00="Microsoft® LifeCam HD-3000"
+@set MapiCamName00v="Microsoft® LifeCam HD-3000"
 @echo ##### CLUSTER INFO - END ################################
 @echo .
 @echo #####################
@@ -595,13 +603,13 @@ IF %MapiCamImgDIR% == 00 (
 :: if you use Windows-XP -> run next command:
 :: https://askdev.info/questions/101927/ffmpeg-command-line-for-capturing-and-recording-audio-and-video-in-720p-from-d
 :: see devices:
-%MapiCamFFpath%\ffmpeg.exe -list_devices true -f dshow -i dummy
+:: %MapiCamFFpath%\ffmpeg.exe -list_devices true -f dshow -i dummy
 :: %MapiCamFFpath%\ffmpegXP.exe -list_devices true -f dshow -i dummy
 :: see options:
-%MapiCamFFpath%\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamName%
-:: %MapiCamFFpath%\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamName%
+:: %MapiCamFFpath%\ffmpeg.exe -list_options true -f dshow -i video=%MapiCamNameV%
+:: %MapiCamFFpath%\ffmpegXP.exe -list_options true -f dshow -i video=%MapiCamNameV%
 :: audio list options:
-%MapiCamFFpath%\ffmpeg.exe -f dshow -list_options true -i audio=virtual-audio-capturer
+:: %MapiCamFFpath%\ffmpeg.exe -f dshow -list_options true -i audio=%MapiCamNameA%
 :: #####################
 
 
@@ -638,7 +646,7 @@ rundll32 user32.dll,MessageBeep
 :: Could not run graph (sometimes caused by a device already in use by other application)
 
 
-%MapiCamFFpath%\ffplay.exe -f dshow -video_size 640x480 -framerate 7.5 -threads 0 -i video=%MapiCamName%
+%MapiCamFFpath%\ffplay.exe -f dshow -video_size 640x480 -framerate 7.5 -threads 0 -i video=%MapiCamNameV%:audio=%MapiCamNameA%
 
 
 pause
@@ -649,7 +657,7 @@ pause
  -video_size 640x480 ^
  -rtbufsize 2M ^
  -threads 0 ^
- -i video=%MapiCamName%
+ -i video="%MapiCamNameV%" :audio="%MapiCamNameA%"
 
 :: THIS IS OPTIONAL ::
 :: READ THIS MANUAL :: https://ffmpeg.org/ffmpeg.html
@@ -664,19 +672,19 @@ rundll32 user32.dll,MessageBeep
 
 pause
 
-:: %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 640x360 -framerate 7.5 -vcodec mjpeg -i video=%MapiCamName% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%-%MapiCamTime%.%MapiCamFormatVideo%"
+:: %MapiCamFFpath%\ffmpeg.exe -y -f dshow -video_size 640x360 -framerate 7.5 -vcodec mjpeg -i video=%MapiCamNameV% "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%-%MapiCamTime%.%MapiCamFormatVideo%"
 
 
 
 :: for Win10 (CAMERA VIDEO) = (xx FPS) (реалізація 1 кадр/сек, мілісекунди невдалось витягнути стандартними методами ffmpeg. Він включиться ЯК РЕЗЕРВНИЙ ГАРАНТОВАНО ПРАЦЮЮЧИЙ, якщо з якоїсь причини не відпрацює жоден з вишенаведених!)
 :: READ THIS MANUAL :: https://ffmpeg.org/ffmpeg.html
 
-%MapiCamFFmpeg% -y -hide_banner^
- -f dshow^
- -video_size %MapiCamWidthVideo%x%MapiCamHeightVideo%^
- -rtbufsize %MapiCamRtBufSize%^
- -framerate %MapiCamFramerateVideo%^
- -i video=%MapiCamName%^
+%MapiCamFFmpeg% -y -hide_banner ^
+ -f dshow ^
+ -video_size %MapiCamWidthVideo%x%MapiCamHeightVideo% ^
+ -rtbufsize %MapiCamRtBufSize% ^
+ -framerate %MapiCamFramerateVideo% ^
+ -i video="%MapiCamNameV%" :audio="%MapiCamNameA%" ^
  "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%MapiCamTime%%MapiCamSufixVideo%.%MapiCamFormatVideo%"
 
 :: THIS IS OPTIONAL ::
@@ -689,9 +697,9 @@ pause
 :: NON USE THIS!
 :: ----------
 :: -b:v 2M 
-:: Option b:v (video bitrate (please use -b:v)) cannot be applied to input url [video=%MapiCamName%] -- you are trying to apply an input option to an output file or vice versa. Move this option before the file it belongs to. 
-:: Error parsing options for input file [video=%MapiCamName%]. 
-:: Error opening input files [video=%MapiCamName%]: Invalid argument
+:: Option b:v (video bitrate (please use -b:v)) cannot be applied to input url [video=%MapiCamNameV%] -- you are trying to apply an input option to an output file or vice versa. Move this option before the file it belongs to. 
+:: Error parsing options for input file [video=%MapiCamNameV%]. 
+:: Error opening input files [video=%MapiCamNameV%]: Invalid argument
 :: ----------
 :: -pixel_format %MapiCamPixelFormat% 
 :: Pixel format may only be set when video codec is not set or set to rawvideo
@@ -784,7 +792,7 @@ rundll32 user32.dll,MessageBeep
  -rtbufsize %MapiCamRtBufSize%^
  -video_size %MapiCamWidthPhoto%x%MapiCamHeightPhoto%^
  -framerate %MapiCamFrameratePhoto%^
- -i video=%MapiCamName%^
+ -i video=%MapiCamNameV%^
  -r %MapiCamFpsPhoto%^
  -threads 0^
  -f image2^
@@ -794,7 +802,7 @@ rundll32 user32.dll,MessageBeep
  "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%-%MapiCamDate%-%MapiCamTime%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
 
 @echo :: for Win10 (CAMERA PHOTO CAPTURES) RESERVE FPS=1
-%MapiCamFFmpeg% -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
+%MapiCamFFmpeg% -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamNameV% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
 
 
 @echo BEEP SOUND 
@@ -803,7 +811,7 @@ rundll32 user32.dll,MessageBeep
 
 
 :: for Win10
-%MapiCamFFplay% -f dshow -video_size 320x180 -rtbufsize 2M -framerate %MapiCamFramerateVideo% -threads 0 -i video=%MapiCamName%
+%MapiCamFFplay% -f dshow -video_size 320x180 -rtbufsize 2M -framerate %MapiCamFramerateVideo% -threads 0 -i video=%MapiCamNameV%
 
 @echo #####################################################################################
 @echo ##### MapiCam-XX - END ##############################################################
@@ -826,7 +834,7 @@ rundll32 user32.dll,MessageBeep
 @echo :: ERROR -  "the procedure entry point GetNumaNodeProcessorMaskEx could not be located in the dynamic link library KERNEL32.dll"
 @echo :: exception trying to use ffmpeg, since GetNumaNodeProcessorMaskEx sounds like x265, is possible to disable libx265 from being build into ffmpeg? (checked the ffmpeg_options.txt, but there was no mentioning of x265);
 
-%MapiCamFFplayXP% -f dshow -video_size 640x360 -rtbufsize 2M -framerate 10 -threads 0 -i video=%MapiCamName%
+%MapiCamFFplayXP% -f dshow -video_size 640x360 -rtbufsize 2M -framerate 10 -threads 0 -i video=%MapiCamNameV%
 
 @echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
@@ -834,7 +842,7 @@ rundll32 user32.dll,MessageBeep
 
 @echo .
 @echo :: for WinXP (CAMERA CAPTURES) FPS=%MapiCamFpsPhoto%
-%MapiCamFFmpegXP% -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFrameratePhoto% -i video=%MapiCamName% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
+%MapiCamFFmpegXP% -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate %MapiCamFrameratePhoto% -i video=%MapiCamNameV% -r %MapiCamFpsPhoto% -threads 0 -f image2 -qscale:v 2 -strftime 0 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixVideo%%MapiCamImgDIR%-%MapiCamHead%-%MapiCamDate%-%%012d%MapiCamSufixPhoto%.%MapiCamFormatPhoto%" 
 
 @echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
@@ -842,7 +850,7 @@ rundll32 user32.dll,MessageBeep
 
 
 @echo :: for WinXP (CAMERA CAPTURES) = (1 FPS)
-%MapiCamFFmpegXP% -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamName% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
+%MapiCamFFmpegXP% -y -f dshow -video_size %MapiCamWidth%x%MapiCamHeight% -framerate 7.5 -i video=%MapiCamNameV% -r 1 -threads 0 -f image2 -qscale:v 2 -strftime 1 "%MapiCamDrive%\%MapiCamImgFolder%\%MapiCamDate%\%MapiCamImgDIR%\%MapiCamPrefixPhoto%%MapiCamImgDIR%-%MapiCamHead%-%%Y%%m%%d-%%H%%M%%S%MapiCamSufixPhotoFps1%.jpg"
 
 @echo BEEP SOUND 
 rundll32 user32.dll,MessageBeep
