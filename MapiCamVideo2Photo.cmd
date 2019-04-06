@@ -10,6 +10,7 @@
 :: https://t.me/MapillaryUkraine
 :: https://t.me/MapillaryUkraineChat
 :: https://t.me/joinchat/BYnnNRYLZdfub5u4MMvsRQ (MapiCam Chat)
+:: https://github.com/mapicam/mapicam/wiki
 :: 
 :: #####################
 :: ####   ReadMe   #####
