@@ -80,15 +80,8 @@
 @echo . v08.LNK :: "D:\mapicam_img\MapiCamRunVideo.cmd 08"
 @echo . 
 :: ====     #1      ====
-:: for Windows-10:
-:: download and install "FFMPEG"
-:: https://www.ffmpeg.org/
-:: https://ffmpeg.zeranoe.com/builds/
-:: copy to "c:\ffmpeg\bin\ffmpeg.exe"
-:: RUN "cmd" as Admin:
-:: setx /M PATH "c:\ffmpeg\bin;%PATH%"
-:: RUN this file (MapiCamRun.cmd)
-:: for collect photo --> RUN camera *.LNK 
+:: for Windows-10 download and install "FFMPEG"
+:: https://github.com/mapicam/mapicam/wiki/%D0%86%D0%BD%D1%81%D1%82%D0%B0%D0%BB%D1%8F%D1%86%D1%96%D1%8F:-ffmpeg 
 :: 
 :: ====     #2      ====
 :: for Windows-10:
