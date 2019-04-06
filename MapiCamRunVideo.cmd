@@ -10,6 +10,7 @@
 @echo https://t.me/MapillaryUkraine
 @echo https://t.me/MapillaryUkraineChat
 @echo https://t.me/joinchat/BYnnNRYLZdfub5u4MMvsRQ (MapiCam Chat)
+@echo https://github.com/mapicam/mapicam/wiki/
 @echo . 
 @echo #####################
 @echo ####   ReadMe   #####
@@ -84,85 +85,7 @@
 :: https://github.com/mapicam/mapicam/wiki/%D0%86%D0%BD%D1%81%D1%82%D0%B0%D0%BB%D1%8F%D1%86%D1%96%D1%8F:-ffmpeg 
 :: 
 :: ====     #2      ====
-:: for Windows-10:
-:: download and install "python2"
-:: https://www.python.org
-:: https://www.python.org/downloads/windows/
-:: install to "C:\Python27\python.exe"
-:: RUN "cmd" as Admin:
-:: setx /M PATH "C:\Python27\;%PATH%"
-:: 
-REM ORIGANAL: https://www.openstreetmap.org/user/Blackbird27/diary/38702
-REM # Налаштування середовища Python для роботи зі скриптами Mapillary Tools 
-REM Передумовою даного кроку є установлене та правильно налаштоване середовище програмування Python, 
-REM в нашому випадку нам потрібен Python версії 2, крайній реліз можна завантажити тут:
-REM https://www.python.org/downloads/windows/
-REM Як правильно налаштувати Python можна прочитати тут англійською. 
-REM Далі нам будуть потрібні скрипти Mapillary Tools, завантажити їх можна з GitHub тут:
-REM http://www.howtogeek.com/197947/how-to-install-python-on-windows/
-REM Архів бажано розпакувати на диску С в теку Документи користувача, так як диск С є робочим середовищем для Python.
-REM Не зовсім повна та коректна стаття про те як запускати скрипти на Python для Mapillary знаходиться тут:
-REM https://github.com/mapillary/mapillary_tools/archive/master.zip
-REM https://github.com/mapillary/mapillary_tools
-REM https://tools.mapillary.com/binary/win/mapillary_tools.exe
-REM Далі для правильної роботи скриптів Mapillary Tools, попередньо доведеться встановити декілька бібліотек/пакунків
-REM через pip (Менеджер встановлення пакунків), а саме:
-REM 
-REM exifread – встановлюється через pip.
-REM gpxpy – встановлюється через pip.
-REM PIL – встановлюється через pip.
-REM piexif
-REM pyexiv2 – встановлюється через встановлювач Windows в залежності від версії системи x32 або x64.
-REM ----------------------------------
-REM cmd
-REM cd C:\Python27\Scripts\ 
-REM python -m pip install --upgrade pip
-REM pip install exifread
-REM pip install gpxpy 
-REM pip install Pillow
-REM pip install piexif
-REM install pyexiv2
-REM :: Could not find a version that satisfies the requirement pyexiv2 (from versions: )
-REM :: No matching distribution found for pyexiv2
-REM pip install python-dateutil
-REM pip install python-dateutil --upgrade
-REM pip install pytz --upgrade
-REM ----------------------------------
-REM Якщо все пройшло без помилок то середовище Python тепер готове до роботи зі скриптами Mapillary Tools.
-REM :: ===================================
-REM Розрахунок напрямку зйомки зображення з допомогою скриптів Python
-REM Спочатку хочу сказати, що Mapillary Tools містить багато скриптів для обробки зображень 
-REM та для завантаження на сервіс Mapillary, в тому числі і скрипт для прив’язки зображень до GPS координат, 
-REM проте деякі з них не працюють або працюють неправильно, 
-REM про що автор скриптів і написав у коментарях даних скриптів. 
-REM Так наприклад мені не вдалося прив’язати зображення до GPS координат, 
-REM тому я і описав два простіших способи раніше у статті. 
-REM Але скрипт для визначення напряму зйомки шляхом інтерполяції в моєму випадку працює 
-REM і швидко задає напрям зйомки фото у градусах базуючись на координатах наступного знімка в серії time-lapse. 
-REM Отже, перейдемо до встановлення напрямку зйомки. 
-REM На даному етапі у нас є тека зі знімками, які уже мають координати та часові мітки, 
-REM тому все що нам потрібно це вказати шлях до скрипта, шлях до теки зі знімками та зміщення камери відносно напряму руху. 
-REM Якщо камера напрямлена в напрямку руху, то зміщення буде “0” 
-REM Скрипти знаходяться в папці python завантаженого раніше архіву Mapillary Tools. 
-REM В моєму випадку шлях до скрипта “interpolate_direction.py”, ("interpolation.py") який нам потрібен наступний: 
-REM "D:\mapicam_tools\mapillary_tools-master\mapillary_tools\interpolation.py"
-REM Шлях до теки зі знімками наступний: 
-REM "D:\mapicam_img\20190101\A" 
-REM Далі запускаємо командний рядок та вводимо наступне: 
-REM python "D:\mapicam_tools\mapillary_tools-master\mapillary_tools\interpolation.py" "D:\mapicam_img\20190101\A" 0
-
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
+:: https://github.com/mapicam/mapicam/wiki/%D0%86%D0%BD%D1%81%D1%82%D0%B0%D0%BB%D1%8F%D1%86%D1%96%D1%8F:-python
 :: 
 :: ====     #2      ====
 :: for Android smarthone:
