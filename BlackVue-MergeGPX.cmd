@@ -37,18 +37,38 @@ mkdir %BlackVue%\Record\gpxInterpolate
 
 @echo .
 @echo Merge all .GPX files within a folder into one file with GPSbabel (merge)
-@echo https://stackoverflow.com/questions/38554131/merge-all-gpx-files-within-a-folder-into-one-file-with-gpsbabel 
-set f=
-for %%f in ("%BlackVue%\Record\gpx\*.gpx") do set f=!f! -f "%%f"
-%MapiCamGBpath%\gpsbabel.exe -i gpx !f! -o gpx -F "%BlackVue%\Record\gpxMerge\merge.gpx"
+:: https://stackoverflow.com/questions/38554131/merge-all-gpx-files-within-a-folder-into-one-file-with-gpsbabel 
+set i=
+cd /d %BlackVue%\Record\gpx
+(FOR %%i in (%BlackVue%\Record\gpx\*.gpx)  do @echo %%i) > %BlackVue%\Record\gpxMerge\list-1.txt
 
 
+@echo AAAAAAAAAAAAAAAAAAAAAAAAAA
+@echo ########## WORK ##########
+
+cd /d %BlackVue%\Record\gpxMerge
+for %f in (%BlackVue%\Record\gpx\*.gpx) do type "%f" >> %BlackVue%\Record\gpxMerge\merge-1.gpx
+
+
+
+
+
+pause
+
+
+
+
+
+
+
+@echo ########## WORK ##########
+@echo VVVVVVVVVVVVVVVVVVVVVVVVVV
 
 
 @echo .
 @echo Remove Duplicates (duplicate)
 :: https://www.gpsbabel.org/htmldoc-development/filter_duplicate.html
-%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\gpxMerge\merge.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVue%\Record\gpxDuplicate\duplicate.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\gpxMerge\merge-1.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVue%\Record\gpxDuplicate\duplicate.gpx"
 @echo .
 
 @echo .
