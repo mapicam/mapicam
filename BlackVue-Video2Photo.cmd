@@ -1,6 +1,7 @@
 @echo ##### START BlackVueVideo2Photo ###############
 @echo https://github.com/mapicam/mapicam/wiki
 @echo ###############################################
+setlocal enabledelayedexpansion
 :: BlackVue=F:\BlackVue
 set BlackVue=%1%
 :: BlackVueFPS=10
@@ -28,7 +29,7 @@ mapillary_tools video_process --advanced --verbose --user_name velmyshanovnyi --
 :: і згенеровані файли (.JPG) НЕ БУДУТЬ ПРОШИТІ КООРДИНАТАМИ ІЗ ВІДЕО 
 :: УВАГА!!! END
 
-copy "%BlackVue%\Record\*.gpx" "%BlackVue%\Record\gpx"
+move "%BlackVue%\Record\*.gpx" "%BlackVue%\Record\gpx"
 
 @echo #######################
 @echo ##### END PROCESS #####
