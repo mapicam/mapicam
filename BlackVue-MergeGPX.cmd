@@ -26,13 +26,10 @@ setlocal enabledelayedexpansion
 @set MapiCamGBpath=C:\Progra~2\GPSBabel
 :: BlackVue=F:\BlackVue
 set BlackVue=%1%
-set MapiCamGpxFolder=%BlackVue%\Record\gpx
 @echo .
 @echo MapiCamGBpath    = %MapiCamGBpath%
 @echo BlackVue         = %BlackVue%
-@echo MapiCamGpxFolder = %MapiCamGpxFolder%
 @echo .
-mkdir %MapiCamGpxFolder%
 mkdir %BlackVue%\Record\gpx
 mkdir %BlackVue%\Record\gpxMerge
 mkdir %BlackVue%\Record\gpxDuplicate
@@ -41,11 +38,9 @@ mkdir %BlackVue%\Record\gpxInterpolate
 @echo .
 @echo Merge all .GPX files within a folder into one file with GPSbabel (merge)
 @echo https://stackoverflow.com/questions/38554131/merge-all-gpx-files-within-a-folder-into-one-file-with-gpsbabel 
-cd %BlackVue%\Record\gpx
 set f=
 for %%f in ("%BlackVue%\Record\gpx\*.gpx") do set f=!f! -f "%%f"
-%MapiCamGBpath%\gpsbabel.exe -i gpx !f! -o gpx -F "merge.gpx"
-::%MapiCamGBpath%\gpsbabel.exe -i gpx !f! -o gpx -F "%BlackVue%\Record\gpxMerge\merge.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx !f! -o gpx -F "%BlackVue%\Record\gpxMerge\merge.gpx"
 
 
 
