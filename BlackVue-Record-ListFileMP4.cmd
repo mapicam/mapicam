@@ -1,4 +1,4 @@
-@echo #####  START BlackVue-Record-ListFileMP4  #####
+@echo ##### START BlackVue-Record-ListFileMP4 #######
 @echo https://github.com/mapicam/mapicam/wiki
 @echo ###############################################
 :: BlackVue=F:\BlackVue
