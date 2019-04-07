@@ -27,6 +27,9 @@ mapillary_tools video_process --advanced --verbose --user_name velmyshanovnyi --
 :: Warning, required geotag_process did not result in a valid json file for image F:\BlackVue\Record\10fps\mapillary_sampled_video_frames\20190404_081744_NF\20190404_081744_NF_000610.jpg
 :: і згенеровані файли (.JPG) НЕ БУДУТЬ ПРОШИТІ КООРДИНАТАМИ ІЗ ВІДЕО 
 :: УВАГА!!! END
+
+copy "%BlackVue%\Record\*.gpx" "%BlackVue%\Record\gpx"
+
 @echo #######################
 @echo ##### END PROCESS #####
 @echo #######################
