@@ -48,7 +48,7 @@ for %%f in ("%BlackVue%\Record\gpx\*.gpx") do set f=!f! -f "%%f"
 @echo .
 @echo Remove Duplicates (duplicate)
 :: https://www.gpsbabel.org/htmldoc-development/filter_duplicate.html
-REM %MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\gpxMerge\merge.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVue%\Record\gpxDuplicate\duplicate.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\gpxMerge\merge.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVue%\Record\gpxDuplicate\duplicate.gpx"
 @echo .
 
 @echo .
@@ -57,7 +57,7 @@ REM %MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\gpxMerge\merge.gpx
 :: це допомагає боротись з провалами під мостами, та в щільній забудові.
 :: Інтерполяцію не закоментовувати!!!!
 @echo https://www.gpsbabel.org/htmldoc-development/filter_interpolate.html
-REM %MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\gpxDuplicate\duplicate.gpx" -x interpolate,time=1 -o gpx -F "%BlackVue%\Record\gpxInterpolate\interpolate.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\gpxDuplicate\duplicate.gpx" -x interpolate,time=1 -o gpx -F "%BlackVue%\Record\gpxInterpolate\interpolate.gpx"
 @echo .
 
 
