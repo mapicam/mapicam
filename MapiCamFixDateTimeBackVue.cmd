@@ -14,34 +14,14 @@
 :: https://t.me/MapillaryUkraine
 :: https://t.me/MapillaryUkraineChat
 :: https://github.com/mapicam/mapicam
-:: https://github.com/mapicam/mapicam/wiki/FixDateTime
-:: 
-:: DownloadThis - ExifTool
-:: https://www.sno.phy.queensu.ca/~phil/exiftool/
-:: 
-:: ReadThis:
-:: http://www.belursus.info/soft/i.php?c=exiftool
-:: DateTimeOriginal | CreateDate | ModifyDate
-:: 
-:: COMMAHD FOR COMPAS: 
-:: -gpsdestbearing=270 -gpsdestbearingref=true 
-:: 
-:: Mapillary Compass
-:: http://u88.n24.queensu.ca/exiftool/forum/index.php/topic,4462.msg21255.html#msg21255
-:: exiftool -gpsimgdirection+=315 *.jpg
-:: 
-:: https://forum.mapillary.com/t/for-those-with-lineageos-snap-camera/1051
-:: exiftool '-gpsimgdirection<${gpsimgdirection;$_=($_+90)%360}' *.jpg
-:: 
-:: https://www.openstreetmap.org/user/Blackbird27/diary/38702
-
+:: https://github.com/mapicam/mapicam/wiki/FixDateTime <-- READ ME!
 :: 
 :: #####################
 :: # This is parametrs #
 :: #####################
 setlocal EnableDelayedExpansion
 @set MapiCamFFpath=c:\ffmpeg\bin
-@set MapiCamImgDrive=D:
+@set MapiCamImgDrive=F:
 @set MapiCamImgFolder=mapicam_img
 @set MapiCamGpxFolder=mapicam_gpx
 @set MapiCamImgDIR=00
@@ -86,7 +66,7 @@ REM pause
 
 @echo done
 @set MapiCamDelayInSeconds=1000
-@set MapiCamPingHost=1.1.1.1
+@set MapiCamPingHost=127.0.0.1
 @set MapiCamFixZnak1=-
 @set MapiCamFixZnak2=+
 @set MapiCamFixDate=0:0:0
@@ -98,8 +78,8 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 
 
 :: ===== TEST ==========
-@set MapiCamNameXX=00
-@set MapiCamHeadXX=45
+@set MapiCamNameXX=0
+@set MapiCamHeadXX=0
 exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
 ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 			:: ---------------------
@@ -169,90 +149,6 @@ REM :: --------
 REM :: параметри для %MapiCamGeotagFromGpxPy%:
 REM :: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
 python %MapiCamGeotagFromGpxPy% "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" "%MapiCamImgDrive%\%MapiCamGpxFolder%\0-%MapiCamImgDateDIR%.gpx" --offset_angle %MapiCamHeadXX%
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-
-:: ===== B =============
-@set MapiCamNameXX=B
-@set MapiCamHeadXX=315
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool -geotag %MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-
-:: ===== C =============
-@set MapiCamNameXX=C
-@set MapiCamHeadXX=45
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool -geotag %MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-
-:: ===== D =============
-@set MapiCamNameXX=D
-@set MapiCamHeadXX=270
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool -geotag %MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-
-:: ===== E =============
-@set MapiCamNameXX=E
-@set MapiCamHeadXX=90
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool -geotag %MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-
-:: ===== F =============
-@set MapiCamNameXX=F
-@set MapiCamHeadXX=135
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool -geotag %MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-
-:: ===== G =============
-@set MapiCamNameXX=G
-@set MapiCamHeadXX=180
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool -geotag %MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-
-:: ===== H =============
-@set MapiCamNameXX=H
-@set MapiCamHeadXX=225
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool -geotag %MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
 exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
 exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
 
