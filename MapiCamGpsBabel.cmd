@@ -65,19 +65,18 @@ mkdir interpolate
 @echo :: %MapiCamGBpath%\gpsbabel.exe -i gpx -f %MapiCamImgDrive%\%MapiCamGpxFolder%\%MapiCamImgDateDIR%\1.gpx -f %MapiCamImgDrive%\%MapiCamGpxFolder%\%MapiCamImgDateDIR%\2.gpx -x duplicate,location,shortname -o gpx -F %MapiCamImgDrive%\%MapiCamGpxFolder%\%MapiCamImgDateDIR%\merget\%MapiCamImgDateDIR%-merget.gpx
 @echo .
 
-
 @echo .
 @echo Interpolate between trackpoints (interpolate)
 @echo https://www.gpsbabel.org/htmldoc-development/filter_interpolate.html
 :: %MapiCamGBpath%\gpsbabel.exe -i gpx -f %MapiCamImgDrive%\%MapiCamGpxFolder%\%MapiCamImgDateDIR%\merget\%MapiCamImgDateDIR%-merget.gpx -x interpolate,time=1 -o gpx -F %MapiCamImgDrive%\%MapiCamGpxFolder%\%MapiCamImgDateDIR%\interpolate\%MapiCamImgDateDIR%-interpolate.gpx
 %MapiCamGBpath%\gpsbabel.exe -i gpx -f %MapiCamImgDrive%\%MapiCamGpxFolder%\%MapiCamImgDateDIR%\%MapiCamImgDateDIR%.gpx -x interpolate,time=1 -o gpx -F %MapiCamImgDrive%\%MapiCamGpxFolder%\%MapiCamImgDateDIR%\interpolate\%MapiCamImgDateDIR%-interpolate.gpx
 @echo .
+
+
+
+
 @echo .
-
-
-
-
-
-
-ECHO ##### GOTOVO :) #####
+@echo #######################
+@echo ##### END PROCESS #####
+@echo #######################
 pause
