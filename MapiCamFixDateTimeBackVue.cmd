@@ -21,11 +21,10 @@
 :: #####################
 setlocal EnableDelayedExpansion
 @set MapiCamFFpath=c:\ffmpeg\bin
-@set MapiCamImgDrive=F:
-@set MapiCamImgFolder=mapicam_img
-@set MapiCamGpxFolder=mapicam_gpx
+@set MapiCamImgFolder=%1%
+@set MapiCamGpxFolder=%1%
 @set MapiCamImgDIR=00
-@set MapiCamImgDIR=%1%
+@set MapiCamImgDIR=%2%
 @set MapiCamHead=0
 @set MapiCamImgDateDIR=20190319
 @set MapiCamInterpolationPy="D:\mapicam_tools\mapillary\mapillary_tools-master\mapillary_tools\interpolation.py"
@@ -61,7 +60,7 @@ setlocal EnableDelayedExpansion
 REM pause
 
 :: IF ERROR - RUN NEXT LINE FOR TEST:
-:: exiftool -geotag "%MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\A\adjusted\*.jpg" -gpsimgdirection=0   -overwrite_original -v2
+:: exiftool -geotag "%MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx" "%MapiCamImgFolder%\*.jpg" -gpsimgdirection=0   -overwrite_original -v2
 
 
 @echo done
@@ -80,7 +79,7 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 :: ===== TEST ==========
 @set MapiCamNameXX=0
 @set MapiCamHeadXX=0
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
+exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
 ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 			:: ---------------------
 			:: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
@@ -138,19 +137,19 @@ pause
 :: ===== A =============
 @set MapiCamNameXX=A
 @set MapiCamHeadXX=0
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
+exiftool "-DateTimeOriginal<FileModifyDate" "%%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
 ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
+exiftool "-FileCreateDate<DateTimeOriginal" "%%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
+exiftool "-DateTime<DateTimeOriginal"       "%%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
+exiftool "-CreateDate<DateTimeOriginal"     "%%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
 REM :: прибрано після того, як було оптимізовано скрипт який повертає фотки
-REM :: exiftool -geotag %MapiCamImgDrive%\%MapiCamGpxFolder%\*.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
+REM :: exiftool -geotag %%\%MapiCamGpxFolder%\*.gpx %%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
 REM :: --------
 REM :: параметри для %MapiCamGeotagFromGpxPy%:
 REM :: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
-python %MapiCamGeotagFromGpxPy% "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" "%MapiCamImgDrive%\%MapiCamGpxFolder%\0-%MapiCamImgDateDIR%.gpx" --offset_angle %MapiCamHeadXX%
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
+python %MapiCamGeotagFromGpxPy% "%%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" "%%\%MapiCamGpxFolder%\0-%MapiCamImgDateDIR%.gpx" --offset_angle %MapiCamHeadXX%
+exiftool "-ModifyDate<DateTimeOriginal"     "%%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
+exiftool "-FileModifyDate<DateTimeOriginal" "%%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
 
 :: ===== END ===========
 
