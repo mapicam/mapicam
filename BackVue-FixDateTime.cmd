@@ -89,19 +89,15 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 @echo #####################
 @echo.
 
-exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
-exiftool "-FileModifyDate" "%MapiCamImgFolder%"
-exiftool "-FileCreateDate" "%MapiCamImgFolder%"
-exiftool "-DateTime" "%MapiCamImgFolder%"
-exiftool "-CreateDate" "%MapiCamImgFolder%"
+REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
+REM exiftool "-FileModifyDate" "%MapiCamImgFolder%"
+REM exiftool "-FileCreateDate" "%MapiCamImgFolder%"
+REM exiftool "-DateTime" "%MapiCamImgFolder%"
+REM exiftool "-CreateDate" "%MapiCamImgFolder%"
 
 @echo.
 @echo #####################
 @echo.
-
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-
-
 
 
 :: ===== BlackVue START =============
@@ -156,11 +152,11 @@ exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_orig
 :: ===== BlackVue END ===========
 
 
-exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
-exiftool "-FileModifyDate" "%MapiCamImgFolder%"
-exiftool "-FileCreateDate" "%MapiCamImgFolder%"
-exiftool "-DateTime" "%MapiCamImgFolder%"
-exiftool "-CreateDate" "%MapiCamImgFolder%"
+REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
+REM exiftool "-FileModifyDate" "%MapiCamImgFolder%"
+REM exiftool "-FileCreateDate" "%MapiCamImgFolder%"
+REM exiftool "-DateTime" "%MapiCamImgFolder%"
+REM exiftool "-CreateDate" "%MapiCamImgFolder%"
 
 
 @echo.
