@@ -38,20 +38,32 @@ mkdir "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
 @echo.
 
 
+
+for %%a in (*) do echo %%~fa
+
 pause
  
-(for /f "delims=" %%a in ('dir /b /s %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames') do @echo %%a) >> "%BlackVue%\Record\jpg\list.txt"
+FOR /f "tokens=*" %%G IN ('dir %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames ^| find "*.jpg"') DO echo %%G >> "%BlackVue%\Record\jpg\list.txt"
+:: (for /f "delims=" %%a in (dir /b /s "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames") do @echo %%a) >> "%BlackVue%\Record\jpg\list.txt"
 
 pause
 pause
 pause
+
+(for %%i in (%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames) do @echo %%i) > %BlackVue%\Record\jpg\list.txt
+
+
+pause
+pause
+pause
+
 
 :: Перенос ВСІХ файлів (.JPG) в окрему папку
 :: це в межах підготовки до зміни дати та прошивки
 :: http://forum.oszone.net/thread-214001.html
 set t=*.jpg
 set c=%BlackVue%\Record\jpg
-dir /b /s %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames >> %t%
+dir /b /s %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames\*\>>%t%
 ::dir /b /s y:\>>%t%
 ::dir /b /s z:\>>%t%
 del /F /Q "%c%\*.*" 2>nul

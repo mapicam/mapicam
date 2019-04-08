@@ -136,16 +136,3 @@ del "%BlackVue%\Record\temp\_temp-*.txt"
 @echo #######################
 pause
 
-
-
-
-
-
-
-
-
-
-
-
-
-
