@@ -14,7 +14,9 @@ set concatMP4=BlackVue-Record-concat.mp4
 mkdir %BlackVue%\Record
 cd %BlackVueDrive%
 :: FIX ERROR https://github.com/mapicam/mapicam/issues/2
-ffmpeg -f concat -safe 0 -i %BlackVue%\%concatTXT% -codec copy %BlackVue%\%concatMP4%
+ffmpeg -y -f concat -safe 0 -i %BlackVue%\%concatTXT% -codec copy %BlackVue%\%concatMP4%
+@echo.
+@echo.
 @echo ###################################################
 @echo ##### END GET BlackVue-Record-Concat          #####
 @echo ###################################################

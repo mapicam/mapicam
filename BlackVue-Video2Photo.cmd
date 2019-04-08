@@ -32,10 +32,12 @@ mapillary_tools video_process --advanced --verbose --user_name velmyshanovnyi --
 
 move "%BlackVue%\Record\*.gpx" "%BlackVue%\Record\gpx"
 
+@echo.
+@echo.
+@echo.
 @echo #######################
 @echo ##### END PROCESS #####
 @echo #######################
-@echo.
 @echo.
 @echo.
 @echo.

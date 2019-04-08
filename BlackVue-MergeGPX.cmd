@@ -145,5 +145,3 @@ move /Y "%BlackVue%\Record\temp\interpolate.gpx" "%BlackVue%\Record\gpx\0"
 @echo.
 @echo.
 @echo.
-@echo.
-
