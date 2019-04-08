@@ -1,6 +1,8 @@
-@echo ##### START BlackVue-Record-Concat        #####
-@echo https://github.com/mapicam/mapicam/wiki
-@echo ###############################################
+@echo ###################################################
+@echo ##### START BlackVue-Record-Concat            #####
+@echo ##### https://github.com/mapicam/mapicam/wiki #####
+@echo ###################################################
+setlocal enableextensions enabledelayedexpansion
 :: BlackVue=F:\BlackVue
 set BlackVue=%1%
 set concatTXT=BlackVue-Record-ListFileMP4.txt
@@ -13,7 +15,9 @@ mkdir %BlackVue%\Record
 cd %BlackVueDrive%
 :: FIX ERROR https://github.com/mapicam/mapicam/issues/2
 ffmpeg -f concat -safe 0 -i %BlackVue%\%concatTXT% -codec copy %BlackVue%\%concatMP4%
-@echo ###############################################
-@echo ##### END GET BlackVue-Record-Concat      #####
-@echo ###############################################
-pause
+@echo ###################################################
+@echo ##### END GET BlackVue-Record-Concat          #####
+@echo ###################################################
+@echo.
+@echo.
+@echo.

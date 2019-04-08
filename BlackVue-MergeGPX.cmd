@@ -45,11 +45,11 @@ set MapiCamTime=%hour%%min%%secs%
 @echo datetimefull = %datetimefull%
 @echo MapiCamDate  = %MapiCamDate%
 @echo MapiCamTime  = %MapiCamTime%
-@echo .
+@echo.
 @echo #####################
 @echo # This is parametrs #
 @echo #####################
-setlocal enabledelayedexpansion
+setlocal enableextensions enabledelayedexpansion
 @set MapiCamGBpath=C:\Progra~2\GPSBabel
 :: BlackVue=F:\BlackVue
 set BlackVue=%1%
@@ -142,5 +142,8 @@ move /Y "%BlackVue%\Record\temp\interpolate.gpx" "%BlackVue%\Record\gpx\0"
 @echo #######################
 @echo ##### END PROCESS #####
 @echo #######################
-
+@echo.
+@echo.
+@echo.
+@echo.
 

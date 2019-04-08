@@ -122,4 +122,7 @@ exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_orig
 @echo #######################
 @echo ##### END PROCESS #####
 @echo #######################
-pause
+@echo.
+@echo.
+@echo.
+@echo.

@@ -5,11 +5,11 @@
 @echo ## @velmyshanovnyi ##
 @echo ##         (c)2019 ##
 @echo #####################
-@echo 
+@echo. 
 @echo #####################
 @echo ####   ReadMe   #####
 @echo #####################
-@echo 
+@echo. 
 @echo https://t.me/osmUA
 @echo https://t.me/MapillaryUkraine
 @echo https://t.me/MapillaryUkraineChat
@@ -20,8 +20,6 @@ pause
 
 ::1
 D:\mapicam\BlackVue-Record-ListFileMP4.cmd F:\BlackVue
-
-pause
 
 ::2
 D:\mapicam\BlackVue-Record-Concat.cmd F:\BlackVue

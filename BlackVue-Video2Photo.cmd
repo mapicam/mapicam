@@ -1,7 +1,8 @@
-@echo ##### START BlackVueVideo2Photo ###############
-@echo https://github.com/mapicam/mapicam/wiki
-@echo ###############################################
-setlocal enabledelayedexpansion
+@echo ###################################################
+@echo ##### START BlackVueVideo2Photo               #####
+@echo ##### https://github.com/mapicam/mapicam/wiki #####
+@echo ###################################################
+setlocal enableextensions enabledelayedexpansion
 :: BlackVue=F:\BlackVue
 set BlackVue=%1%
 :: BlackVueFPS=10
@@ -34,4 +35,7 @@ move "%BlackVue%\Record\*.gpx" "%BlackVue%\Record\gpx"
 @echo #######################
 @echo ##### END PROCESS #####
 @echo #######################
-pause
+@echo.
+@echo.
+@echo.
+@echo.
