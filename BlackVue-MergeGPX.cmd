@@ -64,23 +64,37 @@ mkdir %BlackVue%\Record\gpxInterpolate
 
 
 :: ПОТІМ змінити назву файла на "merge.gpx"
-if not exist "%BlackVue%\Record\gpxMerge\merge.gpx.txt" (
-:: якщо "merge.gpx.txt" не існує, тому його буде створено!
-echo CREATE "%BlackVue%\Record\gpxMerge\merge.gpx.txt"
-echo off > "%BlackVue%\Record\gpxMerge\merge.gpx.txt"
-:: https://ru.stackoverflow.com/questions/912264/%D0%9A%D0%B0%D0%BA-%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BA%D0%B0%D0%B2%D1%8B%D1%87%D0%BA%D0%B8
-:: екранувати символи
-
+if not exist "%BlackVue%\Record\gpxMerge\mergeTemp-1.txt" (
+:: якщо "mergeTemp-1.txt" не існує, тому його буде створено!
+echo CREATE "%BlackVue%\Record\gpxMerge\mergeTemp-1.txt"
 :: <?xml version="1.0" encoding="UTF-8"?>
-echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^>>>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
+echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-1.txt"
 :: <gpx version="1.0" creator="GPSBabel - http://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/0">
-echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^>>>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
+echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-1.txt"
 :: <time>2019-04-07T23:39:36.706Z</time>
-echo ^<time^>%datetimefull%^</time^>>>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
+echo ^<time^>%datetimefull%^</time^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-1.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
-echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
+echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-1.txt"
+) else (echo FILE "%BlackVue%\Record\gpxMerge\mergeTemp-1.txt" = TRUE) 
 
-) else (echo FILE "%BlackVue%\Record\gpxMerge\merge.gpx.txt" = TRUE) 
+
+
+if not exist "%BlackVue%\Record\gpxMerge\mergeTemp-3.txt" (
+:: якщо "mergeTemp-3.txt" не існує, тому його буде створено!
+echo CREATE "%BlackVue%\Record\gpxMerge\mergeTemp-3.txt"
+:: </trkseg>
+echo ^</trkseg^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-3.txt"
+:: </trk>
+echo ^</trk^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-3.txt"
+:: </gpx>
+echo ^</gpx^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-3.txt"
+) else (echo FILE "%BlackVue%\Record\gpxMerge\mergeTemp-3.txt" = TRUE) 
+
+
+
+
+copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\gpxMerge\mergeTemp-2.txt"
+
 
 
 
@@ -89,10 +103,26 @@ echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"
 
 
 pause
+pause
+pause
 
-set i=
+
+
+for %%f in (%BlackVue%\Record\gpx\*.gpx) do echo.>>%%f
+
+
+
+
+
+
+
+
+
+
 cd /d %BlackVue%\Record\gpx
-(FOR %%i in (%BlackVue%\Record\gpx\*.gpx)  do @echo %%i) >> "%BlackVue%\Record\gpxMerge\merge.gpx.txt"
+(FOR %%i in (%BlackVue%\Record\gpx\*.gpx)  do copy "%%i" "%BlackVue%\Record\gpxMerge\merge.gpx.txt" /a)
+::(FOR %%i in (%BlackVue%\Record\gpx\*.gpx)  do copy "%%i" "%BlackVue%\Record\gpxMerge\merge.gpx.txt") >> "%BlackVue%\Record\gpxMerge\merge.gpx.txt"
+::(FOR %%i in (%BlackVue%\Record\gpx\*.gpx)  do @echo %%i) >> "%BlackVue%\Record\gpxMerge\merge.gpx.txt"
 
 ::set i=
 ::cd /d %BlackVue%\Record\gpx
