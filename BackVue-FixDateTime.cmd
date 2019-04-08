@@ -129,17 +129,25 @@ exiftool "-FileAccessDate<DateTimeOriginal" %MapiCamImgFolder%" -overwrite_origi
 	:: закоментовано після того, як було оптимізовано скрипт який повертає фотки
 	:: exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
 
-	
-@echo <...>\python27\python <десь>\mapillary_tools\python\add_fix_dates.py <каталог з фото>\ "2019-03-27 14:07:08"
-C:\Python27\python.exe D:\mapicam\tools\mapillary\mapillary_tools\python\add_fix_dates.py "%MapiCamImgFolder%" "2019-12-31 23:59:59"
-	
+    :: ----- (c)Mykhaylo Solodzhuk -------
+    :: Наразі закоментовую (і лишаю на майбутнє) в звЯзку з тим що скрипт для BlackVue відпрацьовує стабільно на базі поточної схеми
+    ::  <...>\python27\python <десь>\mapillary_tools\python\add_fix_dates.py <каталог з фото>\ "2019-03-27 14:07:08"
+    :: C:\Python27\python.exe D:\mapicam\tools\mapillary\mapillary_tools\python\add_fix_dates.py "%MapiCamImgFolder%" "2019-12-31 23:59:59"
+    :: ----- (c)Mykhaylo Solodzhuk END ---
 	
 	:: ---------------------
 	:: параметри для %MapiCamGeotagFromGpxPy%:
 	:: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
 	:: УВАГА! цей скрипт від попередньої версії
-python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0\interpolate.gpx" --offset_angle %offsetAngle%
+				
+			REM python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0\interpolate.gpx" --offset_angle %offsetAngle%
 
+			REM Traceback (most recent call last):
+			  REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 234, in <module>
+				REM add_exif_using_timestamp(filepath, filetime, gpx, args.time_offset, args.offset_angle)
+			  REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 102, in add_exif_using_timestamp
+				REM t = time - datetime.timedelta(seconds=offset_time)
+			REM TypeError: unsupported operand type(s) for -: 'str' and 'datetime.timedelta'
 
 
 exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
@@ -163,3 +171,5 @@ exiftool "-CreateDate" "%MapiCamImgFolder%"
 @echo.
 @echo.
 @echo.
+
+cmd /k
