@@ -32,6 +32,8 @@ setlocal enableextensions enabledelayedexpansion
 @set MapiCamImgDIR=00
 @set MapiCamImgDIR=%2%
 @set MapiCamHead=0
+@set MapiCamHeadXX=%MapiCamHead%
+@set offsetAngle=%MapiCamHeadXX%
 @set MapiCamImgDateDIR=20190319
 @set MapiCamInterpolationPy="D:\mapicam_tools\mapillary\mapillary_tools-master\mapillary_tools\interpolation.py"
 @set MapiCamGeotagFromGpxPy="D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py"
@@ -52,6 +54,8 @@ setlocal enableextensions enabledelayedexpansion
 @echo MapiCamGeotagFromGpxPy     = %MapiCamGeotagFromGpxPy%
 @echo MapiCamMapillaryTools      = %MapiCamMapillaryTools%
 @echo MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
+@echo MapiCamHeadXX              = %MapiCamHeadXX%
+@echo offsetAngle                = %offsetAngle%
 @echo #####################
 @echo .
 @echo .
@@ -81,11 +85,30 @@ REM pause
 REM Use ping to wait
 ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 
+@echo.
+@echo #####################
+@echo.
+
+exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
+exiftool "-FileModifyDate" "%MapiCamImgFolder%"
+exiftool "-FileCreateDate" "%MapiCamImgFolder%"
+exiftool "-DateTime" "%MapiCamImgFolder%"
+exiftool "-CreateDate" "%MapiCamImgFolder%"
+
+@echo.
+@echo #####################
+@echo.
+
+exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+
+
+
 
 :: ===== BlackVue START =============
 @set MapiCamNameXX=BlackVue
-@set MapiCamHeadXX=0
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%" -overwrite_original
+@set offsetAngle=0
+exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+::exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%" -overwrite_original
 ::ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 	:: ---------------------
 	:: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
@@ -100,22 +123,37 @@ exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%" -overwrite_orig
 exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgFolder%" -overwrite_original
 exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
-    :: ---------------------
-	:: Працює і без цього (закоментовано для підвищення продуктивності)
-	:: exiftool "-FileAccessDate<DateTimeOriginal" %MapiCamImgFolder%" -overwrite_original
+	:: Працює і без "FileAccessDate" (можна сміливо закоментовувати для підвищення продуктивності)
+exiftool "-FileAccessDate<DateTimeOriginal" %MapiCamImgFolder%" -overwrite_original
 	:: ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-	
 	:: закоментовано після того, як було оптимізовано скрипт який повертає фотки
-	:: exiftool -geotag %MapiCamGpxFolder%\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
+	:: exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
 
+	
+@echo <...>\python27\python <десь>\mapillary_tools\python\add_fix_dates.py <каталог з фото>\ "2019-03-27 14:07:08"
+C:\Python27\python.exe D:\mapicam\tools\mapillary\mapillary_tools\python\add_fix_dates.py "%MapiCamImgFolder%" "2019-12-31 23:59:59"
+	
+	
 	:: ---------------------
 	:: параметри для %MapiCamGeotagFromGpxPy%:
 	:: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
-python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\interpolate.gpx" --offset_angle %MapiCamHeadXX%
+	:: УВАГА! цей скрипт від попередньої версії
+python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0\interpolate.gpx" --offset_angle %offsetAngle%
+
+
+
 exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
 exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 
 :: ===== BlackVue END ===========
+
+
+exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
+exiftool "-FileModifyDate" "%MapiCamImgFolder%"
+exiftool "-FileCreateDate" "%MapiCamImgFolder%"
+exiftool "-DateTime" "%MapiCamImgFolder%"
+exiftool "-CreateDate" "%MapiCamImgFolder%"
+
 
 @echo.
 @echo.
