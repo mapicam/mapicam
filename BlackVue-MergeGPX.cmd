@@ -107,15 +107,11 @@ copy "%BlackVue%\Record\temp\_temp-1.txt"+"%BlackVue%\Record\temp\_temp-4.txt"+"
 :: взято тут http://itman.in/remove-lines-from-file/
 type "%BlackVue%\Record\temp\_temp-5.txt" | findstr /v \x0D0A | findstr /v \x0A>>"%BlackVue%\Record\temp\_temp-6.txt"
 
-
-
-
-
-
-
-
-
+:: СТВОРЮЄМО базовий .gpx
 copy "%BlackVue%\Record\temp\_temp-6.txt" "%BlackVue%\Record\temp\merge.gpx"
+
+:: ВИДАЛЯЄМО тимчасові файли
+del "%BlackVue%\Record\temp\_temp-*.txt"
 
 @echo.
 @echo Remove Duplicates (duplicate)

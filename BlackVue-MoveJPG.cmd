@@ -57,27 +57,26 @@ set BlackVueFPS=%2%
 @echo BlackVue         = %BlackVue%
 @echo BlackVueFPS      = %BlackVueFPS%
 @echo.
+@echo "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
+@echo.
 mkdir "%BlackVue%\Record"
 mkdir "%BlackVue%\Record\jpg"
 mkdir "%BlackVue%\Record\%BlackVueFPS%fps"
 mkdir "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
 @echo.
+
 :: Перенос ВСІХ файлів (.JPG) в окрему папку
 :: це в межах підготовки до зміни дати та прошивки
 :: http://forum.oszone.net/thread-214001.html
 set t=*.jpg
 set c=%BlackVue%\Record\jpg
-
-dir /b /s %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames\>>%t%
+dir /b /s %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames\*\>>%t%
 ::dir /b /s y:\>>%t%
 ::dir /b /s z:\>>%t%
-md %c%\
 del /F /Q "%c%\*.*" 2>nul
-For /F "Delims=" %%I in ('^<"%t%" find /i ".jpg"') do copy "%%I" "%c%\"
+for /F "delims=" %%I in ('^<"%t%" find /i ".jpg"') do copy "%%I" "%c%\"
 del /F /Q "%t%" 2>nul
 @echo.
-
-
 @echo.
 @echo #######################
 @echo ##### END PROCESS #####

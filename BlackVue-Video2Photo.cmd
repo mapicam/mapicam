@@ -8,11 +8,11 @@ set BlackVue=%1%
 set BlackVueFPS=%2%
 :: BlackVueInterval=0.1
 set BlackVueInterval=%3%
-@echo .
+@echo.
 @echo BlackVue         = %BlackVue%
 @echo BlackVueFPS      = %BlackVueFPS%
 @echo BlackVueInterval = %BlackVueInterval%
-@echo .
+@echo.
 mkdir "%BlackVue%\Record"
 mkdir "%BlackVue%\Record\%BlackVueFPS%fps"
 mkdir "%BlackVue%\Record\gpx"
