@@ -39,11 +39,49 @@ mkdir "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
 
 
 
-for %%a in (*) do echo %%~fa
+:: СПРОБУВАТИ ЩЕ ЦЕ http://www.cyberforum.ru/cmd-bat/thread734403.html
+setlocal enableextensions enabledelayedexpansion
+set "WORKPATH=E:\VIDEO\"
+set etime=1400 
+rem выставляем пороговое время на 14:00 и убираем разделитель ":"
+   rem ищем все файлы с расширением ".jpg", в папке E:\VIDEO\ и всех его подкаталогах.
+for /f %%I in ('dir /b/s/a-d "%WORKPATH%" ^| findstr /i ".jpg"') do (call :1 "%%I")
+endlocal
+exit  
+:1
+rem форматируем дату/время создания файла и извлекаем переменную времени
+set tr=%~t1
+set tr=%tr:.=%
+set tv=%tr:~9,5%
+set tv=%tv::=%
+rem сравниваем время создания файла (больше, либо равно) с нашим пороговым значением, и копируем такие файлы в D:\video\
+if %tv% GTR %etime% copy %~1 D:\video\%~nx1
+
+
+
+
+
 
 pause
  
-FOR /f "tokens=*" %%G IN ('dir %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames ^| find "*.jpg"') DO echo %%G >> "%BlackVue%\Record\jpg\list.txt"
+ 
+
+
+cd /d "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
+for %%a in ("%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames\*\*.jpg") do echo %%~fa > %BlackVue%\Record\jpg\list.txt
+
+pause
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+for /f "tokens=*" %%G IN ('dir %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames ^| find "*.jpg"') DO echo %%G >> "%BlackVue%\Record\jpg\list.txt"
 :: (for /f "delims=" %%a in (dir /b /s "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames") do @echo %%a) >> "%BlackVue%\Record\jpg\list.txt"
 
 pause
