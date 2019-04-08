@@ -63,4 +63,4 @@ move /Y "%%I" "%BlackVue%\Record\jpg"
 @echo #######################
 @echo ##### END PROCESS #####
 @echo #######################
-pause
+

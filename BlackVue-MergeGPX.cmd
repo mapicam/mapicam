@@ -35,7 +35,7 @@ set secs=%time:~6,2%
 set datetimefull=%year%-%month%-%day%T%hour%:%min%:%secs%Z
 set MapiCamDate=%year%%month%%day%
 set MapiCamTime=%hour%%min%%secs%
-@echo .
+@echo.
 @echo year         = %year%
 @echo month        = %month%
 @echo day          = %day%
@@ -142,5 +142,5 @@ move /Y "%BlackVue%\Record\temp\interpolate.gpx" "%BlackVue%\Record\gpx\0"
 @echo #######################
 @echo ##### END PROCESS #####
 @echo #######################
-pause
+
 
