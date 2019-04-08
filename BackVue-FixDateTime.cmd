@@ -19,14 +19,14 @@
 :: #####################
 :: # This is parametrs #
 :: #####################
-setlocal EnableDelayedExpansion
+setlocal enableextensions enabledelayedexpansion
 @set MapiCamFFpath=c:\ffmpeg\bin
 :: BlackVue=F:\BlackVue
 @set BlackVue=%1%
 :: BlackVueFPS=10
 @set BlackVueFPS=%2%
-::   MapiCamImgFolder=%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames\20190404_090027_NF\
-@set MapiCamImgFolder=%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames\20190404_090027_NF\
+::   MapiCamImgFolder=%BlackVue%\Record\jpg
+@set MapiCamImgFolder=%BlackVue%\Record\jpg
 @set MapiCamGpxFolder=%BlackVue%\Record\gpx
 
 @set MapiCamImgDIR=00
@@ -82,95 +82,44 @@ REM Use ping to wait
 ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 
 
-
-
-:: ===== TEST ==========
-@set MapiCamNameXX=0
+:: ===== BlackVue START =============
+@set MapiCamNameXX=BlackVue
 @set MapiCamHeadXX=0
 exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%" -overwrite_original
-ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
+::ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 	:: ---------------------
 	:: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
 	:: exiftool "-DateTimeOriginal-=0:0:0 2:00:00" "%MapiCamImgFolder%" -overwrite_original
-	::
+
 	:: MapiCamFixZnak1
 	:: exiftool "-DateTimeOriginal%MapiCamFixZnak1%=%MapiCamFixDate% %MapiCamFixTime%" "%MapiCamImgFolder%" -overwrite_original
-	:: 
+
 	:: MapiCamFixZnak2
 	:: exiftool "-DateTimeOriginal%MapiCamFixZnak2%=%MapiCamFixDate% %MapiCamFixTime%" "%MapiCamImgFolder%" -overwrite_original
 	:: ---------------------
 exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgFolder%" -overwrite_original
 exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
+    :: ---------------------
 	:: Працює і без цього (закоментовано для підвищення продуктивності)
-	:: exiftool "-FileAccessDate<DateTimeOriginal" "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" -overwrite_original
+	:: exiftool "-FileAccessDate<DateTimeOriginal" %MapiCamImgFolder%" -overwrite_original
 	:: ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-	:: прибрано після того, як було оптимізовано скрипт який повертає фотки
-	:: exiftool -geotag %MapiCamImgDrive%\%MapiCamGpxFolder%\0-%MapiCamImgDateDIR%.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
-	:: --------
+	
+	:: закоментовано після того, як було оптимізовано скрипт який повертає фотки
+	:: exiftool -geotag %MapiCamGpxFolder%\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
+
+	:: ---------------------
 	:: параметри для %MapiCamGeotagFromGpxPy%:
 	:: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
-python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0-%MapiCamImgDateDIR%.gpx" --offset_angle %MapiCamHeadXX%
+python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\interpolate.gpx" --offset_angle %MapiCamHeadXX%
 exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
 exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 
-pause
+:: ===== BlackVue END ===========
 
-:: mapillary_tools.exe process_and_upload --advanced --import_path D:/**** --user_name **** --interpolate_directions
-:: %MapiCamMapillaryTools% process --advanced --import_path "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" --user_name %MapiCamUsernameAtMapillary%  --interpolate_directions --duplicate_distance 0.5 --skip_subfolders 
-
-:: %MapiCamMapillaryTools% process --advanced --import_path "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" --user_name %MapiCamUsernameAtMapillary%  --interpolate_directions --offset_angle %MapiCamHeadXX% --skip_subfolders 
-
-:: mapillary_tools process --advanced --import_path "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" --user_name %MapiCamUsernameAtMapillary%  --interpolate_directions --offset_angle %MapiCamHeadXX% --skip_subfolders 
-
-:: mapillary_tools process --advanced --import_path "%MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%" --user_name %MapiCamUsernameAtMapillary% --offset_time "offset time"  --interpolate_directions --offset_angle %MapiCamHeadXX% --geotag_source "gpx" --geotag_source_path "%MapiCamImgDrive%\%MapiCamGpxFolder%\0-%MapiCamImgDateDIR%.gpx" --skip_subfolders 
-
-pause
-
-REM @echo off
-REM c:\python27\python D:\mapicam_tools\mapillary\mapillary_tools\python\add_fix_dates.py C:\Mapillary\src\0\A\ "2019-03-19 10:44:47" 1
-REM c:\python27\python D:\mapicam_tools\mapillary\mapillary_tools\python\add_fix_dates.py C:\Mapillary\src\0\B\ "2019-03-19 10:44:47" 1
-REM c:\python27\python D:\mapicam_tools\mapillary\mapillary_tools\python\add_fix_dates.py C:\Mapillary\src\0\C\ "2019-03-19 10:44:47" 1
-REM c:\python27\python D:\mapicam_tools\mapillary\mapillary_tools\python\geotag_from_gpx.py C:\Mapillary\src\0\A\ C:\Mapillary\src\0\0-20190319.gpx 
-REM c:\python27\python D:\mapicam_tools\mapillary\mapillary_tools\python\geotag_from_gpx.py C:\Mapillary\src\0\B\ C:\Mapillary\src\0\0-20190319.gpx --offset_angle -45
-REM c:\python27\python D:\mapicam_tools\mapillary\mapillary_tools\python\geotag_from_gpx.py C:\Mapillary\src\0\C\ C:\Mapillary\src\0\0-20190319.gpx --offset_angle 45
-
-
-@echo . ============= END TEST =================
-pause
-@echo . ============= END TEST =================
-pause
-
-
-:: ===== A =============
-@set MapiCamNameXX=A
-@set MapiCamHeadXX=0
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%" -overwrite_original
-ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgFolder%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
-REM :: прибрано після того, як було оптимізовано скрипт який повертає фотки
-REM :: exiftool -geotag %%\%MapiCamGpxFolder%\*.gpx %%\%MapiCamImgFolder%\%MapiCamImgDateDIR%\%MapiCamNameXX%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
-REM :: --------
-REM :: параметри для %MapiCamGeotagFromGpxPy%:
-REM :: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
-python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0-%MapiCamImgDateDIR%.gpx" --offset_angle %MapiCamHeadXX%
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-
-:: ===== END ===========
-
-::exiftool -gpsimgdirection=0   %MapiCamImgDateDIR%\A\adjusted\*.jpg -overwrite_original
-::exiftool -gpsimgdirection=315 %MapiCamImgDateDIR%\B\adjusted\*.jpg -overwrite_original
-::exiftool -gpsimgdirection=45  %MapiCamImgDateDIR%\C\adjusted\*.jpg -overwrite_original
-::exiftool -gpsimgdirection=270 %MapiCamImgDateDIR%\D\adjusted\*.jpg -overwrite_original
-::exiftool -gpsimgdirection=90  %MapiCamImgDateDIR%\E\adjusted\*.jpg -overwrite_original
-::exiftool -gpsimgdirection=135 %MapiCamImgDateDIR%\F\adjusted\*.jpg -overwrite_original
-::exiftool -gpsimgdirection=180 %MapiCamImgDateDIR%\G\adjusted\*.jpg -overwrite_original
-::exiftool -gpsimgdirection=225 %MapiCamImgDateDIR%\H\adjusted\*.jpg -overwrite_original
-
-
-
-ECHO ##### GOTOVO :) #####
+@echo.
+@echo.
+@echo #######################
+@echo ##### END PROCESS #####
+@echo #######################
 pause

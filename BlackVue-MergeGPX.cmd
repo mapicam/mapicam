@@ -58,6 +58,7 @@ set BlackVue=%1%
 @echo BlackVue         = %BlackVue%
 @echo.
 mkdir %BlackVue%\Record\gpx
+mkdir %BlackVue%\Record\gpx\0
 mkdir %BlackVue%\Record\temp
 
 :: СТВОРЮЄМО ПРЕФІКС
@@ -128,6 +129,13 @@ del "%BlackVue%\Record\temp\_temp-*.txt"
 @echo https://www.gpsbabel.org/htmldoc-development/filter_interpolate.html
 %MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\temp\duplicate.gpx" -x interpolate,time=1 -o gpx -F "%BlackVue%\Record\temp\interpolate.gpx"
 @echo.
+
+
+:: ПЕРЕНОСИМО готові .gpx до папки GPX
+mkdir %BlackVue%\Record\gpx\0
+move /Y "%BlackVue%\Record\temp\merge.gpx" "%BlackVue%\Record\gpx\0"
+move /Y "%BlackVue%\Record\temp\duplicate.gpx" "%BlackVue%\Record\gpx\0"
+move /Y "%BlackVue%\Record\temp\interpolate.gpx" "%BlackVue%\Record\gpx\0"
 
 
 @echo.
