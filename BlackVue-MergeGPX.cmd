@@ -58,36 +58,34 @@ set BlackVue=%1%
 @echo BlackVue         = %BlackVue%
 @echo.
 mkdir %BlackVue%\Record\gpx
-mkdir %BlackVue%\Record\gpxMerge
-mkdir %BlackVue%\Record\gpxDuplicate
-mkdir %BlackVue%\Record\gpxInterpolate
+mkdir %BlackVue%\Record\temp
 
 :: СТВОРЮЄМО ПРЕФІКС
-if not exist "%BlackVue%\Record\gpxMerge\_temp-1.txt" (
+if not exist "%BlackVue%\Record\temp\_temp-1.txt" (
 :: якщо "mergeTemp-1.txt" не існує, тому його буде створено!
-echo CREATE "%BlackVue%\Record\gpxMerge\_temp-1.txt"
+echo CREATE "%BlackVue%\Record\temp\_temp-1.txt"
 :: <?xml version="1.0" encoding="UTF-8"?>
-echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^>>"%BlackVue%\Record\gpxMerge\_temp-1.txt"
+echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^>>"%BlackVue%\Record\temp\_temp-1.txt"
 :: <gpx version="1.0" creator="GPSBabel - http://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/0">
-echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^>>>"%BlackVue%\Record\gpxMerge\_temp-1.txt"
+echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^>>>"%BlackVue%\Record\temp\_temp-1.txt"
 :: <time>2019-04-07T23:39:36.706Z</time>
-echo ^<time^>%datetimefull%^</time^>>>"%BlackVue%\Record\gpxMerge\_temp-1.txt"
+echo ^<time^>%datetimefull%^</time^>>>"%BlackVue%\Record\temp\_temp-1.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
-echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\gpxMerge\_temp-1.txt"
-) else (echo FILE "mergeTemp-1.txt" = EXIST) 
+echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\temp\_temp-1.txt"
+) else (echo FILE "_temp-1.txt" = EXIST) 
 
 
 :: СТВОРЮЄМО СУФІКС
-if not exist "%BlackVue%\Record\gpxMerge\_temp-3.txt" (
+if not exist "%BlackVue%\Record\temp\_temp-3.txt" (
 :: якщо "mergeTemp-3.txt" не існує, тому його буде створено!
-echo CREATE "%BlackVue%\Record\gpxMerge\_temp-3.txt"
+echo CREATE "%BlackVue%\Record\temp\_temp-3.txt"
 :: </gpx>
-echo ^</gpx^>>"%BlackVue%\Record\gpxMerge\_temp-3.txt"
-) else (echo FILE "mergeTemp-3.txt" = EXIST) 
+echo ^</gpx^>>"%BlackVue%\Record\temp\_temp-3.txt"
+) else (echo FILE "_temp-3.txt" = EXIST) 
 
 
 :: СТВОРЮЄМО ТІЛО
-copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\gpxMerge\_temp-2.txt"
+copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\temp\_temp-2.txt"
 
 
 :: ВИЧИЩАЄМО З ТІЛА ЗАЙВІ ТЕГИ
@@ -95,19 +93,34 @@ copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\gpxMerge\_temp-2.txt"
 :: <gpx>
 :: </gpx>
 :: взято тут http://itman.in/remove-lines-from-file/
-type "%BlackVue%\Record\gpxMerge\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^>>>"%BlackVue%\Record\gpxMerge\_temp-4.txt"
+type "%BlackVue%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^>>>"%BlackVue%\Record\temp\_temp-4.txt"
 
 
 :: СКЛЕЮЄМО ПРЕФІКС+ТІЛО+СУФІКС
-copy "%BlackVue%\Record\gpxMerge\_temp-1.txt"+"%BlackVue%\Record\gpxMerge\_temp-4.txt"+"%BlackVue%\Record\gpxMerge\_temp-3.txt" "%BlackVue%\Record\gpxMerge\merge.gpx"
+copy "%BlackVue%\Record\temp\_temp-1.txt"+"%BlackVue%\Record\temp\_temp-4.txt"+"%BlackVue%\Record\temp\_temp-3.txt" "%BlackVue%\Record\temp\_temp-5.txt"
 @echo.
 @echo #######################
 
 
+:: ВИДАЛЯЄМО останній рядок, бо в ньому іноді зЯвляється символ переносу каретки, який спричиняє збої в подальшій обробці
+:: \x0D0A або \x0A
+:: взято тут http://itman.in/remove-lines-from-file/
+type "%BlackVue%\Record\temp\_temp-5.txt" | findstr /v \x0D0A | findstr /v \x0A>>"%BlackVue%\Record\temp\_temp-6.txt"
+
+
+
+
+
+
+
+
+
+copy "%BlackVue%\Record\temp\_temp-6.txt" "%BlackVue%\Record\temp\merge.gpx"
+
 @echo.
 @echo Remove Duplicates (duplicate)
 :: https://www.gpsbabel.org/htmldoc-development/filter_duplicate.html
-%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\gpxMerge\merge.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVue%\Record\gpxDuplicate\duplicate.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\temp\merge.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVue%\Record\temp\duplicate.gpx"
 @echo.
 
 
@@ -117,7 +130,7 @@ copy "%BlackVue%\Record\gpxMerge\_temp-1.txt"+"%BlackVue%\Record\gpxMerge\_temp-
 :: це допомагає боротись з провалами під мостами, та в щільній забудові.
 :: Інтерполяцію не закоментовувати!!!!
 @echo https://www.gpsbabel.org/htmldoc-development/filter_interpolate.html
-%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\gpxDuplicate\duplicate.gpx" -x interpolate,time=1 -o gpx -F "%BlackVue%\Record\gpxInterpolate\interpolate.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\temp\duplicate.gpx" -x interpolate,time=1 -o gpx -F "%BlackVue%\Record\temp\interpolate.gpx"
 @echo.
 
 
