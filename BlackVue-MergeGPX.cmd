@@ -81,13 +81,7 @@ echo ^<time^>%datetimefull%^</time^>>>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
 echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
 ) else (
-echo FILE "%BlackVue%\Record\gpxMerge\merge.gpx.txt" = TRUE
-echo Good bye123   >>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
-echo Good bye1234  >>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
-echo Good bye12345 >>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
-echo %TIME%        >>"%BlackVue%\Record\gpxMerge\merge.gpx.txt"
-
-)
+echo FILE "%BlackVue%\Record\gpxMerge\merge.gpx.txt" = TRUE) 
 
 
 
