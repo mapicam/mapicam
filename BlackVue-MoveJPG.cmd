@@ -21,7 +21,7 @@
 @echo #####################
 @echo # This is parametrs #
 @echo #####################
-setlocal enabledelayedexpansion
+setlocal enableextensions enabledelayedexpansion
 :: BlackVue=F:\BlackVue
 set BlackVue=%1%
 :: BlackVueFPS=10
@@ -37,17 +37,25 @@ mkdir "%BlackVue%\Record\%BlackVueFPS%fps"
 mkdir "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
 @echo.
 
-
-:: Перенос ВСІХ файлів (.JPG) в окрему папку
+:: Перенос(копіювання) ВСІХ файлів (.JPG) в окрему папку
 :: це в межах підготовки до зміни дати та прошивки
 :: http://www.cyberforum.ru/cmd-bat/thread734403.html
+:: copy /Y 111 222            // https://ab57.ru/cmdlist/copy.html
+:: xcopy 111 222 /Y /H /R     // https://ab57.ru/cmdlist/xcopy.html
+:: move /Y 111 222            // https://ab57.ru/cmdlist/move.html
+:: copy|xcopy|move --> /Y - це перезаписувати без попередження
+:: xcopy           --> /Q - Запрет вывода имен копируемых файлов.
+:: xcopy           --> /H - Копирование, среди прочих, скрытых и системных файлов.
+:: xcopy           --> /R - Перезапись файлов, предназначенных только для чтения.
 setlocal enableextensions enabledelayedexpansion
 for /f %%I in ('dir /b/s/a-d "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do (
-copy "%%I" "%BlackVue%\Record\jpg"
+:: copy /Y "%%I" "%BlackVue%\Record\jpg"
+:: xcopy "%%I" /Y /H /R "%BlackVue%\Record\jpg"
+move /Y "%%I" "%BlackVue%\Record\jpg"
 )
 	:: ДООПРАЦЮВАТИ ПІЗНІШЕ. ЩОБ КОПІЮВАЛО ПАПКАМИ !
 	::for /f %%I in ('dir /b/s/a-d "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".mapillary"') do (
-	::xcopy "%%I" "%BlackVue%\Record\jpg"
+	::xcopy "%%I" /Y "%BlackVue%\Record\jpg"
 	::)
 
 @echo.
