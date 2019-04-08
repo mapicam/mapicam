@@ -53,16 +53,16 @@ setlocal enabledelayedexpansion
 @set MapiCamGBpath=C:\Progra~2\GPSBabel
 :: BlackVue=F:\BlackVue
 set BlackVue=%1%
-@echo .
+@echo.
 @echo MapiCamGBpath    = %MapiCamGBpath%
 @echo BlackVue         = %BlackVue%
-@echo .
+@echo.
 mkdir %BlackVue%\Record\gpx
 mkdir %BlackVue%\Record\gpxMerge
 mkdir %BlackVue%\Record\gpxDuplicate
 mkdir %BlackVue%\Record\gpxInterpolate
 
-
+:: СТВОРЮЄМО ПРЕФІКС
 :: ПОТІМ змінити назву файла на "merge.gpx"
 if not exist "%BlackVue%\Record\gpxMerge\mergeTemp-1.txt" (
 :: якщо "mergeTemp-1.txt" не існує, тому його буде створено!
@@ -75,10 +75,10 @@ echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=
 echo ^<time^>%datetimefull%^</time^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-1.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
 echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-1.txt"
-) else (echo FILE "%BlackVue%\Record\gpxMerge\mergeTemp-1.txt" = TRUE) 
+) else (echo FILE "mergeTemp-1.txt" = EXIST) 
 
 
-
+:: СТВОРЮЄМО СУФІКС
 if not exist "%BlackVue%\Record\gpxMerge\mergeTemp-3.txt" (
 :: якщо "mergeTemp-3.txt" не існує, тому його буде створено!
 echo CREATE "%BlackVue%\Record\gpxMerge\mergeTemp-3.txt"
@@ -88,19 +88,33 @@ echo ^</trkseg^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-3.txt"
 echo ^</trk^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-3.txt"
 :: </gpx>
 echo ^</gpx^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-3.txt"
-) else (echo FILE "%BlackVue%\Record\gpxMerge\mergeTemp-3.txt" = TRUE) 
+) else (echo FILE "mergeTemp-3.txt" = EXIST) 
 
-
-
-
+:: СТВОРЮЄМО ТІЛО
 copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\gpxMerge\mergeTemp-2.txt"
 
 
+:: ВИЧИЩАЄМО З ТІЛА ЗАЙВІ ТЕГИ
+:: <gpx>
+:: <gpx>
+:: </gpx>
+:: взято тут http://itman.in/remove-lines-from-file/
+type "%BlackVue%\Record\gpxMerge\mergeTemp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^>>>"%BlackVue%\Record\gpxMerge\mergeTemp-2a.txt"
 
 
 
 @echo ########## WORK ##########
 
+
+
+
+
+pause
+
+
+
+
+:: СКЛЕЮЄМО ПРЕФІКС+ТІЛО+СУФІКС
 
 pause
 pause
