@@ -38,83 +38,18 @@ mkdir "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
 @echo.
 
 
-
+:: Перенос ВСІХ файлів (.JPG) в окрему папку
+:: це в межах підготовки до зміни дати та прошивки
+:: http://www.cyberforum.ru/cmd-bat/thread734403.html
 setlocal enableextensions enabledelayedexpansion
 for /f %%I in ('dir /b/s/a-d "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do (
 copy "%%I" "%BlackVue%\Record\jpg"
 )
+	:: ДООПРАЦЮВАТИ ПІЗНІШЕ. ЩОБ КОПІЮВАЛО ПАПКАМИ !
+	::for /f %%I in ('dir /b/s/a-d "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".mapillary"') do (
+	::xcopy "%%I" "%BlackVue%\Record\jpg"
+	::)
 
-
-
-::===========================================
-:: :: ##
-:: :: ## http://www.cyberforum.ru/cmd-bat/thread734403.html
-:: setlocal enableextensions enabledelayedexpansion
-:: :: ## выставляем пороговое время на 14:00 и убираем разделитель ":"
-::set etime=0000 
-:: :: ## ищем все файлы с расширением ".jpg", в папке "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" и всех его подкаталогах.
-:: for /f %%I in ('dir /b/s/a-d "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do (call :1 "%%I")
-:: endlocal
-:: exit
-:: :1
-:: :: ## форматируем дату/время создания файла и извлекаем переменную времени
-:: set tr=%~t1
-:: set tr=%tr:.=%
-:: set tv=%tr:~9,5%
-:: set tv=%tv::=%
-:: :: ## сравниваем время создания файла (больше, либо равно) с нашим пороговым значением, и копируем такие файлы в %BlackVue%\Record\jpg
-:: if %tv% GTR %etime% copy %~1 %BlackVue%\Record\jpg\%~nx1
-
-
-
-
-
-
-pause
- 
- 
-
-
-cd /d "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
-for %%a in ("%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames\*\*.jpg") do echo %%~fa > %BlackVue%\Record\jpg\list.txt
-
-pause
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-for /f "tokens=*" %%G IN ('dir %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames ^| find "*.jpg"') DO echo %%G >> "%BlackVue%\Record\jpg\list.txt"
-:: (for /f "delims=" %%a in (dir /b /s "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames") do @echo %%a) >> "%BlackVue%\Record\jpg\list.txt"
-
-pause
-pause
-pause
-
-(for %%i in (%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames) do @echo %%i) > %BlackVue%\Record\jpg\list.txt
-
-
-pause
-pause
-pause
-
-
-:: Перенос ВСІХ файлів (.JPG) в окрему папку
-:: це в межах підготовки до зміни дати та прошивки
-:: http://forum.oszone.net/thread-214001.html
-set t=*.jpg
-set c=%BlackVue%\Record\jpg
-dir /b /s %BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames\*\>>%t%
-::dir /b /s y:\>>%t%
-::dir /b /s z:\>>%t%
-del /F /Q "%c%\*.*" 2>nul
-for /F "delims=" %%I in ('^<"%t%" find /i ".jpg"') do copy "%%I" "%c%\"
-del /F /Q "%t%" 2>nul
 @echo.
 @echo.
 @echo #######################
