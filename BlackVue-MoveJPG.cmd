@@ -51,8 +51,7 @@ setlocal enableextensions enabledelayedexpansion
 for /f %%I in ('dir /b/s/a-d "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do (
 :: copy /Y "%%I" "%BlackVue%\Record\jpg"
 :: xcopy "%%I" /Y /H /R "%BlackVue%\Record\jpg"
-move /Y "%%I" "%BlackVue%\Record\jpg"
-)
+move /Y "%%I" "%BlackVue%\Record\jpg")
 	:: ДООПРАЦЮВАТИ ПІЗНІШЕ. ЩОБ КОПІЮВАЛО ПАПКАМИ !
 	::for /f %%I in ('dir /b/s/a-d "%BlackVue%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".mapillary"') do (
 	::xcopy "%%I" /Y "%BlackVue%\Record\jpg"
