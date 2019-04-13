@@ -7,7 +7,6 @@
 @echo #                                                 #
 @echo #  www.t.me/osmUA                                 #
 @echo #  @velmyshanovnyi                                #
-@echo #                                                 #
 @echo #                                         (c)2019 #
 @echo #                                                 #
 @echo ###################################################
@@ -36,27 +35,30 @@
 @echo.
 
 ::1
-CALL D:\mapicam\BlackVue-Record-ListFileMP4.cmd F:\BlackVue
+CALL D:\mapicam\BlackVue-1-Record-ListFileMP4.cmd F:\BlackVue
 
 ::2
-CALL D:\mapicam\BlackVue-Record-Concat.cmd F:\BlackVue
+CALL D:\mapicam\BlackVue-2-Record-Concat.cmd F:\BlackVue
 
 ::3
-CALL D:\mapicam\BlackVue-Video2Photo.cmd F:\BlackVue 10 0.1
-:: CALL D:\mapicam\BlackVue-Video2Photo.cmd F:\BlackVue 10 0.5
-:: CALL D:\mapicam\BlackVue-Video2Photo.cmd F:\BlackVue 10 1
+CALL D:\mapicam\BlackVue-3-Video2Photo.cmd F:\BlackVue 10 0.1
+:: CALL D:\mapicam\BlackVue-3-Video2Photo.cmd F:\BlackVue 10 0.5
+:: CALL D:\mapicam\BlackVue-3-Video2Photo.cmd F:\BlackVue 10 1
 
 ::4
-CALL D:\mapicam\BlackVue-MergeGPX.cmd F:\BlackVue
+CALL D:\mapicam\BlackVue-4-MergeGPX.cmd F:\BlackVue
 
 ::5
-CALL D:\mapicam\BlackVue-MoveJPG.cmd F:\BlackVue 10
+CALL D:\mapicam\BlackVue-5-MoveJPG.cmd F:\BlackVue 10
 
 ::6
-CALL D:\mapicam\BackVue-FixDateTime.cmd F:\BlackVue 01
+CALL D:\mapicam\BlackVue-6-FixDateTime.cmd F:\BlackVue 01
 
 ::7
+CALL D:\mapicam\BlackVue-7-Gpx2Exif.cmd F:\BlackVue 01
 
+
+::8
 
 @echo.
 @echo.

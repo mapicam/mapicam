@@ -1,20 +1,32 @@
-:: #####################
-:: ###### MapiCam ######
-:: #####################
-:: ## www.t.me/osmUA  ##
-:: ## @velmyshanovnyi ##
-:: ##         (c)2019 ##
-:: #####################
-:: 
-:: #####################
-:: ####   ReadMe   #####
-:: #####################
-:: 
-:: https://t.me/osmUA
-:: https://t.me/MapillaryUkraine
-:: https://t.me/MapillaryUkraineChat
-:: https://github.com/mapicam/mapicam
-:: https://github.com/mapicam/mapicam/wiki <-- READ ME!
+::
+:: ###################################################
+:: #                                                 #
+:: #                    MapiCam                      #
+:: #                                                 #
+:: ###################################################
+:: #                                                 #
+:: #  www.t.me/osmUA                                 #
+:: #  @velmyshanovnyi                                #
+:: #                                         (c)2019 #
+:: #                                                 #
+:: ###################################################
+::
+:: ###################################################
+:: #                                                 #
+:: #                    ReadMe                       #
+:: #                                                 #
+:: ###################################################
+::
+:: ###################################################
+:: #                                                 #
+:: # https://t.me/osmUA                              #
+:: # https://t.me/MapillaryUkraine                   #
+:: # https://t.me/MapillaryUkraineChat               #
+:: # https://github.com/mapicam/mapicam              #
+:: # https://github.com/mapicam/mapicam/wiki         #
+:: #                                                 #
+:: ###################################################
+::
 :: 
 :: https://stackoverflow.com/questions/38554131/merge-all-gpx-files-within-a-folder-into-one-file-with-gpsbabel 
 :: 

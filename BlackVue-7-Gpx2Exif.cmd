@@ -1,0 +1,168 @@
+::
+:: ###################################################
+:: #                                                 #
+:: #                    MapiCam                      #
+:: #                                                 #
+:: ###################################################
+:: #                                                 #
+:: #  www.t.me/osmUA                                 #
+:: #  @velmyshanovnyi                                #
+:: #                                         (c)2019 #
+:: #                                                 #
+:: ###################################################
+::
+:: ###################################################
+:: #                                                 #
+:: #                    ReadMe                       #
+:: #                                                 #
+:: ###################################################
+::
+:: ###################################################
+:: #                                                 #
+:: # https://t.me/osmUA                              #
+:: # https://t.me/MapillaryUkraine                   #
+:: # https://t.me/MapillaryUkraineChat               #
+:: # https://github.com/mapicam/mapicam              #
+:: # https://github.com/mapicam/mapicam/wiki         #
+:: #                                                 #
+:: ###################################################
+::
+:: https://github.com/mapicam/mapicam/wiki/FixDateTime <-- READ ME!
+:: 
+:: #####################
+:: # This is parametrs #
+:: #####################
+setlocal enableextensions enabledelayedexpansion
+@set MapiCamFFpath=c:\ffmpeg\bin
+:: BlackVue=F:\BlackVue
+@set BlackVue=%1%
+:: BlackVueFPS=10
+@set BlackVueFPS=%2%
+::   MapiCamImgFolder=%BlackVue%\Record\jpg
+@set MapiCamImgFolder=%BlackVue%\Record\jpg
+@set MapiCamGpxFolder=%BlackVue%\Record\gpx
+
+@set MapiCamImgDIR=00
+@set MapiCamImgDIR=%2%
+@set MapiCamHead=0
+@set MapiCamHeadXX=%MapiCamHead%
+@set offsetAngle=%MapiCamHeadXX%
+@set MapiCamInterpolationPy="D:\mapicam_tools\mapillary\mapillary_tools-master\mapillary_tools\interpolation.py"
+@set MapiCamGeotagFromGpxPy="D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py"
+@set MapiCamMapillaryTools="D:\mapicam\tools\mapillary\mapillary_tools.exe"
+@set MapiCamUsernameAtMapillary=velmyshanovnyi
+@echo .
+@echo #####################
+@echo setlocal EnableDelayedExpansion
+@echo MapiCamFFpath              = %MapiCamFFpath%
+@echo BlackVue                   = %BlackVue%
+@echo BlackVueFPS                = %BlackVueFPS%
+@echo MapiCamImgDrive            = %MapiCamImgDrive%
+@echo MapiCamImgFolder           = %MapiCamImgFolder%
+@echo MapiCamGpxFolder           = %MapiCamGpxFolder%
+@echo MapiCamImgDIR              = %MapiCamImgDIR% (default)
+@echo MapiCamInterpolationPy     = %MapiCamInterpolationPy%
+@echo MapiCamGeotagFromGpxPy     = %MapiCamGeotagFromGpxPy%
+@echo MapiCamMapillaryTools      = %MapiCamMapillaryTools%
+@echo MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
+@echo MapiCamHeadXX              = %MapiCamHeadXX%
+@echo offsetAngle                = %offsetAngle%
+@echo #####################
+@echo .
+@echo .
+@echo .
+@echo . Якщо пише ТАКУ помилку, то можливо треба перевести назад на 2 години час в зведеному файлі GPX.
+@echo . 
+@echo . Setting new values from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo . Geotime value: 2018:12:31 22:00:00.000 UTC (local timezone is +02:00)
+@echo . Warning: Time is too far before track in File:Geotime (ValueConvInv) - D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo . Warning: No writable tags set from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo . Nothing changed in D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo . 
+
+REM pause
+
+:: IF ERROR - RUN NEXT LINE FOR TEST:
+:: exiftool -geotag "%MapiCamGpxFolder%\*.gpx" "%MapiCamImgFolder%\*.jpg" -gpsimgdirection=0   -overwrite_original -v2
+
+
+@echo done
+@set MapiCamDelayInSeconds=1000
+@set MapiCamPingHost=127.0.0.1
+@set MapiCamFixZnak1=-
+@set MapiCamFixZnak2=+
+@set MapiCamFixDate=0:0:0
+@set MapiCamFixTime=2:00:00
+REM Use ping to wait
+ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
+
+@echo.
+@echo #####################
+@echo.
+
+REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
+REM exiftool "-FileModifyDate" "%MapiCamImgFolder%"
+REM exiftool "-FileCreateDate" "%MapiCamImgFolder%"
+REM exiftool "-DateTime" "%MapiCamImgFolder%"
+REM exiftool "-CreateDate" "%MapiCamImgFolder%"
+
+@echo.
+@echo #####################
+@echo.
+
+
+:: ===== BlackVue START =============
+@set MapiCamNameXX=BlackVue
+@set offsetAngle=0
+
+	:: ---------------------
+	:: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
+    :: exiftool "-DateTimeOriginal-=0:0:0 2:00:00" "%MapiCamImgFolder%" -overwrite_original
+
+:: exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
+
+
+
+    :: ----- (c)Mykhaylo Solodzhuk -------
+    :: Наразі закоментовую (і лишаю на майбутнє) в звЯзку з тим що скрипт для BlackVue відпрацьовує стабільно на базі поточної схеми
+    ::  <...>\python27\python <десь>\mapillary_tools\python\add_fix_dates.py <каталог з фото>\ "2019-03-27 14:07:08"
+    :: C:\Python27\python.exe D:\mapicam\tools\mapillary\mapillary_tools\python\add_fix_dates.py "%MapiCamImgFolder%" "2019-12-31 23:59:59"
+    :: ----- (c)Mykhaylo Solodzhuk END ---
+	
+	:: ---------------------
+	:: параметри для %MapiCamGeotagFromGpxPy%:
+	:: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
+	:: УВАГА! цей скрипт від попередньої версії
+				
+			REM python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0\interpolate.gpx" --offset_angle %offsetAngle%
+
+			REM Traceback (most recent call last):
+			  REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 234, in <module>
+				REM add_exif_using_timestamp(filepath, filetime, gpx, args.time_offset, args.offset_angle)
+			  REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 102, in add_exif_using_timestamp
+				REM t = time - datetime.timedelta(seconds=offset_time)
+			REM TypeError: unsupported operand type(s) for -: 'str' and 'datetime.timedelta'
+
+
+exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
+exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+
+:: ===== BlackVue END ===========
+
+
+REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
+REM exiftool "-FileModifyDate" "%MapiCamImgFolder%"
+REM exiftool "-FileCreateDate" "%MapiCamImgFolder%"
+REM exiftool "-DateTime" "%MapiCamImgFolder%"
+REM exiftool "-CreateDate" "%MapiCamImgFolder%"
+
+
+@echo.
+@echo.
+@echo #######################
+@echo ##### END PROCESS #####
+@echo #######################
+@echo.
+@echo.
+@echo.
+:: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!

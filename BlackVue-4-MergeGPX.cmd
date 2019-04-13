@@ -1,21 +1,32 @@
-:: #####################
-:: ###### MapiCam ######
-:: #####################
-:: ## www.t.me/osmUA  ##
-:: ## @velmyshanovnyi ##
-:: ##         (c)2019 ##
-:: #####################
-:: 
-:: #####################
-:: ####   ReadMe   #####
-:: #####################
-:: 
-:: https://t.me/osmUA
-:: https://t.me/MapillaryUkraine
-:: https://t.me/MapillaryUkraineChat
-:: https://github.com/mapicam/mapicam
-:: https://github.com/mapicam/mapicam/wiki <-- READ ME!
-:: 
+::
+:: ###################################################
+:: #                                                 #
+:: #                    MapiCam                      #
+:: #                                                 #
+:: ###################################################
+:: #                                                 #
+:: #  www.t.me/osmUA                                 #
+:: #  @velmyshanovnyi                                #
+:: #                                         (c)2019 #
+:: #                                                 #
+:: ###################################################
+::
+:: ###################################################
+:: #                                                 #
+:: #                    ReadMe                       #
+:: #                                                 #
+:: ###################################################
+::
+:: ###################################################
+:: #                                                 #
+:: # https://t.me/osmUA                              #
+:: # https://t.me/MapillaryUkraine                   #
+:: # https://t.me/MapillaryUkraineChat               #
+:: # https://github.com/mapicam/mapicam              #
+:: # https://github.com/mapicam/mapicam/wiki         #
+:: #                                                 #
+:: ###################################################
+::
 :: https://stackoverflow.com/questions/38554131/merge-all-gpx-files-within-a-folder-into-one-file-with-gpsbabel 
 :: 
 @echo #####################
@@ -49,20 +60,11 @@ set MapiCamTime=%hour%%min%%secs%
 @echo #####################
 @echo # This is parametrs #
 @echo #####################
+
 setlocal enableextensions enabledelayedexpansion
-@set MapiCamGBpath=C:\Progra~2\GPSBabel
-
+set MapiCamGBpath=C:\Progra~2\GPSBabel
 :: BlackVue=F:\BlackVue
-if exist %1% (
-:: якщо %1% існує, тому буде застосовано передачу параметра
 set BlackVue=%1%
-) else (
-:: якщо %1% НЕ існує, то буде застосовано дефолтову папку F:\BlackVue
-@echo. Пареметра "% 1 %"  НЕ існує, буде застосовано дефолтову папку "F:\BlackVue!
-@echo FILE "_temp-1.txt" = EXIST
-set BlackVue=F:\BlackVue
-) 
-
 
 @echo.
 @echo MapiCamGBpath    = %MapiCamGBpath%
@@ -72,20 +74,39 @@ mkdir %BlackVue%\Record\gpx
 mkdir %BlackVue%\Record\gpx\0
 mkdir %BlackVue%\Record\temp
 
+
+pause
+
+
 :: СТВОРЮЄМО ПРЕФІКС
 if not exist "%BlackVue%\Record\temp\_temp-1.txt" (
 :: якщо "mergeTemp-1.txt" не існує, тому його буде створено!
 echo CREATE "%BlackVue%\Record\temp\_temp-1.txt"
+
+pause
+
+
 :: <?xml version="1.0" encoding="UTF-8"?>
 echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^>>"%BlackVue%\Record\temp\_temp-1.txt"
 :: <gpx version="1.0" creator="GPSBabel - http://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/0">
 echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^>>>"%BlackVue%\Record\temp\_temp-1.txt"
 :: <time>2019-04-07T23:39:36.706Z</time>
+
+
+pause
+
+
 echo ^<time^>%datetimefull%^</time^>>>"%BlackVue%\Record\temp\_temp-1.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
 :: закоментовано через те що не можу вставляти значення правильних координат minlat/minlon/maxlat/maxlon - як параметрів
 :: echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\temp\_temp-1.txt"
+
+pause
+
 ) else (echo FILE "_temp-1.txt" = EXIST) 
+
+
+pause
 
 
 :: СТВОРЮЄМО СУФІКС
@@ -100,6 +121,8 @@ echo ^</gpx^>>"%BlackVue%\Record\temp\_temp-3.txt"
 :: СТВОРЮЄМО ТІЛО
 copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\temp\_temp-2.txt"
 
+pause
+
 
 :: ВИЧИЩАЄМО З ТІЛА ЗАЙВІ ТЕГИ
 :: <gpx>
@@ -108,12 +131,14 @@ copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\temp\_temp-2.txt"
 :: взято тут http://itman.in/remove-lines-from-file/
 type "%BlackVue%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^>>>"%BlackVue%\Record\temp\_temp-4.txt"
 
+pause
 
 :: СКЛЕЮЄМО ПРЕФІКС+ТІЛО+СУФІКС
 copy "%BlackVue%\Record\temp\_temp-1.txt"+"%BlackVue%\Record\temp\_temp-4.txt"+"%BlackVue%\Record\temp\_temp-3.txt" "%BlackVue%\Record\temp\_temp-5.txt"
 @echo.
 @echo #######################
 
+pause
 
 :: ВИДАЛЯЄМО останній рядок, бо в ньому іноді зЯвляється символ переносу каретки, який спричиняє збої в подальшій обробці
 :: \x0D0A або \x0A

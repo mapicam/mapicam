@@ -1,5 +1,32 @@
-:: MapiCam
-:: www.t.me/mapicam
+::
+:: ###################################################
+:: #                                                 #
+:: #                    MapiCam                      #
+:: #                                                 #
+:: ###################################################
+:: #                                                 #
+:: #  www.t.me/osmUA                                 #
+:: #  @velmyshanovnyi                                #
+:: #                                         (c)2019 #
+:: #                                                 #
+:: ###################################################
+::
+:: ###################################################
+:: #                                                 #
+:: #                    ReadMe                       #
+:: #                                                 #
+:: ###################################################
+::
+:: ###################################################
+:: #                                                 #
+:: # https://t.me/osmUA                              #
+:: # https://t.me/MapillaryUkraine                   #
+:: # https://t.me/MapillaryUkraineChat               #
+:: # https://github.com/mapicam/mapicam              #
+:: # https://github.com/mapicam/mapicam/wiki         #
+:: #                                                 #
+:: ###################################################
+::
 
 :: DownloadThis - ExifTool
 :: https://www.sno.phy.queensu.ca/~phil/exiftool/
