@@ -58,7 +58,7 @@ if exist %1% (
 set BlackVue=%1%
 ) else (
 :: якщо %1% НЕ існує, то буде застосовано дефолтову папку F:\BlackVue
-@echo. Пареметра >> % 1 % << НЕ існує, буде застосовано дефолтову папку "F:\BlackVue!
+@echo. Пареметра "% 1 %"  НЕ існує, буде застосовано дефолтову папку "F:\BlackVue!
 @echo FILE "_temp-1.txt" = EXIST
 set BlackVue=F:\BlackVue
 ) 
@@ -156,3 +156,4 @@ move /Y "%BlackVue%\Record\temp\interpolate.gpx" "%BlackVue%\Record\gpx\0"
 @echo.
 @echo.
 @echo.
+:: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!

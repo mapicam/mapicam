@@ -34,7 +34,6 @@ setlocal enableextensions enabledelayedexpansion
 @set MapiCamHead=0
 @set MapiCamHeadXX=%MapiCamHead%
 @set offsetAngle=%MapiCamHeadXX%
-@set MapiCamImgDateDIR=20190319
 @set MapiCamInterpolationPy="D:\mapicam_tools\mapillary\mapillary_tools-master\mapillary_tools\interpolation.py"
 @set MapiCamGeotagFromGpxPy="D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py"
 @set MapiCamMapillaryTools="D:\mapicam\tools\mapillary\mapillary_tools.exe"
@@ -49,7 +48,6 @@ setlocal enableextensions enabledelayedexpansion
 @echo MapiCamImgFolder           = %MapiCamImgFolder%
 @echo MapiCamGpxFolder           = %MapiCamGpxFolder%
 @echo MapiCamImgDIR              = %MapiCamImgDIR% (default)
-@echo MapiCamImgDateDIR          = %MapiCamImgDateDIR% (default)
 @echo MapiCamInterpolationPy     = %MapiCamInterpolationPy%
 @echo MapiCamGeotagFromGpxPy     = %MapiCamGeotagFromGpxPy%
 @echo MapiCamMapillaryTools      = %MapiCamMapillaryTools%
@@ -167,5 +165,4 @@ REM exiftool "-CreateDate" "%MapiCamImgFolder%"
 @echo.
 @echo.
 @echo.
-
-cmd /k
+:: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!

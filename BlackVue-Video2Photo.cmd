@@ -18,11 +18,12 @@ mkdir "%BlackVue%\Record"
 mkdir "%BlackVue%\Record\%BlackVueFPS%fps"
 mkdir "%BlackVue%\Record\gpx"
 :: mkdir "F:\BlackVue\Record\csv"
-:: треба зробити (колись пізніше) на цьому ж етапі генерувати і текстовий файл з координатами.
-mapillary_tools video_process --advanced --verbose --user_name velmyshanovnyi --import_path "%BlackVue%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVue%\Record" --geotag_source "blackvue_videos" --geotag_source_path "%BlackVue%\Record" --use_gps_start_time --interpolate_directions --offset_angle 0 --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --overwrite_EXIF_gps_tag --duplicate_distance %BlackVueInterval%
+:: треба зробити (колись пізніше)-1: на цьому ж етапі генерувати і текстовий файл з координатами.
+:: треба зробити (колись пізніше)-2: знайти якийсь аналог до --skip_subfolders , бо процес на ВСІ підпапки займає занадто багато часу, і іноді вилітає, що тягне за собою видалення всього, та повний повторний прогон рендеренгу.
+mapillary_tools video_process --advanced --verbose --user_name velmyshanovnyi --import_path "%BlackVue%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVue%\Record" --skip_subfolders --geotag_source "blackvue_videos" --geotag_source_path "%BlackVue%\Record" --use_gps_start_time --offset_angle 0 --interpolate_directions --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --overwrite_EXIF_gps_tag --duplicate_distance %BlackVueInterval%
 :: УВАГА!!!
 :: якщо з якоїсь причини папки (каталоги)
-:: --geotag_source_path "%BlackVue%\Record"
+:: --video_import_path "%BlackVue%\Record"
 :: та
 :: --geotag_source_path "%BlackVue%\Record"
 :: будуть відрізнятись - то це викличе помилку:
@@ -41,3 +42,4 @@ move "%BlackVue%\Record\*.gpx" "%BlackVue%\Record\gpx"
 @echo.
 @echo.
 @echo.
+:: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!

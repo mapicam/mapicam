@@ -64,4 +64,4 @@ exiftool -geotag D:\My_gpx\*.gpx %MapiCamImgDrive%\%MapiCamImgFolder%\%MapiCamIm
 
 
 ECHO ##### GOTOVO :) #####
-pause
+:: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!

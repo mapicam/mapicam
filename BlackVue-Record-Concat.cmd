@@ -23,3 +23,4 @@ ffmpeg -y -f concat -safe 0 -i %BlackVue%\%concatTXT% -codec copy %BlackVue%\%co
 @echo.
 @echo.
 @echo.
+:: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
