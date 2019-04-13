@@ -83,7 +83,8 @@ echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=
 :: <time>2019-04-07T23:39:36.706Z</time>
 echo ^<time^>%datetimefull%^</time^>>>"%BlackVue%\Record\temp\_temp-1.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
-echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\temp\_temp-1.txt"
+:: закоментовано через те що не можу вставляти значення правильних координат minlat/minlon/maxlat/maxlon - як параметрів
+:: echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\temp\_temp-1.txt"
 ) else (echo FILE "_temp-1.txt" = EXIST) 
 
 

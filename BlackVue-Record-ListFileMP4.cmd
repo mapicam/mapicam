@@ -1,6 +1,8 @@
+@echo.
 @echo ###################################################
-@echo ##### START BlackVue-Record-ListFileMP4       #####
-@echo ##### https://github.com/mapicam/mapicam/wiki #####
+@echo #                                                 #
+@echo # START : [1] BlackVue-Record-ListFileMP4         #
+@echo #                                                 #
 @echo ###################################################
 setlocal enabledelayedexpansion
 :: BlackVue=F:\BlackVue
@@ -18,11 +20,15 @@ cd %BlackVue%\Record
 @echo.
 @echo.
 @echo.
-@echo ###############################################
-@echo ##### END GET BlackVue-Record-ListFileMP4 #####
-@echo ###############################################
-@echo ##### NEXT USE BlackVue-Record-Concat.cmd #####
-@echo ###############################################
+@echo ####################################################
+@echo #                                                  #
+@echo # END   : [1] BlackVue-Record-ListFileMP4          #
+@echo #                                                  #
+@echo ####################################################
+@echo #                                                  #
+@echo # NEXT  : [2] BlackVue-Record-Concat               #
+@echo #                                                  #
+@echo ####################################################
 @echo.
 @echo.
 @echo.

@@ -1,24 +1,39 @@
-@echo #####################
-@echo ###### MapiCam ######
-@echo #####################
-@echo ## www.t.me/osmUA  ##
-@echo ## @velmyshanovnyi ##
-@echo ##         (c)2019 ##
-@echo #####################
-@echo. 
-@echo #####################
-@echo ####   ReadMe   #####
-@echo #####################
-@echo. 
-@echo https://t.me/osmUA
-@echo https://t.me/MapillaryUkraine
-@echo https://t.me/MapillaryUkraineChat
-@echo https://github.com/mapicam/mapicam
-@echo https://github.com/mapicam/mapicam/wiki
-@echo. 
-
-
-
+@echo.
+@echo ###################################################
+@echo #                                                 #
+@echo #                    MapiCam                      #
+@echo #                                                 #
+@echo ###################################################
+@echo #                                                 #
+@echo #  www.t.me/osmUA                                 #
+@echo #  @velmyshanovnyi                                #
+@echo #                                                 #
+@echo #                                         (c)2019 #
+@echo #                                                 #
+@echo ###################################################
+@echo.
+@echo ###################################################
+@echo #                                                 #
+@echo #                    ReadMe                       #
+@echo #                                                 #
+@echo ###################################################
+@echo.
+@echo ###################################################
+@echo #                                                 #
+@echo # https://t.me/osmUA                              #
+@echo # https://t.me/MapillaryUkraine                   #
+@echo # https://t.me/MapillaryUkraineChat               #
+@echo # https://github.com/mapicam/mapicam              #
+@echo # https://github.com/mapicam/mapicam/wiki         #
+@echo #                                                 #
+@echo ###################################################
+@echo.
+@echo ###################################################
+@echo #                                                 #
+@echo # START : RUN-F-10                                #
+@echo #                                                 #
+@echo ###################################################
+@echo.
 
 ::1
 CALL D:\mapicam\BlackVue-Record-ListFileMP4.cmd F:\BlackVue
@@ -46,9 +61,11 @@ CALL D:\mapicam\BackVue-FixDateTime.cmd F:\BlackVue 01
 @echo.
 @echo.
 @echo.
-@echo #######################
-@echo ##### END PROCESS #####
-@echo #######################
+@echo ###################################################
+@echo #                                                 #
+@echo #                  END PROCESS                    #
+@echo #                                                 #
+@echo ###################################################
 @echo.
 @echo.
 @echo.
