@@ -28,6 +28,8 @@ CALL D:\mapicam\BlackVue-Record-Concat.cmd F:\BlackVue
 
 ::3
 CALL D:\mapicam\BlackVue-Video2Photo.cmd F:\BlackVue 10 0.1
+:: CALL D:\mapicam\BlackVue-Video2Photo.cmd F:\BlackVue 10 0.5
+:: CALL D:\mapicam\BlackVue-Video2Photo.cmd F:\BlackVue 10 1
 
 ::4
 CALL D:\mapicam\BlackVue-MergeGPX.cmd F:\BlackVue

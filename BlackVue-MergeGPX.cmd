@@ -51,8 +51,19 @@ set MapiCamTime=%hour%%min%%secs%
 @echo #####################
 setlocal enableextensions enabledelayedexpansion
 @set MapiCamGBpath=C:\Progra~2\GPSBabel
+
 :: BlackVue=F:\BlackVue
+if exist %1% (
+:: якщо %1% існує, тому буде застосовано передачу параметра
 set BlackVue=%1%
+) else (
+:: якщо %1% НЕ існує, то буде застосовано дефолтову папку F:\BlackVue
+@echo. Пареметра >> % 1 % << НЕ існує, буде застосовано дефолтову папку "F:\BlackVue!
+@echo FILE "_temp-1.txt" = EXIST
+set BlackVue=F:\BlackVue
+) 
+
+
 @echo.
 @echo MapiCamGBpath    = %MapiCamGBpath%
 @echo BlackVue         = %BlackVue%
