@@ -75,40 +75,28 @@ mkdir %BlackVue%\Record\gpx\0
 mkdir %BlackVue%\Record\temp
 
 
-pause
 
-
+@echo.
+@echo ----- CREATE PREFIX
 :: СТВОРЮЄМО ПРЕФІКС
-if not exist "%BlackVue%\Record\temp\_temp-1.txt" (
-:: якщо "mergeTemp-1.txt" не існує, тому його буде створено!
-echo CREATE "%BlackVue%\Record\temp\_temp-1.txt"
-
-pause
-
-
+@echo CREATE "%BlackVue%\Record\temp\_temp-1.txt"
+:: якщо "_temp-1.txt" не існує, тому його буде створено!
+:: якщо "_temp-1.txt" існує, то його буде перезаписано!
 :: <?xml version="1.0" encoding="UTF-8"?>
-echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^>>"%BlackVue%\Record\temp\_temp-1.txt"
+echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^>                                                                        >"%BlackVue%\Record\temp\_temp-1.txt"
 :: <gpx version="1.0" creator="GPSBabel - http://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/0">
-echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^>>>"%BlackVue%\Record\temp\_temp-1.txt"
+echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^> >>"%BlackVue%\Record\temp\_temp-1.txt"
 :: <time>2019-04-07T23:39:36.706Z</time>
-
-
-pause
-
-
-echo ^<time^>%datetimefull%^</time^>>>"%BlackVue%\Record\temp\_temp-1.txt"
+echo ^<time^>%datetimefull%^</time^>                                                                                    >>"%BlackVue%\Record\temp\_temp-1.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
 :: закоментовано через те що не можу вставляти значення правильних координат minlat/minlon/maxlat/maxlon - як параметрів
-:: echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>>>"%BlackVue%\Record\temp\_temp-1.txt"
-
-pause
-
-) else (echo FILE "_temp-1.txt" = EXIST) 
+echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>                            >>"%BlackVue%\Record\temp\_temp-1.txt"
 
 
-pause
 
 
+@echo.
+@echo ----- CREATE SUFIX
 :: СТВОРЮЄМО СУФІКС
 if not exist "%BlackVue%\Record\temp\_temp-3.txt" (
 :: якщо "mergeTemp-3.txt" не існує, тому його буде створено!
@@ -118,12 +106,17 @@ echo ^</gpx^>>"%BlackVue%\Record\temp\_temp-3.txt"
 ) else (echo FILE "_temp-3.txt" = EXIST) 
 
 
+
+
+@echo.
+@echo ----- CREATE BODY
 :: СТВОРЮЄМО ТІЛО
 copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\temp\_temp-2.txt"
 
-pause
 
 
+@echo.
+@echo ----- DELETE TAG
 :: ВИЧИЩАЄМО З ТІЛА ЗАЙВІ ТЕГИ
 :: <gpx>
 :: <gpx>
@@ -131,14 +124,20 @@ pause
 :: взято тут http://itman.in/remove-lines-from-file/
 type "%BlackVue%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^>>>"%BlackVue%\Record\temp\_temp-4.txt"
 
-pause
 
+
+
+
+@echo.
+@echo ----- Prefix & Body & Sufix 
 :: СКЛЕЮЄМО ПРЕФІКС+ТІЛО+СУФІКС
 copy "%BlackVue%\Record\temp\_temp-1.txt"+"%BlackVue%\Record\temp\_temp-4.txt"+"%BlackVue%\Record\temp\_temp-3.txt" "%BlackVue%\Record\temp\_temp-5.txt"
 @echo.
 @echo #######################
 
-pause
+
+
+
 
 :: ВИДАЛЯЄМО останній рядок, бо в ньому іноді зЯвляється символ переносу каретки, який спричиняє збої в подальшій обробці
 :: \x0D0A або \x0A
@@ -149,7 +148,7 @@ type "%BlackVue%\Record\temp\_temp-5.txt" | findstr /v \x0D0A | findstr /v \x0A>
 copy "%BlackVue%\Record\temp\_temp-6.txt" "%BlackVue%\Record\temp\merge.gpx"
 
 :: ВИДАЛЯЄМО тимчасові файли
-del "%BlackVue%\Record\temp\_temp-*.txt"
+del "%BlackVue%\Record\temp\_temp-?.txt"
 
 @echo.
 @echo Remove Duplicates (duplicate)
