@@ -29,9 +29,19 @@
 ::
 :: https://github.com/mapicam/mapicam/wiki/FixDateTime <-- READ ME!
 :: 
+
+@echo.
+@echo ####################################################
+@echo #                                                  #
+@echo # START : [7] Gpx2Exif                             #
+@echo #                                                  #
+@echo ####################################################
+@echo.
+
 :: #####################
 :: # This is parametrs #
 :: #####################
+
 setlocal enableextensions enabledelayedexpansion
 @set MapiCamFFpath=c:\ffmpeg\bin
 :: BlackVue=F:\BlackVue
@@ -118,7 +128,6 @@ REM exiftool "-CreateDate" "%MapiCamImgFolder%"
 	:: ---------------------
 	:: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
     :: exiftool "-DateTimeOriginal-=0:0:0 2:00:00" "%MapiCamImgFolder%" -overwrite_original
-
 :: exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
 
 
@@ -157,11 +166,19 @@ REM exiftool "-DateTime" "%MapiCamImgFolder%"
 REM exiftool "-CreateDate" "%MapiCamImgFolder%"
 
 
+
 @echo.
 @echo.
-@echo #######################
-@echo ##### END PROCESS #####
-@echo #######################
+@echo.
+@echo ####################################################
+@echo #                                                  #
+@echo # END   : [7] Gpx2Exif                             #
+@echo #                                                  #
+@echo ####################################################
+@echo #                                                  #
+@echo # NEXT  : [8]                                      #
+@echo #                                                  #
+@echo ####################################################
 @echo.
 @echo.
 @echo.

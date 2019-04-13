@@ -28,11 +28,21 @@
 :: ###################################################
 ::
 :: https://github.com/mapicam/mapicam/wiki/FixDateTime <-- READ ME!
-:: 
+
+@echo.
+@echo ####################################################
+@echo #                                                  #
+@echo # START : [6] FixDateTime                          #
+@echo #                                                  #
+@echo ####################################################
+@echo.
+
 :: #####################
 :: # This is parametrs #
 :: #####################
+
 setlocal enableextensions enabledelayedexpansion
+
 @set MapiCamFFpath=c:\ffmpeg\bin
 :: BlackVue=F:\BlackVue
 @set BlackVue=%1%
@@ -51,7 +61,7 @@ setlocal enableextensions enabledelayedexpansion
 @set MapiCamGeotagFromGpxPy="D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py"
 @set MapiCamMapillaryTools="D:\mapicam\tools\mapillary\mapillary_tools.exe"
 @set MapiCamUsernameAtMapillary=velmyshanovnyi
-@echo .
+@echo.
 @echo #####################
 @echo setlocal EnableDelayedExpansion
 @echo MapiCamFFpath              = %MapiCamFFpath%
@@ -68,17 +78,17 @@ setlocal enableextensions enabledelayedexpansion
 @echo MapiCamHeadXX              = %MapiCamHeadXX%
 @echo offsetAngle                = %offsetAngle%
 @echo #####################
-@echo .
-@echo .
-@echo .
-@echo . Якщо пише ТАКУ помилку, то можливо треба перевести назад на 2 години час в зведеному файлі GPX.
-@echo . 
-@echo . Setting new values from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
-@echo . Geotime value: 2018:12:31 22:00:00.000 UTC (local timezone is +02:00)
-@echo . Warning: Time is too far before track in File:Geotime (ValueConvInv) - D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
-@echo . Warning: No writable tags set from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
-@echo . Nothing changed in D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
-@echo . 
+@echo.
+@echo.
+@echo.
+@echo Якщо пише ТАКУ помилку, то можливо треба перевести назад на 2 години час в зведеному файлі GPX.
+@echo. 
+@echo Setting new values from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo Geotime value: 2018:12:31 22:00:00.000 UTC (local timezone is +02:00)
+@echo Warning: Time is too far before track in File:Geotime (ValueConvInv) - D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo Warning: No writable tags set from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo Nothing changed in D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo. 
 
 REM pause
 
@@ -147,9 +157,16 @@ REM exiftool "-CreateDate" "%MapiCamImgFolder%"
 
 @echo.
 @echo.
-@echo #######################
-@echo ##### END PROCESS #####
-@echo #######################
+@echo.
+@echo ####################################################
+@echo #                                                  #
+@echo # END   : [6] FixDateTime                          #
+@echo #                                                  #
+@echo ####################################################
+@echo #                                                  #
+@echo # NEXT  : [7] Gpx2Exif                             #
+@echo #                                                  #
+@echo ####################################################
 @echo.
 @echo.
 @echo.

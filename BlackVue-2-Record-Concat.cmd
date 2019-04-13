@@ -35,7 +35,9 @@
 @echo #                                                  #
 @echo ####################################################
 @echo.
+
 setlocal enableextensions enabledelayedexpansion
+
 :: BlackVue=F:\BlackVue
 set BlackVue=%1%
 set concatTXT=BlackVue-Record-ListFileMP4.txt

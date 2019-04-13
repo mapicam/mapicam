@@ -29,6 +29,15 @@
 ::
 :: https://stackoverflow.com/questions/38554131/merge-all-gpx-files-within-a-folder-into-one-file-with-gpsbabel 
 :: 
+
+@echo.
+@echo ####################################################
+@echo #                                                  #
+@echo # START : [4] MergeGPX                             #
+@echo #                                                  #
+@echo ####################################################
+@echo.
+
 @echo #####################
 @echo #  YYYYMMDD HHMMSS  #
 @echo #####################
@@ -175,9 +184,17 @@ move /Y "%BlackVue%\Record\temp\interpolate.gpx" "%BlackVue%\Record\gpx\0"
 
 
 @echo.
-@echo #######################
-@echo ##### END PROCESS #####
-@echo #######################
+@echo.
+@echo.
+@echo ####################################################
+@echo #                                                  #
+@echo # END   : [4] MergeGPX                             #
+@echo #                                                  #
+@echo ####################################################
+@echo #                                                  #
+@echo # NEXT  : [5] MoveJPG                              #
+@echo #                                                  #
+@echo ####################################################
 @echo.
 @echo.
 @echo.
