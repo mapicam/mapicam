@@ -117,8 +117,8 @@ exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_orig
 exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgFolder%" -overwrite_original
 exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
-	:: Працює і без "FileAccessDate" (можна сміливо закоментовувати для підвищення продуктивності)
-exiftool "-FileAccessDate<DateTimeOriginal" %MapiCamImgFolder%" -overwrite_original
+	:: Працює і без "FileAccessDate" (можна сміливо закоментовувати для підвищення продуктивності), а ще він викликає помилку при прошиванні фоток з BlackVue
+    :: exiftool "-FileAccessDate<DateTimeOriginal" %MapiCamImgFolder%" -overwrite_original
 	:: ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 	:: закоментовано після того, як було оптимізовано скрипт який повертає фотки
 	:: exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
