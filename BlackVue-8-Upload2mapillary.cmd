@@ -136,18 +136,40 @@ setlocal enabledelayedexpansion
 mkdir %BlackVueFolder%\Record
 mkdir %BlackVueFolder%\Record\gpx
 mkdir %BlackVueFolder%\Record\jpg
-
 cd %BlackVueFolder%\Record\jpg
 
 
+@echo ---------------------------------------------------
+@echo SEE CODE IF ERROR - @HTTP Error 403
+:: HTTP error: HTTP Error 403: Forbidden on 20190403_182624_NF_000032.jpg, will attempt upload again for 49 more times
+:: https://github.com/mapillary/mapillary_tools/issues/328
+:: 
+:: https://github.com/mapillary/mapillary_tools/issues/328
+:: Steps to fix that are:
+:: 
+:: [1]DELETE .config -  Mapillary credentials by deleting .config file. Default is ~/.config/mapillary/config  --- For Win10 (%homedrive%\.config\mapillary)
+:: ВИДАЛЯЄМО глючні файли конфігурації (C:\Users\velmy\.config\mapillary\config)
+:: REM cd c:\
+:: REM cd %HOMEPATH%
+:: REM DEL /F/Q/S %HOMEPATH%\.config\mapillary\*.* > NUL
+:: REM DEL /F/Q/S %HOMEPATH%\.config\mapillary\* > NUL
+:: REM RMDIR /Q/S foldername %HOMEPATH%\.config\mapillary
+:: REM %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName%
+:: [2] RUN               process again on each folder re-authenticating when prompted
+:: [3] UPLOAD            Upload reprocessed imagery.
+:: 
 
+:: %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName%
+
+::echo %date%%time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName% >> %MapiCamLOG%
+::echo %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName% >> %MapiCamLOG%
+::echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 :: C:\ffmpeg\bin\mapillary_tools.exe  --advanced authenticate --user_name XXX --user_email YYY --user_password ZZZ
 :: потрібно при ПЕРШОМУ старті, потім треба закоментувати
 :: НА МАЙБУТНЄ: зробити перевірку чи є вже в системі цей параметр, і якщо є - то запускати лише тоді
-:: C:\ffmpeg\bin\mapillary_tools.exe  --advanced authenticate --user_name %uploadUserName%
+:: %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName%
 
-@echo %date%%time% # %MapiCamPhaseNum% ##ZAKOMENTOVANO## C:\ffmpeg\bin\mapillary_tools.exe  --advanced authenticate --user_name %uploadUserName% >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+
 
 
 :: зберегти оригінал (в тимчасовій папці буде створено копію файла. але процес займає в 3 рази більше часу.)
@@ -170,27 +192,39 @@ cd %BlackVueFolder%\Record\jpg
 :: --flag_duplicates ЗАРАЗ УСТАРІВ і не використовується, замісто нього писати --duplicate_distance 0.2
 
 :: Кількість_потоків 10 та Кількісь_спроб 50
-:: --number_threads 100 --max_attempts 50
+:: --number_threads 10 --max_attempts 50
 
 
 
 @echo.
 @echo ---------------------------------------------------------------
-@echo process_and_upload = RUN!
+@echo upload             = ERROR-403: %MapiCamMapillaryTools% upload --import_path %BlackVueFolder%\%uploadImportPath%
+:: УВАГА!!! для UPLOAD: не можна ставити 
+::     --number_threads
+::     --max_attempts
+::     --duplicate_distance
+:: бо ПОМИЛКА
+:: %MapiCamMapillaryTools% upload -advanced --import_path "%BlackVueFolder%\%uploadImportPath%"
+@echo process_and_upload = ERROR-403 ((
+@echo process            = ...
 @echo ---------------------------------------------------------------
 @echo.
 
 @echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% ERROR-403: %MapiCamMapillaryTools% upload --import_path %BlackVueFolder%\%uploadImportPath% >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum% process_and_upload = RUN                                        >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum% parametr =                                                      >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --duplicate_distance %uploadDuplicateDistance% >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --number_threads 10 --max_attempts 50 --duplicate_distance %uploadDuplicateDistance% >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 
 
 
 :: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --duplicate_distance %uploadDuplicateDistance%
-%MapiCamMapillaryTools%    process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --duplicate_distance %uploadDuplicateDistance% >> %MapiCamLOG%
+:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --number_threads 10 --max_attempts 50 --duplicate_distance %uploadDuplicateDistance%
+:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --number_threads 10 --max_attempts 50 --duplicate_distance %uploadDuplicateDistance% >> %MapiCamLOG%
+
+%MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --number_threads 10 --max_attempts 2 --verbose --rerun --duplicate_distance %uploadDuplicateDistance% >> %MapiCamLOG% >> %MapiCamLOG%
 
 
 
@@ -207,7 +241,7 @@ cd %BlackVueFolder%\Record\jpg
 
 
 :: якщо треба перезаливати - то використовуй ЦЕЙ
-:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%uploadImportPath%" --user_name %uploadUserName% --number_threads 1 --max_attempts 2 --verbose --rerun --flag_duplicates --duplicate_distance %uploadDuplicateDistance%
+:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%uploadImportPath%" --user_name %uploadUserName% --number_threads 1 --max_attempts 2 --verbose --rerun --duplicate_distance %uploadDuplicateDistance%
 
 
 @echo.
@@ -233,4 +267,4 @@ cd %BlackVueFolder%\Record\jpg
 @echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
 
-pause
+cmd /k
