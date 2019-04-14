@@ -114,10 +114,6 @@ dir
 @echo.
 
 
-:: якщо треба перезаливати - то використовуй ЦЕЙ
-:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%uploadImportPath%" --user_name %uploadUserName% --number_threads 1 --max_attempts 2 --verbose --rerun --duplicate_distance %uploadDuplicateDistance%
-
-
 @echo.
 @echo.
 @echo.

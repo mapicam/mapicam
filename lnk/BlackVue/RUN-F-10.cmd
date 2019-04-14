@@ -29,51 +29,101 @@
 @echo.
 @echo ###################################################
 @echo #                                                 #
-@echo # START : RUN-FOLDER-10                                #
+@echo # START : RUN-START                               #
 @echo #                                                 #
 @echo ###################################################
 @echo.
+@echo ###############################################################
+@echo #
+@echo # START : RUN MapiCam 1234567
+@echo #
+@echo #--------------------------------------------------------------
+@echo #
+@echo # 1 Folder             %1%
+@echo # 2 Fps                %2%
+@echo # 3 sample_interval    %3%
+@echo # 4 DuplicateDistance  %4%
+@echo # 5 UserName           %5%
+@echo #
+@echo #--------------------------------------------------------------
+@echo #
 
 setlocal enableextensions enabledelayedexpansion
-:: BlackVueFolder=F:\BlackVue
-set BlackVueFolder=%1%
-:: BlackVueFolder=F:\BlackVue
-set MapiCamFolder=%1%
-:: BlackVueFPS=10
-set BlackVueFPS=%2%
-:: BlackVueInterval=0.1
-set BlackVueInterval=%3%
+::   MapiCamFolder=D:\mapicam
+@set MapiCamFolder=D:\mapicam
+::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+::   BlackVueFolder=F:\BlackVue
+@set BlackVueFolder=%1%
+@set BlackVue=%BlackVueFolder%
+::   BlackVueFPS=10
+@set BlackVueFPS=%2%
+::   BlackVueInterval 0.1
+@set BlackVueInterval=%3%
+::   --duplicate_distance 0.1
+@set BlackDuplicateDistance=%4%
+::   --user_name velmyshanovnyi
+@set MapiCamUsernameAtMapillary=%5%
+
+
+:: --import_path "Record\jpg"
+::                Record\jpg\.mapillary (там же має лежати папка з файлами мапілларі)
+@set uploadImportPath=Record\jpg
+@set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
+
+
+
+
 @echo.
-@echo BlackVueFolder   = %BlackVueFolder%
-@echo BlackVueFPS      = %BlackVueFPS%
-@echo BlackVueInterval = %BlackVueInterval%
+@echo %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%
+@echo %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%
+@echo %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%
+@echo %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%
+@echo %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%
+@echo %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%
+@echo %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
 @echo.
+@echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
+@echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
+@echo.
+
+
+
+
+@echo.
+
 mkdir "%BlackVueFolder%\Record"
 mkdir "%BlackVueFolder%\Record\%BlackVueFPS%fps"
 mkdir "%BlackVueFolder%\Record\gpx"
 
+
+
+pause
+pause
+pause
+
+
 ::1
-CALL D:\mapicam\BlackVue-1-Record-ListFileMP4.cmd %1%
+CALL %MapiCamFolder%\BlackVue-1-Record-ListFileMP4.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::2
-CALL D:\mapicam\BlackVue-2-Record-Concat.cmd F:\BlackVue
+CALL %MapiCamFolder%\BlackVue-2-Record-Concat.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
-::3
-CALL D:\mapicam\BlackVue-3-Video2Photo.cmd F:\BlackVue 10 0.1
-:: CALL D:\mapicam\BlackVue-3-Video2Photo.cmd F:\BlackVue 10 0.5
-:: CALL D:\mapicam\BlackVue-3-Video2Photo.cmd F:\BlackVue 10 1
+::3 
+:: 10 FPS = 0.1 // 5 FPS = 0.2 // 2 FPS = 0.5 // 1 FPS = 1 
+CALL %MapiCamFolder%\BlackVue-3-Video2Photo.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::4
-CALL D:\mapicam\BlackVue-4-MergeGPX.cmd F:\BlackVue
+CALL %MapiCamFolder%\BlackVue-4-MergeGPX.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::5
-CALL D:\mapicam\BlackVue-5-MoveJPG.cmd F:\BlackVue 10
+CALL %MapiCamFolder%\BlackVue-5-MoveJPG.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::6
-CALL D:\mapicam\BlackVue-6-FixDateTime.cmd F:\BlackVue 01
+CALL %MapiCamFolder%\BlackVue-6-FixDateTime.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::7
-CALL D:\mapicam\BlackVue-7-Gpx2Exif.cmd F:\BlackVue 01
+CALL %MapiCamFolder%\BlackVue-7-Gpx2Exif.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 
 ::8
