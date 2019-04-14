@@ -91,16 +91,9 @@ setlocal enableextensions enabledelayedexpansion
 
 
 @echo.
-
 mkdir "%BlackVueFolder%\Record"
 mkdir "%BlackVueFolder%\Record\%BlackVueFPS%fps"
 mkdir "%BlackVueFolder%\Record\gpx"
-
-
-
-pause
-pause
-pause
 
 
 ::1

@@ -30,7 +30,7 @@
 
 @set MapiCamPhaseNum=[1]
 @set MapiCamLOG=mapicam-LOG.txt
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------- >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% -------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum% START : BlackVue-Record-ListFileMP4                            >> %MapiCamLOG%
 @echo.
 @echo ###############################################################
@@ -39,18 +39,49 @@
 @echo #                                                             #
 @echo ###############################################################
 
-setlocal enabledelayedexpansion
-:: BlackVue=F:\BlackVue
-set BlackVue=%1%
-set listFileTXT=BlackVue-Record-ListFileMP4.txt
-set listFileMP4=*.mp4
-@echo BlackVue=%BlackVue%
-@echo listFileTXT=%listFileTXT%
-@echo listFileMP4=%listFileMP4%
+
+setlocal enableextensions enabledelayedexpansion
+::   MapiCamFolder=D:\mapicam
+@set MapiCamFolder=D:\mapicam
+::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+::   BlackVueFolder=F:\BlackVue
+@set BlackVueFolder=%1%
+@set BlackVue=%BlackVueFolder%
+::   BlackVueFPS=10
+@set BlackVueFPS=%2%
+::   BlackVueInterval 0.1
+@set BlackVueInterval=%3%
+::   --duplicate_distance 0.1
+@set BlackDuplicateDistance=%4%
+::   --user_name velmyshanovnyi
+@set MapiCamUsernameAtMapillary=%5%
+
+@set listFileTXT=BlackVue-Record-ListFileMP4.txt
+@set listFileMP4=*.mp4
+
+@echo.
+@echo %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%
+@echo %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%
+@echo %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%
+@echo %MapiCamPhaseNum% BlackVue                   = %BlackVue%
+@echo %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%
+@echo %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%
+@echo %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%
+@echo %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
+@echo.
+@echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
+@echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
+@echo.
+@echo %MapiCamPhaseNum% listFileTXT                =%listFileTXT%
+@echo %MapiCamPhaseNum% listFileMP4                =%listFileMP4%
+@echo.
+
+
 @echo ---------------------
-mkdir %BlackVue%\Record
-cd %BlackVue%\Record
-(for %%i in (%BlackVue%\Record\%listFileMP4%) do @echo file '%%i') > %BlackVue%\%listFileTXT%
+mkdir %BlackVueFolder%\Record
+cd %BlackVueFolder%\Record
+(for %%i in (%BlackVueFolder%\Record\%listFileMP4%) do @echo file '%%i') > %BlackVueFolder%\%listFileTXT%
 
 
 @echo.
