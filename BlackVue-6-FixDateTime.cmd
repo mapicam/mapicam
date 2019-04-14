@@ -148,11 +148,11 @@ exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_orig
 :: ===== BlackVue END ===========
 
 
-REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
-REM exiftool "-FileModifyDate" "%MapiCamImgFolder%"
-REM exiftool "-FileCreateDate" "%MapiCamImgFolder%"
-REM exiftool "-DateTime" "%MapiCamImgFolder%"
-REM exiftool "-CreateDate" "%MapiCamImgFolder%"
+:: REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
+:: REM exiftool "-FileModifyDate" "%MapiCamImgFolder%"
+:: REM exiftool "-FileCreateDate" "%MapiCamImgFolder%"
+:: REM exiftool "-DateTime" "%MapiCamImgFolder%"
+:: REM exiftool "-CreateDate" "%MapiCamImgFolder%"
 
 
 @echo.
