@@ -98,8 +98,8 @@ setlocal enableextensions enabledelayedexpansion
 :: Використовуємо механіку, коли ЯРЛИК (LNK) зчитує розташування і СКРИПТ працює відносно папки з якої запустили LNK
 @set BlackVueFolder=%1%
 :: --user_name velmyshanovnyi
-@set MapiCamUsernameAtMapillary=%2%
-@set uploadUserName=%2%
+@set MapiCamUsernameAtMapillary=%5%
+@set uploadUserName=%5%
 :: --duplicate_distance 0.2
 @set uploadDuplicateDistance=%3%
 :: --import_path "Record\jpg"

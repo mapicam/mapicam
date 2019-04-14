@@ -33,7 +33,7 @@
 @echo.
 @echo ####################################################
 @echo #                                                  #
-@echo # START : [4] MergeGPX                             #
+@echo # [4] START : MergeGPX                             #
 @echo #                                                  #
 @echo ####################################################
 @echo.
@@ -188,11 +188,11 @@ move /Y "%BlackVue%\Record\temp\interpolate.gpx" "%BlackVue%\Record\gpx\0"
 @echo.
 @echo ####################################################
 @echo #                                                  #
-@echo # END   : [4] MergeGPX                             #
+@echo # [4] END  :  MergeGPX                             #
 @echo #                                                  #
 @echo ####################################################
 @echo #                                                  #
-@echo # NEXT  : [5] MoveJPG                              #
+@echo # [5] NEXT :  MoveJPG                              #
 @echo #                                                  #
 @echo ####################################################
 @echo.

@@ -248,6 +248,3 @@ move "%BlackVueFolder%\Record\*.gpx" "%BlackVueFolder%\Record\gpx"
 @echo.
 @echo.
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
-
-
-pause
