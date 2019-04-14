@@ -44,42 +44,64 @@
 @echo ###################################################
 @echo.
 
+
 setlocal enableextensions enabledelayedexpansion
 ::   MapiCamFolder=D:\mapicam
 @set MapiCamFolder=D:\mapicam
 ::   version 0.4.2 - TRUE // version 0.5.0 - FALSE // 
 ::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
 @set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+:: Використовуємо механіку, коли ЯРЛИК (LNK) зчитує розташування і СКРИПТ працює відносно папки з якої запустили LNK
 ::   BlackVueFolder=F:\BlackVue
 @set BlackVueFolder=%1%
-@set BlackVue=%BlackVueFolder%
 ::   BlackVueFPS=10
 @set BlackVueFPS=%2%
 ::   BlackVueInterval 0.1
 @set BlackVueInterval=%3%
-::   --duplicate_distance 0.1
+::   --duplicate_distance 0.2
 @set BlackDuplicateDistance=%4%
 ::   --user_name velmyshanovnyi
 @set MapiCamUsernameAtMapillary=%5%
-
+:: --import_path "Record\jpg"
+::                Record\jpg\.mapillary (там же має лежати папка з файлами мапілларі)
+@set uploadImportPath=Record\jpg
+@set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
 
 @echo.
 @echo %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%
 @echo %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%
 @echo %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%
-@echo %MapiCamPhaseNum% BlackVue                   = %BlackVue%
 @echo %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%
 @echo %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%
 @echo %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%
 @echo %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
-@echo.
 @echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
 @echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
+@echo %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%
+@echo %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath%
 @echo.
+@echo %date%%time% # %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%                    >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%            >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%                   >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%                      >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%                 >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%           >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%       >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%                  >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%                       >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%                 >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath% >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo.
+@echo ---------------------------------------------------
+mkdir %BlackVueFolder%\Record
+mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
+mkdir %BlackVueFolder%\Record\gpx
+mkdir %BlackVueFolder%\Record\jpg
+cd    %BlackVueFolder%\Record\jpg
 
-mkdir "%BlackVueFolder%\Record"
-mkdir "%BlackVueFolder%\Record\%BlackVueFPS%fps"
-mkdir "%BlackVueFolder%\Record\gpx"
 :: mkdir "F:\BlackVueFolder\Record\csv"
 :: треба зробити (колись пізніше)-1: на цьому ж етапі генерувати і текстовий файл з координатами.
 :: треба зробити (колись пізніше)-2: знайти якийсь аналог до --skip_subfolders , бо процес на ВСІ підпапки займає занадто багато часу, і іноді вилітає, що тягне за собою видалення всього, та повний повторний прогон рендеренгу.
@@ -88,9 +110,12 @@ mkdir "%BlackVueFolder%\Record\gpx"
 
 :: %MapiCamMapillaryTools% sample_video --advanced --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval%
 
-%MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --rerun --user_name %MapiCamUsernameAtMapillary%  --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" ^
---offset_angle 0 --use_gps_start_time --interpolate_directions --overwrite_all_EXIF_tags  ^
---overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag
+%MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" ^
+--video_import_path "%BlackVueFolder%\Record" --rerun --user_name %MapiCamUsernameAtMapillary% --video_sample_interval %BlackVueInterval%  ^
+--device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" ^
+--geotag_source_path "%BlackVueFolder%\Record" --offset_angle 0 --use_gps_start_time ^
+--interpolate_directions --duplicate_distance %BlackDuplicateDistance% ^
+--overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag
 
 :: mapillary_tools video_process 
 :: --advanced 

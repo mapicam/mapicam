@@ -28,7 +28,6 @@
 :: ###################################################
 ::
 
-
 @set MapiCamPhaseNum=[8]
 @set MapiCamLOG=mapicam-LOG.txt
 @echo %date%%time% #                                                                                   >> %MapiCamLOG%
@@ -126,21 +125,23 @@ setlocal enableextensions enabledelayedexpansion
 @echo.
 
 @echo.
+
 @echo %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%
 @echo %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath%
-@echo %MapiCamPhaseNum% uploadDuplicateDistance    = %uploadDuplicateDistance%
 @echo.
-@echo %date%%time% # %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%                  >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%                       >> %MapiCamLOG%
-
-
 @echo %date%%time% # %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%                    >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%            >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%       >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%                   >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%                      >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%                 >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%           >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%       >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%                  >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%                       >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%                 >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath% >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+
 @echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
@@ -155,8 +156,6 @@ cd    %BlackVueFolder%\Record\jpg
 @echo ---------------------------------------------------
 @echo SEE CODE IF ERROR - @HTTP Error 403
 :: HTTP error: HTTP Error 403: Forbidden on 20190403_182624_NF_000032.jpg, will attempt upload again for 49 more times
-:: https://github.com/mapillary/mapillary_tools/issues/328
-:: 
 :: https://github.com/mapillary/mapillary_tools/issues/328
 :: Steps to fix that are:
 :: 
@@ -227,20 +226,13 @@ cd    %BlackVueFolder%\Record\jpg
 @echo %date% %time% # %MapiCamPhaseNum% ERROR-403: %MapiCamMapillaryTools% upload --import_path %BlackVueFolder%\%uploadImportPath% >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% process_and_upload = RUN                                        >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% parametr =                                                      >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --number_threads 10 --max_attempts 50 --duplicate_distance %uploadDuplicateDistance% >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10 --duplicate_distance %BlackDuplicateDistance% >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 
+%MapiCamMapillaryTools% upload --verbose --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10 --duplicate_distance %BlackDuplicateDistance% >> %MapiCamLOG%
 
-
-:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --duplicate_distance %uploadDuplicateDistance%
-:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --number_threads 10 --max_attempts 50 --duplicate_distance %uploadDuplicateDistance%
-:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --number_threads 10 --max_attempts 50 --duplicate_distance %uploadDuplicateDistance% >> %MapiCamLOG%
-
-%MapiCamMapillaryTools% upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10 --duplicate_distance %BlackDuplicateDistance%
-
-:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --number_threads 10 --max_attempts 2 --verbose --rerun --duplicate_distance %uploadDuplicateDistance% >> %MapiCamLOG%
-
+:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %MapiCamUsernameAtMapillary% --number_threads 10 --max_attempts 2 --verbose --rerun --duplicate_distance %BlackDuplicateDistance% >> %MapiCamLOG%
 
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
@@ -253,10 +245,8 @@ cd    %BlackVueFolder%\Record\jpg
 @echo ---------------------------------------------------------------
 @echo.
 
-
 :: якщо треба перезаливати - то використовуй ЦЕЙ
-:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%uploadImportPath%" --user_name %uploadUserName% --number_threads 1 --max_attempts 2 --verbose --rerun --duplicate_distance %uploadDuplicateDistance%
-
+:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%uploadImportPath%" --user_name %MapiCamUsernameAtMapillary% --number_threads 1 --max_attempts 2 --verbose --rerun --duplicate_distance %BlackDuplicateDistance%
 
 @echo.
 @echo.
@@ -280,5 +270,4 @@ cd    %BlackVueFolder%\Record\jpg
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
-
 cmd /k
