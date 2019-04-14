@@ -54,26 +54,21 @@ setlocal enableextensions enabledelayedexpansion
 ::   version 0.4.2 - TRUE // version 0.5.0 - FALSE // 
 ::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
 @set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+:: Використовуємо механіку, коли ЯРЛИК (LNK) зчитує розташування і СКРИПТ працює відносно папки з якої запустили LNK
 ::   BlackVueFolder=F:\BlackVue
 @set BlackVueFolder=%1%
-@set BlackVue=%BlackVueFolder%
 ::   BlackVueFPS=10
 @set BlackVueFPS=%2%
 ::   BlackVueInterval 0.1
 @set BlackVueInterval=%3%
-::   --duplicate_distance 0.1
+::   --duplicate_distance 0.2
 @set BlackDuplicateDistance=%4%
 ::   --user_name velmyshanovnyi
 @set MapiCamUsernameAtMapillary=%5%
-
-
 :: --import_path "Record\jpg"
 ::                Record\jpg\.mapillary (там же має лежати папка з файлами мапілларі)
 @set uploadImportPath=Record\jpg
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
-
-
-
 
 @echo.
 @echo %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%
@@ -83,18 +78,15 @@ setlocal enableextensions enabledelayedexpansion
 @echo %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%
 @echo %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%
 @echo %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
-@echo.
 @echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
 @echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
 @echo.
-
-
-
-
-@echo.
+@echo ---------------------------------------------------
 mkdir "%BlackVueFolder%\Record"
 mkdir "%BlackVueFolder%\Record\%BlackVueFPS%fps"
-mkdir "%BlackVueFolder%\Record\gpx"
+mkdir %BlackVueFolder%\Record\gpx
+mkdir %BlackVueFolder%\Record\jpg
+cd    %BlackVueFolder%\Record\jpg
 
 
 ::1

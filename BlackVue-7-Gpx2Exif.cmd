@@ -110,11 +110,11 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 @echo #####################
 @echo.
 
-REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
-REM exiftool "-FileModifyDate" "%MapiCamImgFolder%"
-REM exiftool "-FileCreateDate" "%MapiCamImgFolder%"
-REM exiftool "-DateTime" "%MapiCamImgFolder%"
-REM exiftool "-CreateDate" "%MapiCamImgFolder%"
+:: REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
+:: REM exiftool "-FileModifyDate"   "%MapiCamImgFolder%"
+:: REM exiftool "-FileCreateDate"   "%MapiCamImgFolder%"
+:: REM exiftool "-DateTime"         "%MapiCamImgFolder%"
+:: REM exiftool "-CreateDate"       "%MapiCamImgFolder%"
 
 @echo.
 @echo #####################
@@ -143,14 +143,14 @@ REM exiftool "-CreateDate" "%MapiCamImgFolder%"
 	:: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
 	:: УВАГА! цей скрипт від попередньої версії
 				
-			REM python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0\interpolate.gpx" --offset_angle %offsetAngle%
+	::		REM python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0\interpolate.gpx" --offset_angle %offsetAngle%
 
-			REM Traceback (most recent call last):
-			  REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 234, in <module>
-				REM add_exif_using_timestamp(filepath, filetime, gpx, args.time_offset, args.offset_angle)
-			  REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 102, in add_exif_using_timestamp
-				REM t = time - datetime.timedelta(seconds=offset_time)
-			REM TypeError: unsupported operand type(s) for -: 'str' and 'datetime.timedelta'
+	::		REM Traceback (most recent call last):
+	::		REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 234, in <module>
+	::		REM add_exif_using_timestamp(filepath, filetime, gpx, args.time_offset, args.offset_angle)
+	::		REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 102, in add_exif_using_timestamp
+	::		REM t = time - datetime.timedelta(seconds=offset_time)
+	::		REM TypeError: unsupported operand type(s) for -: 'str' and 'datetime.timedelta'
 
 
 exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
@@ -159,11 +159,11 @@ exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_orig
 :: ===== BlackVue END ===========
 
 
-REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
-REM exiftool "-FileModifyDate" "%MapiCamImgFolder%"
-REM exiftool "-FileCreateDate" "%MapiCamImgFolder%"
-REM exiftool "-DateTime" "%MapiCamImgFolder%"
-REM exiftool "-CreateDate" "%MapiCamImgFolder%"
+:: REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
+:: REM exiftool "-FileModifyDate"   "%MapiCamImgFolder%"
+:: REM exiftool "-FileCreateDate"   "%MapiCamImgFolder%"
+:: REM exiftool "-DateTime"         "%MapiCamImgFolder%"
+:: REM exiftool "-CreateDate"       "%MapiCamImgFolder%"
 
 
 
