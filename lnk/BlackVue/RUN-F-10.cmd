@@ -106,10 +106,10 @@ CALL %MapiCamFolder%\BlackVue-4-MergeGPX.cmd  %BlackVueFolder% %BlackVueFPS% %Bl
 CALL %MapiCamFolder%\BlackVue-5-MoveJPG.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::6
-CALL %MapiCamFolder%\BlackVue-6-FixDateTime.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+:: CALL %MapiCamFolder%\BlackVue-6-FixDateTime.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::7
-CALL %MapiCamFolder%\BlackVue-7-Gpx2Exif.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+:: CALL %MapiCamFolder%\BlackVue-7-Gpx2Exif.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 
 ::8
