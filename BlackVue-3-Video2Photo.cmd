@@ -47,6 +47,7 @@
 setlocal enableextensions enabledelayedexpansion
 ::   MapiCamFolder=D:\mapicam
 @set MapiCamFolder=D:\mapicam
+::   version 0.4.2 - TRUE // version 0.5.0 - FALSE // 
 ::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
 @set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
 ::   BlackVueFolder=F:\BlackVue
@@ -83,15 +84,13 @@ mkdir "%BlackVueFolder%\Record\gpx"
 :: треба зробити (колись пізніше)-1: на цьому ж етапі генерувати і текстовий файл з координатами.
 :: треба зробити (колись пізніше)-2: знайти якийсь аналог до --skip_subfolders , бо процес на ВСІ підпапки займає занадто багато часу, і іноді вилітає, що тягне за собою видалення всього, та повний повторний прогон рендеренгу.
 
-D:\mapicam\tools\mapillary\mapillary_tools.exe sample_video --advanced -h
+:: D:\mapicam\tools\mapillary\mapillary_tools.exe sample_video --advanced -h
 
 :: %MapiCamMapillaryTools% sample_video --advanced --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval%
 
-
-
-%MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --rerun --user_name %MapiCamUsernameAtMapillary%  --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle 0 --use_gps_start_time --interpolate_directions --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag
-
-
+%MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --rerun --user_name %MapiCamUsernameAtMapillary%  --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" ^
+--offset_angle 0 --use_gps_start_time --interpolate_directions --overwrite_all_EXIF_tags  ^
+--overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag
 
 :: mapillary_tools video_process 
 :: --advanced 
