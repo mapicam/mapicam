@@ -28,6 +28,8 @@
 :: ###################################################
 ::
 
+cd %1%
+
 @set MapiCamPhaseNum=[1]
 @set MapiCamLOG=mapicam-LOG.txt
 @echo %date%%time% # %MapiCamPhaseNum% -------------------------------------------------------------- >> %MapiCamLOG%
