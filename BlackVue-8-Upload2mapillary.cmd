@@ -187,8 +187,12 @@ cd %BlackVueFolder%\Record\jpg
 @echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 
+
+
 :: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --duplicate_distance %uploadDuplicateDistance%
 %MapiCamMapillaryTools%    process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %uploadUserName% --duplicate_distance %uploadDuplicateDistance% >> %MapiCamLOG%
+
+
 
 @echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
