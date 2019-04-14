@@ -29,13 +29,31 @@
 @echo.
 @echo ###################################################
 @echo #                                                 #
-@echo # START : RUN-F-10                                #
+@echo # START : RUN-FOLDER-10                                #
 @echo #                                                 #
 @echo ###################################################
 @echo.
 
+setlocal enableextensions enabledelayedexpansion
+:: BlackVueFolder=F:\BlackVue
+set BlackVueFolder=%1%
+:: BlackVueFolder=F:\BlackVue
+set MapiCamFolder=%1%
+:: BlackVueFPS=10
+set BlackVueFPS=%2%
+:: BlackVueInterval=0.1
+set BlackVueInterval=%3%
+@echo.
+@echo BlackVueFolder   = %BlackVueFolder%
+@echo BlackVueFPS      = %BlackVueFPS%
+@echo BlackVueInterval = %BlackVueInterval%
+@echo.
+mkdir "%BlackVueFolder%\Record"
+mkdir "%BlackVueFolder%\Record\%BlackVueFPS%fps"
+mkdir "%BlackVueFolder%\Record\gpx"
+
 ::1
-CALL D:\mapicam\BlackVue-1-Record-ListFileMP4.cmd F:\BlackVue
+CALL D:\mapicam\BlackVue-1-Record-ListFileMP4.cmd %1%
 
 ::2
 CALL D:\mapicam\BlackVue-2-Record-Concat.cmd F:\BlackVue

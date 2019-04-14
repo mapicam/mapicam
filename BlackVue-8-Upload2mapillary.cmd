@@ -91,7 +91,7 @@ set MapiCamTime=%hour%%min%%secs%
 @echo.
 @echo ---------------------------------------------------------------
 
-setlocal enabledelayedexpansion
+setlocal enableextensions enabledelayedexpansion
 
 @set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
 :: BlackVueFolder=F:\BlackVue
@@ -153,7 +153,7 @@ cd %BlackVueFolder%\Record\jpg
 :: REM cd %HOMEPATH%
 :: REM DEL /F/Q/S %HOMEPATH%\.config\mapillary\*.* > NUL
 :: REM DEL /F/Q/S %HOMEPATH%\.config\mapillary\* > NUL
-:: REM RMDIR /Q/S foldername %HOMEPATH%\.config\mapillary
+:: REM RMDIR /Q/S %HOMEPATH%\.config\mapillary
 :: REM %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName%
 :: [2] RUN               process again on each folder re-authenticating when prompted
 :: [3] UPLOAD            Upload reprocessed imagery.
@@ -253,7 +253,7 @@ cd %BlackVueFolder%\Record\jpg
 @echo #                                                             #
 @echo ###############################################################
 @echo #                                                             #
-@echo # [9] NEXT  : ................                                #
+@echo # [9] NEXT  : CleanMapillaryCache                             #
 @echo #                                                             #
 @echo ###############################################################
 @echo.
