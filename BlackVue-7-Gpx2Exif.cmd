@@ -30,6 +30,8 @@
 :: https://github.com/mapicam/mapicam/wiki/FixDateTime <-- READ ME!
 :: 
 
+@set MapiCamPhaseNum=[7]
+@set MapiCamLOG=mapicam-LOG.txt
 @echo.
 @echo ####################################################
 @echo #                                                  #
@@ -38,20 +40,66 @@
 @echo ####################################################
 @echo.
 
-:: #####################
-:: # This is parametrs #
-:: #####################
-
+cd %1%
 setlocal enableextensions enabledelayedexpansion
-@set MapiCamFFpath=c:\ffmpeg\bin
-:: BlackVue=F:\BlackVue
-@set BlackVue=%1%
-:: BlackVueFPS=10
+::   MapiCamFolder=D:\mapicam
+@set MapiCamFolder=D:\mapicam
+::   version 0.4.2 - TRUE // version 0.5.0 - FALSE // 
+::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+:: Використовуємо механіку, коли ЯРЛИК (LNK) зчитує розташування і СКРИПТ працює відносно папки з якої запустили LNK
+::   BlackVueFolder=F:\BlackVue
+@set BlackVueFolder=%1%
+::   BlackVueFPS=10
 @set BlackVueFPS=%2%
-::   MapiCamImgFolder=%BlackVue%\Record\jpg
-@set MapiCamImgFolder=%BlackVue%\Record\jpg
-@set MapiCamGpxFolder=%BlackVue%\Record\gpx
+::   BlackVueInterval 0.1
+@set BlackVueInterval=%3%
+::   --duplicate_distance 0.2
+@set BlackDuplicateDistance=%4%
+::   --user_name velmyshanovnyi
+@set MapiCamUsernameAtMapillary=%5%
+@set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
+::   --import_path "Record\jpg"
+::                  Record\jpg\.mapillary (там же має лежати папка з файлами мапілларі)
+@set uploadImportPath=Record\jpg
+@echo ---------------------------------------------------
+@echo %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%
+@echo %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%
+@echo %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%
+@echo %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%
+@echo %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%
+@echo %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%
+@echo %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
+@echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
+@echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
+@echo %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%
+@echo %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath%
+@echo.
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%                    >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%            >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%                   >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%                      >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%           >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%       >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%                  >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%                       >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath% >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo ---------------------------------------------------
+RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
+MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
+@echo ---------------------------------------------------
+@echo.
 
+
+@echo ---------------------------------------------------
+@set MapiCamFFpath=c:\ffmpeg\bin
+@set MapiCamImgFolder=%BlackVueFolder%\Record\jpg
+@set MapiCamGpxFolder=%BlackVueFolder%\Record\gpx
 @set MapiCamImgDIR=00
 @set MapiCamImgDIR=%2%
 @set MapiCamHead=0
@@ -60,25 +108,26 @@ setlocal enableextensions enabledelayedexpansion
 @set MapiCamInterpolationPy="D:\mapicam_tools\mapillary\mapillary_tools-master\mapillary_tools\interpolation.py"
 @set MapiCamGeotagFromGpxPy="D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py"
 @set MapiCamMapillaryTools="D:\mapicam\tools\mapillary\mapillary_tools.exe"
-@set MapiCamUsernameAtMapillary=velmyshanovnyi
-@echo .
-@echo #####################
+@echo ---------------------------------------------------
 @echo setlocal EnableDelayedExpansion
 @echo MapiCamFFpath              = %MapiCamFFpath%
-@echo BlackVue                   = %BlackVue%
-@echo BlackVueFPS                = %BlackVueFPS%
-@echo MapiCamImgDrive            = %MapiCamImgDrive%
 @echo MapiCamImgFolder           = %MapiCamImgFolder%
 @echo MapiCamGpxFolder           = %MapiCamGpxFolder%
 @echo MapiCamImgDIR              = %MapiCamImgDIR% (default)
+@echo BlackVueFolder             = %BlackVueFolder%
+@echo BlackVueFPS                = %BlackVueFPS%
+@echo MapiCamImgDrive            = %MapiCamImgDrive%
+@echo MapiCamHeadXX              = %MapiCamHeadXX%
+@echo offsetAngle                = %offsetAngle%
 @echo MapiCamInterpolationPy     = %MapiCamInterpolationPy%
 @echo MapiCamGeotagFromGpxPy     = %MapiCamGeotagFromGpxPy%
 @echo MapiCamMapillaryTools      = %MapiCamMapillaryTools%
-@echo MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
-@echo MapiCamHeadXX              = %MapiCamHeadXX%
-@echo offsetAngle                = %offsetAngle%
-@echo #####################
-@echo .
+@echo ---------------------------------------------------
+
+
+
+
+
 @echo .
 @echo .
 @echo . Якщо пише ТАКУ помилку, то можливо треба перевести назад на 2 години час в зведеному файлі GPX.
@@ -172,14 +221,21 @@ exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_orig
 @echo.
 @echo ####################################################
 @echo #                                                  #
-@echo # END   : [7] Gpx2Exif                             #
+@echo # [7] END   : Gpx2Exif                            #
 @echo #                                                  #
 @echo ####################################################
 @echo #                                                  #
-@echo # NEXT  : [8]                                      #
+@echo # [8] NEXT  : ........                                      #
 @echo #                                                  #
 @echo ####################################################
 @echo.
 @echo.
 @echo.
+RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
+MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
+@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% # [7] END   : Gpx2Exif                                        # >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% # [8] NEXT  : ........                                        # >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum%    
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!

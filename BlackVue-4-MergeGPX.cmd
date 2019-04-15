@@ -29,7 +29,16 @@
 ::
 :: https://stackoverflow.com/questions/38554131/merge-all-gpx-files-within-a-folder-into-one-file-with-gpsbabel 
 :: 
-
+cd %1%
+@set MapiCamPhaseNum=[4]
+@set MapiCamLOG=mapicam-LOG.txt
+@echo %date%%time% #                                                                                   >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% # [4] START : MergeGPX                                          >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ####################################################
 @echo #                                                  #
@@ -38,9 +47,77 @@
 @echo ####################################################
 @echo.
 
-@echo #####################
-@echo #  YYYYMMDD HHMMSS  #
-@echo #####################
+cd %1%
+setlocal enableextensions enabledelayedexpansion
+::   MapiCamFolder=D:\mapicam
+@set MapiCamFolder=D:\mapicam
+::   version 0.4.2 - TRUE // version 0.5.0 - FALSE // 
+::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+:: Використовуємо механіку, коли ЯРЛИК (LNK) зчитує розташування і СКРИПТ працює відносно папки з якої запустили LNK
+::   BlackVueFolder=F:\BlackVue
+@set BlackVueFolder=%1%
+::   BlackVueFPS=10
+@set BlackVueFPS=%2%
+::   BlackVueInterval 0.1
+@set BlackVueInterval=%3%
+::   --duplicate_distance 0.2
+@set BlackDuplicateDistance=%4%
+::   --user_name velmyshanovnyi
+@set MapiCamUsernameAtMapillary=%5%
+@set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
+::   --import_path "Record\jpg"
+::                  Record\jpg\.mapillary (там же має лежати папка з файлами мапілларі)
+@set uploadImportPath=Record\jpg
+@echo ---------------------------------------------------
+@echo %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%
+@echo %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%
+@echo %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%
+@echo %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%
+@echo %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%
+@echo %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%
+@echo %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
+@echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
+@echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
+@echo %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%
+@echo %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath%
+@echo.
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%                    >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%            >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%                   >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%                      >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%           >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%       >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%                  >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%                       >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath% >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo ---------------------------------------------------
+RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
+MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
+@echo ---------------------------------------------------
+@echo.
+
+
+
+@echo ---------------------
+@set  MapiCamGBpath=C:\Progra~2\GPSBabel
+@echo MapiCamGBpath    = %MapiCamGBpath%
+@echo ---------------------
+
+mkdir %BlackVueFolder%\Record\gpx
+mkdir %BlackVueFolder%\Record\gpx\0
+mkdir %BlackVueFolder%\Record\temp
+
+@echo.
+@echo #-------------------------------------------------------------#
+@echo #  YYYYMMDD HHMMSS                                            #
+@echo #-------------------------------------------------------------#
+@echo OFF
 set year=%date:~-4%
 set month=%date:~3,2%
   if "%month:~0,1%" == " " set month=0%month:~1,1%
@@ -55,51 +132,42 @@ set secs=%time:~6,2%
 set datetimefull=%year%-%month%-%day%T%hour%:%min%:%secs%Z
 set MapiCamDate=%year%%month%%day%
 set MapiCamTime=%hour%%min%%secs%
+@echo ON
+@echo #                                                             #
+@echo # date         = %date%                                   #
+@echo # time         = %time%                                  #
+@echo # year         = %year%                                         #
+@echo # month        = %month%                                           #
+@echo # day          = %day%                                           #
+@echo # hour         = %hour%                                           #
+@echo # min          = %min%                                           #
+@echo # secs         = %secs%                                           #
+@echo # datetimefull = %datetimefull%                         #
+@echo # MapiCamDate  = %MapiCamDate%                                     #
+@echo # MapiCamTime  = %MapiCamTime%                                       #
+@echo #                                                             #
+@echo #-------------------------------------------------------------#
+@echo #  YYYYMMDD HHMMSS (END)                                      #
+@echo #-------------------------------------------------------------#
 @echo.
-@echo year         = %year%
-@echo month        = %month%
-@echo day          = %day%
-@echo hour         = %hour%
-@echo min          = %min%
-@echo secs         = %secs%
-@echo datetimefull = %datetimefull%
-@echo MapiCamDate  = %MapiCamDate%
-@echo MapiCamTime  = %MapiCamTime%
-@echo.
-@echo #####################
-@echo # This is parametrs #
-@echo #####################
-
-setlocal enableextensions enabledelayedexpansion
-set MapiCamGBpath=C:\Progra~2\GPSBabel
-:: BlackVue=F:\BlackVue
-set BlackVue=%1%
-
-@echo.
-@echo MapiCamGBpath    = %MapiCamGBpath%
-@echo BlackVue         = %BlackVue%
-@echo.
-mkdir %BlackVue%\Record\gpx
-mkdir %BlackVue%\Record\gpx\0
-mkdir %BlackVue%\Record\temp
 
 
 
 @echo.
 @echo ----- CREATE PREFIX
 :: СТВОРЮЄМО ПРЕФІКС
-@echo CREATE "%BlackVue%\Record\temp\_temp-1.txt"
+@echo CREATE "%BlackVueFolder%\Record\temp\_temp-1.txt"
 :: якщо "_temp-1.txt" не існує, тому його буде створено!
 :: якщо "_temp-1.txt" існує, то його буде перезаписано!
 :: <?xml version="1.0" encoding="UTF-8"?>
-echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^>                                                                        >"%BlackVue%\Record\temp\_temp-1.txt"
+echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^>                                                                        >"%BlackVueFolder%\Record\temp\_temp-1.txt"
 :: <gpx version="1.0" creator="GPSBabel - http://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/0">
-echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^> >>"%BlackVue%\Record\temp\_temp-1.txt"
+echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^> >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
 :: <time>2019-04-07T23:39:36.706Z</time>
-echo ^<time^>%datetimefull%^</time^>                                                                                    >>"%BlackVue%\Record\temp\_temp-1.txt"
+echo ^<time^>%datetimefull%^</time^>                                                                                    >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
 :: закоментовано через те що не можу вставляти значення правильних координат minlat/minlon/maxlat/maxlon - як параметрів
-echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>                            >>"%BlackVue%\Record\temp\_temp-1.txt"
+echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>                            >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
 
 
 
@@ -107,11 +175,11 @@ echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"
 @echo.
 @echo ----- CREATE SUFIX
 :: СТВОРЮЄМО СУФІКС
-if not exist "%BlackVue%\Record\temp\_temp-3.txt" (
+if not exist "%BlackVueFolder%\Record\temp\_temp-3.txt" (
 :: якщо "mergeTemp-3.txt" не існує, тому його буде створено!
-echo CREATE "%BlackVue%\Record\temp\_temp-3.txt"
+echo CREATE "%BlackVueFolder%\Record\temp\_temp-3.txt"
 :: </gpx>
-echo ^</gpx^>>"%BlackVue%\Record\temp\_temp-3.txt"
+echo ^</gpx^>>"%BlackVueFolder%\Record\temp\_temp-3.txt"
 ) else (echo FILE "_temp-3.txt" = EXIST) 
 
 
@@ -120,7 +188,7 @@ echo ^</gpx^>>"%BlackVue%\Record\temp\_temp-3.txt"
 @echo.
 @echo ----- CREATE BODY
 :: СТВОРЮЄМО ТІЛО
-copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\temp\_temp-2.txt"
+copy %BlackVueFolder%\Record\gpx\*.gpx "%BlackVueFolder%\Record\temp\_temp-2.txt"
 
 
 
@@ -131,7 +199,7 @@ copy %BlackVue%\Record\gpx\*.gpx "%BlackVue%\Record\temp\_temp-2.txt"
 :: <gpx>
 :: </gpx>
 :: взято тут http://itman.in/remove-lines-from-file/
-type "%BlackVue%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^>>>"%BlackVue%\Record\temp\_temp-4.txt"
+type "%BlackVueFolder%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^>>>"%BlackVueFolder%\Record\temp\_temp-4.txt"
 
 
 
@@ -140,7 +208,7 @@ type "%BlackVue%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</g
 @echo.
 @echo ----- Prefix & Body & Sufix 
 :: СКЛЕЮЄМО ПРЕФІКС+ТІЛО+СУФІКС
-copy "%BlackVue%\Record\temp\_temp-1.txt"+"%BlackVue%\Record\temp\_temp-4.txt"+"%BlackVue%\Record\temp\_temp-3.txt" "%BlackVue%\Record\temp\_temp-5.txt"
+copy "%BlackVueFolder%\Record\temp\_temp-1.txt"+"%BlackVueFolder%\Record\temp\_temp-4.txt"+"%BlackVueFolder%\Record\temp\_temp-3.txt" "%BlackVueFolder%\Record\temp\_temp-5.txt"
 @echo.
 @echo #######################
 
@@ -151,18 +219,18 @@ copy "%BlackVue%\Record\temp\_temp-1.txt"+"%BlackVue%\Record\temp\_temp-4.txt"+"
 :: ВИДАЛЯЄМО останній рядок, бо в ньому іноді зЯвляється символ переносу каретки, який спричиняє збої в подальшій обробці
 :: \x0D0A або \x0A
 :: взято тут http://itman.in/remove-lines-from-file/
-type "%BlackVue%\Record\temp\_temp-5.txt" | findstr /v \x0D0A | findstr /v \x0A>>"%BlackVue%\Record\temp\_temp-6.txt"
+type "%BlackVueFolder%\Record\temp\_temp-5.txt" | findstr /v \x0D0A | findstr /v \x0A>>"%BlackVueFolder%\Record\temp\_temp-6.txt"
 
 :: СТВОРЮЄМО базовий .gpx
-copy "%BlackVue%\Record\temp\_temp-6.txt" "%BlackVue%\Record\temp\merge.gpx"
+copy "%BlackVueFolder%\Record\temp\_temp-6.txt" "%BlackVueFolder%\Record\temp\merge.gpx"
 
 :: ВИДАЛЯЄМО тимчасові файли
-del "%BlackVue%\Record\temp\_temp-?.txt"
+del "%BlackVueFolder%\Record\temp\_temp-?.txt"
 
 @echo.
 @echo Remove Duplicates (duplicate)
 :: https://www.gpsbabel.org/htmldoc-development/filter_duplicate.html
-%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\temp\merge.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVue%\Record\temp\duplicate.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVueFolder%\Record\temp\merge.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVueFolder%\Record\temp\duplicate.gpx"
 @echo.
 
 
@@ -172,15 +240,15 @@ del "%BlackVue%\Record\temp\_temp-?.txt"
 :: це допомагає боротись з провалами під мостами, та в щільній забудові.
 :: Інтерполяцію не закоментовувати!!!!
 @echo https://www.gpsbabel.org/htmldoc-development/filter_interpolate.html
-%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVue%\Record\temp\duplicate.gpx" -x interpolate,time=1 -o gpx -F "%BlackVue%\Record\temp\interpolate.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVueFolder%\Record\temp\duplicate.gpx" -x interpolate,time=1 -o gpx -F "%BlackVueFolder%\Record\temp\interpolate.gpx"
 @echo.
 
 
 :: ПЕРЕНОСИМО готові .gpx до папки GPX
-mkdir %BlackVue%\Record\gpx\0
-move /Y "%BlackVue%\Record\temp\merge.gpx" "%BlackVue%\Record\gpx\0"
-move /Y "%BlackVue%\Record\temp\duplicate.gpx" "%BlackVue%\Record\gpx\0"
-move /Y "%BlackVue%\Record\temp\interpolate.gpx" "%BlackVue%\Record\gpx\0"
+mkdir %BlackVueFolder%\Record\gpx\0
+move /Y "%BlackVueFolder%\Record\temp\merge.gpx" "%BlackVueFolder%\Record\gpx\0"
+move /Y "%BlackVueFolder%\Record\temp\duplicate.gpx" "%BlackVueFolder%\Record\gpx\0"
+move /Y "%BlackVueFolder%\Record\temp\interpolate.gpx" "%BlackVueFolder%\Record\gpx\0"
 
 
 @echo.
@@ -198,4 +266,11 @@ move /Y "%BlackVue%\Record\temp\interpolate.gpx" "%BlackVue%\Record\gpx\0"
 @echo.
 @echo.
 @echo.
+RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
+MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
+@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% # [4] END   : MergeGPX                                        # >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% # [5] NEXT  : MoveJPG                                         # >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date%%time% # %MapiCamPhaseNum%      
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
