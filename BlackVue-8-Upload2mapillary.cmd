@@ -113,7 +113,6 @@ setlocal enableextensions enabledelayedexpansion
 ::                Record\jpg\.mapillary (там же має лежати папка з файлами мапілларі)
 @set uploadImportPath=Record\jpg
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
-
 @echo.
 @echo %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%
 @echo %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%
@@ -125,9 +124,6 @@ setlocal enableextensions enabledelayedexpansion
 @echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
 @echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
 @echo.
-
-@echo.
-
 @echo %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%
 @echo %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath%
 @echo.
@@ -143,16 +139,16 @@ setlocal enableextensions enabledelayedexpansion
 @echo %date%%time% # %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%                 >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath% >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-
 @echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
+RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
+MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo ---------------------------------------------------
 mkdir %BlackVueFolder%\Record
 mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 mkdir %BlackVueFolder%\Record\gpx
 mkdir %BlackVueFolder%\Record\jpg
-cd    %BlackVueFolder%\Record\jpg
 
 
 @echo ---------------------------------------------------
@@ -212,38 +208,37 @@ cd    %BlackVueFolder%\Record\jpg
 
 @echo.
 @echo ---------------------------------------------------------------
-@echo upload             = ERROR-403: %MapiCamMapillaryTools% upload --import_path %BlackVueFolder%\%uploadImportPath%
+@echo IF upload = ERROR-403 USE version 0.4.2 - TRUE // version 0.5.0 - FALSE //  %MapiCamMapillaryTools% upload --verbose --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10
 :: УВАГА!!! для UPLOAD: не можна ставити 
 ::     --number_threads
 ::     --max_attempts
 ::     --duplicate_distance
 :: бо ПОМИЛКА
 :: %MapiCamMapillaryTools% upload -advanced --import_path "%BlackVueFolder%\%uploadImportPath%"
-@echo process_and_upload = ERROR-403 ((
 @echo process            = ...
 @echo ---------------------------------------------------------------
 @echo.
 
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% ERROR-403: %MapiCamMapillaryTools% upload --import_path %BlackVueFolder%\%uploadImportPath% >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% process_and_upload = RUN                                        >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% upload = RUN                                                    >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% parametr =                                                      >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10 --duplicate_distance %BlackDuplicateDistance% >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% upload --verbose --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10 >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 
-%MapiCamMapillaryTools% upload --verbose --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10 --duplicate_distance %BlackDuplicateDistance% >> %MapiCamLOG%
-
+@echo on
+%MapiCamMapillaryTools% upload --verbose --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10 >> %MapiCamLOG%
+@echo off
 :: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %MapiCamUsernameAtMapillary% --number_threads 10 --max_attempts 2 --verbose --rerun --duplicate_distance %BlackDuplicateDistance% >> %MapiCamLOG%
 
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% process_and_upload = COMPLETE :-)                               >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% upload = COMPLETE :-)                                           >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ---------------------------------------------------------------
-@echo process_and_upload = COMPLETE :-)
+@echo upload = COMPLETE :-)
 @echo ---------------------------------------------------------------
 @echo.
 
@@ -265,6 +260,9 @@ cd    %BlackVueFolder%\Record\jpg
 @echo.
 @echo.
 @echo.
+
+@RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
+@MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
 
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% # [8] END   : Upload2Mapillary                                # >> %MapiCamLOG%

@@ -119,7 +119,7 @@ CALL %MapiCamFolder%\BlackVue-5-MoveJPG.cmd  %BlackVueFolder% %BlackVueFPS% %Bla
 @echo.
 @echo ###################################################
 @echo #                                                 #
-@echo #                  END PROCESS                    #
+@echo #                END RUN PROCESS                  #
 @echo #                                                 #
 @echo ###################################################
 @echo.

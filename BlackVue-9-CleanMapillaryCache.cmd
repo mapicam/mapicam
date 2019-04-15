@@ -28,7 +28,6 @@
 :: ###################################################
 ::
 
-
 @set MapiCamPhaseNum=[9]
 @set MapiCamLOG=mapicam-LOG.txt
 @echo %date%%time% #                                                                                   >> %MapiCamLOG%
@@ -47,7 +46,6 @@
 @echo.
 
 setlocal enableextensions enabledelayedexpansion
-
 @set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
 :: BlackVueFolder=F:\BlackVue
 :: Використовуємо механіку, коли ЯРЛИК (LNK) зчитує розташування і СКРИПТ працює відносно папки з якої запустили LNK
@@ -61,7 +59,6 @@ setlocal enableextensions enabledelayedexpansion
 ::                Record\jpg\.mapillary (там же має лежати папка з файлами мапілларі)
 @set uploadImportPath=Record\jpg
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
-
 @echo.
 @echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
 @echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
@@ -84,7 +81,8 @@ setlocal enableextensions enabledelayedexpansion
 @echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ---------------------------------------------------
-
+RMDIR %BlackVueFolder%\%MapiCamPhaseNum%=TRUE
+MKDIR %BlackVueFolder%\%MapiCamPhaseNum%=PROCESSED
 
 
 @echo ---------------------------------------------------
@@ -129,6 +127,9 @@ dir
 @echo.
 @echo.
 @echo.
+
+RMDIR %BlackVueFolder%\%MapiCamPhaseNum%=PROCESSED
+MKDIR %BlackVueFolder%\%MapiCamPhaseNum%=TRUE
 
 @echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date%%time% # %MapiCamPhaseNum% # [ 9] END  : Upload2Mapillary                                # >> %MapiCamLOG%
