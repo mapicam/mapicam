@@ -49,6 +49,8 @@
 @echo #
 
 cd %1%
+@set MapiCamPhaseNum=[RUN]
+@set MapiCamLOG=mapicam-LOG.txt
 setlocal enableextensions enabledelayedexpansion
 ::   MapiCamFolder=D:\mapicam
 @set MapiCamFolder=D:\mapicam
@@ -98,8 +100,9 @@ setlocal enableextensions enabledelayedexpansion
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo ---------------------------------------------------
-RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
-MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
+DIR >> %MapiCamLOG%
+RMDIR %BlackVueFolder%\[RUN]-ALL_PROCESSED_END
+MKDIR %BlackVueFolder%\[RUN]-PROCESSED
 @echo ---------------------------------------------------
 @echo.
 
@@ -137,6 +140,11 @@ CALL %MapiCamFolder%\BlackVue-5-MoveJPG.cmd  %BlackVueFolder% %BlackVueFPS% %Bla
 
 ::8
 
+@echo ---------------------------------------------------
+RMDIR %BlackVueFolder%\[RUN]-PROCESSED
+MKDIR %BlackVueFolder%\[RUN]-ALL_PROCESSED_END
+DIR >> %MapiCamLOG%
+@echo ---------------------------------------------------
 @echo.
 @echo.
 @echo.

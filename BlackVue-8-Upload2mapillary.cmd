@@ -265,6 +265,7 @@ set MapiCamTime=%hour%%min%%secs%
 
 @RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
+@MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-UPLOAD-2-MAPILLARY-COMPLETE
 
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% # [8] END   : Upload2Mapillary                                # >> %MapiCamLOG%

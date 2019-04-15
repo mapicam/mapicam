@@ -114,6 +114,9 @@ mkdir %BlackVueFolder%\Record
 (for %%i in (%BlackVueFolder%\Record\%listFileMP4%) do @echo file '%%i') > %BlackVueFolder%\%listFileTXT%
 
 
+
+
+
 @echo.
 @echo.
 @echo.
