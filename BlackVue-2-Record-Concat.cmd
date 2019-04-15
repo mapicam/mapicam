@@ -30,13 +30,13 @@
 cd %1%
 @set MapiCamPhaseNum=[2]
 @set MapiCamLOG=mapicam-LOG.txt
-@echo %date%%time% #                                                                                   >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [2] START : BlackVue-Record-Concat                            >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% #                                                                                   >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [2] START : BlackVue-Record-Concat                            >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ####################################################
 @echo #                                                  #
@@ -133,9 +133,9 @@ ffmpeg -y -f concat -safe 0 -i %BlackVueFolder%\%concatTXT% -codec copy %BlackVu
 @echo.
 RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [2] END   : BlackVue-Record-Concat                          # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [3] NEXT  : BlackVue-Video2Photo                            # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%      
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [2] END   : BlackVue-Record-Concat                          # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [3] NEXT  : BlackVue-Video2Photo                            # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%      
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!

@@ -27,18 +27,16 @@
 :: #                                                 #
 :: ###################################################
 ::
-
 cd %1%
-
 @set MapiCamPhaseNum=[8]
 @set MapiCamLOG=mapicam-LOG.txt
-@echo %date%%time% #                                                                                   >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [8] START : Upload2Mapillary                                  >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% #                                                                                   >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [8] START : Upload2Mapillary                                  >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ###############################################################
 @echo #                                                             #

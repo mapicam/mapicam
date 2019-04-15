@@ -27,16 +27,16 @@
 :: #                                                 #
 :: ###################################################
 ::
-
+cd %1%
 @set MapiCamPhaseNum=[9]
 @set MapiCamLOG=mapicam-LOG.txt
-@echo %date%%time% #                                                                                   >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [9] START : CleanMapillaryCache                               >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% #                                                                                   >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [9] START : CleanMapillaryCache                               >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ###############################################################
 @echo #                                                             #
@@ -117,11 +117,11 @@ RMDIR /Q/S %BlackVueFolder%\%uploadImportPath%\.mapillary
 cd %BlackVueFolder%\%uploadImportPath%
 dir
 
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% DELETE - COMPLETE :-)                                           >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% DELETE - COMPLETE :-)                                           >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ---------------------------------------------------------------
 @echo DELETE = COMPLETE :-)
@@ -146,11 +146,11 @@ dir
 @echo.
 RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [ 9] END  : Upload2Mapillary                                # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [10] NEXT : ................                                # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [ 9] END  : Upload2Mapillary                                # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [10] NEXT : ................                                # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
 
 cmd /k

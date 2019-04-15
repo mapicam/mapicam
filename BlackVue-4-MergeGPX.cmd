@@ -32,13 +32,13 @@
 cd %1%
 @set MapiCamPhaseNum=[4]
 @set MapiCamLOG=mapicam-LOG.txt
-@echo %date%%time% #                                                                                   >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [4] START : MergeGPX                                          >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% #                                                                                   >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [4] START : MergeGPX                                          >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ####################################################
 @echo #                                                  #
@@ -268,9 +268,9 @@ move /Y "%BlackVueFolder%\Record\temp\interpolate.gpx" "%BlackVueFolder%\Record\
 @echo.
 RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [4] END   : MergeGPX                                        # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [5] NEXT  : MoveJPG                                         # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%      
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [4] END   : MergeGPX                                        # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [5] NEXT  : MoveJPG                                         # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%      
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!

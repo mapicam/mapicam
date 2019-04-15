@@ -28,13 +28,20 @@
 :: ###################################################
 ::
 :: https://github.com/mapicam/mapicam/wiki/FixDateTime <-- READ ME!
-
+cd %1%
 @set MapiCamPhaseNum=[6]
 @set MapiCamLOG=mapicam-LOG.txt
+@echo %date% %time% #                                                                                   >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [6] START : FixDateTime                                       >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ####################################################
 @echo #                                                  #
-@echo # START : [6] FixDateTime                          #
+@echo # [6] START : FixDateTime                          #
 @echo #                                                  #
 @echo ####################################################
 @echo.
@@ -222,9 +229,9 @@ exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_orig
 @echo.
 RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [6] END   : FixDateTime                                     # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [7] NEXT  : Gpx2Exif                                        # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%     
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [6] END   : FixDateTime                                     # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [7] NEXT  : Gpx2Exif                                        # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%     
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!

@@ -30,16 +30,16 @@
 :: 
 :: https://stackoverflow.com/questions/38554131/merge-all-gpx-files-within-a-folder-into-one-file-with-gpsbabel 
 :: 
-
+cd %1%
 @set MapiCamPhaseNum=[5]
 @set MapiCamLOG=mapicam-LOG.txt
-@echo %date%%time% #                                                                                   >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [5] START : MoveJPG                                           >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% #                                                                                   >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [5] START : MoveJPG                                           >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ####################################################
 @echo #                                                  #
@@ -133,19 +133,25 @@ move /Y "%%I" "%BlackVueFolder%\Record\jpg")
 @echo.
 @echo.
 @echo.
-@echo #######################
-@echo ##### END PROCESS #####
-@echo #######################
+@echo ####################################################
+@echo #                                                  #
+@echo # [5] END   : MoveJPG                              #
+@echo #                                                  #
+@echo ####################################################
+@echo #                                                  #
+@echo # [6] NEXT  : FixDateTime                          #
+@echo #                                                  #
+@echo ####################################################
 @echo.
 @echo.
 @echo.
 RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [5] END   : MoveJPG                                         # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% # [6] NEXT  : .....                                           # >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date%%time% # %MapiCamPhaseNum%      
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [5] END   : MoveJPG                                         # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [6] NEXT  : FixDateTime                                     # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%      
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
 
 
