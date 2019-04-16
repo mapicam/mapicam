@@ -159,27 +159,30 @@ set MapiCamTime=%hour%%min%%secs%
 :: https://github.com/mapillary/mapillary_tools/issues/328
 :: Steps to fix that are:
 :: 
-:: [1]DELETE .config -  Mapillary credentials by deleting .config file. Default is ~/.config/mapillary/config  --- For Win10 (%homedrive%\.config\mapillary)
+:: [1] DELETE .config -  Mapillary credentials by deleting .config file. Default is ~/.config/mapillary/config  --- For Win10 (%homedrive%\.config\mapillary)
 :: ВИДАЛЯЄМО глючні файли конфігурації (C:\Users\velmy\.config\mapillary\config)
-:: REM cd c:\
-:: REM cd %HOMEPATH%
-:: REM DEL /F/Q/S %HOMEPATH%\.config\mapillary\*.* > NUL
-:: REM DEL /F/Q/S %HOMEPATH%\.config\mapillary\* > NUL
-:: REM RMDIR /Q/S %HOMEPATH%\.config\mapillary
-:: REM %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName%
+:: cd c:\
+:: cd %HOMEPATH%
+:: DEL /F/Q/S %HOMEPATH%\.config\mapillary\*.* > NUL
+:: DEL /F/Q/S %HOMEPATH%\.config\mapillary\* > NUL
+:: RMDIR /Q/S %HOMEPATH%\.config\mapillary
+
 :: [2] RUN               process again on each folder re-authenticating when prompted
+:: %MapiCamMapillaryTools% authenticate --advanced --help
+:: %MapiCamMapillaryTools% authenticate --advanced --user_name %MapiCamUsernameAtMapillary%
+:: D:\mapicam\tools\mapillary\mapillary_tools.exe authenticate --advanced --help
+:: D:\mapicam\tools\mapillary\mapillary_tools.exe authenticate --advanced --user_name velmyshanovnyi
 :: [3] UPLOAD            Upload reprocessed imagery.
 :: 
 
-:: %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName%
-
-::echo %date%%time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName% >> %MapiCamLOG%
-::echo %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName% >> %MapiCamLOG%
-::echo %date%%time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-:: C:\ffmpeg\bin\mapillary_tools.exe  --advanced authenticate --user_name XXX --user_email YYY --user_password ZZZ
+::echo %date%%time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% authenticate --advanced --user_name %MapiCamUsernameAtMapillary% >> %MapiCamLOG%
+::echo %MapiCamMapillaryTools% authenticate --advanced --user_name %MapiCamUsernameAtMapillary%                                  >> %MapiCamLOG%
+::echo %date%%time% # %MapiCamPhaseNum%                                                                                          >> %MapiCamLOG%
+:: D:\mapicam\tools\mapillary\mapillary_tools.exe  --advanced authenticate --user_name XXX --user_email YYY --user_password ZZZ
 :: потрібно при ПЕРШОМУ старті, потім треба закоментувати
 :: НА МАЙБУТНЄ: зробити перевірку чи є вже в системі цей параметр, і якщо є - то запускати лише тоді
-:: %MapiCamMapillaryTools% authenticate --advanced --user_name %uploadUserName%
+:: D:\mapicam\tools\mapillary\mapillary_tools.exe authenticate --advanced --help
+:: D:\mapicam\tools\mapillary\mapillary_tools.exe authenticate --advanced --user_name velmyshanovnyi --help
 
 
 
