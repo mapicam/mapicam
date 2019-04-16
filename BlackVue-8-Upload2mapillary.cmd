@@ -59,7 +59,7 @@ setlocal enableextensions enabledelayedexpansion
 @set BlackVueFPS=%2%
 ::   BlackVueInterval 0.1
 @set BlackVueInterval=%3%
-::   --duplicate_distance 0.2
+::   --duplicate_distance 0.5
 @set BlackDuplicateDistance=%4%
 ::   --user_name velmyshanovnyi
 @set MapiCamUsernameAtMapillary=%5%
@@ -227,14 +227,22 @@ set MapiCamTime=%hour%%min%%secs%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% upload = RUN                                                    >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% parametr =                                                      >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% upload --verbose --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% upload --verbose --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 2 --max_attempts 10 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% OR                                                              >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\%uploadImportPath%"  --rerun --user_name %MapiCamUsernameAtMapillary%  --offset_angle 0 --cutoff_distance 10000 --interpolate_directions --duplicate_distance %BlackDuplicateDistance% --move_duplicates --move_uploaded --list_file_status --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --number_threads 1 --max_attempts 100 >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 
 @echo on
-%MapiCamMapillaryTools% upload --verbose --advanced --import_path "%BlackVueFolder%\%uploadImportPath%"  --number_threads 10 --max_attempts 10 >> %MapiCamLOG%
+:: D:\mapicam\tools\mapillary\mapillary_tools.exe upload --advanced --help
+%MapiCamMapillaryTools% upload --advanced --help
+%MapiCamMapillaryTools% upload --verbose --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --number_threads 5 --max_attempts 5 >> %MapiCamLOG%
+
+:: D:\mapicam\tools\mapillary\mapillary_tools.exe process_and_upload --advanced --help
+%MapiCamMapillaryTools% process_and_upload --advanced --help
+REM %MapiCamMapillaryTools% process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\%uploadImportPath%" --geotag_source_path "%BlackVueFolder%\Record\gpx\0\interpolate.gpx" --rerun --user_name %MapiCamUsernameAtMapillary%  --offset_angle 0 --cutoff_distance 10000 --interpolate_directions --duplicate_distance %BlackDuplicateDistance% --move_duplicates --move_uploaded --list_file_status --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --number_threads 1 --max_attempts 100 >> %MapiCamLOG%
 @echo off
-:: %MapiCamMapillaryTools% process_and_upload --advanced --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %MapiCamUsernameAtMapillary% --number_threads 10 --max_attempts 2 --verbose --rerun --duplicate_distance %BlackDuplicateDistance% >> %MapiCamLOG%
+:: %MapiCamMapillaryTools% process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\%uploadImportPath%"  --rerun --user_name %MapiCamUsernameAtMapillary%  --offset_angle 0 --cutoff_distance 10000 --interpolate_directions --duplicate_distance %BlackDuplicateDistance% --move_duplicates --move_uploaded --list_file_status --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --number_threads 1 --max_attempts 100 >> %MapiCamLOG%
 
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%

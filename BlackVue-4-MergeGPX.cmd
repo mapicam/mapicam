@@ -106,7 +106,12 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 
 @echo ---------------------
 @set  MapiCamGBpath=C:\Progra~2\GPSBabel
+::   MapiCamCSV2XLSX=D:\mapicam\tools\csv2xlsx\csv2xlsx_386.exe
+@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+@set MapiCamCSV2XLSX=D:\mapicam\tools\csv2xlsx\csv2xlsx_386.exe
+csv2xlsx
 @echo MapiCamGBpath    = %MapiCamGBpath%
+@echo MapiCamCSV2XLSX  = %MapiCamCSV2XLSX%
 @echo ---------------------
 
 mkdir %BlackVueFolder%\Record\gpx
@@ -249,6 +254,15 @@ mkdir %BlackVueFolder%\Record\gpx\0
 move /Y "%BlackVueFolder%\Record\temp\merge.gpx" "%BlackVueFolder%\Record\gpx\0"
 move /Y "%BlackVueFolder%\Record\temp\duplicate.gpx" "%BlackVueFolder%\Record\gpx\0"
 move /Y "%BlackVueFolder%\Record\temp\interpolate.gpx" "%BlackVueFolder%\Record\gpx\0"
+%MapiCamGBpath%\gpsbabel.exe -t -i gpx -f "%BlackVueFolder%\Record\gpx\0\interpolate.gpx" -o ricoh -F "%BlackVueFolder%\Record\gpx\0\interpolate2.csv"
+
+:: https://gitlab.com/DerLinkshaender/csv2xlsx
+:: Ths most basic use case is csv2xlsx -infile test.csv -outfile result.xlsx, where you take an input CSV file in UTF-8 and write out the .xslx file under a new file name. 
+:: To list all available options, start "csv2xlsx --help"
+:: D:\mapicam\tools\csv2xlsx\csv2xlsx_386.exe --help
+%MapiCamCSV2XLSX% --help
+:: D:\mapicam\tools\csv2xlsx\csv2xlsx_386.exe -infile "F:\BlackVue\20190409-C-irpin\Record\gpx\0\interpolate2.csv" -outfile "F:\BlackVue\20190409-C-irpin\Record\gpx\0\interpolate2a.xlsx" -colsep ","
+%MapiCamCSV2XLSX% -infile "%BlackVueFolder%\Record\gpx\0\interpolate2.csv" -outfile "%BlackVueFolder%\Record\gpx\0\interpolate3.xlsx"
 
 
 @echo.
