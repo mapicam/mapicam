@@ -60,17 +60,16 @@ setlocal enableextensions enabledelayedexpansion
 ::   BlackVueFPS=10
 @set /a BlackVueFPS=%2%
 ::   BlackVueInterval 0.1
-IF %BlackVueFPS%==30    ( set /a BlackVueInterval=0.033 )
-IF %BlackVueFPS%==10    ( set /a BlackVueInterval=0.1   )
-IF %BlackVueFPS%==5     ( set /a BlackVueInterval=0.2   )
-IF %BlackVueFPS%==2     ( set /a BlackVueInterval=0.5   )
-IF %BlackVueFPS%==1     ( set /a BlackVueInterval=1     )
-IF %BlackVueFPS%==0.5   ( set /a BlackVueInterval=2     )
-IF %BlackVueFPS%==0.2   ( set /a BlackVueInterval=5     )
-IF %BlackVueFPS%==0.1   ( set /a BlackVueInterval=10    )
-IF %BlackVueFPS%==0.033 ( set /a BlackVueInterval=30    ) ELSE ( 
-set /a BlackVueInterval=%3% )
-@set /a BlackVueInterval=1/%BlackVueFPS%
+@IF %BlackVueFPS%==30    ( set /a BlackVueInterval=0.033 )
+@IF %BlackVueFPS%==10    ( set /a BlackVueInterval=0.1   )
+@IF %BlackVueFPS%==5     ( set /a BlackVueInterval=0.2   )
+@IF %BlackVueFPS%==2     ( set /a BlackVueInterval=0.5   )
+@IF %BlackVueFPS%==1     ( set /a BlackVueInterval=1     )
+@IF %BlackVueFPS%==0.5   ( set /a BlackVueInterval=2     )
+@IF %BlackVueFPS%==0.2   ( set /a BlackVueInterval=5     )
+@IF %BlackVueFPS%==0.1   ( set /a BlackVueInterval=10    )
+@IF %BlackVueFPS%==0.033 ( set /a BlackVueInterval=30    ) ELSE ( 
+@set /a BlackVueInterval=%3% )
 ::   --duplicate_distance 0.2
 @set /a BlackDuplicateDistance=%4%
 ::   --user_name velmyshanovnyi
@@ -114,14 +113,8 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 
 
 
-
-
-
 mkdir %BlackVueFolder%\Record
 mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
-mkdir %BlackVueFolder%\Record\gpx
-mkdir %BlackVueFolder%\Record\jpg
-cd    %BlackVueFolder%\Record\jpg
 
 :: mkdir "F:\BlackVueFolder\Record\csv"
 :: треба зробити (колись пізніше)-1: на цьому ж етапі генерувати і текстовий файл з координатами.
@@ -280,6 +273,7 @@ cd    %BlackVueFolder%\Record\jpg
 :: і згенеровані файли (.JPG) НЕ БУДУТЬ ПРОШИТІ КООРДИНАТАМИ ІЗ ВІДЕО 
 :: УВАГА!!! END
 
+mkdir %BlackVueFolder%\Record\gpx
 move "%BlackVueFolder%\Record\*.gpx" "%BlackVueFolder%\Record\gpx"
 
 @echo.
