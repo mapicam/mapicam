@@ -59,11 +59,21 @@ setlocal enableextensions enabledelayedexpansion
 ::   BlackVueFolder=F:\BlackVue
 @set BlackVueFolder=%1%
 ::   BlackVueFPS=10
-@set BlackVueFPS=%2%
+@set /a BlackVueFPS=%2%
 ::   BlackVueInterval 0.1
-@set BlackVueInterval=%3%
+IF %BlackVueFPS%==30    ( set /a BlackVueInterval=0.033 )
+IF %BlackVueFPS%==10    ( set /a BlackVueInterval=0.1   )
+IF %BlackVueFPS%==5     ( set /a BlackVueInterval=0.2   )
+IF %BlackVueFPS%==2     ( set /a BlackVueInterval=0.5   )
+IF %BlackVueFPS%==1     ( set /a BlackVueInterval=1     )
+IF %BlackVueFPS%==0.5   ( set /a BlackVueInterval=2     )
+IF %BlackVueFPS%==0.2   ( set /a BlackVueInterval=5     )
+IF %BlackVueFPS%==0.1   ( set /a BlackVueInterval=10    )
+IF %BlackVueFPS%==0.033 ( set /a BlackVueInterval=30    ) ELSE ( 
+set /a BlackVueInterval=%3% )
+@set /a BlackVueInterval=1/%BlackVueFPS%
 ::   --duplicate_distance 0.2
-@set BlackDuplicateDistance=%4%
+@set /a BlackDuplicateDistance=%4%
 ::   --user_name velmyshanovnyi
 @set MapiCamUsernameAtMapillary=%5%
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
@@ -104,6 +114,7 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo.
 
 
+
 mkdir "%BlackVueFolder%\Record"
 mkdir "%BlackVueFolder%\Record\jpg"
 mkdir "%BlackVueFolder%\Record\%BlackVueFPS%fps"
@@ -125,11 +136,35 @@ for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary
 :: copy /Y "%%I" "%BlackVueFolder%\Record\jpg"
 :: xcopy "%%I" /Y /H /R "%BlackVueFolder%\Record\jpg"
 move /Y "%%I" "%BlackVueFolder%\Record\jpg")
-	:: ДООПРАЦЮВАТИ ПІЗНІШЕ. ЩОБ КОПІЮВАЛО ПАПКАМИ !
-	:: for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".mapillary"') do (
-	:: xcopy "%%I" /Y "%BlackVueFolder%\Record\jpg"
-	:: )
 
+REM :: ДООПРАЦЮВАТИ ПІЗНІШЕ. ЩОБ ПЕРЕНОСИЛО і ПАПКИ !
+REM for /f %%I in ('dir /p/s/ad "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".mapillary"') do (
+REM ::dir /S /P %%I /AD 
+REM cd %%I >> %MapiCamLOG%
+REM move /Y ".mapillary" "%BlackVueFolder%\Record\jpg")
+REM :: xcopy "%%I" /Y "%BlackVueFolder%\Record\jpg"
+REM )
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 @echo.
 @echo.
 @echo.
@@ -154,19 +189,4 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
 @echo %date% %time% # %MapiCamPhaseNum%      
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+cmd /k

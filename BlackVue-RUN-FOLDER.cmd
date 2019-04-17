@@ -49,8 +49,6 @@
 @echo #
 
 cd %1%
-@set MapiCamPhaseNum=[RUN]
-@set MapiCamLOG=mapicam-LOG.txt
 setlocal enableextensions enabledelayedexpansion
 ::   MapiCamFolder=D:\mapicam
 @set MapiCamFolder=D:\mapicam
@@ -61,11 +59,21 @@ setlocal enableextensions enabledelayedexpansion
 ::   BlackVueFolder=F:\BlackVue
 @set BlackVueFolder=%1%
 ::   BlackVueFPS=10
-@set BlackVueFPS=%2%
+@set /a BlackVueFPS=%2%
 ::   BlackVueInterval 0.1
-@set BlackVueInterval=%3%
+IF %BlackVueFPS%==30    ( set /a BlackVueInterval=0.033 )
+IF %BlackVueFPS%==10    ( set /a BlackVueInterval=0.1   )
+IF %BlackVueFPS%==5     ( set /a BlackVueInterval=0.2   )
+IF %BlackVueFPS%==2     ( set /a BlackVueInterval=0.5   )
+IF %BlackVueFPS%==1     ( set /a BlackVueInterval=1     )
+IF %BlackVueFPS%==0.5   ( set /a BlackVueInterval=2     )
+IF %BlackVueFPS%==0.2   ( set /a BlackVueInterval=5     )
+IF %BlackVueFPS%==0.1   ( set /a BlackVueInterval=10    )
+IF %BlackVueFPS%==0.033 ( set /a BlackVueInterval=30    ) ELSE ( 
+set /a BlackVueInterval=%3% )
+@set /a BlackVueInterval=1/%BlackVueFPS%
 ::   --duplicate_distance 0.2
-@set BlackDuplicateDistance=%4%
+@set /a BlackDuplicateDistance=%4%
 ::   --user_name velmyshanovnyi
 @set MapiCamUsernameAtMapillary=%5%
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
@@ -100,11 +108,11 @@ setlocal enableextensions enabledelayedexpansion
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo ---------------------------------------------------
-DIR >> %MapiCamLOG%
-RMDIR %BlackVueFolder%\[RUN]-ALL_PROCESSED_END
-MKDIR %BlackVueFolder%\[RUN]-PROCESSED
+RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
+MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo ---------------------------------------------------
 @echo.
+
 
 
 

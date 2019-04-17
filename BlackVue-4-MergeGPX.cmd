@@ -58,11 +58,21 @@ setlocal enableextensions enabledelayedexpansion
 ::   BlackVueFolder=F:\BlackVue
 @set BlackVueFolder=%1%
 ::   BlackVueFPS=10
-@set BlackVueFPS=%2%
+@set /a BlackVueFPS=%2%
 ::   BlackVueInterval 0.1
-@set BlackVueInterval=%3%
+IF %BlackVueFPS%==30    ( set /a BlackVueInterval=0.033 )
+IF %BlackVueFPS%==10    ( set /a BlackVueInterval=0.1   )
+IF %BlackVueFPS%==5     ( set /a BlackVueInterval=0.2   )
+IF %BlackVueFPS%==2     ( set /a BlackVueInterval=0.5   )
+IF %BlackVueFPS%==1     ( set /a BlackVueInterval=1     )
+IF %BlackVueFPS%==0.5   ( set /a BlackVueInterval=2     )
+IF %BlackVueFPS%==0.2   ( set /a BlackVueInterval=5     )
+IF %BlackVueFPS%==0.1   ( set /a BlackVueInterval=10    )
+IF %BlackVueFPS%==0.033 ( set /a BlackVueInterval=30    ) ELSE ( 
+set /a BlackVueInterval=%3% )
+@set /a BlackVueInterval=1/%BlackVueFPS%
 ::   --duplicate_distance 0.2
-@set BlackDuplicateDistance=%4%
+@set /a BlackDuplicateDistance=%4%
 ::   --user_name velmyshanovnyi
 @set MapiCamUsernameAtMapillary=%5%
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
@@ -101,6 +111,7 @@ RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
 MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo ---------------------------------------------------
 @echo.
+
 
 
 
@@ -262,7 +273,7 @@ move /Y "%BlackVueFolder%\Record\temp\interpolate.gpx" "%BlackVueFolder%\Record\
 :: D:\mapicam\tools\csv2xlsx\csv2xlsx_386.exe --help
 %MapiCamCSV2XLSX% --help
 :: D:\mapicam\tools\csv2xlsx\csv2xlsx_386.exe -infile "F:\BlackVue\20190409-C-irpin\Record\gpx\0\interpolate2.csv" -outfile "F:\BlackVue\20190409-C-irpin\Record\gpx\0\interpolate2a.xlsx" -colsep ","
-%MapiCamCSV2XLSX% -infile "%BlackVueFolder%\Record\gpx\0\interpolate2.csv" -outfile "%BlackVueFolder%\Record\gpx\0\interpolate3.xlsx"
+%MapiCamCSV2XLSX% -infile "%BlackVueFolder%\Record\gpx\0\interpolate2.csv" -outfile "%BlackVueFolder%\Record\gpx\0\interpolate3.xlsx" -colsep ","
 
 
 @echo.
