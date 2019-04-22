@@ -120,7 +120,6 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 cd c:\
 cd %BlackVueFolder%\%uploadImportPath%\.mapillary\logs
 dir
-DEL /F/Q/S %BlackVueFolder%\%uploadImportPath%\.mapillary\logs\*\* > NUL
 DEL /F/Q/S %BlackVueFolder%\%uploadImportPath%\.mapillary\logs\* > NUL
 RMDIR /Q/S %BlackVueFolder%\%uploadImportPath%\.mapillary\logs
 RMDIR /Q/S %BlackVueFolder%\%uploadImportPath%\.mapillary
@@ -163,4 +162,4 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
 
-cmd /k
+

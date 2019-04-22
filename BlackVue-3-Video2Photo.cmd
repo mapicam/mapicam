@@ -125,12 +125,20 @@ mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 
 :: %MapiCamMapillaryTools% sample_video --advanced --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval%
 
+
+
+:: --rerun
+
 %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" ^
---video_import_path "%BlackVueFolder%\Record" --rerun --user_name %MapiCamUsernameAtMapillary% --video_sample_interval %BlackVueInterval%  ^
+--video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --video_sample_interval %BlackVueInterval%  ^
 --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" ^
 --geotag_source_path "%BlackVueFolder%\Record" --offset_angle 0 --cutoff_distance 10000 --use_gps_start_time ^
 --interpolate_directions --duplicate_distance %BlackDuplicateDistance% ^
 --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag >> %MapiCamLOG%
+
+
+
+
 
 :: mapillary_tools video_process 
 :: --advanced 

@@ -191,7 +191,7 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 @set MapiCamNameXX=BlackVue
 @set offsetAngle=0
 exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-::exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%" -overwrite_original
 ::ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 
 :: ---------------------
