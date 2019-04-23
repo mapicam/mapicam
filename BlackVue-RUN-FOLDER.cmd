@@ -150,6 +150,11 @@ CALL %MapiCamFolder%\BlackVue-5-MoveJPG.cmd  %BlackVueFolder% %BlackVueFPS% %Bla
 
 
 ::8
+CALL %MapiCamFolder%\BlackVue-8-Upload2mapillary.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueInterval% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+
+
+
+
 
 @echo ---------------------------------------------------
 RMDIR %BlackVueFolder%\[RUN]-PROCESSED             >> %MapiCamLOG%
