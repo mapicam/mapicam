@@ -167,6 +167,10 @@ set MapiCamTime=%hour%%min%%secs%
 
 
 
+mkdir %BlackVueFolder%\Record\gpx
+move "%BlackVueFolder%\Record\*.gpx" "%BlackVueFolder%\Record\gpx"
+
+
 @echo.
 @echo ----- CREATE PREFIX
 :: СТВОРЮЄМО ПРЕФІКС
@@ -240,6 +244,9 @@ copy "%BlackVueFolder%\Record\temp\_temp-6.txt" "%BlackVueFolder%\Record\temp\me
 
 :: ВИДАЛЯЄМО тимчасові файли
 del "%BlackVueFolder%\Record\temp\_temp-?.txt"
+
+:: ВИДАЛЯЄМО тимчасову папку
+RMDIR %BlackVueFolder%\Record\temp
 
 @echo.
 @echo Remove Duplicates (duplicate)

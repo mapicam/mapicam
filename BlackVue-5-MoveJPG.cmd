@@ -211,12 +211,12 @@ for /f "delims=" %%a in ('dir /b /s /on /ad "%BlackVueFolder%\Record\%BlackVueFP
 @cd..
 @cd..
 @cd.. 
-dir                                                                            >> %MapiCamLOG%
-xcopy ".mapillary" "%BlackVueFolder%\Record\jpg\.mapillary" /Y /H /R /S        >> %MapiCamLOG%
+dir
+xcopy ".mapillary" "%BlackVueFolder%\Record\jpg\.mapillary" /Y /H /R /S                                 >> %MapiCamLOG%
 )
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo.
-
+dir
 
 
 @echo.
