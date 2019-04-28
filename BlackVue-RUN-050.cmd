@@ -91,7 +91,6 @@ set MapiCamTime=%hour%%min%%secs%
 @echo #  YYYYMMDD HHMMSS (END)                                      #
 @echo #-------------------------------------------------------------#
 @echo.
-
 cd %1%
 setlocal enableextensions enabledelayedexpansion
 ::   MapiCamFolder=D:\mapicam
@@ -119,7 +118,7 @@ ELSE ( set BlackVueInterval=0.1 )
 ::   --offset_angle 0
 @set BlackVueOffsetAngle=%3%
 ::   --duplicate_distance 0.2
-@set BlackDuplicateDistance=%4%
+@set BlackVueDuplicateDistance=%4%
 ::   --user_name velmyshanovnyi
 @set MapiCamUsernameAtMapillary=%5%
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
@@ -133,7 +132,7 @@ ELSE ( set BlackVueInterval=0.1 )
 @echo %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%
 @echo %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%
 @echo %MapiCamPhaseNum% BlackVueOffsetAngle        = %BlackVueOffsetAngle%
-@echo %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%
+@echo %MapiCamPhaseNum% BlackVueDuplicateDistance  = %BlackVueDuplicateDistance%
 @echo %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
 @echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
 @echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
@@ -146,7 +145,7 @@ ELSE ( set BlackVueInterval=0.1 )
 @echo %date% %time% # %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%                      >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%                 >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% BlackVueOffsetAngle        = %BlackVueOffsetAngle%              >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%           >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackVueDuplicateDistance  = %BlackVueDuplicateDistance%        >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%       >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%                  >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%                       >> %MapiCamLOG%
@@ -162,11 +161,13 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo.
 
 
+
+
 mkdir %BlackVueFolder%\Record
 mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 
 
-%MapiCamMapillaryTools% video_process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackDuplicateDistance% --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --overwrite_EXIF_gps_tag >> %MapiCamLOG%
+%MapiCamMapillaryTools% video_process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --move_duplicates --move_uploaded --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --overwrite_EXIF_gps_tag --number_threads 1 --max_attempts 100 >> %MapiCamLOG%
 
 
 
@@ -186,7 +187,7 @@ mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 :: --video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --video_sample_interval %BlackVueInterval%  ^
 :: --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" ^
 :: --geotag_source_path "%BlackVueFolder%\Record" --offset_angle 0 --cutoff_distance 10000 --use_gps_start_time ^
-:: --interpolate_directions --duplicate_distance %BlackDuplicateDistance% ^
+:: --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% ^
 :: --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag >> %MapiCamLOG%
 
 

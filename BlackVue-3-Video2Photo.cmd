@@ -29,7 +29,6 @@
 ::
 
 cd %1%
-
 @set MapiCamPhaseNum=[3]
 @set MapiCamLOG=mapicam-LOG.txt
 @echo %date% %time% #                                                                                   >> %MapiCamLOG%
@@ -47,13 +46,51 @@ cd %1%
 @echo ###################################################
 @echo.
 
+@echo.
+@echo #-------------------------------------------------------------#
+@echo #  YYYYMMDD HHMMSS                                            #
+@echo #-------------------------------------------------------------#
+@echo OFF
+set year=%date:~-4%
+set month=%date:~3,2%
+  if "%month:~0,1%" == " " set month=0%month:~1,1%
+set day=%date:~0,2%
+  if "%day:~0,1%" == " " set day=0%day:~1,1%
+set hour=%time:~0,2%
+  if "%hour:~0,1%" == " " set hour=0%hour:~1,1%
+set min=%time:~3,2%
+  if "%min:~0,1%" == " " set min=0%min:~1,1%
+set secs=%time:~6,2%
+  if "%secs:~0,1%" == " " set secs=0%secs:~1,1%
+set datetimefull=%year%-%month%-%day%T%hour%:%min%:%secs%Z
+set MapiCamDate=%year%%month%%day%
+set MapiCamTime=%hour%%min%%secs%
+@echo ON
+@echo #                                                             #
+@echo # date         = %date%                                   #
+@echo # time         = %time%                                  #
+@echo # year         = %year%                                         #
+@echo # month        = %month%                                           #
+@echo # day          = %day%                                           #
+@echo # hour         = %hour%                                           #
+@echo # min          = %min%                                           #
+@echo # secs         = %secs%                                           #
+@echo # datetimefull = %datetimefull%                         #
+@echo # MapiCamDate  = %MapiCamDate%                                     #
+@echo # MapiCamTime  = %MapiCamTime%                                       #
+@echo #                                                             #
+@echo #-------------------------------------------------------------#
+@echo #  YYYYMMDD HHMMSS (END)                                      #
+@echo #-------------------------------------------------------------#
+@echo.
 cd %1%
 setlocal enableextensions enabledelayedexpansion
 ::   MapiCamFolder=D:\mapicam
 @set MapiCamFolder=D:\mapicam
 ::   version 0.4.2 - TRUE // version 0.5.0 - FALSE // 
 ::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
-@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
+@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
 :: Використовуємо механіку, коли ЯРЛИК (LNK) зчитує розташування і СКРИПТ працює відносно папки з якої запустили LNK
 ::   BlackVueFolder=F:\BlackVue
 @set BlackVueFolder=%1%
@@ -69,9 +106,11 @@ setlocal enableextensions enabledelayedexpansion
 @IF %BlackVueFPS%==0.2   ( set BlackVueInterval=5     )
 @IF %BlackVueFPS%==0.1   ( set BlackVueInterval=10    )
 @IF %BlackVueFPS%==0.033 ( set BlackVueInterval=30    ) 
-ELSE ( set BlackVueInterval=%3% )
+ELSE ( set BlackVueInterval=0.1 )
+::   --offset_angle 0
+@set BlackVueOffsetAngle=%3%
 ::   --duplicate_distance 0.2
-@set BlackDuplicateDistance=%4%
+@set BlackVueDuplicateDistance=%4%
 ::   --user_name velmyshanovnyi
 @set MapiCamUsernameAtMapillary=%5%
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
@@ -84,7 +123,8 @@ ELSE ( set BlackVueInterval=%3% )
 @echo %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%
 @echo %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%
 @echo %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%
-@echo %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%
+@echo %MapiCamPhaseNum% BlackVueOffsetAngle        = %BlackVueOffsetAngle%
+@echo %MapiCamPhaseNum% BlackVueDuplicateDistance  = %BlackVueDuplicateDistance%
 @echo %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
 @echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
 @echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
@@ -96,7 +136,8 @@ ELSE ( set BlackVueInterval=%3% )
 @echo %date% %time% # %MapiCamPhaseNum% BlackVueFolder             = %BlackVueFolder%                   >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% BlackVueFPS                = %BlackVueFPS%                      >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% BlackVueInterval           = %BlackVueInterval%                 >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% BlackDuplicateDistance     = %BlackDuplicateDistance%           >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackVueOffsetAngle        = %BlackVueOffsetAngle%              >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% BlackVueDuplicateDistance  = %BlackVueDuplicateDistance%        >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%       >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%                  >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%                       >> %MapiCamLOG%
@@ -110,6 +151,7 @@ RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
 MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo ---------------------------------------------------
 @echo.
+
 
 
 
@@ -133,7 +175,7 @@ mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 --video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --video_sample_interval %BlackVueInterval%  ^
 --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" ^
 --geotag_source_path "%BlackVueFolder%\Record" --offset_angle 0 --cutoff_distance 10000 --use_gps_start_time ^
---interpolate_directions --duplicate_distance %BlackDuplicateDistance% ^
+--interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% ^
 --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag >> %MapiCamLOG%
 
 
@@ -156,7 +198,7 @@ mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 :: --offset_angle 0 
 :: --use_gps_start_time 
 :: --interpolate_directions 
-:: --duplicate_distance %BlackVueInterval%
+:: --duplicate_distance %BlackVueDuplicateDistance%
 :: --overwrite_all_EXIF_tags
 :: --overwrite_EXIF_gps_tag 
 
