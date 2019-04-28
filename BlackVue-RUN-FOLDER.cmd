@@ -167,29 +167,29 @@ mkdir %BlackVueFolder%\Record
 
 
 ::1
-CALL %MapiCamFolder%\BlackVue-1-Record-ListFileMP4.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+::CALL %MapiCamFolder%\BlackVue-1-Record-ListFileMP4.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::2
-CALL %MapiCamFolder%\BlackVue-2-Record-Concat.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+::CALL %MapiCamFolder%\BlackVue-2-Record-Concat.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::3 
 :: 10 FPS = 0.1 // 5 FPS = 0.2 // 2 FPS = 0.5 // 1 FPS = 1 
-CALL %MapiCamFolder%\BlackVue-3-Video2Photo.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+CALL %MapiCamFolder%\BlackVue-3-Video2Photo.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::4
-CALL %MapiCamFolder%\BlackVue-4-MergeGPX.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+CALL %MapiCamFolder%\BlackVue-4-MergeGPX.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::5
-CALL %MapiCamFolder%\BlackVue-5-MoveJPG.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+CALL %MapiCamFolder%\BlackVue-5-MoveJPG.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::6
-CALL %MapiCamFolder%\BlackVue-6-FixDateTime.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+CALL %MapiCamFolder%\BlackVue-6-FixDateTime.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::7
-CALL %MapiCamFolder%\BlackVue-7-Gpx2Exif.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+CALL %MapiCamFolder%\BlackVue-7-Gpx2Exif.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 ::8
-CALL %MapiCamFolder%\BlackVue-8-Upload2mapillary.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackDuplicateDistance% %MapiCamUsernameAtMapillary%
+::CALL %MapiCamFolder%\BlackVue-8-Upload2mapillary.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
 
 

@@ -196,11 +196,6 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo . Nothing changed in D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
 @echo . 
 
-REM pause
-
-:: IF ERROR - RUN NEXT LINE FOR TEST:
-:: exiftool -geotag "%MapiCamGpxFolder%\*.gpx" "%MapiCamImgFolder%\*.jpg" -gpsimgdirection=0   -overwrite_original -v2
-
 
 @echo done
 @set MapiCamDelayInSeconds=1000
@@ -232,9 +227,15 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 @set offsetAngle=0
 
 	:: ---------------------
+	REM pause
+
+    :: IF ERROR - RUN NEXT LINE FOR TEST:
+    :: exiftool -geotag "%MapiCamGpxFolder%\*.gpx" "%MapiCamImgFolder%\*.jpg" -gpsimgdirection=0   -overwrite_original -v2
 	:: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
-    :: exiftool "-DateTimeOriginal-=0:0:0 2:00:00" "%MapiCamImgFolder%" -overwrite_original
-:: exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
+    :: exiftool "-DateTimeOriginal+=0:0:0 3:00:00" "%MapiCamImgFolder%" -overwrite_original
+
+:: Власне сама команда на прошивку
+exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
 
 
 
@@ -249,7 +250,7 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 	:: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
 	:: УВАГА! цей скрипт від попередньої версії
 				
-	::		REM python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0\interpolate.gpx" --offset_angle %offsetAngle%
+	::		REM python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0\interpolate.gpx" --offset_angle %BlackVueOffsetAngle%
 
 	::		REM Traceback (most recent call last):
 	::		REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 234, in <module>
@@ -259,8 +260,14 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 	::		REM TypeError: unsupported operand type(s) for -: 'str' and 'datetime.timedelta'
 
 
-exiftool "-ModifyDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+
+exiftool "-DateTimeOriginal-=0:0:0 3:00:00"    "%MapiCamImgFolder%" -overwrite_original
+exiftool "-DateTime         <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-CreateDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-ModifyDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-FileCreateDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-FileModifyDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+
 
 :: ===== BlackVue END ===========
 
@@ -296,3 +303,6 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%    
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
+
+
+cmd /k

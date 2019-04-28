@@ -174,7 +174,7 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo MapiCamImgFolder           = %MapiCamImgFolder%
 @echo MapiCamGpxFolder           = %MapiCamGpxFolder%
 @echo MapiCamImgDIR              = %MapiCamImgDIR% (default)
-@echo BlackVueFolder                   = %BlackVueFolder%
+@echo BlackVueFolder             = %BlackVueFolder%
 @echo BlackVueFPS                = %BlackVueFPS%
 @echo MapiCamImgDrive            = %MapiCamImgDrive%
 @echo MapiCamHeadXX              = %MapiCamHeadXX%
@@ -229,17 +229,12 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 @echo #####################
 @echo.
 
-
-:: ===== BlackVue START =============
-@set MapiCamNameXX=BlackVue
-@set offsetAngle=0
-exiftool "-FileModifyDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%" -overwrite_original
-::ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-
 :: ---------------------
 :: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
-:: exiftool "-DateTimeOriginal-=0:0:0 2:00:00" "%MapiCamImgFolder%" -overwrite_original
+:: -DateTimeOriginal-='0:0:0 3:00:00' = subtract 3 hours from image's date.
+:: -DateTimeOriginal+='0:0:0 2:00:00' = add 2 hours.
+:: exiftool "-DateTimeOriginal-=0:0:0 3:00:00" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-DateTimeOriginal+=0:0:0 6:00:00" "%MapiCamImgFolder%" -overwrite_original
 
 	:: MapiCamFixZnak1
 	:: exiftool "-DateTimeOriginal%MapiCamFixZnak1%=%MapiCamFixDate% %MapiCamFixTime%" "%MapiCamImgFolder%" -overwrite_original
@@ -247,9 +242,13 @@ exiftool "-DateTimeOriginal<FileModifyDate" "%MapiCamImgFolder%" -overwrite_orig
 	:: MapiCamFixZnak2
 	:: exiftool "-DateTimeOriginal%MapiCamFixZnak2%=%MapiCamFixDate% %MapiCamFixTime%" "%MapiCamImgFolder%" -overwrite_original
 	:: ---------------------
-exiftool "-FileCreateDate<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-exiftool "-DateTime<DateTimeOriginal"       "%MapiCamImgFolder%" -overwrite_original
-exiftool "-CreateDate<DateTimeOriginal"     "%MapiCamImgFolder%" -overwrite_original
+
+
+
+
+
+
+
 	:: Працює і без "FileAccessDate" (можна сміливо закоментовувати для підвищення продуктивності), а ще він викликає помилку при прошиванні фоток з BlackVue
     :: exiftool "-FileAccessDate<DateTimeOriginal" %MapiCamImgFolder%" -overwrite_original
 	:: ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul

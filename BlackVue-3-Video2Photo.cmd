@@ -169,14 +169,18 @@ mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 
 
 
-:: --rerun
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --cutoff_distance 10000 --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --move_duplicates --move_uploaded >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 
-%MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" ^
---video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --video_sample_interval %BlackVueInterval%  ^
---device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" ^
---geotag_source_path "%BlackVueFolder%\Record" --offset_angle 0 --cutoff_distance 10000 --use_gps_start_time ^
---interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% ^
---overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag >> %MapiCamLOG%
+
+:: D:\mapicam\tools\mapillary\mapillary_tools-050.exe video_process --advanced -h
+:: --rerun
+:: --use_gps_start_time - ОБОВЯЗКОВИЙ ПАРАМЕТР! v050: без нього дата = 1970-01-01 // v050: з ним теж дата = 1970-01-01 // спроба на версії 042 дала результат = ****  //  для тесту прибирав, є підозра що цей параметр може викликати помиклу. (розриви треків, в моменти коли камера "ковтає" кадр. і через це ло кінця відео вже нема трека. ЦЮ ГІПОТЕЗУ ТРЕБА ЩЕ ПЕРЕВІРИТИ!)
+:: %MapiCamMapillaryTools% 
+D:\mapicam\tools\mapillary\mapillary_tools.exe video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --cutoff_distance 10000 --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --move_duplicates --move_uploaded >> %MapiCamLOG%
 
 
 
