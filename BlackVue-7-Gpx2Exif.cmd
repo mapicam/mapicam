@@ -237,7 +237,7 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 :: Власне сама команда на прошивку
 :: -v2 виводить інформацію на екран про параметри прошивки. використовувати лише ДЛЯ ДЕБАГА, бо СИЛЬНО СПОВІЛЬНЮЄ ПРОШИВКУ!!!! (це додатковий НЕОБОВЯЗКОВИЙ параметр)  
 :: exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
-exiftool -geotag %MapiCamGpxFolder%\0\*.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
+exiftool -geotag %MapiCamGpxFolder%\0\*.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
 
 
 
