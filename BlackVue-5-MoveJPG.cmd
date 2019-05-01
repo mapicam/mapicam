@@ -291,5 +291,3 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%      
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
-
-

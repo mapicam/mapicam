@@ -115,7 +115,7 @@ ELSE ( set BlackVueInterval=0.1 )
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
 ::   --import_path "Record\jpg"
 ::                  Record\jpg\.mapillary (там же має лежати папка з файлами мапілларі)
-@set uploadImportPath=Record\jpg
+@set uploadImportPath=Record\jpg\adjusted
 @echo ---------------------------------------------------
 @echo %MapiCamPhaseNum% MapiCamFolder              = %MapiCamFolder%
 @echo %MapiCamPhaseNum% MapiCamMapillaryTools      = %MapiCamMapillaryTools%
@@ -301,7 +301,7 @@ set MapiCamTime=%hour%%min%%secs%
 %MapiCamMapillaryTools% process_and_upload --advanced --help
 %MapiCamMapillaryTools% process_and_upload --advanced --help             
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-%MapiCamMapillaryTools% process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --device_make "Blackvue" --device_model "DR900S-1CH" --add_import_date --geotag_source "exif" --geotag_source_path "%BlackVueFolder%\Record\jpg" --offset_angle %BlackVueOffsetAngle% --cutoff_distance 10000 --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --move_duplicates --move_uploaded --list_file_status --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --number_threads 10 --max_attempts 100 >> %MapiCamLOG%
+%MapiCamMapillaryTools% process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\%uploadImportPath%" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --device_make "Blackvue" --device_model "DR900S-1CH" --add_import_date --geotag_source "exif" --geotag_source_path "%BlackVueFolder%\Record\jpg\adjusted" --offset_angle %BlackVueOffsetAngle% --cutoff_distance 10000 --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --move_duplicates --move_uploaded --list_file_status --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --number_threads 10 --max_attempts 100 >> %MapiCamLOG%
 @echo off
 :: %MapiCamMapillaryTools% process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\%uploadImportPath%"  --rerun --user_name %MapiCamUsernameAtMapillary%  --offset_angle 0 --cutoff_distance 10000 --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --move_duplicates --move_uploaded --list_file_status --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --number_threads 1 --max_attempts 100 >> %MapiCamLOG%
 

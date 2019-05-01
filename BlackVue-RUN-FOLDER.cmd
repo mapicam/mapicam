@@ -188,6 +188,9 @@ CALL %MapiCamFolder%\BlackVue-6-FixDateTime.cmd  %BlackVueFolder% %BlackVueFPS% 
 ::7
 CALL %MapiCamFolder%\BlackVue-7-Gpx2Exif.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
+::7-A
+CALL "C:\Program Files (x86)\EXIF Date Changer\EXIFDateChanger.exe" %BlackVueFolder%
+
 ::8
 ::CALL %MapiCamFolder%\BlackVue-8-Upload2mapillary.cmd  %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 
