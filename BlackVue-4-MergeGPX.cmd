@@ -212,7 +212,7 @@ set MapiCamTime=%hour%%min%%secs%
 
 mkdir %BlackVueFolder%\Record\gpx
 move "%BlackVueFolder%\Record\*.gpx" "%BlackVueFolder%\Record\gpx"
-
+mkdir %BlackVueFolder%\Record\temp
 
 @echo.
 @echo ----- CREATE PREFIX
@@ -288,7 +288,7 @@ copy "%BlackVueFolder%\Record\temp\_temp-6.txt" "%BlackVueFolder%\Record\temp\me
 :: ВИДАЛЯЄМО тимчасові файли
 del "%BlackVueFolder%\Record\temp\_temp-?.txt"
 
-:: ВИДАЛЯЄМО тимчасову папку
+:: ВИДАЛЯЄМО тимчасову папку (якщо вона порожня)
 RMDIR %BlackVueFolder%\Record\temp
 
 @echo.
@@ -323,6 +323,8 @@ move /Y "%BlackVueFolder%\Record\temp\interpolate.gpx" "%BlackVueFolder%\Record\
 :: D:\mapicam\tools\csv2xlsx\csv2xlsx_386.exe -infile "F:\BlackVue\20190409-C-irpin\Record\gpx\0\interpolate2.csv" -outfile "F:\BlackVue\20190409-C-irpin\Record\gpx\0\interpolate2a.xlsx" -colsep ","
 %MapiCamCSV2XLSX% -infile "%BlackVueFolder%\Record\gpx\0\interpolate2.csv" -outfile "%BlackVueFolder%\Record\gpx\0\interpolate3.xlsx" -colsep ","
 
+:: ВИДАЛЯЄМО тимчасову папку (якщо вона порожня)
+RMDIR %BlackVueFolder%\Record\temp
 
 @echo.
 @echo.

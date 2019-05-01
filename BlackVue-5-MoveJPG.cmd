@@ -260,6 +260,8 @@ xcopy ".mapillary" "%BlackVueFolder%\Record\jpg\.mapillary" /Y /H /R /S         
 @echo.
 dir
 
+:: ВИДАЛЯЄМО папку з тимчасовими файлами Mapillary (якщо вона порожня)
+RMDIR "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
 
 @echo.
 @echo.

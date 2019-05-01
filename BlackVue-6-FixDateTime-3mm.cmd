@@ -234,7 +234,7 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 :: -DateTimeOriginal-='0:0:0 3:00:00' = subtract 3 hours from image's date.
 :: -DateTimeOriginal+='0:0:0 2:00:00' = add 2 hours.
 :: exiftool "-DateTimeOriginal-=0:0:0 3:00:00" "%MapiCamImgFolder%" -overwrite_original
-exiftool "-DateTimeOriginal+=0:0:0 5:57:00" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-DateTimeOriginal-=0:0:0 0:03:00" "%MapiCamImgFolder%" -overwrite_original
 
 	:: MapiCamFixZnak1
 	:: exiftool "-DateTimeOriginal%MapiCamFixZnak1%=%MapiCamFixDate% %MapiCamFixTime%" "%MapiCamImgFolder%" -overwrite_original

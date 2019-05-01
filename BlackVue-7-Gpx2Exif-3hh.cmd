@@ -26,22 +26,21 @@
 :: # https://github.com/mapicam/mapicam/wiki         #
 :: #                                                 #
 :: ###################################################
-::
-:: https://github.com/mapicam/mapicam/wiki/FixDateTime <-- READ ME!
+:: 
 cd %1%
-@set MapiCamPhaseNum=[6]
+@set MapiCamPhaseNum=[7]
 @set MapiCamLOG=mapicam-LOG.txt
 @echo %date% %time% #                                                                                   >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% ############################################################### >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% # [6] START : FixDateTime                                       >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [7] START : Gpx2Exif                                        >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo.
 @echo ####################################################
 @echo #                                                  #
-@echo # [6] START : FixDateTime                          #
+@echo # [7] START : Gpx2Exif                             #
 @echo #                                                  #
 @echo ####################################################
 @echo.
@@ -154,8 +153,6 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 
 
 
-
-
 @echo ---------------------------------------------------
 @set MapiCamFFpath=c:\ffmpeg\bin
 @set MapiCamImgFolder=%BlackVueFolder%\Record\jpg
@@ -186,23 +183,18 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 
 
 
-@echo.
-@echo.
-@echo Якщо пише ТАКУ помилку, то можливо треба перевести назад на 2 години час в зведеному файлі GPX.
-@echo. 
-@echo Setting new values from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
-@echo Geotime value: 2018:12:31 22:00:00.000 UTC (local timezone is +02:00)
-@echo Warning: Time is too far before track in File:Geotime (ValueConvInv) - D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
-@echo Warning: No writable tags set from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
-@echo Nothing changed in D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
-@echo. 
-@echo.
 
 
-REM pause
-
-:: IF ERROR - RUN NEXT LINE FOR TEST:
-:: exiftool -geotag "%MapiCamGpxFolder%\*.gpx" "%MapiCamImgFolder%\*.jpg" -gpsimgdirection=0   -overwrite_original -v2
+@echo .
+@echo .
+@echo . Якщо пише ТАКУ помилку, то можливо треба перевести назад на 2 години час в зведеному файлі GPX.
+@echo . 
+@echo . Setting new values from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo . Geotime value: 2018:12:31 22:00:00.000 UTC (local timezone is +02:00)
+@echo . Warning: Time is too far before track in File:Geotime (ValueConvInv) - D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo . Warning: No writable tags set from D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo . Nothing changed in D:/mapicam_img/20190101/A/adjusted/mapicam-A-0-20190101-000000.jpg
+@echo . 
 
 
 @echo done
@@ -220,39 +212,65 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
 @echo.
 
 :: REM exiftool "-DateTimeOriginal" "%MapiCamImgFolder%"
-:: REM exiftool "-FileModifyDate" "%MapiCamImgFolder%"
-:: REM exiftool "-FileCreateDate" "%MapiCamImgFolder%"
-:: REM exiftool "-DateTime" "%MapiCamImgFolder%"
-:: REM exiftool "-CreateDate" "%MapiCamImgFolder%"
+:: REM exiftool "-FileModifyDate"   "%MapiCamImgFolder%"
+:: REM exiftool "-FileCreateDate"   "%MapiCamImgFolder%"
+:: REM exiftool "-DateTime"         "%MapiCamImgFolder%"
+:: REM exiftool "-CreateDate"       "%MapiCamImgFolder%"
 
 @echo.
 @echo #####################
 @echo.
 
-:: ---------------------
-:: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
-:: -DateTimeOriginal-='0:0:0 3:00:00' = subtract 3 hours from image's date.
-:: -DateTimeOriginal+='0:0:0 2:00:00' = add 2 hours.
-:: exiftool "-DateTimeOriginal-=0:0:0 3:00:00" "%MapiCamImgFolder%" -overwrite_original
-exiftool "-DateTimeOriginal+=0:0:0 5:57:00" "%MapiCamImgFolder%" -overwrite_original
 
-	:: MapiCamFixZnak1
-	:: exiftool "-DateTimeOriginal%MapiCamFixZnak1%=%MapiCamFixDate% %MapiCamFixTime%" "%MapiCamImgFolder%" -overwrite_original
+:: ===== BlackVue START =============
+@set MapiCamNameXX=BlackVue
+@set offsetAngle=%BlackVueOffsetAngle%
 
-	:: MapiCamFixZnak2
-	:: exiftool "-DateTimeOriginal%MapiCamFixZnak2%=%MapiCamFixDate% %MapiCamFixTime%" "%MapiCamImgFolder%" -overwrite_original
 	:: ---------------------
+	REM pause
+
+    :: IF ERROR - RUN NEXT LINE FOR TEST:
+    :: exiftool -geotag "%MapiCamGpxFolder%\*.gpx" "%MapiCamImgFolder%\*.jpg" -gpsimgdirection=0   -overwrite_original -v2
+	:: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
+    :: exiftool "-DateTimeOriginal+=0:0:0 3:00:00" "%MapiCamImgFolder%" -overwrite_original
+
+:: Власне сама команда на прошивку
+exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
 
 
 
+    :: ----- (c)Mykhaylo Solodzhuk -------
+    :: Наразі закоментовую (і лишаю на майбутнє) в звЯзку з тим що скрипт для BlackVue відпрацьовує стабільно на базі поточної схеми
+    ::  <...>\python27\python <десь>\mapillary_tools\python\add_fix_dates.py <каталог з фото>\ "2019-03-27 14:07:08"
+    :: C:\Python27\python.exe D:\mapicam\tools\mapillary\mapillary_tools\python\add_fix_dates.py "%MapiCamImgFolder%" "2019-12-31 23:59:59"
+    :: ----- (c)Mykhaylo Solodzhuk END ---
+	
+	:: ---------------------
+	:: параметри для %MapiCamGeotagFromGpxPy%:
+	:: python %СКРИПТ% %КАРТИНКИ% %GPX% --offset_angle %КУТ%
+	:: УВАГА! цей скрипт від попередньої версії
+				
+	::		REM python %MapiCamGeotagFromGpxPy% "%MapiCamImgFolder%" "%MapiCamGpxFolder%\0\interpolate.gpx" --offset_angle %BlackVueOffsetAngle%
+
+	::		REM Traceback (most recent call last):
+	::		REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 234, in <module>
+	::		REM add_exif_using_timestamp(filepath, filetime, gpx, args.time_offset, args.offset_angle)
+	::		REM File "D:\mapicam\tools\mapillary\mapillary_tools\python\geotag_from_gpx.py", line 102, in add_exif_using_timestamp
+	::		REM t = time - datetime.timedelta(seconds=offset_time)
+	::		REM TypeError: unsupported operand type(s) for -: 'str' and 'datetime.timedelta'
+
+pause
+pause
+pause
+
+exiftool "-DateTimeOriginal-=0:0:0 3:00:00"    "%MapiCamImgFolder%" -overwrite_original
+exiftool "-DateTime         <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-CreateDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-ModifyDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-FileCreateDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+exiftool "-FileModifyDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 
 
-
-
-	:: Працює і без "FileAccessDate" (можна сміливо закоментовувати для підвищення продуктивності), а ще він викликає помилку при прошиванні фоток з BlackVue
-    :: exiftool "-FileAccessDate<DateTimeOriginal" %MapiCamImgFolder%" -overwrite_original
-	:: ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
-	:: закоментовано після того, як було оптимізовано скрипт який повертає фотки
 :: ===== BlackVue END ===========
 
 
@@ -263,16 +281,17 @@ exiftool "-DateTimeOriginal+=0:0:0 5:57:00" "%MapiCamImgFolder%" -overwrite_orig
 :: REM exiftool "-CreateDate"       "%MapiCamImgFolder%"
 
 
+
 @echo.
 @echo.
 @echo.
 @echo ####################################################
 @echo #                                                  #
-@echo # [6] END   : FixDateTime                          #
+@echo # [7] END   : Gpx2Exif                             #
 @echo #                                                  #
 @echo ####################################################
 @echo #                                                  #
-@echo # [7] NEXT  : Gpx2Exif                             #
+@echo # [8] NEXT  : ........                             #
 @echo #                                                  #
 @echo ####################################################
 @echo.
@@ -281,8 +300,9 @@ exiftool "-DateTimeOriginal+=0:0:0 5:57:00" "%MapiCamImgFolder%" -overwrite_orig
 RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% # [6] END   : FixDateTime                                     # >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum% # [7] NEXT  : Gpx2Exif                                        # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [7] END   : Gpx2Exif                                        # >> %MapiCamLOG%
+@echo %date% %time% # %MapiCamPhaseNum% # [8] NEXT  : ........                                        # >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
-@echo %date% %time% # %MapiCamPhaseNum%     
+@echo %date% %time% # %MapiCamPhaseNum%    
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
+

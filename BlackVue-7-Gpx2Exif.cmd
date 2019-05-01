@@ -232,10 +232,12 @@ ping %MapiCamPingHost% -n 1 -w %MapiCamDelayInSeconds% > nul
     :: IF ERROR - RUN NEXT LINE FOR TEST:
     :: exiftool -geotag "%MapiCamGpxFolder%\*.gpx" "%MapiCamImgFolder%\*.jpg" -gpsimgdirection=0   -overwrite_original -v2
 	:: Маніпуляції з датою та часом (на випадок якщо є здвиг в GPX):
-    :: exiftool "-DateTimeOriginal+=0:0:0 3:00:00" "%MapiCamImgFolder%" -overwrite_original
+    :: exiftool "-DateTimeOriginal+=0:0:0 2:57:00" "%MapiCamImgFolder%" -overwrite_original
 
 :: Власне сама команда на прошивку
-exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
+:: -v2 виводить інформацію на екран про параметри прошивки. використовувати лише ДЛЯ ДЕБАГА, бо СИЛЬНО СПОВІЛЬНЮЄ ПРОШИВКУ!!!! (це додатковий НЕОБОВЯЗКОВИЙ параметр)  
+:: exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
+exiftool -geotag %MapiCamGpxFolder%\0\*.gpx %MapiCamImgFolder%\*.jpg -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
 
 
 
@@ -261,12 +263,12 @@ exiftool -geotag %MapiCamGpxFolder%\0\interpolate.gpx %MapiCamImgFolder%\*.jpg -
 
 
 
-exiftool "-DateTimeOriginal-=0:0:0 3:00:00"    "%MapiCamImgFolder%" -overwrite_original
-exiftool "-DateTime         <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-exiftool "-CreateDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-exiftool "-ModifyDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-exiftool "-FileCreateDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
-exiftool "-FileModifyDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+REM exiftool "-DateTimeOriginal-=0:0:0 3:00:00"    "%MapiCamImgFolder%" -overwrite_original
+REM exiftool "-DateTime         <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+REM exiftool "-CreateDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+REM exiftool "-ModifyDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+REM exiftool "-FileCreateDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+REM exiftool "-FileModifyDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 
 
 :: ===== BlackVue END ===========
@@ -285,11 +287,11 @@ exiftool "-FileModifyDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_o
 @echo.
 @echo ####################################################
 @echo #                                                  #
-@echo # [7] END   : Gpx2Exif                            #
+@echo # [7] END   : Gpx2Exif                             #
 @echo #                                                  #
 @echo ####################################################
 @echo #                                                  #
-@echo # [8] NEXT  : ........                                      #
+@echo # [8] NEXT  : ........                             #
 @echo #                                                  #
 @echo ####################################################
 @echo.
@@ -304,5 +306,3 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-TRUE
 @echo %date% %time% # %MapiCamPhaseNum%    
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
 
-
-cmd /k
