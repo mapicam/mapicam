@@ -97,7 +97,11 @@ setlocal enableextensions enabledelayedexpansion
 @set MapiCamFolder=D:\mapicam
 ::   version 0.4.2 - TRUE // version 0.5.0 - FALSE // 
 ::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools.exe
+::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 ::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
+::   050 при рендері video_process_and_upload викликає 1970-01-01
+::   MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
+::   ТЕСТУЄТЬСЯ 050 video_process 
 @set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
 :: Використовуємо механіку, коли ЯРЛИК (LNK) зчитує розташування і СКРИПТ працює відносно папки з якої запустили LNK
 ::   BlackVueFolder=F:\BlackVue
@@ -167,7 +171,17 @@ mkdir %BlackVueFolder%\Record
 mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 
 
-%MapiCamMapillaryTools% video_process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --move_duplicates --move_uploaded --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --number_threads 1 --max_attempts 100 >> %MapiCamLOG%
+:: 050 & 042 = ERROR
+:: %MapiCamMapillaryTools% video_process_and_upload --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --move_duplicates --move_uploaded --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --number_threads 1 --max_attempts 100 >> %MapiCamLOG%
+:: Traceback (most recent call last):
+::   File "mapillary_tools", line 76, in <module>
+::   File "mapillary_tools\commands\video_process_and_upload.py", line 179, in run
+::   File "mapillary_tools\post_process.py", line 161, in post_process
+::   File "mapillary_tools\processing.py", line 680, in get_duplicate_file_list
+:: NameError: global name 'root_dir' is not defined
+:: [6204] Failed to execute script mapillary_tools
+
+
 
 :: mapillary_tools video_process_and_upload 
 :: --import_path "path/to/images" 
@@ -180,11 +194,17 @@ mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 :: --interpolate_directions
 
 
+@echo %date% %time% # %MapiCamPhaseNum% # %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --move_duplicates --move_uploaded --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag >> %MapiCamLOG%
+
+%MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% --move_duplicates --move_uploaded --video_sample_interval %BlackVueInterval% --device_make "Blackvue" --device_model "DR900S-1CH" --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag >> %MapiCamLOG%
+
+
+
 
 :: %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" ^
 :: --video_import_path "%BlackVueFolder%\Record" --user_name %MapiCamUsernameAtMapillary% --video_sample_interval %BlackVueInterval%  ^
 :: --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "blackvue_videos" ^
-:: --geotag_source_path "%BlackVueFolder%\Record" --offset_angle 0 --cutoff_distance 10000 --use_gps_start_time ^
+:: --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --cutoff_distance 10000 --use_gps_start_time ^
 :: --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% ^
 :: --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag >> %MapiCamLOG%
 
