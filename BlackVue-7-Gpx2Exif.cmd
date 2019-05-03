@@ -264,7 +264,9 @@ exiftool -geotag %MapiCamGpxFolder%\0\*.gpx %MapiCamImgFolder%\*.jpg -gpsimgdire
 
 
 exiftool "-DateTimeOriginal-=0:0:0 3:00:00"    "%MapiCamImgFolder%" -overwrite_original
-exiftool "-FileCreateDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+
+exiftool "-AllDates         <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+REM exiftool "-FileCreateDate   <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 REM exiftool "-CreateDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 REM exiftool "-DateTime         <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 REM exiftool "-ModifyDate       <DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
