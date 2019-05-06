@@ -22,6 +22,8 @@ CALL %MapiCamFolder%\BlackVue-Head.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueO
 @IF %BlackVueFPS%==0.2   ( set BlackVueInterval=5     )
 @IF %BlackVueFPS%==0.1   ( set BlackVueInterval=10    )
 @IF %BlackVueFPS%==0.033 ( set BlackVueInterval=30    ) 
+@echo BlackVueFPS      = %BlackVueFPS%
+@echo BlackVueInterval = %BlackVueInterval%
 @echo ##### HEAD (fix local error)#############################################
 
 

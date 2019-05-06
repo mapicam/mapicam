@@ -202,4 +202,5 @@ MKDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 
 mkdir %BlackVueFolder%\Record
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
+@echo. 
 @echo ##### HEAD LOAD END #####################################################
