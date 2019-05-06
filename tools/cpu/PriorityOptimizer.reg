@@ -1,0 +1,67 @@
+Windows Registry Editor Version 5.00 
+
+;Copyright 2016 Trottle 
+;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3. 
+;This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+;See <http://www.gnu.org/licenses/> for more details. 
+
+[-HKEY_CLASSES_ROOT\exefile\shell\Bpc] 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc] 
+"HasLUAShield"="" 
+"MUIVerb"="Set base priority" 
+"subcommands"=""
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\01low] 
+"MUIVerb"="Idle CPU, lowest IO, low paging" 
+"Icon"="comres.dll,9" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\01low\command] 
+@="cmd /q /c echo Windows Registry Editor Version 5.00>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & for /f \"delims=<\" %%i in (\"%1\") do echo [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\%%~nxi\\PerfOptions]>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"CpuPriorityClass\"=dword:00000001>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"IoPriority\"=dword:00000000>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"PagePriority\"=dword:00000001>>%%TEMP%%\\pr.reg & regedit /s %%TEMP%%\\pr.reg & del %%TEMP%%\\pr.reg & msg * %~ni priority is set to IDLE" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\02below] 
+"MUIVerb"="Below normal CPU, low IO" 
+"Icon"="comres.dll,12" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\02below\command] 
+@="cmd /q /c echo Windows Registry Editor Version 5.00>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & for /f \"delims=<\" %%i in (\"%1\") do echo [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\%%~nxi\\PerfOptions]>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"CpuPriorityClass\"=dword:00000005>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"IoPriority\"=dword:00000001>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"PagePriority\"=->>%%TEMP%%\\pr.reg & regedit /s %%TEMP%%\\pr.reg & del %%TEMP%%\\pr.reg & msg * %~ni priority is set to BELOW NORMAL" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\03above] 
+"Icon"="comres.dll,8" 
+"MUIVerb"="Above normal CPU" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\03above\command] 
+@="cmd /q /c echo Windows Registry Editor Version 5.00>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & for /f \"delims=<\" %%i in (\"%1\") do echo [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\%%~nxi\\PerfOptions]>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"CpuPriorityClass\"=dword:00000006>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"IoPriority\"=->>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"PagePriority\"=->>%%TEMP%%\\pr.reg & regedit /s %%TEMP%%\\pr.reg & del %%TEMP%%\\pr.reg & msg * %~ni priority is set to ABOVE NORMAL" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\04high] 
+"MUIVerb"="High CPU" 
+"Icon"="comres.dll,16" 
+"CommandFlags"=dword:00000040
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\04high\command] 
+@="cmd /q /c echo Windows Registry Editor Version 5.00>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & for /f \"delims=<\" %%i in (\"%1\") do echo [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\%%~nxi\\PerfOptions]>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"CpuPriorityClass\"=dword:00000003>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"IoPriority\"=->>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"PagePriority\"=->>%%TEMP%%\\pr.reg & regedit /s %%TEMP%%\\pr.reg & del %%TEMP%%\\pr.reg & msg * %~ni priority is set to HIGH" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\06ask] 
+"MUIVerb"="Show current priorities" 
+"Icon"="shell32.dll,23" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\06ask\command] 
+@="cmd /q /c for /f \"delims=<\" %%i in (\"%1\") do reg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\%%~nxi\\PerfOptions\" /s | msg *" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\07default] 
+"MUIVerb"="Restore to default" 
+"Icon"="comres.dll,4" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\07default\command] 
+@="cmd /q /c echo Windows Registry Editor Version 5.00>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & for /f \"delims=<\" %%i in (\"%1\") do echo [-HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\%%~nxi\\PerfOptions]>>%%TEMP%%\\pr.reg & regedit /s %%TEMP%%\\pr.reg & del %%TEMP%%\\pr.reg & msg * %~ni priority is restored to default" 
+
+; If you do not want to have uninstaller you can skip next part: 
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\BpcSubMenu] 
+"DisplayName"="'Set base priority' submenu" 
+"DisplayIcon"="imageres.dll,73" 
+"UninstallString"="cmd /q /c echo Windows Registry Editor Version 5.00>%TEMP%\\pr.reg & echo.>>%TEMP%\\pr.reg & echo [-HKEY_CLASSES_ROOT\\exefile\\shell\\Bpc]>>%TEMP%\\pr.reg & echo.>>%TEMP%\\pr.reg & echo [-HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\BpcSubMenu]>>%TEMP%\\pr.reg & regedit /s %TEMP%\\pr.reg & del %TEMP%\\pr.reg" 
+"DisplayVersion"="1.1" 
+"URLInfoAbout"="http://habrahabr.ru/post/317802/" 
+"NoModify"=dword:00000001 
+"NoRepair"=dword:00000001
