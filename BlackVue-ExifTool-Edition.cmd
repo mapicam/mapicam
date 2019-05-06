@@ -11,6 +11,18 @@ setlocal enableextensions enabledelayedexpansion
 CALL %MapiCamFolder%\BlackVue-Head.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary%
 @echo ##### HEAD ##############################################################
 
+::   BlackVueInterval 0.1
+@set BlackVueInterval=0.1
+@IF %BlackVueFPS%==30    ( set BlackVueInterval=0.033 )
+@IF %BlackVueFPS%==10    ( set BlackVueInterval=0.1   )
+@IF %BlackVueFPS%==5     ( set BlackVueInterval=0.2   )
+@IF %BlackVueFPS%==2     ( set BlackVueInterval=0.5   )
+@IF %BlackVueFPS%==1     ( set BlackVueInterval=1     )
+@IF %BlackVueFPS%==0.5   ( set BlackVueInterval=2     )
+@IF %BlackVueFPS%==0.2   ( set BlackVueInterval=5     )
+@IF %BlackVueFPS%==0.1   ( set BlackVueInterval=10    )
+@IF %BlackVueFPS%==0.033 ( set BlackVueInterval=30    ) 
+@echo ##### HEAD (fix local error)#############################################
 
 
 mkdir %BlackVueFolder%\Record
@@ -27,8 +39,9 @@ mkdir %BlackVueFolder%\Record\jpg
 	:: ---------------------
 
 @echo [ ##### 3 ##### ] 
-@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
+
 @set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
+::@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
 
 :: F:\BlackVue\20190429-kyiv\09
 setlocal enableextensions enabledelayedexpansion
@@ -39,19 +52,19 @@ REM for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record" ^| findstr /i ".mp4"'
 REM @echo ######################################## START ######################################
 
 
-@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
-D:\mapicam\tools\mapillary\mapillary_tools-042.exe video_process --advanced -h
+::@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
+::D:\mapicam\tools\mapillary\mapillary_tools-042.exe video_process --advanced -h
 
 
 
 
 
-%MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval% --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% >> %MapiCamLOG%
+:: %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval% --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% >> %MapiCamLOG%
 
 
 
 
-::%MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval%
+%MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval%
 
 
 
