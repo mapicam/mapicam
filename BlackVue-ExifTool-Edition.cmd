@@ -38,28 +38,54 @@ mkdir %BlackVueFolder%\Record\jpg
 :: ===== BlackVue START =============
 @set MapiCamNameXX=BlackVue
 
-	:: ---------------------
-
-
+:: ---------------------
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
 @set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 ::@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
-
-
-
-
-
-
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
 ::@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 ::D:\mapicam\tools\mapillary\mapillary_tools-042.exe video_process --advanced -h
-
-
-
-
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
 :: %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval% --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% >> %MapiCamLOG%
-
-
-
-
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
 @echo.
 @echo.
 @echo.
@@ -68,242 +94,353 @@ mkdir %BlackVueFolder%\Record\jpg
 mkdir %BlackVueFolder%\Record\jpg
 for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record" ^| findstr /i ".mp4"') do (
 @echo ######################################## START ######################################
-@echo.
-@echo.
-@echo.
 :: %MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval%
-%MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%%I" --video_sample_interval %BlackVueInterval%
+:: [ANCHOR-01]
+pause
+%MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%%I" --video_sample_interval %BlackVueInterval% && ^
 
-
-
-
-
-:: ПРАЦЮЄ!
-:: ВЕРСІЯ exiftool яка зараз використовується. (користуємось для відладки і інформації, щоб не заюзати бува якусь стару чи нестабільну версію утиліти)
-:: exiftool -ver
-%MapiCamExifTool% -ver
-:: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -ver
-
-
-
-
-
-
-
-:: ПРАЦЮЄ!
-:: дістати та зберегти координати з відео файла
-:: README: http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=5095.30
-:: exiftool -ee -G3 FILE
-:: exiftool -ee fileName.mp4 > ee.txt
-:: README: https://sno.phy.queensu.ca/~phil/exiftool/exiftool_pod.html#ee--extractEmbedded
-:: exiftool -p gpx.fmt FILE.mp4 > out.gpx
-:: README: http://owl.phy.queensu.ca/~phil/exiftool/faq.html#Q2
-%MapiCamExifTool% -p %MapiCamExifToolPath%\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w %BlackVueFolder%\Record\gpx\%%f.gpx %BlackVueFolder%\Record
-:: ВІДЛАДКА: (нижче - аналог).
-::D:\mapicam\tools\exiftool\exiftool.exe -p D:\mapicam\tools\exiftool\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w F:\BlackVue\20190429-kyiv\09\Record\gpx\%f.gpx F:\BlackVue\20190429-kyiv\09\Record
-
-
-
-
-
-
-:: отримати довжину відео файла
-:: ПРАЦЮЄ!
-:: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration "F:\BlackVue\20190429-kyiv\09\Record\20190429_194335_EF.mp4" 
-:: 7.10 s
-:: ПРАЦЮЄ!
-%MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record"
-:: ВІДЛАДКА: (нижче - аналог).
-::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record"
-::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record\20190429_194335_EF.mp4"
-:: '7.101'
-
-
-
-
-
-
-
-:: зберегти ЧАС - в файл
-:: ПРАЦЮЄ!
-%MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record" > "%BlackVueFolder%\Record\VideoDuration.txt"
-:: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record" > "F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
-:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record\20190429_194335_EF.mp4" > "F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
-
-
-
-
-
-
-
-:: зчитати ЧАС - з файла в ЗМІННУ
-:: ПРАЦЮЄ!
-:: README: http://www.cyberforum.ru/cmd-bat/thread809990.html
-set /p VideoDuration=<"%BlackVueFolder%\Record\VideoDuration.txt"
-:: ВІДЛАДКА: (нижче - аналог).
-:: set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
-@echo set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
-@echo VideoDuration=%VideoDuration%
-:: ВИДАЛИТИ вже непотрібний VideoDuration.txt
-del "%BlackVueFolder%\Record\VideoDuration.txt"
-
-
-
-
-
-
-
-
-
-:: очистити ЗМІННУ - від зайвих лапок
-:: ПРАЦЮЄ!
-:: README: http://forum.oszone.net/thread-327751.html
-set VideoDuration=%VideoDuration:~1,-1%
-:: ВІДЛАДКА: (нижче - аналог).
-:: set VideoDuration=%VideoDuration:~1,-1%
-@echo VideoDuration=%VideoDuration%
-
-:: якщо розкоментувати, то буде ЦІЛЕ ЧИСЛО, але й ззакоментованим працює корректно
-:: set /a VideoDuration=%VideoDuration%
-:: @echo set /a VideoDuration=%VideoDuration%
-:: @echo VideoDuration=%VideoDuration%
-
-
-
-
-
-
-
-
-
-
-
-:: Власне сама команда на прошивку (час файла має бути вже синхронізований з таймінгом gpx файла)
-:: -v2 виводить інформацію на екран про параметри прошивки. використовувати лише ДЛЯ ДЕБАГА, бо СИЛЬНО СПОВІЛЬНЮЄ ПРОШИВКУ!!!! (це додатковий НЕОБОВЯЗКОВИЙ параметр)  
-:: README: https://sno.phy.queensu.ca/~phil/exiftool/geotag.html#geosync
-:: Geotag all images in directory "dir" from the GPS positions in "track.log" (in the current directory), for a camera clock that was running 25 seconds slower than the GPS clock:
-:: exiftool -geotag track.log -geosync=+25 dir
-::    VideoDurationFix = (КількістьГодинЗміщення * КількістьСекундВгодині) + ЧасЗмішенняСукундДовжинаВідео
-@echo VideoDuration    = %VideoDuration%
-@set /a VideoDuration  =%VideoDuration%*1000
-@echo VideoDuration    : VideoDuration *1000 = %VideoDuration%
-@set /a VideoDurationFix =(3*3600)-%VideoDuration%
-@echo VideoDuration    = %VideoDuration%
-@echo VideoDurationFix = %VideoDurationFix%
-
-
-
-
-
-
-
-:: ПРАЦЮЄ!
-:: ПЕРЕНЕСТИ ВСІ .jpg ФАЙЛИ до папки "jpg"
-@echo off
-mkdir %BlackVueFolder%\Record\jpg
-for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do (
-  move /Y "%%I" "%BlackVueFolder%\Record\jpg"
-)
-:: ВИДАЛИТИ порожню папку
-rmdir "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
-rmdir "%BlackVueFolder%\Record\%BlackVueFPS%fps"
-:: видалити ВСІ файли і підпіпки без запитів
-:: rmdir /S /Q "%BlackVueFolder%\Record\%BlackVueFPS%fps"
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: ПРАЦЮЄ!
+										REM :: ВЕРСІЯ exiftool яка зараз використовується. (користуємось для відладки і інформації, щоб не заюзати бува якусь стару чи нестабільну версію утиліти)
+										REM :: exiftool -ver
+										REM :: [ANCHOR-02]
+										REM %MapiCamExifTool% -ver
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM :: D:\mapicam\tools\exiftool\exiftool.exe -ver
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: ПРАЦЮЄ!
+										REM :: дістати та зберегти координати з відео файла
+										REM :: README: http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=5095.30
+										REM :: exiftool -ee -G3 FILE
+										REM :: exiftool -ee fileName.mp4 > ee.txt
+										REM :: README: https://sno.phy.queensu.ca/~phil/exiftool/exiftool_pod.html#ee--extractEmbedded
+										REM :: exiftool -p gpx.fmt FILE.mp4 > out.gpx
+										REM :: README: http://owl.phy.queensu.ca/~phil/exiftool/faq.html#Q2
+										REM :: [ANCHOR-03]
+										REM %MapiCamExifTool% -p %MapiCamExifToolPath%\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w %BlackVueFolder%\Record\gpx\%%f.gpx %BlackVueFolder%\Record
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM ::D:\mapicam\tools\exiftool\exiftool.exe -p D:\mapicam\tools\exiftool\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w F:\BlackVue\20190429-kyiv\09\Record\gpx\%f.gpx F:\BlackVue\20190429-kyiv\09\Record
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: отримати довжину відео файла
+										REM :: ПРАЦЮЄ!
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM :: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration "F:\BlackVue\20190429-kyiv\09\Record\20190429_194335_EF.mp4" 
+										REM :: 7.10 s
+										REM :: ПРАЦЮЄ!
+										REM :: [ANCHOR-04]
+										REM %MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record"
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM ::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record"
+										REM ::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record\20190429_194335_EF.mp4"
+										REM :: '7.101'
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: зберегти ЧАС - в файл
+										REM :: ПРАЦЮЄ!
+										REM :: [ANCHOR-05]
+										REM %MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record" > "%BlackVueFolder%\Record\VideoDuration.txt"
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM :: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record" > "F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
+										REM :: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record\20190429_194335_EF.mp4" > "F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: зчитати ЧАС - з файла в ЗМІННУ
+										REM :: ПРАЦЮЄ!
+										REM :: README: http://www.cyberforum.ru/cmd-bat/thread809990.html
+										REM :: [ANCHOR-06]
+										REM set /p VideoDuration=<"%BlackVueFolder%\Record\VideoDuration.txt"
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM :: set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
+										REM :: [ANCHOR-07]
+										REM @echo set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
+										REM :: [ANCHOR-08]
+										REM @echo VideoDuration=%VideoDuration%
+										REM :: ВИДАЛИТИ вже непотрібний VideoDuration.txt
+										REM :: [ANCHOR-09]
+										REM del "%BlackVueFolder%\Record\VideoDuration.txt"
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: очистити ЗМІННУ - від зайвих лапок
+										REM :: ПРАЦЮЄ!
+										REM :: README: http://forum.oszone.net/thread-327751.html
+										REM :: [ANCHOR-10]
+										REM set VideoDuration=%VideoDuration:~1,-1%
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM :: set VideoDuration=%VideoDuration:~1,-1%
+										REM :: [ANCHOR-11]
+										REM @echo VideoDuration=%VideoDuration%
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: якщо розкоментувати, то буде ЦІЛЕ ЧИСЛО, але й ззакоментованим працює корректно
+										REM :: set /a VideoDuration=%VideoDuration%
+										REM :: @echo set /a VideoDuration=%VideoDuration%
+										REM :: @echo VideoDuration=%VideoDuration%
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: Власне сама команда на прошивку (час файла має бути вже синхронізований з таймінгом gpx файла)
+										REM :: -v2 виводить інформацію на екран про параметри прошивки. використовувати лише ДЛЯ ДЕБАГА, бо СИЛЬНО СПОВІЛЬНЮЄ ПРОШИВКУ!!!! (це додатковий НЕОБОВЯЗКОВИЙ параметр)  
+										REM :: README: https://sno.phy.queensu.ca/~phil/exiftool/geotag.html#geosync
+										REM :: Geotag all images in directory "dir" from the GPS positions in "track.log" (in the current directory), for a camera clock that was running 25 seconds slower than the GPS clock:
+										REM :: exiftool -geotag track.log -geosync=+25 dir
+										REM ::    VideoDurationFix = (КількістьГодинЗміщення * КількістьСекундВгодині) + ЧасЗмішенняСукундДовжинаВідео
+										REM :: [ANCHOR-12]
+										REM @echo VideoDuration    = %VideoDuration%
+										REM :: [ANCHOR-13]
+										REM @set /a VideoDuration  =%VideoDuration%*1000
+										REM :: [ANCHOR-14]
+										REM @echo VideoDuration    : VideoDuration *1000 = %VideoDuration%
+										REM :: [ANCHOR-15]
+										REM @set /a VideoDurationFix =(3*3600)-%VideoDuration%
+										REM :: [ANCHOR-16]
+										REM @echo VideoDuration    = %VideoDuration%
+										REM :: [ANCHOR-17]
+										REM @echo VideoDurationFix = %VideoDurationFix%
+										REM :: [ANCHOR-18]
+										REM @echo. 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: ПРАЦЮЄ!
+										REM :: ПЕРЕНЕСТИ ВСІ .jpg ФАЙЛИ до папки "jpg"
+										REM :: [ANCHOR-19]
+										REM @echo off
+										REM :: [ANCHOR-20]
+										REM mkdir %BlackVueFolder%\Record\jpg
+										REM :: [ANCHOR-21]
+										REM for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do ( move /Y "%%I" "%BlackVueFolder%\Record\jpg" )
+										REM :: ВИДАЛИТИ порожню папку
+										REM :: [ANCHOR-22]
+										REM rmdir "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
+										REM :: [ANCHOR-23]
+										REM rmdir "%BlackVueFolder%\Record\%BlackVueFPS%fps"
+										REM :: видалити ВСІ файли і підпіпки без запитів
+										REM :: rmdir /S /Q "%BlackVueFolder%\Record\%BlackVueFPS%fps"
+										REM :: [ANCHOR-24]
+										REM @echo on
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: ----- ПЕРЕНАЛАШТУВАТИ ПО ДАТІ СТВОРЕННЯ -----------------------------------------------------------
+										REM :: ЗМІНЮЄМО ДАТУ на всіх типах дат.
+										REM :: exiftool "-DateTimeOriginal+=0:0:0 0:00:00" "%MapiCamImgFolder%" -overwrite_original
+										REM :: exiftool                            "-AllDates<DateTimeOriginal" -w DIR                                       -overwrite_original
+										REM :: %MapiCamExifTool%                   "-AllDates<DateTimeOriginal" -w "%MapiCamImgFolder%"                      -overwrite_original
+										REM :: | AllDates 
+										REM :: | CreateDate       | ModifyDate       | DateTimeOriginal |  |  |  |  |  |
+										REM :: | FileCreateDate   | FileModifyDate   | FileAccessDate  
+										REM :: | TrackCreateDate  | TrackModifyDate  |
+										REM :: | MediaCreateDate  | MediaModifyDate  |
+										REM :: | SubSecCreateDate | SubSecModifyDate | SubSecDateTimeOriginal
+										REM :: %MapiCamExifTool% -r "-AllDates<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM :: D:\mapicam\tools\exiftool\exiftool.exe -r "-AllDates<DateTimeOriginal" "F:\BlackVue\20190429-kyiv\09\Record\jpg" -overwrite_original_in_place
+										REM :: -----------------------------------------------------------------------------------------------------
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: Власне сама команда на прошивку (час файла синхронізується з таймінгом gpx файла за допомогою здвигу часу)
+										REM :: README: https://sno.phy.queensu.ca/~phil/exiftool/geotag.html#TP1
+										REM :: %MapiCamExifTool%  -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
+										REM :: [ANCHOR-25]
+										REM %MapiCamExifTool% -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM :: D:\mapicam\tools\exiftool\exiftool.exe -geotag "F:\BlackVue\20190429-kyiv\09\Record\gpx\*.gpx" "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: ---------------------------------------------------------------
+										REM :: КОРЕГУЄМО ЗДВИГ ЧАСУ (ОБОВЯЗКОВО ПІСЛЯ прошивки координат, бо обнуляються МІЛІСЕКУНДИ і прошивати після цього може лише з таймінгом 1fps)
+										REM :: ТРЕБА: змінити час на значення ЗМІННОЇ (довжини відео файла). "поточнийЧас"-"довжинаВідеоФайла"=ПоточнийЧасРеальний
+										REM :: [ANCHOR-26]
+										REM %MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%VideoDurationFix%" "%BlackVueFolder%\Record\jpg" -overwrite_original
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: змінюємо ІМЯ ФАЙЛА  беручи його з DateTimeOriginal. опрацьовується ВСЯ папка
+										REM :: ПЕРЕЙМЕНУВАТИ ФАЙЛИ
+										REM :: exiftool "-FileName<DateTimeOriginal" -d "%%Y%%m%%d_%%H%%M%%S.%%%%e" image.jpg
+										REM :: README: http://owl.phy.queensu.ca/~phil/exiftool/
+										REM :: README: http://owl.phy.queensu.ca/~phil/exiftool/filename.html
+										REM :: exiftool       -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S.%%e"                 DIR
+										REM :: [ANCHOR-27]
+										REM %MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record\jpg" -overwrite_original
+										REM :: ВІДЛАДКА: (нижче - аналог: для файлів).
+										REM :: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<FileCreateDate" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "F:\BlackVue\20190429-kyiv\09\Record\jpg" -overwrite_original
+										REM :: ВІДЛАДКА: (нижче - аналог: для консолі).
+										REM :: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<CreateDate" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "F:\BlackVue\20190429-kyiv\09\Record\jpg" -overwrite_original
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: ------------------------------------------------------
+										REM :: ПЕРЕПРОШИВАЄМО ВСІ дати на одну (правильну)
+										REM :: [ANCHOR-28]
+										REM %MapiCamExifTool% ^
+										  REM -r "-AllDates<DateTimeOriginal" ^
+										  REM -r "-CreateDate<DateTimeOriginal" ^
+										  REM -r "-ModifyDate<DateTimeOriginal" ^
+										  REM -r "-FileCreateDate<DateTimeOriginal" ^
+										  REM -r "-FileModifyDate<DateTimeOriginal" ^
+										  REM -r "-SubSecCreateDate<DateTimeOriginal" ^
+										  REM -r "-SubSecModifyDate<DateTimeOriginal" ^
+										  REM -r "-SubSecDateTimeOriginal<DateTimeOriginal" ^
+										  REM "%BlackVueFolder%\Record\jpg" -overwrite_original
+										REM :: ------------------------------------------------------
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: ПЕРЕМІЩЕННЯ в загальну папку після корректної прошивки!
+										REM :: [ANCHOR-29]
+										REM mkdir "%BlackVueFolder%\jpg2mapillary"
+										REM :: [ANCHOR-30]
+										REM @move /Y "%BlackVueFolder%\Record\jpg\*.jpg" "%BlackVueFolder%\jpg2mapillary"
+										REM :: [ANCHOR-31]
+										REM :: ВІДЛАДКА: (нижче - аналог).
+										REM :: move /Y "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.*" "%BlackVueFolder%\jpg2mapillary"
+										REM :: [ANCHOR-32]
+										REM @rmdir "%BlackVueFolder%\Record\jpg"
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
+										REM :: 
 @echo on
-
-
-
-
-
-
-
-
-:: ----- ПЕРЕНАЛАШТУВАТИ ПО ДАТІ СТВОРЕННЯ -----------------------------------------------------------
-:: ЗМІНЮЄМО ДАТУ на всіх типах дат.
-:: exiftool "-DateTimeOriginal+=0:0:0 0:00:00" "%MapiCamImgFolder%" -overwrite_original
-:: exiftool                            "-AllDates<DateTimeOriginal" -w DIR                                       -overwrite_original
-:: %MapiCamExifTool%                   "-AllDates<DateTimeOriginal" -w "%MapiCamImgFolder%"                      -overwrite_original
-:: | AllDates 
-:: | CreateDate       | ModifyDate       | DateTimeOriginal |  |  |  |  |  |
-:: | FileCreateDate   | FileModifyDate   | FileAccessDate  
-:: | TrackCreateDate  | TrackModifyDate  |
-:: | MediaCreateDate  | MediaModifyDate  |
-:: | SubSecCreateDate | SubSecModifyDate | SubSecDateTimeOriginal
-REM %MapiCamExifTool% -r "-AllDates<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original_in_place
-:: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-AllDates<DateTimeOriginal" "F:\BlackVue\20190429-kyiv\09\Record\jpg" -overwrite_original_in_place
-:: -----------------------------------------------------------------------------------------------------
-
-
-
-:: Власне сама команда на прошивку (час файла синхронізується з таймінгом gpx файла за допомогою здвигу часу)
-:: README: https://sno.phy.queensu.ca/~phil/exiftool/geotag.html#TP1
-:: %MapiCamExifTool%  -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
-%MapiCamExifTool%  -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
-:: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -geotag "F:\BlackVue\20190429-kyiv\09\Record\gpx\*.gpx" "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original
-
-
-
-
-
-
-
-
-
-
-:: ---------------------------------------------------------------
-:: КОРЕГУЄМО ЗДВИГ ЧАСУ (ОБОВЯЗКОВО ПІСЛЯ прошивки координат, бо обнуляються МІЛІСЕКУНДИ і прошивати після цього може лише з таймінгом 1fps)
-:: ТРЕБА: змінити час на значення ЗМІННОЇ (довжини відео файла). "поточнийЧас"-"довжинаВідеоФайла"=ПоточнийЧасРеальний
-%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%VideoDurationFix%" "%BlackVueFolder%\Record\jpg" -overwrite_original
-
-
-
-:: змінюємо ІМЯ ФАЙЛА  беручи його з DateTimeOriginal. опрацьовується ВСЯ папка
-:: ПЕРЕЙМЕНУВАТИ ФАЙЛИ
-:: exiftool "-FileName<DateTimeOriginal" -d "%%Y%%m%%d_%%H%%M%%S.%%%%e" image.jpg
-:: README: http://owl.phy.queensu.ca/~phil/exiftool/
-:: README: http://owl.phy.queensu.ca/~phil/exiftool/filename.html
-:: exiftool       -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S.%%e"                 DIR
-%MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record\jpg" -overwrite_original
-:: ВІДЛАДКА: (нижче - аналог: для файлів).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<FileCreateDate" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "F:\BlackVue\20190429-kyiv\09\Record\jpg" -overwrite_original
-:: ВІДЛАДКА: (нижче - аналог: для консолі).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<CreateDate" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "F:\BlackVue\20190429-kyiv\09\Record\jpg" -overwrite_original
-
-:: ------------------------------------------------------
-:: ПЕРЕПРОШИВАЄМО ВСІ дати на одну (правильну)
-%MapiCamExifTool% ^
-  -r "-AllDates<DateTimeOriginal" ^
-  -r "-CreateDate<DateTimeOriginal" ^
-  -r "-ModifyDate<DateTimeOriginal" ^
-  -r "-FileCreateDate<DateTimeOriginal" ^
-  -r "-FileModifyDate<DateTimeOriginal" ^
-  -r "-SubSecCreateDate<DateTimeOriginal" ^
-  -r "-SubSecModifyDate<DateTimeOriginal" ^
-  -r "-SubSecDateTimeOriginal<DateTimeOriginal" ^
-  "%BlackVueFolder%\Record\jpg" -overwrite_original
-:: ------------------------------------------------------
-
-
-
-
-
-
-:: ПЕРЕМІЩЕННЯ в загальну папку після корректної прошивки!
-mkdir "%BlackVueFolder%\jpg2mapillary"
-@move /Y "%BlackVueFolder%\Record\jpg\*.jpg" "%BlackVueFolder%\jpg2mapillary"
-:: ВІДЛАДКА: (нижче - аналог).
-:: move /Y "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.*" "%BlackVueFolder%\jpg2mapillary"
-@rmdir "%BlackVueFolder%\Record\jpg"
-
-
-
-
-
 
 @echo.
 @echo.
@@ -315,7 +452,16 @@ mkdir "%BlackVueFolder%\jpg2mapillary"
 @echo.
 @echo.
 @echo.
-
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
 :: ------------------------------------------------------------------------------------------------------------------
 :: СОРТУВАННЯ ЗА ДАТОЮ СТВОРЕННЯ (зручно в разі ВЕЛИКОЇ кількості відеофайлів за різні дати)
 :: СТВОРИТИ папку YYYYMMDD і перемістити в неї файли
@@ -324,12 +470,18 @@ mkdir "%BlackVueFolder%\jpg2mapillary"
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe  -r "-Directory<DateTimeOriginal" -d "F:\BlackVue\20190429-kyiv\09\%Y%m%d\Record\jpg" "F:\BlackVue\20190429-kyiv\09\Record\jpg"
 :: ------------------------------------------------------------------------------------------------------------------	
-	
-
-
-
-
-
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
 set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 :: D:\mapicam\tools\mapillary\mapillary_tools-050.exe  process --advanced -h
 %MapiCamMapillaryTools% process --advanced --version --verbose ^
