@@ -399,11 +399,11 @@ echo on
 :: ПЕРЕМІЩЕННЯ в загальну папку після корректної прошивки!
 :: [ANCHOR-29]
 mkdir %BlackVueFolder%\Record_Finalize
+mkdir %BlackVueFolder%\Record_Finalize\jpg
 mkdir %BlackVueFolder%\Record_Finalize\gpx
-mkdir "%BlackVueFolder%\jpg2mapillary"
 :: [ANCHOR-30]
 @move /Y "%BlackVueFolder%\Record_Call\*.mp4" "%BlackVueFolder%\Record_Finalize"
-@move /Y "%BlackVueFolder%\Record_Call\jpg\*.jpg" "%BlackVueFolder%\jpg2mapillary"
+@move /Y "%BlackVueFolder%\Record_Call\jpg\*.jpg" "%BlackVueFolder%\Record_Finalize\jpg"
 @move /Y "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Finalize\gpx"
 :: [ANCHOR-31]
 :: ВІДЛАДКА: (нижче - аналог).

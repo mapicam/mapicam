@@ -55,21 +55,21 @@ echo ############################################## END ########################
 :: D:\mapicam\tools\exiftool\exiftool.exe  -r "-Directory<DateTimeOriginal" -d "F:\BlackVue\20190429-kyiv\09\%Y%m%d\Record\jpg" "F:\BlackVue\20190429-kyiv\09\Record\jpg"
 :: ------------------------------------------------------------------------------------------------------------------	
 	
-
-
-
+mkdir %BlackVueFolder%\Record\jpg
+@move /Y "%BlackVueFolder%\Record_Finalize\jpg\*.jpg" "%BlackVueFolder%\Record\jpg"
+@rmdir "%BlackVueFolder%\Record_Finalize\jpg"
 
 
 set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 :: D:\mapicam\tools\mapillary\mapillary_tools-050.exe  process --advanced -h
 %MapiCamMapillaryTools% process --advanced --version --verbose ^
---import_path "%BlackVueFolder%\jpg2mapillary" ^
+--import_path "%BlackVueFolder%\Record\jpg" ^
 --user_name %MapiCamUsernameAtMapillary% ^
 --skip_subfolders ^
 --device_make "Blackvue" ^
 --device_model "DR900S-1CH" ^
 --geotag_source "exif" ^
---geotag_source_path "%BlackVueFolder%\jpg2mapillary" ^
+--geotag_source_path "%BlackVueFolder%\Record\jpg" ^
 --orientation 0 ^
 --offset_angle %BlackVueOffsetAngle% ^
 --use_gps_start_time ^
@@ -89,22 +89,26 @@ set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 
 
 mkdir %BlackVueFolder%\Record
-mkdir %BlackVueFolder%\Record_Finalize
 mkdir %BlackVueFolder%\Record\gpx
+mkdir %BlackVueFolder%\Record_Finalize
 mkdir %BlackVueFolder%\Record_Finalize\gpx
 :: [ANCHOR-30]
 @move /Y "%BlackVueFolder%\Record_Finalize\*.mp4" "%BlackVueFolder%\Record"
 @move /Y "%BlackVueFolder%\Record_Finalize\gpx" "%BlackVueFolder%\Record"
 
 @rmdir "%BlackVueFolder%\Record\*fpx"
+
 @rmdir "%BlackVueFolder%\Record_Call\*fpx"
-@rmdir "%BlackVueFolder%\Record_Finalize\*fpx"
 @rmdir "%BlackVueFolder%\Record_Call\jpg"
-@rmdir "%BlackVueFolder%\Record_Finalize\jpg"
 @rmdir "%BlackVueFolder%\Record_Call\gpx"
-@rmdir "%BlackVueFolder%\Record_Finalize\gpx"
 @rmdir "%BlackVueFolder%\Record_Call"
+
+@rmdir "%BlackVueFolder%\Record_Finalize\*fpx"
+@rmdir "%BlackVueFolder%\Record_Finalize\jpg"
+@rmdir "%BlackVueFolder%\Record_Finalize\gpx"
 @rmdir "%BlackVueFolder%\Record_Finalize"
+
+
 
 @echo.
 @echo.
