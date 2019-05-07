@@ -143,6 +143,7 @@ setlocal enableextensions enabledelayedexpansion
 @echo %MapiCamPhaseNum% MapiCamUsernameAtMapillary = %MapiCamUsernameAtMapillary%
 @echo %MapiCamPhaseNum% MapiCamPhaseNum            = %MapiCamPhaseNum%
 @echo %MapiCamPhaseNum% MapiCamLOG                 = %MapiCamLOG%
+@echo %MapiCamPhaseNum% BlackVueCall               = %BlackVueCall%
 @echo %MapiCamPhaseNum% uploadImportPath           = %uploadImportPath%
 @echo %MapiCamPhaseNum%                            = %BlackVueFolder%\%uploadImportPath%
 @echo.

@@ -42,14 +42,14 @@ mkdir %BlackVueFolder%\Record\jpg
 
 @echo ##### THIS IS CALL-FILE #####
 
-echo BlackVueCall = !BlackVueCall! = %BlackVueCall%
-mkdir %BlackVueFolder%\Record_
-move /Y "%%I" "%BlackVueFolder%\Record_"
+echo BlackVueCall = !BlackVueCall! = %BlackVueCall% = %6%
+mkdir %BlackVueFolder%\Record_Call
+move /Y %BlackVueCall% "%BlackVueFolder%\Record_Call"
 
-mkdir %BlackVueFolder%\Record_
-mkdir %BlackVueFolder%\Record_\%BlackVueFPS%fps
-mkdir %BlackVueFolder%\Record_\gpx
-mkdir %BlackVueFolder%\Record_\jpg
+mkdir %BlackVueFolder%\Record_Call
+mkdir %BlackVueFolder%\Record_Call\%BlackVueFPS%fps
+mkdir %BlackVueFolder%\Record_Call\gpx
+mkdir %BlackVueFolder%\Record_Call\jpg
 
 
 
@@ -68,14 +68,13 @@ mkdir %BlackVueFolder%\Record_\jpg
 
 
 
-:: %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval% --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% >> %MapiCamLOG%
+:: %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval% --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record_Call" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% >> %MapiCamLOG%
 
 
-mkdir %BlackVueFolder%\Record_\jpg
-:: %MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record" --video_sample_interval %BlackVueInterval%
+mkdir %BlackVueFolder%\Record_Call\jpg
+:: %MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
 :: [ANCHOR-01]
-%MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_" --video_sample_interval %BlackVueInterval%
-
+%MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
 
 :: 
 :: 
@@ -115,9 +114,9 @@ mkdir %BlackVueFolder%\Record_\jpg
 :: exiftool -p gpx.fmt FILE.mp4 > out.gpx
 :: README: http://owl.phy.queensu.ca/~phil/exiftool/faq.html#Q2
 :: [ANCHOR-03]
-%MapiCamExifTool% -p %MapiCamExifToolPath%\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w %BlackVueFolder%\Record_\gpx\%%f.gpx %BlackVueFolder%\Record_
+%MapiCamExifTool% -p %MapiCamExifToolPath%\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w %BlackVueFolder%\Record_Call\gpx\%%f.gpx %BlackVueFolder%\Record_Call
 :: ВІДЛАДКА: (нижче - аналог).
-::D:\mapicam\tools\exiftool\exiftool.exe -p D:\mapicam\tools\exiftool\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w F:\BlackVue\20190429-kyiv\09\Record\gpx\%f.gpx F:\BlackVue\20190429-kyiv\09\Record
+::D:\mapicam\tools\exiftool\exiftool.exe -p D:\mapicam\tools\exiftool\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w F:\BlackVue\20190429-kyiv\09\Record_Call\gpx\%f.gpx F:\BlackVue\20190429-kyiv\09\Record
 :: 
 :: 
 :: 
@@ -133,14 +132,14 @@ mkdir %BlackVueFolder%\Record_\jpg
 :: отримати довжину відео файла
 :: ПРАЦЮЄ!
 :: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration "F:\BlackVue\20190429-kyiv\09\Record\20190429_194335_EF.mp4" 
+:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration "F:\BlackVue\20190429-kyiv\09\Record_Call\20190429_194335_EF.mp4" 
 :: 7.10 s
 :: ПРАЦЮЄ!
 :: [ANCHOR-04]
-%MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record_"
+%MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record_Call"
 :: ВІДЛАДКА: (нижче - аналог).
-::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record"
-::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record\20190429_194335_EF.mp4"
+::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call"
+::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call\20190429_194335_EF.mp4"
 :: '7.101'
 :: 
 :: 
@@ -157,10 +156,10 @@ mkdir %BlackVueFolder%\Record_\jpg
 :: зберегти ЧАС - в файл
 :: ПРАЦЮЄ!
 :: [ANCHOR-05]
-%MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record_" > "%BlackVueFolder%\Record_\VideoDuration.txt"
+%MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record_Call" > "%BlackVueFolder%\Record_Call\VideoDuration.txt"
 :: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record" > "F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
-:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record\20190429_194335_EF.mp4" > "F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
+:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call" > "F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
+:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call\20190429_194335_EF.mp4" > "F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
 :: 
 :: 
 :: 
@@ -176,16 +175,16 @@ mkdir %BlackVueFolder%\Record_\jpg
 :: ПРАЦЮЄ!
 :: README: http://www.cyberforum.ru/cmd-bat/thread809990.html
 :: [ANCHOR-06]
-set /p VideoDuration=<"%BlackVueFolder%\Record_\VideoDuration.txt"
+set /p VideoDuration=<"%BlackVueFolder%\Record_Call\VideoDuration.txt"
 :: ВІДЛАДКА: (нижче - аналог).
-:: set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
+:: set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
 :: [ANCHOR-07]
-echo set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record\VideoDuration.txt"
+echo set /p VideoDuration=<"%BlackVueFolder%\Record_Call\VideoDuration.txt"
 :: [ANCHOR-08]
 echo VideoDuration=%VideoDuration%
 :: ВИДАЛИТИ вже непотрібний VideoDuration.txt
 :: [ANCHOR-09]
-del "%BlackVueFolder%\Record\VideoDuration.txt"
+del "%BlackVueFolder%\Record_Call\VideoDuration.txt"
 :: 
 :: 
 :: 
@@ -267,16 +266,16 @@ echo.
 :: [ANCHOR-19]
 echo off
 :: [ANCHOR-20]
-mkdir %BlackVueFolder%\Record\jpg
+mkdir %BlackVueFolder%\Record_Call\jpg
 :: [ANCHOR-21]
-for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do ( move /Y "%%I" "%BlackVueFolder%\Record\jpg" )
+for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do ( move /Y "%%I" "%BlackVueFolder%\Record_Call\jpg" )
 :: ВИДАЛИТИ порожню папку
 :: [ANCHOR-22]
-rmdir "%BlackVueFolder%\Record\%BlackVueFPS%fps\mapillary_sampled_video_frames"
+rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames"
 :: [ANCHOR-23]
-rmdir "%BlackVueFolder%\Record\%BlackVueFPS%fps"
+rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: видалити ВСІ файли і підпіпки без запитів
-:: rmdir /S /Q "%BlackVueFolder%\Record\%BlackVueFPS%fps"
+:: rmdir /S /Q "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: [ANCHOR-24]
 echo on
 :: 
@@ -304,7 +303,7 @@ echo on
 :: | SubSecCreateDate | SubSecModifyDate | SubSecDateTimeOriginal
 :: %MapiCamExifTool% -r "-AllDates<DateTimeOriginal" "%MapiCamImgFolder%" -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-AllDates<DateTimeOriginal" "F:\BlackVue\20190429-kyiv\09\Record\jpg" -overwrite_original_in_place
+:: D:\mapicam\tools\exiftool\exiftool.exe -r "-AllDates<DateTimeOriginal" "F:\BlackVue\20190429-kyiv\09\Record_Call\jpg" -overwrite_original_in_place
 :: -----------------------------------------------------------------------------------------------------
 :: 
 :: 
@@ -319,9 +318,9 @@ echo on
 :: 
 :: Власне сама команда на прошивку (час файла синхронізується з таймінгом gpx файла за допомогою здвигу часу)
 :: README: https://sno.phy.queensu.ca/~phil/exiftool/geotag.html#TP1
-:: %MapiCamExifTool%  -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
+:: %MapiCamExifTool%  -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
 :: [ANCHOR-25]
-%MapiCamExifTool% -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
+%MapiCamExifTool% -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -geotag "F:\BlackVue\20190429-kyiv\09\Record\gpx\*.gpx" "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original
 :: 
@@ -339,7 +338,7 @@ echo on
 :: КОРЕГУЄМО ЗДВИГ ЧАСУ (ОБОВЯЗКОВО ПІСЛЯ прошивки координат, бо обнуляються МІЛІСЕКУНДИ і прошивати після цього може лише з таймінгом 1fps)
 :: ТРЕБА: змінити час на значення ЗМІННОЇ (довжини відео файла). "поточнийЧас"-"довжинаВідеоФайла"=ПоточнийЧасРеальний
 :: [ANCHOR-26]
-%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%VideoDurationFix%" "%BlackVueFolder%\Record\jpg" -overwrite_original
+%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%VideoDurationFix%" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 :: 
 :: 
 :: 
@@ -358,11 +357,11 @@ echo on
 :: README: http://owl.phy.queensu.ca/~phil/exiftool/filename.html
 :: exiftool       -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S.%%e"                 DIR
 :: [ANCHOR-27]
-%MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record\jpg" -overwrite_original
+%MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог: для файлів).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<FileCreateDate" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "F:\BlackVue\20190429-kyiv\09\Record\jpg" -overwrite_original
+:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<FileCreateDate" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "F:\BlackVue\20190429-kyiv\09\Record_Call\jpg" -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог: для консолі).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<CreateDate" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "F:\BlackVue\20190429-kyiv\09\Record\jpg" -overwrite_original
+:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<CreateDate" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "F:\BlackVue\20190429-kyiv\09\Record_Call\jpg" -overwrite_original
 :: 
 :: 
 :: 
@@ -385,7 +384,7 @@ echo on
   -r "-SubSecCreateDate<DateTimeOriginal" ^
   -r "-SubSecModifyDate<DateTimeOriginal" ^
   -r "-SubSecDateTimeOriginal<DateTimeOriginal" ^
-  "%BlackVueFolder%\Record\jpg" -overwrite_original
+  "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 :: ------------------------------------------------------
 :: 
 :: 
@@ -399,14 +398,22 @@ echo on
 :: 
 :: ПЕРЕМІЩЕННЯ в загальну папку після корректної прошивки!
 :: [ANCHOR-29]
+mkdir %BlackVueFolder%\Record_Finalize
+mkdir %BlackVueFolder%\Record_Finalize\gpx
 mkdir "%BlackVueFolder%\jpg2mapillary"
 :: [ANCHOR-30]
-@move /Y "%BlackVueFolder%\Record\jpg\*.jpg" "%BlackVueFolder%\jpg2mapillary"
+@move /Y "%BlackVueFolder%\Record_Call\*.mp4" "%BlackVueFolder%\Record_Finalize"
+@move /Y "%BlackVueFolder%\Record_Call\jpg\*.jpg" "%BlackVueFolder%\jpg2mapillary"
+@move /Y "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Finalize\gpx"
 :: [ANCHOR-31]
 :: ВІДЛАДКА: (нижче - аналог).
 :: move /Y "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.*" "%BlackVueFolder%\jpg2mapillary"
 :: [ANCHOR-32]
-@rmdir "%BlackVueFolder%\Record\jpg"
+@rmdir "%BlackVueFolder%\Record_Call\*fpx"
+@rmdir "%BlackVueFolder%\Record_Call\jpg"
+@rmdir "%BlackVueFolder%\Record_Call\gpx"
+@rmdir "%BlackVueFolder%\Record_Call"
+
 :: 
 :: 
 :: 

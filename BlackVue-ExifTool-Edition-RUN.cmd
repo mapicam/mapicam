@@ -30,8 +30,6 @@ CALL %MapiCamFolder%\BlackVue-Head.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueO
 @echo ##### HEAD (fix local error)#############################################
 @echo.
 mkdir %BlackVueFolder%\Record
-mkdir %BlackVueFolder%\%uploadImportPath%
-mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 mkdir %BlackVueFolder%\Record\gpx
 mkdir %BlackVueFolder%\Record\jpg
 
@@ -43,7 +41,7 @@ echo ######################################## START ############################
 for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record" ^| findstr /i ".mp4"') do (
 set BlackVueCall=%%I
 echo BlackVueCall = !BlackVueCall! = %BlackVueCall% = %%I
-CALL %MapiCamFolder%\BlackVue-ExifTool-Edition.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary% %BlackVueCall%
+CALL %MapiCamFolder%\BlackVue-ExifTool-Edition.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueOffsetAngle% %BlackVueDuplicateDistance% %MapiCamUsernameAtMapillary% %%I
 )
 echo ############################################## END ##################################
 
@@ -90,8 +88,23 @@ set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 
 
 
+mkdir %BlackVueFolder%\Record
+mkdir %BlackVueFolder%\Record_Finalize
+mkdir %BlackVueFolder%\Record\gpx
+mkdir %BlackVueFolder%\Record_Finalize\gpx
+:: [ANCHOR-30]
+@move /Y "%BlackVueFolder%\Record_Finalize\*.mp4" "%BlackVueFolder%\Record"
+@move /Y "%BlackVueFolder%\Record_Finalize\gpx" "%BlackVueFolder%\Record"
 
-
+@rmdir "%BlackVueFolder%\Record\*fpx"
+@rmdir "%BlackVueFolder%\Record_Call\*fpx"
+@rmdir "%BlackVueFolder%\Record_Finalize\*fpx"
+@rmdir "%BlackVueFolder%\Record_Call\jpg"
+@rmdir "%BlackVueFolder%\Record_Finalize\jpg"
+@rmdir "%BlackVueFolder%\Record_Call\gpx"
+@rmdir "%BlackVueFolder%\Record_Finalize\gpx"
+@rmdir "%BlackVueFolder%\Record_Call"
+@rmdir "%BlackVueFolder%\Record_Finalize"
 
 @echo.
 @echo.
