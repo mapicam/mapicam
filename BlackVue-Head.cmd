@@ -127,6 +127,8 @@ setlocal enableextensions enabledelayedexpansion
 ::   --user_name velmyshanovnyi
 @set MapiCamUsernameAtMapillary=%5%
 @set MapiCamLOG=%BlackVueFolder%\mapicam-LOG.txt
+::   PARAMETR
+@set BlackVueCall=%6%
 ::   --import_path "Record\jpg"
 ::                  Record\jpg\.mapillary (там же має лежати папка з файлами мапілларі)
 @set uploadImportPath=Record\jpg
