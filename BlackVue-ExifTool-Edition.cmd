@@ -129,35 +129,26 @@ move /Y %BlackVueFolder%\Record_Call\gpx\*.gpx "%BlackVueFolder%\Record\gpx"
 FOR /R "%BlackVueFolder%\Record\gpx" %%I IN ("*.gpx") DO (
 set "cmdFileNameFull=%%I"
 set "cmdFileName=%%~nI%%~xI"
-echo %%~nI - expands %I to a file name only                   > nul
-echo %%~xI - expands %I to a file extension only              > nul
-echo cmdFileNameFull =!cmdFileNameFull!                       > nul
-echo cmdFileName     =!cmdFileName!                           > nul
+echo cmdFileNameFull =!cmdFileNameFull!
+echo cmdFileName     =!cmdFileName!
 set "cmdFileDateTime=%%~nI"
-echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS_XX > nul
+echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS_XX
 set "cmdFileDateTime=!cmdFileDateTime:~0,-3!"
-echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS    > nul
+echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS
 set "cmdFileDate=!cmdFileDateTime:~0,-7!"
-echo cmdFileDate     =!cmdFileDate!        // YYYYMMDD        > nul
+echo cmdFileDate     =!cmdFileDate!        // YYYYMMDD
 set "cmdFileTime=!cmdFileDateTime:~9,6!"
-echo cmdFileTime     =!cmdFileTime!          // HHMMSS        > nul
+echo cmdFileTime     =!cmdFileTime!          // HHMMSS
 set "cmdFileDateTime=!cmdFileDate!!cmdFileTime!"
-echo cmdFileDateTime =!cmdFileDateTime!  // YYYYMMDDHHMMSS    > nul
-echo .                                                        > nul
+echo cmdFileDateTime =!cmdFileDateTime!  // YYYYMMDDHHMMSS
+echo .
 set "cmdFileDateYYYY=!cmdFileDate:~0,4!"
 set "cmdFileDateMM=!cmdFileDate:~4,2!"
 set "cmdFileDateDD=!cmdFileDate:~6,2!"
 set "cmdFileTimeHH=!cmdFileTime:~0,2!"
 set "cmdFileTimeMM=!cmdFileTime:~2,2!"
 set "cmdFileTimeSS=!cmdFileTime:~4,2!"
-echo .                                                        > nul
-echo .                                                        > nul
-
-
-
-REM ----- WORK! ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-
-
+echo .
 echo cmdFileDateYYYY =!cmdFileDateYYYY! // YYYY
 echo cmdFileDateMM   =!cmdFileDateMM!   // MM
 echo cmdFileDateDD   =!cmdFileDateDD!   // DD
@@ -166,7 +157,6 @@ echo cmdFileTimeMM   =!cmdFileTimeMM!   // MM
 echo cmdFileTimeSS   =!cmdFileTimeSS!   // SS
 echo .
 echo cmdFile: YYYYMMDDHHMMSS = !cmdFileDateYYYY!!cmdFileDateMM!!cmdFileDateDD!!cmdFileTimeHH!!cmdFileTimeMM!!cmdFileTimeSS!   
-echo .
 echo .
 echo https://sno.phy.queensu.ca/~phil/exiftool/geotag.html
 exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull!
@@ -187,35 +177,17 @@ echo .
 echo cmdGpx : YYYYMMDDHHMMSS = !cmdGpxDateYYYY!!cmdGpxDateMM!!cmdGpxDateDD!!cmdGpxTimeHH!!cmdGpxTimeMM!!cmdGpxTimeSS!   //
 echo .
 
-pause
-
-REM echo .                                                        > nul
-REM set /a "cmdFileTimeUnix=(!cmdFileTimeHH!*60*60)+(!cmdFileTimeMM!*60)+(!cmdFileTimeSS!)"
-REM set /a "cmdGpxTimeUnix=(!cmdGpxTimeHH!*60*60)+(!cmdGpxTimeMM!*60)+(!cmdGpxTimeSS!)"
-REM set /a "delthaGpxSec=!cmdFileTimeUnix!-!cmdGpxTimeUnix!-(3*60*60)"
+ECHO ----- WORK! ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+set /a "cmdFileTimeUnix=(!cmdFileTimeHH!*60*60)+(!cmdFileTimeMM!*60)+(!cmdFileTimeSS!)"
+set /a "cmdGpxTimeUnix=(!cmdGpxTimeHH!*60*60)+(!cmdGpxTimeMM!*60)+(!cmdGpxTimeSS!)"
+set /a "delthaGpxSec=!cmdFileTimeUnix!-!cmdGpxTimeUnix!-(3*60*60)"
 echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = delthaGpxSec // !cmdFileTimeUnix! - !cmdGpxTimeUnix! - 10800 = !delthaGpxSec!
-echo .
-rem outputing
-REM echo GPG-TIME-START    (seconds) = !cmdFileTimeUnix! 
-REM echo GPX-TIME-END      (seconds) = !cmdGpxTimeUnix!
-REM echo GPX-TIME-DURATION (seconds) = !delthaGpxSec!
-echo ---------------------------------------------------------
+ECHO ----- WORK! ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 )
 :: 
 :: 
 :: 
 :: 
-
-
-
-
-
-pause
-
-
-
-
-
 :: 
 :: 
 :: 
@@ -245,13 +217,6 @@ pause
 
 
 
-
-pause
-
-
-
-
-
 :: 
 :: 
 :: 
@@ -270,16 +235,6 @@ pause
 :: 
 :: 
 :: 
-
-
-
-
-
-pause
-
-
-
-
 
 :: 
 :: 
@@ -366,7 +321,7 @@ echo delthaGpsSec       = %delthaGpxSec%
 :: 
 :: 
 :: 
-pause
+
 :: 
 :: 
 :: 
