@@ -1,5 +1,5 @@
 cd %1%
-@set MapiCamPhaseNum=[20190429]
+@set MapiCamPhaseNum=[PaketnaObrobka]
 @echo ##### HEAD ##############################################################
 setlocal enableextensions enabledelayedexpansion
 @set MapiCamFolder=D:\mapicam
@@ -78,7 +78,6 @@ mkdir %BlackVueFolder%\Record_Call\jpg
 :: %MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
 :: [ANCHOR-01]
 %MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
-
 :: 
 :: 
 :: 
@@ -97,7 +96,6 @@ mkdir %BlackVueFolder%\Record_Call\jpg
 %MapiCamExifTool% -ver
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -ver
-:: 
 :: 
 :: 
 :: 
@@ -154,71 +152,88 @@ set "cmdFileTimeMM=!cmdFileTime:~2,2!"
 set "cmdFileTimeSS=!cmdFileTime:~4,2!"
 echo .                                                        > nul
 echo .                                                        > nul
-echo cmdFileDateYYYY =!cmdFileDateYYYY! // YYYY               > nul
-echo cmdFileDateMM   =!cmdFileDateMM!   // MM                 > nul
-echo cmdFileDateDD   =!cmdFileDateDD!   // DD                 > nul
-echo cmdFileTimeHH   =!cmdFileTimeHH!   // HH                 > nul
-echo cmdFileTimeMM   =!cmdFileTimeMM!   // MM                 > nul
-echo cmdFileTimeSS   =!cmdFileTimeSS!   // SS                 > nul
-echo .                                                        > nul
+
+
+
+REM ----- WORK! ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+
+
+echo cmdFileDateYYYY =!cmdFileDateYYYY! // YYYY
+echo cmdFileDateMM   =!cmdFileDateMM!   // MM
+echo cmdFileDateDD   =!cmdFileDateDD!   // DD
+echo cmdFileTimeHH   =!cmdFileTimeHH!   // HH
+echo cmdFileTimeMM   =!cmdFileTimeMM!   // MM
+echo cmdFileTimeSS   =!cmdFileTimeSS!   // SS
+echo .
 echo cmdFile: YYYYMMDDHHMMSS = !cmdFileDateYYYY!!cmdFileDateMM!!cmdFileDateDD!!cmdFileTimeHH!!cmdFileTimeMM!!cmdFileTimeSS!   
-echo .                                                        > nul
-echo .                                                        > nul
-echo https://sno.phy.queensu.ca/~phil/exiftool/geotag.html    > nul
-exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull!      > nul
+echo .
+echo .
+echo https://sno.phy.queensu.ca/~phil/exiftool/geotag.html
+exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull!
 exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull! > %BlackVueFolder%\GpxTrkTrksegTrkptTime.txt
 for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\GpxTrkTrksegTrkptTime.txt") do (call set "GpxTrkTrksegTrkptTime=%%~a")
-echo GpxTrkTrksegTrkptTime = !GpxTrkTrksegTrkptTime!          > nul
+echo GpxTrkTrksegTrkptTime = !GpxTrkTrksegTrkptTime!
 set "cmdGpxDateTime=!GpxTrkTrksegTrkptTime:~34,19!"
-echo cmdGpxDateTime =!cmdGpxDateTime!        // ALL           > nul
-echo .                                                        > nul
+echo cmdGpxDateTime =!cmdGpxDateTime!        // ALL
+echo .
 set "cmdGpxDateYYYY=!cmdGpxDateTime:~0,4!"
 set "cmdGpxDateMM=!cmdGpxDateTime:~5,2!"
 set "cmdGpxDateDD=!cmdGpxDateTime:~8,2!"
-echo .                                                        > nul
+echo .
 set "cmdGpxTimeHH=!cmdGpxDateTime:~-8,2!"
 set "cmdGpxTimeMM=!cmdGpxDateTime:~-5,2!"
 set "cmdGpxTimeSS=!cmdGpxDateTime:~-2,2!"
-echo .                                                        > nul
-echo cmdGpx : YYYYMMDDHHMMSS = !cmdGpxDateYYYY!!cmdGpxDateMM!!cmdGpxDateDD!!cmdGpxTimeHH!!cmdGpxTimeMM!!cmdGpxTimeSS!   //
-echo .                                                        > nul
 echo .
-echo .                                                        > nul
-set /a "cmdFileTimeUnix=(!cmdFileTimeHH!*60*60)+(!cmdFileTimeMM!*60)+(!cmdFileTimeSS!)"
-set /a "cmdGpxTimeUnix=(!cmdGpxTimeHH!*60*60)+(!cmdGpxTimeMM!*60)+(!cmdGpxTimeSS!)"
-set /a "cmdFixGpxUnix=!cmdFileTimeUnix!-!cmdGpxTimeUnix!-(3*60*60)"
-echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = cmdFixGpxUnix // !cmdFileTimeUnix! - !cmdGpxTimeUnix! - 10800 = !cmdFixGpxUnix!
+echo cmdGpx : YYYYMMDDHHMMSS = !cmdGpxDateYYYY!!cmdGpxDateMM!!cmdGpxDateDD!!cmdGpxTimeHH!!cmdGpxTimeMM!!cmdGpxTimeSS!   //
+echo .
+
+pause
+
+REM echo .                                                        > nul
+REM set /a "cmdFileTimeUnix=(!cmdFileTimeHH!*60*60)+(!cmdFileTimeMM!*60)+(!cmdFileTimeSS!)"
+REM set /a "cmdGpxTimeUnix=(!cmdGpxTimeHH!*60*60)+(!cmdGpxTimeMM!*60)+(!cmdGpxTimeSS!)"
+REM set /a "delthaGpxSec=!cmdFileTimeUnix!-!cmdGpxTimeUnix!-(3*60*60)"
+echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = delthaGpxSec // !cmdFileTimeUnix! - !cmdGpxTimeUnix! - 10800 = !delthaGpxSec!
 echo .
 rem outputing
-echo STARTTIME : !cmdFileTimeUnix! seconds
-echo ENDTIME   : !cmdGpxTimeUnix! seconds
-echo DURATION  : !cmdFixGpxUnix! in seconds
+REM echo GPG-TIME-START    (seconds) = !cmdFileTimeUnix! 
+REM echo GPX-TIME-END      (seconds) = !cmdGpxTimeUnix!
+REM echo GPX-TIME-DURATION (seconds) = !delthaGpxSec!
 echo ---------------------------------------------------------
 )
-echo DURATION2  : %cmdFixGpxUnix% in seconds
 :: 
 :: 
 :: 
 :: 
+
+
+
+
+
+pause
+
+
+
+
+
 :: 
 :: 
 :: 
 :: отримати довжину відео файла
+:: https://askubuntu.com/questions/224237/how-to-check-how-long-a-video-mp4-is-using-the-shell
+:: exiftool -T -Duration -q -p '$Duration#' *.mp4
 :: ПРАЦЮЄ!
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration "F:\BlackVue\20190429-kyiv\09\Record_Call\20190429_194335_EF.mp4" 
 :: 7.10 s
 :: ПРАЦЮЄ!
-%MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record_Call"
+%MapiCamExifTool% -T -Duration      -q -p '$Duration#'      "%BlackVueFolder%\Record_Call"
+%MapiCamExifTool% -T -TrackDuration -q -p '$TrackDuration#' "%BlackVueFolder%\Record_Call"
 :: ВІДЛАДКА: (нижче - аналог).
 ::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call"
 ::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call\20190429_194335_EF.mp4"
 :: '7.101'
-:: https://askubuntu.com/questions/224237/how-to-check-how-long-a-video-mp4-is-using-the-shell
-:: exiftool -T -Duration *.mkv
-%MapiCamExifTool% -T -TrackDuration "%BlackVueFolder%\Record_Call"
-:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\20190409_162116_NF.mp4"
-:: D:\mapicam\tools\exiftool\exiftool.exe -T -TrackDuration "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\20190409_162116_NF.mp4"
+:: D:\mapicam\tools\exiftool\exiftool.exe -T -TrackDuration -q -p '$TrackDuration#' "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call"
 :: 
 :: 
 :: 
@@ -226,6 +241,17 @@ echo DURATION2  : %cmdFixGpxUnix% in seconds
 :: 
 :: 
 :: 
+
+
+
+
+
+pause
+
+
+
+
+
 :: 
 :: 
 :: 
@@ -233,10 +259,10 @@ echo DURATION2  : %cmdFixGpxUnix% in seconds
 :: 
 :: зберегти ЧАС - в файл
 :: ПРАЦЮЄ!
-%MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record_Call" > "%BlackVueFolder%\Record_Call\VideoDuration.txt"
-%MapiCamExifTool% -T -TrackDuration "%BlackVueFolder%\Record_Call" > "%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
+%MapiCamExifTool% -T -Duration      -q -p '$Duration#'      "%BlackVueFolder%\Record_Call" > "%BlackVueFolder%\Record_Call\VideoDuration.txt"
+%MapiCamExifTool% -T -TrackDuration -q -p '$TrackDuration#' "%BlackVueFolder%\Record_Call" > "%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
 :: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call" > "F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
+:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call" > "F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
 :: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call\20190429_194335_EF.mp4" > "F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
 :: 
 :: 
@@ -244,6 +270,17 @@ echo DURATION2  : %cmdFixGpxUnix% in seconds
 :: 
 :: 
 :: 
+
+
+
+
+
+pause
+
+
+
+
+
 :: 
 :: 
 :: 
@@ -254,14 +291,17 @@ echo DURATION2  : %cmdFixGpxUnix% in seconds
 :: README: http://www.cyberforum.ru/cmd-bat/thread809990.html
 :: [ANCHOR-06]
 set /p VideoDuration=<"%BlackVueFolder%\Record_Call\VideoDuration.txt"
+echo VideoDuration             =  %VideoDuration%
+:: 
 set /p VideoTrackDuration=<"%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
+echo VideoTrackDuration        =  %VideoTrackDuration%
+:: 
+set delthaVideoSec=%VideoTrackDuration%
+echo delthaVideoSec            =  %delthaVideoSec%
 :: ВІДЛАДКА: (нижче - аналог).
 :: set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
 :: set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record_Call\VideoTrackDuration.txt"
-echo set /p VideoDuration=<"%BlackVueFolder%\Record_Call\VideoDuration.txt"
-echo VideoDuration=%VideoDuration%
-echo set /p VideoTrackDuration=<"%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
-echo VideoTrackDuration=%VideoTrackDuration%
+:: 
 :: ВИДАЛИТИ вже непотрібний VideoDuration.txt
 del "%BlackVueFolder%\Record_Call\VideoDuration.txt"
 del "%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
@@ -271,6 +311,24 @@ del "%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
 :: 
 :: 
 :: 
+:: -->IF-->
+:: %MapiCamExifTool% -T -TrackDuration "%BlackVueFolder%\Record_Call"
+:: 
+:: 0:03:03
+:: 0:03:00
+:: 16.04 s
+:: 0:03:01
+:: 0:03:00
+:: 0:03:05
+:: 
+:: -->IF-->
+:: %MapiCamExifTool% -T -TrackDuration -q -p '$TrackDuration#' "%BlackVueFolder%\Record_Call"
+:: 
+:: '182.865'
+:: '180.464'
+:: '16.036'
+:: '180.831'
+:: '180.23'
 :: 
 :: 
 :: 
@@ -279,12 +337,16 @@ del "%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
 :: очистити ЗМІННУ - від зайвих лапок (символів)
 :: ПРАЦЮЄ!
 :: README: http://forum.oszone.net/thread-327751.html
-set VideoDuration=%VideoDuration:~1,-1%
-set VideoTrackDuration=%VideoTrackDuration:~0,-2%
+set  VideoDuration=%VideoDuration:~1,-1%
+echo VideoDuration      = %VideoDuration%
+set  VideoTrackDuration=%VideoTrackDuration:~1,-1%
+echo VideoTrackDuration = %VideoTrackDuration%
+:: 
+set delthaVideoSec=%VideoTrackDuration%
+echo delthaVideoSec     = %delthaVideoSec%
+echo delthaGpsSec       = %delthaGpxSec%
 :: ВІДЛАДКА: (нижче - аналог).
 :: set VideoDuration=%VideoDuration:~1,-1%
-echo VideoDuration=%VideoDuration%
-echo VideoTrackDuration=%VideoTrackDuration%
 :: 
 :: 
 :: 
@@ -304,7 +366,7 @@ echo VideoTrackDuration=%VideoTrackDuration%
 :: 
 :: 
 :: 
-:: 
+pause
 :: 
 :: 
 :: 
