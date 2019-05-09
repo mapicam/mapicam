@@ -1,5 +1,5 @@
 cd %1%
-@set MapiCamPhaseNum=[20190429]
+@set MapiCamPhaseNum=[PaketnaObrobka]
 @echo ##### HEAD ##############################################################
 setlocal enableextensions enabledelayedexpansion
 @set MapiCamFolder=D:\mapicam
@@ -92,9 +92,9 @@ mkdir %BlackVueFolder%\Record
 mkdir %BlackVueFolder%\Record\gpx
 mkdir %BlackVueFolder%\Record_Finalize
 mkdir %BlackVueFolder%\Record_Finalize\gpx
-:: [ANCHOR-30]
+
 @move /Y "%BlackVueFolder%\Record_Finalize\*.mp4" "%BlackVueFolder%\Record"
-@move /Y "%BlackVueFolder%\Record_Finalize\gpx" "%BlackVueFolder%\Record"
+@move /Y "%BlackVueFolder%\Record_Finalize\gpx\*.gpx" "%BlackVueFolder%\Record\gpx"
 
 @rmdir "%BlackVueFolder%\Record\*fpx"
 
@@ -115,7 +115,7 @@ mkdir %BlackVueFolder%\Record_Finalize\gpx
 @echo.
 @echo ####################################################
 @echo #                                                  #
-@echo # END   : 20190429                                 #
+@echo # END   : %MapiCamPhaseNum%                        #
 @echo #                                                  #
 @echo ####################################################
 @echo.
@@ -128,21 +128,7 @@ RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo %date% %time% # %MapiCamPhaseNum%    
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-@echo ----- ДО ЦЬОГО МІСЦЯ ВІДТЕСТОВАНО і ПРАЦЮЄ ВСЕ -----
-@echo ----- DO CEGO MISTSIA VIDTESTOVANO i PRACUE VSE -----
+REM D:\mapicam\tools\exiftool\exiftool.exe "-DateTimeOriginal+=0:0:1 0:0:0" "F:\BlackVue\20190429-kyiv\Record\jpg" -overwrite_original && D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "F:\BlackVue\20190429-kyiv\Record\jpg" -overwrite_original && D:\mapicam\tools\exiftool\exiftool.exe -r "-AllDates<DateTimeOriginal" -r "-CreateDate<DateTimeOriginal" -r "-ModifyDate<DateTimeOriginal" -r "-FileCreateDate<DateTimeOriginal" -r "-FileModifyDate<DateTimeOriginal" -r "-SubSecCreateDate<DateTimeOriginal" -r "-SubSecModifyDate<DateTimeOriginal" -r "-SubSecDateTimeOriginal<DateTimeOriginal" "F:\BlackVue\20190429-kyiv\Record\jpg" -overwrite_original
 
 
 cmd /k

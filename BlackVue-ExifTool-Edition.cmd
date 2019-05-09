@@ -28,12 +28,15 @@ CALL %MapiCamFolder%\BlackVue-Head.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueO
 @echo ##### HEAD (fix local error)#############################################
 @set MapiCamExifToolPath=D:\mapicam\tools\exiftool
 @set MapiCamExifTool=%MapiCamExifToolPath%\exiftool.exe
+::   -gpsimgdirection=%ExifToolGpsImgDirection%
+@set ExifToolGpsImgDirection=%BlackVueOffsetAngle%
 @echo ##### HEAD (fix local error)#############################################
 @echo.
 mkdir %BlackVueFolder%\Record
 mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
-mkdir %BlackVueFolder%\Record\gpx
 mkdir %BlackVueFolder%\Record\jpg
+mkdir %BlackVueFolder%\Record\gpx
+
 
 :: ===== BlackVue START =============
 @set MapiCamNameXX=BlackVue
@@ -48,8 +51,8 @@ move /Y %BlackVueCall% "%BlackVueFolder%\Record_Call"
 
 mkdir %BlackVueFolder%\Record_Call
 mkdir %BlackVueFolder%\Record_Call\%BlackVueFPS%fps
-mkdir %BlackVueFolder%\Record_Call\gpx
 mkdir %BlackVueFolder%\Record_Call\jpg
+mkdir %BlackVueFolder%\Record_Call\gpx
 
 
 
@@ -115,13 +118,84 @@ mkdir %BlackVueFolder%\Record_Call\jpg
 :: README: http://owl.phy.queensu.ca/~phil/exiftool/faq.html#Q2
 :: [ANCHOR-03]
 %MapiCamExifTool% -p %MapiCamExifToolPath%\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w %BlackVueFolder%\Record_Call\gpx\%%f.gpx %BlackVueFolder%\Record_Call
+move /Y %BlackVueFolder%\Record_Call\gpx\*.gpx "%BlackVueFolder%\Record\gpx"
 :: ВІДЛАДКА: (нижче - аналог).
-::D:\mapicam\tools\exiftool\exiftool.exe -p D:\mapicam\tools\exiftool\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w F:\BlackVue\20190429-kyiv\09\Record_Call\gpx\%f.gpx F:\BlackVue\20190429-kyiv\09\Record
+:: D:\mapicam\tools\exiftool\exiftool.exe -p D:\mapicam\tools\exiftool\Image-ExifTool\fmt_files\gpx.fmt -ee -ext mp4 -w G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\%f.gpx G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record
 :: 
 :: 
 :: 
 :: 
 :: 
+:: ФІКС глюку коли в файлі GPX є "здвиг" по координатам на декілька секунд. іноді навіть на 10 секунд. це дає похибку іноді на 20....100м
+:: README : https://superuser.com/questions/489240/how-to-get-filename-only-without-path-in-windows-command-line
+FOR /R "%BlackVueFolder%\Record\gpx" %%I IN ("*.gpx") DO (
+set "cmdFileNameFull=%%I"
+set "cmdFileName=%%~nI%%~xI"
+echo %%~nI - expands %I to a file name only                   > nul
+echo %%~xI - expands %I to a file extension only              > nul
+echo cmdFileNameFull =!cmdFileNameFull!                       > nul
+echo cmdFileName     =!cmdFileName!                           > nul
+set "cmdFileDateTime=%%~nI"
+echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS_XX > nul
+set "cmdFileDateTime=!cmdFileDateTime:~0,-3!"
+echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS    > nul
+set "cmdFileDate=!cmdFileDateTime:~0,-7!"
+echo cmdFileDate     =!cmdFileDate!        // YYYYMMDD        > nul
+set "cmdFileTime=!cmdFileDateTime:~9,6!"
+echo cmdFileTime     =!cmdFileTime!          // HHMMSS        > nul
+set "cmdFileDateTime=!cmdFileDate!!cmdFileTime!"
+echo cmdFileDateTime =!cmdFileDateTime!  // YYYYMMDDHHMMSS    > nul
+echo .                                                        > nul
+set "cmdFileDateYYYY=!cmdFileDate:~0,4!"
+set "cmdFileDateMM=!cmdFileDate:~4,2!"
+set "cmdFileDateDD=!cmdFileDate:~6,2!"
+set "cmdFileTimeHH=!cmdFileTime:~0,2!"
+set "cmdFileTimeMM=!cmdFileTime:~2,2!"
+set "cmdFileTimeSS=!cmdFileTime:~4,2!"
+echo .                                                        > nul
+echo .                                                        > nul
+echo cmdFileDateYYYY =!cmdFileDateYYYY! // YYYY               > nul
+echo cmdFileDateMM   =!cmdFileDateMM!   // MM                 > nul
+echo cmdFileDateDD   =!cmdFileDateDD!   // DD                 > nul
+echo cmdFileTimeHH   =!cmdFileTimeHH!   // HH                 > nul
+echo cmdFileTimeMM   =!cmdFileTimeMM!   // MM                 > nul
+echo cmdFileTimeSS   =!cmdFileTimeSS!   // SS                 > nul
+echo .                                                        > nul
+echo cmdFile: YYYYMMDDHHMMSS = !cmdFileDateYYYY!!cmdFileDateMM!!cmdFileDateDD!!cmdFileTimeHH!!cmdFileTimeMM!!cmdFileTimeSS!   
+echo .                                                        > nul
+echo .                                                        > nul
+echo https://sno.phy.queensu.ca/~phil/exiftool/geotag.html    > nul
+exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull!      > nul
+exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull! > %BlackVueFolder%\GpxTrkTrksegTrkptTime.txt
+for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\GpxTrkTrksegTrkptTime.txt") do (call set "GpxTrkTrksegTrkptTime=%%~a")
+echo GpxTrkTrksegTrkptTime = !GpxTrkTrksegTrkptTime!          > nul
+set "cmdGpxDateTime=!GpxTrkTrksegTrkptTime:~34,19!"
+echo cmdGpxDateTime =!cmdGpxDateTime!        // ALL           > nul
+echo .                                                        > nul
+set "cmdGpxDateYYYY=!cmdGpxDateTime:~0,4!"
+set "cmdGpxDateMM=!cmdGpxDateTime:~5,2!"
+set "cmdGpxDateDD=!cmdGpxDateTime:~8,2!"
+echo .                                                        > nul
+set "cmdGpxTimeHH=!cmdGpxDateTime:~-8,2!"
+set "cmdGpxTimeMM=!cmdGpxDateTime:~-5,2!"
+set "cmdGpxTimeSS=!cmdGpxDateTime:~-2,2!"
+echo .                                                        > nul
+echo cmdGpx : YYYYMMDDHHMMSS = !cmdGpxDateYYYY!!cmdGpxDateMM!!cmdGpxDateDD!!cmdGpxTimeHH!!cmdGpxTimeMM!!cmdGpxTimeSS!   //
+echo .                                                        > nul
+echo .
+echo .                                                        > nul
+set /a "cmdFileTimeUnix=(!cmdFileTimeHH!*60*60)+(!cmdFileTimeMM!*60)+(!cmdFileTimeSS!)"
+set /a "cmdGpxTimeUnix=(!cmdGpxTimeHH!*60*60)+(!cmdGpxTimeMM!*60)+(!cmdGpxTimeSS!)"
+set /a "cmdFixGpxUnix=!cmdFileTimeUnix!-!cmdGpxTimeUnix!-(3*60*60)"
+echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = cmdFixGpxUnix // !cmdFileTimeUnix! - !cmdGpxTimeUnix! - 10800 = !cmdFixGpxUnix!
+echo .
+rem outputing
+echo STARTTIME : !cmdFileTimeUnix! seconds
+echo ENDTIME   : !cmdGpxTimeUnix! seconds
+echo DURATION  : !cmdFixGpxUnix! in seconds
+echo ---------------------------------------------------------
+)
+echo DURATION2  : %cmdFixGpxUnix% in seconds
 :: 
 :: 
 :: 
@@ -135,12 +209,16 @@ mkdir %BlackVueFolder%\Record_Call\jpg
 :: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration "F:\BlackVue\20190429-kyiv\09\Record_Call\20190429_194335_EF.mp4" 
 :: 7.10 s
 :: ПРАЦЮЄ!
-:: [ANCHOR-04]
 %MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record_Call"
 :: ВІДЛАДКА: (нижче - аналог).
 ::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call"
 ::D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call\20190429_194335_EF.mp4"
 :: '7.101'
+:: https://askubuntu.com/questions/224237/how-to-check-how-long-a-video-mp4-is-using-the-shell
+:: exiftool -T -Duration *.mkv
+%MapiCamExifTool% -T -TrackDuration "%BlackVueFolder%\Record_Call"
+:: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\20190409_162116_NF.mp4"
+:: D:\mapicam\tools\exiftool\exiftool.exe -T -TrackDuration "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\20190409_162116_NF.mp4"
 :: 
 :: 
 :: 
@@ -155,8 +233,8 @@ mkdir %BlackVueFolder%\Record_Call\jpg
 :: 
 :: зберегти ЧАС - в файл
 :: ПРАЦЮЄ!
-:: [ANCHOR-05]
 %MapiCamExifTool% -T -Duration -q -p '$Duration#' "%BlackVueFolder%\Record_Call" > "%BlackVueFolder%\Record_Call\VideoDuration.txt"
+%MapiCamExifTool% -T -TrackDuration "%BlackVueFolder%\Record_Call" > "%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call" > "F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
 :: D:\mapicam\tools\exiftool\exiftool.exe -T -Duration -q -p '$Duration#' "F:\BlackVue\20190429-kyiv\09\Record_Call\20190429_194335_EF.mp4" > "F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
@@ -176,15 +254,17 @@ mkdir %BlackVueFolder%\Record_Call\jpg
 :: README: http://www.cyberforum.ru/cmd-bat/thread809990.html
 :: [ANCHOR-06]
 set /p VideoDuration=<"%BlackVueFolder%\Record_Call\VideoDuration.txt"
+set /p VideoTrackDuration=<"%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
 :: ВІДЛАДКА: (нижче - аналог).
 :: set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record_Call\VideoDuration.txt"
-:: [ANCHOR-07]
+:: set /p VideoDuration=<"F:\BlackVue\20190429-kyiv\09\Record_Call\VideoTrackDuration.txt"
 echo set /p VideoDuration=<"%BlackVueFolder%\Record_Call\VideoDuration.txt"
-:: [ANCHOR-08]
 echo VideoDuration=%VideoDuration%
+echo set /p VideoTrackDuration=<"%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
+echo VideoTrackDuration=%VideoTrackDuration%
 :: ВИДАЛИТИ вже непотрібний VideoDuration.txt
-:: [ANCHOR-09]
 del "%BlackVueFolder%\Record_Call\VideoDuration.txt"
+del "%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
 :: 
 :: 
 :: 
@@ -196,15 +276,15 @@ del "%BlackVueFolder%\Record_Call\VideoDuration.txt"
 :: 
 :: 
 :: 
-:: очистити ЗМІННУ - від зайвих лапок
+:: очистити ЗМІННУ - від зайвих лапок (символів)
 :: ПРАЦЮЄ!
 :: README: http://forum.oszone.net/thread-327751.html
-:: [ANCHOR-10]
 set VideoDuration=%VideoDuration:~1,-1%
+set VideoTrackDuration=%VideoTrackDuration:~0,-2%
 :: ВІДЛАДКА: (нижче - аналог).
 :: set VideoDuration=%VideoDuration:~1,-1%
-:: [ANCHOR-11]
 echo VideoDuration=%VideoDuration%
+echo VideoTrackDuration=%VideoTrackDuration%
 :: 
 :: 
 :: 
@@ -236,19 +316,24 @@ echo VideoDuration=%VideoDuration%
 :: Geotag all images in directory "dir" from the GPS positions in "track.log" (in the current directory), for a camera clock that was running 25 seconds slower than the GPS clock:
 :: exiftool -geotag track.log -geosync=+25 dir
 ::    VideoDurationFix = (КількістьГодинЗміщення * КількістьСекундВгодині) + ЧасЗмішенняСукундДовжинаВідео
-:: [ANCHOR-12]
-echo VideoDuration    = %VideoDuration%
-:: [ANCHOR-13]
-set /a VideoDuration  =%VideoDuration%*1000
-:: [ANCHOR-14]
-echo VideoDuration    : VideoDuration * 1000 = %VideoDuration%
-:: [ANCHOR-15]
-set /a VideoDurationFix =(3*3600)-%VideoDuration%
-:: [ANCHOR-16]
-echo VideoDuration    = %VideoDuration%
-:: [ANCHOR-17]
-echo VideoDurationFix = %VideoDurationFix%
-:: [ANCHOR-18]
+echo VideoDuration             =%VideoDuration%
+echo VideoTrackDuration        =%VideoTrackDuration%
+REM set /a VideoDuration=0
+REM set /a VideoTrackDuration=0
+echo VideoDuration             =VideoDuration * 1000      = %VideoDuration%
+echo VideoTrackDuration        =VideoTrackDuration * 1000 = %VideoTrackDuration%
+set /a VideoDurationFix=(3*3600)-%VideoDuration%
+set /a VideoTrackDurationFix=(3*3600)-%VideoTrackDuration%
+:: тут застосовуємо ЗДВИГ який є в GPX файлі, віднімаючи його від здвигу відео.
+set /a VideoDurationFixGPS=%VideoDurationFix%-%cmdFixGpxUnix%
+set /a VideoTrackDurationFixGPS=%VideoTrackDurationFix%-%cmdFixGpxUnix%
+echo VideoDuration             =%VideoDuration%
+echo VideoTrackDuration        =%VideoTrackDuration%
+echo VideoDurationFix          =%VideoDurationFix%
+echo VideoTrackDurationFix     =%VideoTrackDurationFix%
+echo cmdFixGpxUnix             =%cmdFixGpxUnix%
+echo VideoDurationFixGPS       =%VideoDurationFixGPS%
+echo VideoTrackDurationFixGPS  =%VideoTrackDurationFixGPS%
 echo. 
 :: 
 :: 
@@ -263,20 +348,14 @@ echo.
 :: 
 :: ПРАЦЮЄ!
 :: ПЕРЕНЕСТИ ВСІ .jpg ФАЙЛИ до папки "jpg"
-:: [ANCHOR-19]
 echo off
-:: [ANCHOR-20]
 mkdir %BlackVueFolder%\Record_Call\jpg
-:: [ANCHOR-21]
 for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do ( move /Y "%%I" "%BlackVueFolder%\Record_Call\jpg" )
 :: ВИДАЛИТИ порожню папку
-:: [ANCHOR-22]
 rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames"
-:: [ANCHOR-23]
 rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: видалити ВСІ файли і підпіпки без запитів
 :: rmdir /S /Q "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
-:: [ANCHOR-24]
 echo on
 :: 
 :: 
@@ -318,9 +397,8 @@ echo on
 :: 
 :: Власне сама команда на прошивку (час файла синхронізується з таймінгом gpx файла за допомогою здвигу часу)
 :: README: https://sno.phy.queensu.ca/~phil/exiftool/geotag.html#TP1
-:: %MapiCamExifTool%  -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original -v2
-:: [ANCHOR-25]
-%MapiCamExifTool% -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%MapiCamHeadXX% -overwrite_original
+:: %MapiCamExifTool%  -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
+%MapiCamExifTool% -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -geotag "F:\BlackVue\20190429-kyiv\09\Record\gpx\*.gpx" "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original
 :: 
@@ -337,7 +415,7 @@ echo on
 :: ---------------------------------------------------------------
 :: КОРЕГУЄМО ЗДВИГ ЧАСУ (ОБОВЯЗКОВО ПІСЛЯ прошивки координат, бо обнуляються МІЛІСЕКУНДИ і прошивати після цього може лише з таймінгом 1fps)
 :: ТРЕБА: змінити час на значення ЗМІННОЇ (довжини відео файла). "поточнийЧас"-"довжинаВідеоФайла"=ПоточнийЧасРеальний
-:: [ANCHOR-26]
+:: УВАГА! НА СТАРИХ ВІДЕО ЦЕЙ ЕТАП РОБИТИ НЕ ТРЕБА, БО ТОДІ ВИХОДИТЬ ПОДВІЙНИЙ ЗДВИГ
 %MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%VideoDurationFix%" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 :: 
 :: 
@@ -401,10 +479,11 @@ echo on
 mkdir %BlackVueFolder%\Record_Finalize
 mkdir %BlackVueFolder%\Record_Finalize\jpg
 mkdir %BlackVueFolder%\Record_Finalize\gpx
+mkdir %BlackVueFolder%\Record\gpx
 :: [ANCHOR-30]
 @move /Y "%BlackVueFolder%\Record_Call\*.mp4" "%BlackVueFolder%\Record_Finalize"
 @move /Y "%BlackVueFolder%\Record_Call\jpg\*.jpg" "%BlackVueFolder%\Record_Finalize\jpg"
-@move /Y "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Finalize\gpx"
+@move /Y "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record\gpx"
 :: [ANCHOR-31]
 :: ВІДЛАДКА: (нижче - аналог).
 :: move /Y "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.*" "%BlackVueFolder%\jpg2mapillary"
@@ -413,7 +492,12 @@ mkdir %BlackVueFolder%\Record_Finalize\gpx
 @rmdir "%BlackVueFolder%\Record_Call\jpg"
 @rmdir "%BlackVueFolder%\Record_Call\gpx"
 @rmdir "%BlackVueFolder%\Record_Call"
-
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
 :: 
 :: 
 :: 
@@ -426,5 +510,3 @@ mkdir %BlackVueFolder%\Record_Finalize\gpx
 :: 
 :: 
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
-
-
