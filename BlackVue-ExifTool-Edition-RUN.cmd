@@ -96,7 +96,13 @@ mkdir %BlackVueFolder%\Record_Finalize\gpx
 @move /Y "%BlackVueFolder%\Record_Finalize\*.mp4" "%BlackVueFolder%\Record"
 @move /Y "%BlackVueFolder%\Record_Finalize\gpx\*.gpx" "%BlackVueFolder%\Record\gpx"
 
-@rmdir "%BlackVueFolder%\Record\*fpx"
+@rmdir "%BlackVueFolder%\Record\01fpx"
+@rmdir "%BlackVueFolder%\Record\02fpx"
+@rmdir "%BlackVueFolder%\Record\05fpx"
+@rmdir "%BlackVueFolder%\Record\10fpx"
+@rmdir "%BlackVueFolder%\Record\15fpx"
+@rmdir "%BlackVueFolder%\Record\20fpx"
+@rmdir "%BlackVueFolder%\Record\30fpx"
 
 @rmdir "%BlackVueFolder%\Record_Call\*fpx"
 @rmdir "%BlackVueFolder%\Record_Call\jpg"
