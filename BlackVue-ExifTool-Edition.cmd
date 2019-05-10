@@ -298,7 +298,7 @@ set delthaVideoSec=%VideoTrackDuration%
 @set /a "VideoDuration=%VideoDuration%"
 @set /a "VideoTrackDuration=%VideoTrackDuration%"
 @set /a "delthaVideoSec=%delthaVideoSec%"
-@set /a "delthaGpxSec=%delthaGpxSec%+45"
+@set /a "delthaGpxSec=%delthaGpxSec%"
 @echo.
 @echo FIX-ERROR-AFTER    : "Missing operator."
 @echo VideoDuration      = %VideoDuration%
@@ -329,7 +329,7 @@ REM set /a VideoTrackDuration=0
 set /a "VideoDurationFix=3*3600-%VideoDuration%"
 set /a "VideoTrackDurationFix=3*3600-%VideoTrackDuration%"
 set /a "delthaVideoSecFix=3*3600-%delthaVideoSec%"
-set /a "delthaGpsSecFix=3*3600-%delthaVideoSec%-%delthaGpxSec%"
+set /a "delthaGpsSecFix=3*3600-%delthaVideoSec%-%delthaGpxSec%-1"
 :: тут застосовуємо ЗДВИГ який є в GPX файлі, віднімаючи його від здвигу відео.
 @echo -----
 set /a "VideoDurationFixGPS=%VideoDurationFix%-%delthaGpxSec%"
@@ -479,9 +479,9 @@ rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: exiftool       -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S.%%e"                 DIR
 %MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог: для файлів).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<FileCreateDate" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "F:\BlackVue\20190429-kyiv\09\Record_Call\jpg" -overwrite_original
+:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<FileCreateDate" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg" -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог: для консолі).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<CreateDate" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "F:\BlackVue\20190429-kyiv\09\Record_Call\jpg" -overwrite_original
+:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<CreateDate" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg" -overwrite_original
 :: 
 :: 
 :: 
