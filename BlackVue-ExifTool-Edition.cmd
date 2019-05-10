@@ -328,8 +328,8 @@ REM set /a VideoDuration=0
 REM set /a VideoTrackDuration=0
 set /a "VideoDurationFix=3*3600-%VideoDuration%"
 set /a "VideoTrackDurationFix=3*3600-%VideoTrackDuration%"
-set /a "delthaVideoSecFix=3*3600-%delthaVideoSec%"
-set /a "delthaGpsSecFix=3*3600-%delthaVideoSec%-%delthaGpxSec%-1"
+set /a "delthaVideoSecFix=3*3600-%delthaVideoSec%-1"
+set /a "delthaGpsSecFix=3*3600-%delthaVideoSec%-%delthaGpxSec%"
 :: тут застосовуємо ЗДВИГ який є в GPX файлі, віднімаючи його від здвигу відео.
 @echo -----
 set /a "VideoDurationFixGPS=%VideoDurationFix%-%delthaGpxSec%"
