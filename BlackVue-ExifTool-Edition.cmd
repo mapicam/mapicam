@@ -141,23 +141,23 @@ set "cmdFileTime=!cmdFileDateTime:~9,6!"
 echo cmdFileTime     =!cmdFileTime!          // HHMMSS
 set "cmdFileDateTime=!cmdFileDate!!cmdFileTime!"
 echo cmdFileDateTime =!cmdFileDateTime!  // YYYYMMDDHHMMSS
-echo .
+echo.
 set "cmdFileDateYYYY=!cmdFileDate:~0,4!"
 set "cmdFileDateMM=!cmdFileDate:~4,2!"
 set "cmdFileDateDD=!cmdFileDate:~6,2!"
 set "cmdFileTimeHH=!cmdFileTime:~0,2!"
 set "cmdFileTimeMM=!cmdFileTime:~2,2!"
 set "cmdFileTimeSS=!cmdFileTime:~4,2!"
-echo .
+echo.
 echo cmdFileDateYYYY =!cmdFileDateYYYY! // YYYY
 echo cmdFileDateMM   =!cmdFileDateMM!   // MM
 echo cmdFileDateDD   =!cmdFileDateDD!   // DD
 echo cmdFileTimeHH   =!cmdFileTimeHH!   // HH
 echo cmdFileTimeMM   =!cmdFileTimeMM!   // MM
 echo cmdFileTimeSS   =!cmdFileTimeSS!   // SS
-echo .
+echo.
 echo cmdFile: YYYYMMDDHHMMSS = !cmdFileDateYYYY!!cmdFileDateMM!!cmdFileDateDD!!cmdFileTimeHH!!cmdFileTimeMM!!cmdFileTimeSS!   
-echo .
+echo.
 echo https://sno.phy.queensu.ca/~phil/exiftool/geotag.html
 exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull!
 exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull! > %BlackVueFolder%\GpxTrkTrksegTrkptTime.txt
@@ -165,24 +165,22 @@ for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\GpxTrkTrksegTrkptTime.txt")
 echo GpxTrkTrksegTrkptTime = !GpxTrkTrksegTrkptTime!
 set "cmdGpxDateTime=!GpxTrkTrksegTrkptTime:~34,19!"
 echo cmdGpxDateTime =!cmdGpxDateTime!        // ALL
-echo .
+echo.
 set "cmdGpxDateYYYY=!cmdGpxDateTime:~0,4!"
 set "cmdGpxDateMM=!cmdGpxDateTime:~5,2!"
 set "cmdGpxDateDD=!cmdGpxDateTime:~8,2!"
-echo .
+echo.
 set "cmdGpxTimeHH=!cmdGpxDateTime:~-8,2!"
 set "cmdGpxTimeMM=!cmdGpxDateTime:~-5,2!"
 set "cmdGpxTimeSS=!cmdGpxDateTime:~-2,2!"
-echo .
+echo.
 echo cmdGpx : YYYYMMDDHHMMSS = !cmdGpxDateYYYY!!cmdGpxDateMM!!cmdGpxDateDD!!cmdGpxTimeHH!!cmdGpxTimeMM!!cmdGpxTimeSS!   //
-echo .
-
-ECHO ----- WORK! ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+echo.
 set /a "cmdFileTimeUnix=(!cmdFileTimeHH!*60*60)+(!cmdFileTimeMM!*60)+(!cmdFileTimeSS!)"
 set /a "cmdGpxTimeUnix=(!cmdGpxTimeHH!*60*60)+(!cmdGpxTimeMM!*60)+(!cmdGpxTimeSS!)"
 set /a "delthaGpxSec=!cmdFileTimeUnix!-!cmdGpxTimeUnix!-(3*60*60)"
 echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = delthaGpxSec // !cmdFileTimeUnix! - !cmdGpxTimeUnix! - 10800 = !delthaGpxSec!
-ECHO ----- WORK! ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+echo.
 )
 :: 
 :: 
@@ -292,14 +290,10 @@ del "%BlackVueFolder%\Record_Call\VideoTrackDuration.txt"
 :: очистити ЗМІННУ - від зайвих лапок (символів)
 :: ПРАЦЮЄ!
 :: README: http://forum.oszone.net/thread-327751.html
-set  VideoDuration=%VideoDuration:~1,-1%
-echo VideoDuration      = %VideoDuration%
-set  VideoTrackDuration=%VideoTrackDuration:~1,-1%
-echo VideoTrackDuration = %VideoTrackDuration%
-:: 
+set VideoDuration=%VideoDuration:~1,-1%
+set VideoTrackDuration=%VideoTrackDuration:~1,-1%
+
 set delthaVideoSec=%VideoTrackDuration%
-echo delthaVideoSec     = %delthaVideoSec%
-echo delthaGpsSec       = %delthaGpxSec%
 :: ВІДЛАДКА: (нижче - аналог).
 :: set VideoDuration=%VideoDuration:~1,-1%
 :: 
@@ -311,11 +305,27 @@ echo delthaGpsSec       = %delthaGpxSec%
 :: 
 :: 
 :: 
-:: 
-:: якщо розкоментувати, то буде ЦІЛЕ ЧИСЛО, але й ззакоментованим працює корректно
+@echo FIX-ERROR-BEFORE   : "Missing operator."
+@echo VideoDuration      = %VideoDuration%
+@echo VideoTrackDuration = %VideoTrackDuration%
+@echo delthaVideoSec     = %delthaVideoSec%
+@echo delthaGpsSec       = %delthaGpxSec%
+:: Робимо цілим числом (позбуваємось дробної частини), щоб була можливість здійснювати математичні операції над цими параметрами
 :: set /a VideoDuration=%VideoDuration%
-:: @echo set /a VideoDuration=%VideoDuration%
+:: @echo set /a "VideoDuration=%VideoDuration%"
 :: @echo VideoDuration=%VideoDuration%
+@echo.
+@echo FIX-ERROR-SET      : "Missing operator."
+@set /a "VideoDuration=%VideoDuration%"
+@set /a "VideoTrackDuration=%VideoTrackDuration%"
+@set /a "delthaVideoSec=%delthaVideoSec%"
+@set /a "delthaGpxSec=%delthaGpxSec%"
+@echo.
+@echo FIX-ERROR-AFTER    : "Missing operator."
+@echo VideoDuration      = %VideoDuration%
+@echo VideoTrackDuration = %VideoTrackDuration%
+@echo delthaVideoSec     = %delthaVideoSec%
+@echo delthaGpsSec       = %delthaGpxSec%
 :: 
 :: 
 :: 
@@ -333,25 +343,30 @@ echo delthaGpsSec       = %delthaGpxSec%
 :: Geotag all images in directory "dir" from the GPS positions in "track.log" (in the current directory), for a camera clock that was running 25 seconds slower than the GPS clock:
 :: exiftool -geotag track.log -geosync=+25 dir
 ::    VideoDurationFix = (КількістьГодинЗміщення * КількістьСекундВгодині) + ЧасЗмішенняСукундДовжинаВідео
-echo VideoDuration             =%VideoDuration%
-echo VideoTrackDuration        =%VideoTrackDuration%
+@echo -----
+
 REM set /a VideoDuration=0
 REM set /a VideoTrackDuration=0
-echo VideoDuration             =VideoDuration * 1000      = %VideoDuration%
-echo VideoTrackDuration        =VideoTrackDuration * 1000 = %VideoTrackDuration%
-set /a VideoDurationFix=(3*3600)-%VideoDuration%
-set /a VideoTrackDurationFix=(3*3600)-%VideoTrackDuration%
+set /a "VideoDurationFix=3*3600-%VideoDuration%"
+set /a "VideoTrackDurationFix=3*3600-%VideoTrackDuration%"
+set /a "delthaVideoSecFix=3*3600-%delthaVideoSec%"
+set /a "delthaGpsSecFix=3*3600-%delthaVideoSec%-%delthaGpxSec%-1"
 :: тут застосовуємо ЗДВИГ який є в GPX файлі, віднімаючи його від здвигу відео.
-set /a VideoDurationFixGPS=%VideoDurationFix%-%cmdFixGpxUnix%
-set /a VideoTrackDurationFixGPS=%VideoTrackDurationFix%-%cmdFixGpxUnix%
-echo VideoDuration             =%VideoDuration%
-echo VideoTrackDuration        =%VideoTrackDuration%
-echo VideoDurationFix          =%VideoDurationFix%
-echo VideoTrackDurationFix     =%VideoTrackDurationFix%
-echo cmdFixGpxUnix             =%cmdFixGpxUnix%
-echo VideoDurationFixGPS       =%VideoDurationFixGPS%
-echo VideoTrackDurationFixGPS  =%VideoTrackDurationFixGPS%
-echo. 
+@echo -----
+set /a "VideoDurationFixGPS=%VideoDurationFix%-%delthaGpxSec%"
+set /a "VideoTrackDurationFixGPS=%VideoTrackDurationFix%-%delthaGpxSec%"
+
+@echo VideoDuration             = %VideoDuration%
+@echo VideoTrackDuration        = %VideoTrackDuration%
+@echo VideoDurationFix          = %VideoDurationFix%
+@echo VideoTrackDurationFix     = %VideoTrackDurationFix%
+@echo VideoDurationFixGPS       = %VideoDurationFixGPS%
+@echo VideoTrackDurationFixGPS  = %VideoTrackDurationFixGPS%
+@echo.
+@echo delthaGpxSec              = %delthaGpxSec%
+@echo delthaVideoSecFix         = %delthaVideoSecFix%
+@echo delthaGpsSecFix           = %delthaGpsSecFix%
+@echo. 
 :: 
 :: 
 :: 
@@ -365,21 +380,27 @@ echo.
 :: 
 :: ПРАЦЮЄ!
 :: ПЕРЕНЕСТИ ВСІ .jpg ФАЙЛИ до папки "jpg"
-echo off
+
 mkdir %BlackVueFolder%\Record_Call\jpg
-for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do ( move /Y "%%I" "%BlackVueFolder%\Record_Call\jpg" )
+echo off
+echo.
+echo move /Y "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames\xxxxxxx\FILE.JPG" "%BlackVueFolder%\Record_Call\jpg"
+echo.
+for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do ( 
+  move /Y "%%I" "%BlackVueFolder%\Record_Call\jpg" > nul
+)
+echo on
 :: ВИДАЛИТИ порожню папку
 rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames"
 rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: видалити ВСІ файли і підпіпки без запитів
 :: rmdir /S /Q "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
-echo on
 :: 
 :: 
 :: 
 :: 
 :: 
-:: 
+::
 :: 
 :: 
 :: 
@@ -414,10 +435,12 @@ echo on
 :: 
 :: Власне сама команда на прошивку (час файла синхронізується з таймінгом gpx файла за допомогою здвигу часу)
 :: README: https://sno.phy.queensu.ca/~phil/exiftool/geotag.html#TP1
-:: %MapiCamExifTool%  -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
-%MapiCamExifTool% -geosync=+%VideoDurationFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
+:: %MapiCamExifTool%  -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
+%MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог).
-:: D:\mapicam\tools\exiftool\exiftool.exe -geotag "F:\BlackVue\20190429-kyiv\09\Record\gpx\*.gpx" "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original
+:: D:\mapicam\tools\exiftool\exiftool.exe -geosync=+ -geotag "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\*.gpx" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original -v2
+
+
 :: 
 :: 
 :: 
@@ -433,7 +456,7 @@ echo on
 :: КОРЕГУЄМО ЗДВИГ ЧАСУ (ОБОВЯЗКОВО ПІСЛЯ прошивки координат, бо обнуляються МІЛІСЕКУНДИ і прошивати після цього може лише з таймінгом 1fps)
 :: ТРЕБА: змінити час на значення ЗМІННОЇ (довжини відео файла). "поточнийЧас"-"довжинаВідеоФайла"=ПоточнийЧасРеальний
 :: УВАГА! НА СТАРИХ ВІДЕО ЦЕЙ ЕТАП РОБИТИ НЕ ТРЕБА, БО ТОДІ ВИХОДИТЬ ПОДВІЙНИЙ ЗДВИГ
-%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%VideoDurationFix%" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%delthaVideoSecFix%" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 :: 
 :: 
 :: 
@@ -451,7 +474,6 @@ echo on
 :: README: http://owl.phy.queensu.ca/~phil/exiftool/
 :: README: http://owl.phy.queensu.ca/~phil/exiftool/filename.html
 :: exiftool       -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S.%%e"                 DIR
-:: [ANCHOR-27]
 %MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог: для файлів).
 :: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<FileCreateDate" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "F:\BlackVue\20190429-kyiv\09\Record_Call\jpg" -overwrite_original
@@ -469,7 +491,6 @@ echo on
 :: 
 :: ------------------------------------------------------
 :: ПЕРЕПРОШИВАЄМО ВСІ дати на одну (правильну)
-:: [ANCHOR-28]
 %MapiCamExifTool% ^
   -r "-AllDates<DateTimeOriginal" ^
   -r "-CreateDate<DateTimeOriginal" ^
