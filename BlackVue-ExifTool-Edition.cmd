@@ -41,6 +41,15 @@ mkdir %BlackVueFolder%\Record\gpx
 :: ===== BlackVue START =============
 @set MapiCamNameXX=BlackVue
 
+@set "BlackVueCallFileName=%BlackVueCall%"
+@set "BlackVueCallFilePath=%BlackVueCall:~0,-23%"
+@set "BlackVueCallFileName=%BlackVueCall:~-22,-4%"
+@echo.
+@echo BlackVueCallFilePath=%BlackVueCallFilePath%
+@echo BlackVueCallFileName=%BlackVueCallFileName%
+@echo.
+
+
 	:: ---------------------
 
 @echo ##### THIS IS CALL-FILE #####
@@ -53,6 +62,7 @@ mkdir %BlackVueFolder%\Record_Call
 mkdir %BlackVueFolder%\Record_Call\%BlackVueFPS%fps
 mkdir %BlackVueFolder%\Record_Call\jpg
 mkdir %BlackVueFolder%\Record_Call\gpx
+
 
 
 
@@ -126,62 +136,63 @@ move /Y %BlackVueFolder%\Record_Call\gpx\*.gpx "%BlackVueFolder%\Record\gpx"
 :: 
 :: ФІКС глюку коли в файлі GPX є "здвиг" по координатам на декілька секунд. іноді навіть на 10 секунд. це дає похибку іноді на 20....100м
 :: README : https://superuser.com/questions/489240/how-to-get-filename-only-without-path-in-windows-command-line
-FOR /R "%BlackVueFolder%\Record\gpx" %%I IN ("*.gpx") DO (
-set "cmdFileNameFull=%%I"
-set "cmdFileName=%%~nI%%~xI"
-echo cmdFileNameFull =!cmdFileNameFull!
-echo cmdFileName     =!cmdFileName!
-set "cmdFileDateTime=%%~nI"
-echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS_XX
-set "cmdFileDateTime=!cmdFileDateTime:~0,-3!"
-echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS
-set "cmdFileDate=!cmdFileDateTime:~0,-7!"
-echo cmdFileDate     =!cmdFileDate!        // YYYYMMDD
-set "cmdFileTime=!cmdFileDateTime:~9,6!"
-echo cmdFileTime     =!cmdFileTime!          // HHMMSS
-set "cmdFileDateTime=!cmdFileDate!!cmdFileTime!"
-echo cmdFileDateTime =!cmdFileDateTime!  // YYYYMMDDHHMMSS
-echo.
-set "cmdFileDateYYYY=!cmdFileDate:~0,4!"
-set "cmdFileDateMM=!cmdFileDate:~4,2!"
-set "cmdFileDateDD=!cmdFileDate:~6,2!"
-set "cmdFileTimeHH=!cmdFileTime:~0,2!"
-set "cmdFileTimeMM=!cmdFileTime:~2,2!"
-set "cmdFileTimeSS=!cmdFileTime:~4,2!"
-echo.
-echo cmdFileDateYYYY =!cmdFileDateYYYY! // YYYY
-echo cmdFileDateMM   =!cmdFileDateMM!   // MM
-echo cmdFileDateDD   =!cmdFileDateDD!   // DD
-echo cmdFileTimeHH   =!cmdFileTimeHH!   // HH
-echo cmdFileTimeMM   =!cmdFileTimeMM!   // MM
-echo cmdFileTimeSS   =!cmdFileTimeSS!   // SS
-echo.
-echo cmdFile: YYYYMMDDHHMMSS = !cmdFileDateYYYY!!cmdFileDateMM!!cmdFileDateDD!!cmdFileTimeHH!!cmdFileTimeMM!!cmdFileTimeSS!   
-echo.
-echo https://sno.phy.queensu.ca/~phil/exiftool/geotag.html
-exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull!
-exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull! > %BlackVueFolder%\GpxTrkTrksegTrkptTime.txt
-for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\GpxTrkTrksegTrkptTime.txt") do (call set "GpxTrkTrksegTrkptTime=%%~a")
-echo GpxTrkTrksegTrkptTime = !GpxTrkTrksegTrkptTime!
-set "cmdGpxDateTime=!GpxTrkTrksegTrkptTime:~34,19!"
-echo cmdGpxDateTime =!cmdGpxDateTime!        // ALL
-echo.
-set "cmdGpxDateYYYY=!cmdGpxDateTime:~0,4!"
-set "cmdGpxDateMM=!cmdGpxDateTime:~5,2!"
-set "cmdGpxDateDD=!cmdGpxDateTime:~8,2!"
-echo.
-set "cmdGpxTimeHH=!cmdGpxDateTime:~-8,2!"
-set "cmdGpxTimeMM=!cmdGpxDateTime:~-5,2!"
-set "cmdGpxTimeSS=!cmdGpxDateTime:~-2,2!"
-echo.
-echo cmdGpx : YYYYMMDDHHMMSS = !cmdGpxDateYYYY!!cmdGpxDateMM!!cmdGpxDateDD!!cmdGpxTimeHH!!cmdGpxTimeMM!!cmdGpxTimeSS!   //
-echo.
-set /a "cmdFileTimeUnix=(!cmdFileTimeHH!*60*60)+(!cmdFileTimeMM!*60)+(!cmdFileTimeSS!)"
-set /a "cmdGpxTimeUnix=(!cmdGpxTimeHH!*60*60)+(!cmdGpxTimeMM!*60)+(!cmdGpxTimeSS!)"
-set /a "delthaGpxSec=!cmdFileTimeUnix!-!cmdGpxTimeUnix!-(3*60*60)"
-echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = delthaGpxSec // !cmdFileTimeUnix! - !cmdGpxTimeUnix! - 10800 = !delthaGpxSec!
-echo.
+FOR /R "%BlackVueFolder%\Record\gpx" %%I IN (%BlackVueCallFileName%.gpx) DO (
+	set "cmdFileNameFull=%%I"
+	set "cmdFileName=%%~nI%%~xI"
+	@echo cmdFileNameFull =!cmdFileNameFull!
+	@echo cmdFileName     =!cmdFileName!
+	set "cmdFileDateTime=%%~nI"
+	@echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS_XX
+	set "cmdFileDateTime=!cmdFileDateTime:~0,-3!"
+	@echo cmdFileDateTime =!cmdFileDateTime! // YYYYMMDD_HHMMSS
+	set "cmdFileDate=!cmdFileDateTime:~0,-7!"
+	@echo cmdFileDate     =!cmdFileDate!        // YYYYMMDD
+	set "cmdFileTime=!cmdFileDateTime:~9,6!"
+	@echo cmdFileTime     =!cmdFileTime!          // HHMMSS
+	set "cmdFileDateTime=!cmdFileDate!!cmdFileTime!"
+	@echo cmdFileDateTime =!cmdFileDateTime!  // YYYYMMDDHHMMSS
+	@echo.
+	set "cmdFileDateYYYY=!cmdFileDate:~0,4!"
+	set "cmdFileDateMM=!cmdFileDate:~4,2!"
+	set "cmdFileDateDD=!cmdFileDate:~6,2!"
+	set "cmdFileTimeHH=!cmdFileTime:~0,2!"
+	set "cmdFileTimeMM=!cmdFileTime:~2,2!"
+	set "cmdFileTimeSS=!cmdFileTime:~4,2!"
+	@echo.
+	@echo cmdFileDateYYYY =!cmdFileDateYYYY! // YYYY
+	@echo cmdFileDateMM   =!cmdFileDateMM!   // MM
+	@echo cmdFileDateDD   =!cmdFileDateDD!   // DD
+	@echo cmdFileTimeHH   =!cmdFileTimeHH!   // HH
+	@echo cmdFileTimeMM   =!cmdFileTimeMM!   // MM
+	@echo cmdFileTimeSS   =!cmdFileTimeSS!   // SS
+	@echo.
+	@echo cmdFile: YYYYMMDDHHMMSS = !cmdFileDateYYYY!!cmdFileDateMM!!cmdFileDateDD!!cmdFileTimeHH!!cmdFileTimeMM!!cmdFileTimeSS!   
+	@echo.
+	@echo https://sno.phy.queensu.ca/~phil/exiftool/geotag.html
+	exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull!
+	exiftool -s -xmp:GpxTrkTrksegTrkptTime !cmdFileNameFull! > %BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt
+	for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt") do (call set "GpxTrkTrksegTrkptTime=%%~a")
+	@echo GpxTrkTrksegTrkptTime = !GpxTrkTrksegTrkptTime!
+	set "cmdGpxDateTime=!GpxTrkTrksegTrkptTime:~34,19!"
+	@echo cmdGpxDateTime =!cmdGpxDateTime!        // ALL
+	@echo.
+	set "cmdGpxDateYYYY=!cmdGpxDateTime:~0,4!"
+	set "cmdGpxDateMM=!cmdGpxDateTime:~5,2!"
+	set "cmdGpxDateDD=!cmdGpxDateTime:~8,2!"
+	@echo.
+	set "cmdGpxTimeHH=!cmdGpxDateTime:~-8,2!"
+	set "cmdGpxTimeMM=!cmdGpxDateTime:~-5,2!"
+	set "cmdGpxTimeSS=!cmdGpxDateTime:~-2,2!"
+	@echo.
+	@echo cmdGpx : YYYYMMDDHHMMSS = !cmdGpxDateYYYY!!cmdGpxDateMM!!cmdGpxDateDD!!cmdGpxTimeHH!!cmdGpxTimeMM!!cmdGpxTimeSS!   //
+	@echo.
+	set /a "cmdFileTimeUnix=(!cmdFileTimeHH!*60*60)+(!cmdFileTimeMM!*60)+(!cmdFileTimeSS!)"
+	set /a "cmdGpxTimeUnix=(!cmdGpxTimeHH!*60*60)+(!cmdGpxTimeMM!*60)+(!cmdGpxTimeSS!)"
+	set /a "delthaGpxSec=!cmdFileTimeUnix!-!cmdGpxTimeUnix!-(3*60*60)"
+	@echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = delthaGpxSec // !cmdFileTimeUnix! - !cmdGpxTimeUnix! - 10800 = !delthaGpxSec!
+	@echo.
 )
+del "%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt"
 :: 
 :: 
 :: 
@@ -294,6 +305,7 @@ set VideoDuration=%VideoDuration:~1,-1%
 set VideoTrackDuration=%VideoTrackDuration:~1,-1%
 
 set delthaVideoSec=%VideoTrackDuration%
+
 :: ВІДЛАДКА: (нижче - аналог).
 :: set VideoDuration=%VideoDuration:~1,-1%
 :: 
@@ -319,7 +331,7 @@ set delthaVideoSec=%VideoTrackDuration%
 @set /a "VideoDuration=%VideoDuration%"
 @set /a "VideoTrackDuration=%VideoTrackDuration%"
 @set /a "delthaVideoSec=%delthaVideoSec%"
-@set /a "delthaGpxSec=%delthaGpxSec%"
+@set /a "delthaGpxSec=%delthaGpxSec%+45"
 @echo.
 @echo FIX-ERROR-AFTER    : "Missing operator."
 @echo VideoDuration      = %VideoDuration%
@@ -350,22 +362,23 @@ REM set /a VideoTrackDuration=0
 set /a "VideoDurationFix=3*3600-%VideoDuration%"
 set /a "VideoTrackDurationFix=3*3600-%VideoTrackDuration%"
 set /a "delthaVideoSecFix=3*3600-%delthaVideoSec%"
-set /a "delthaGpsSecFix=3*3600-%delthaVideoSec%-%delthaGpxSec%-1"
+set /a "delthaGpsSecFix=3*3600-%delthaVideoSec%-%delthaGpxSec%"
 :: тут застосовуємо ЗДВИГ який є в GPX файлі, віднімаючи його від здвигу відео.
 @echo -----
 set /a "VideoDurationFixGPS=%VideoDurationFix%-%delthaGpxSec%"
 set /a "VideoTrackDurationFixGPS=%VideoTrackDurationFix%-%delthaGpxSec%"
 
-@echo VideoDuration             = %VideoDuration%
-@echo VideoTrackDuration        = %VideoTrackDuration%
-@echo VideoDurationFix          = %VideoDurationFix%
-@echo VideoTrackDurationFix     = %VideoTrackDurationFix%
-@echo VideoDurationFixGPS       = %VideoDurationFixGPS%
-@echo VideoTrackDurationFixGPS  = %VideoTrackDurationFixGPS%
+@echo VideoDuration            (false) = %VideoDuration%
+@echo VideoTrackDuration       (true)  = %VideoTrackDuration%
+@echo VideoDurationFix         (false) = %VideoDurationFix%
+@echo VideoTrackDurationFix    (true)  = %VideoTrackDurationFix%
+@echo VideoDurationFixGPS      (false) = %VideoDurationFixGPS%
+@echo VideoTrackDurationFixGPS (false) = %VideoTrackDurationFixGPS%
 @echo.
-@echo delthaGpxSec              = %delthaGpxSec%
-@echo delthaVideoSecFix         = %delthaVideoSecFix%
-@echo delthaGpsSecFix           = %delthaGpsSecFix%
+@echo delthaVideoSec           (true)  = %delthaVideoSec%
+@echo delthaGpxSec             (true)  = %delthaGpxSec%
+@echo delthaVideoSecFix        (true)  = %delthaVideoSecFix%
+@echo delthaGpsSecFix          (true)  = %delthaGpsSecFix%
 @echo. 
 :: 
 :: 
@@ -391,6 +404,7 @@ for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapi
 )
 echo on
 :: ВИДАЛИТИ порожню папку
+rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames\%BlackVueCallFileName%"
 rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames"
 rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: видалити ВСІ файли і підпіпки без запитів
