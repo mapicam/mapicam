@@ -64,39 +64,6 @@ mkdir %BlackVueFolder%\Record_Call\jpg
 mkdir %BlackVueFolder%\Record_Call\gpx
 
 
-
-
-
-@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
-::@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
-
-
-
-
-
-
-::@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
-::D:\mapicam\tools\mapillary\mapillary_tools-042.exe video_process --advanced -h
-
-
-
-
-:: %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval% --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record_Call" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% >> %MapiCamLOG%
-
-
-mkdir %BlackVueFolder%\Record_Call\jpg
-:: %MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
-:: [ANCHOR-01]
-%MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
 :: 
 :: 
 :: ПРАЦЮЄ!
@@ -380,6 +347,28 @@ set /a "VideoTrackDurationFixGPS=%VideoTrackDurationFix%-%delthaGpxSec%"
 @echo delthaVideoSecFix        (true)  = %delthaVideoSecFix%
 @echo delthaGpsSecFix          (true)  = %delthaGpsSecFix%
 @echo. 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+:: 
+
+@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
+::@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
+
+::@set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
+::D:\mapicam\tools\mapillary\mapillary_tools-042.exe video_process --advanced -h
+
+:: %MapiCamMapillaryTools% video_process --advanced --version --verbose --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --user_name %MapiCamUsernameAtMapillary% --skip_subfolders --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval% --geotag_source "blackvue_videos" --geotag_source_path "%BlackVueFolder%\Record_Call" --offset_angle %BlackVueOffsetAngle% --use_gps_start_time --interpolate_directions --duplicate_distance %BlackVueDuplicateDistance% >> %MapiCamLOG%
+
+mkdir %BlackVueFolder%\Record_Call\jpg
+:: %MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
+:: [ANCHOR-01]
+%MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
 :: 
 :: 
 :: 
