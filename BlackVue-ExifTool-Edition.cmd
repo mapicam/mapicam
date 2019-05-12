@@ -363,7 +363,6 @@ set /a "VideoTrackDurationFixGPS=%VideoTrackDurationFix%-%delthaGpxSec%"
 
 mkdir %BlackVueFolder%\Record_Call\jpg
 :: %MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
-:: [ANCHOR-01]
 %MapiCamMapillaryTools% sample_video --advanced --version --import_path "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps" --video_import_path "%BlackVueFolder%\Record_Call" --video_sample_interval %BlackVueInterval%
 :: 
 :: 
@@ -425,17 +424,23 @@ rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: 
 :: 
 :: 
+:: GPS-TIME @ IMG-TIME	
+:: -geosync="12:58:05@2010:01:02 12:25:26"
+:: Both GPS and image timestamps are taken from the Geosync value. eg) 
 :: 
 :: 
-:: 
-:: 
-:: 
+@echo delthaVideoSec           (true)  = %delthaVideoSec%
+@echo delthaGpxSec             (true)  = %delthaGpxSec%
+@echo delthaVideoSecFix        (true)  = %delthaVideoSecFix%
+@echo delthaGpsSecFix          (true)  = %delthaGpsSecFix%
 :: 
 :: 
 :: Власне сама команда на прошивку (час файла синхронізується з таймінгом gpx файла за допомогою здвигу часу)
 :: README: https://sno.phy.queensu.ca/~phil/exiftool/geotag.html#TP1
-:: %MapiCamExifTool%  -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
-%MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
+:: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
+
+:: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
+%MapiCamExifTool% -geosync=%delthaGpsSecFix%@%BlackVueFolder%\Record_Call\jpg\%cmdGpxTimeHH%%cmdGpxTimeMM%%cmdGpxTimeSS%-0.jpg -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -geosync=+ -geotag "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\*.gpx" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original -v2
 
