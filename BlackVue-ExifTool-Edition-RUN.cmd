@@ -1,7 +1,7 @@
 cd %1%
 @set MapiCamPhaseNum=[PaketnaObrobka]
 @echo ##### HEAD ##############################################################
-setlocal enableextensions enabledelayedexpansion
+enableextensions enabledelayedexpansion
 @set MapiCamFolder=D:\mapicam
 @set BlackVueFolder=%1%
 @set BlackVueFPS=%2%
@@ -136,6 +136,12 @@ RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 
 REM D:\mapicam\tools\exiftool\exiftool.exe "-DateTimeOriginal+=0:0:1 0:0:0" "F:\BlackVue\20190429-kyiv\Record\jpg" -overwrite_original && D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "F:\BlackVue\20190429-kyiv\Record\jpg" -overwrite_original && D:\mapicam\tools\exiftool\exiftool.exe -r "-AllDates<DateTimeOriginal" -r "-CreateDate<DateTimeOriginal" -r "-ModifyDate<DateTimeOriginal" -r "-FileCreateDate<DateTimeOriginal" -r "-FileModifyDate<DateTimeOriginal" -r "-SubSecCreateDate<DateTimeOriginal" -r "-SubSecModifyDate<DateTimeOriginal" -r "-SubSecDateTimeOriginal<DateTimeOriginal" "F:\BlackVue\20190429-kyiv\Record\jpg" -overwrite_original
 
+@echo.
+@echo delthaVideoSec           (true)  = %delthaVideoSec%
+@echo delthaGpxSec             (true)  = %delthaGpxSec%
+@echo delthaVideoSecFix        (true)  = %delthaVideoSecFix%
+@echo delthaGpsSecFix          (true)  = %delthaGpsSecFix%
+@echo. 
 
 cmd /k
 
