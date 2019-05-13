@@ -29,9 +29,9 @@ CALL %MapiCamFolder%\BlackVue-Head.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueO
 @set MapiCamExifTool=%MapiCamExifToolPath%\exiftool.exe
 @echo ##### HEAD (fix local error)#############################################
 @echo.
-mkdir %BlackVueFolder%\Record
-mkdir %BlackVueFolder%\Record\gpx
-mkdir %BlackVueFolder%\Record\jpg
+@mkdir %BlackVueFolder%\Record
+@mkdir %BlackVueFolder%\Record\gpx
+@mkdir %BlackVueFolder%\Record\jpg
 
 :: ===== BlackVue START =============
 @set MapiCamNameXX=BlackVue
@@ -55,7 +55,7 @@ echo ############################################## END ########################
 :: D:\mapicam\tools\exiftool\exiftool.exe  -r "-Directory<DateTimeOriginal" -d "F:\BlackVue\20190429-kyiv\09\%Y%m%d\Record\jpg" "F:\BlackVue\20190429-kyiv\09\Record\jpg"
 :: ------------------------------------------------------------------------------------------------------------------	
 	
-mkdir %BlackVueFolder%\Record\jpg
+@mkdir %BlackVueFolder%\Record\jpg
 @move /Y "%BlackVueFolder%\Record_Finalize\jpg\*.jpg" "%BlackVueFolder%\Record\jpg"
 @rmdir "%BlackVueFolder%\Record_Finalize\jpg"
 
@@ -88,10 +88,10 @@ set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 
 
 
-mkdir %BlackVueFolder%\Record
-mkdir %BlackVueFolder%\Record\gpx
-mkdir %BlackVueFolder%\Record_Finalize
-mkdir %BlackVueFolder%\Record_Finalize\gpx
+@mkdir %BlackVueFolder%\Record
+@mkdir %BlackVueFolder%\Record\gpx
+@mkdir %BlackVueFolder%\Record_Finalize
+@mkdir %BlackVueFolder%\Record_Finalize\gpx
 
 @move /Y "%BlackVueFolder%\Record_Finalize\*.mp4" "%BlackVueFolder%\Record"
 @move /Y "%BlackVueFolder%\Record_Finalize\gpx\*.gpx" "%BlackVueFolder%\Record\gpx"
