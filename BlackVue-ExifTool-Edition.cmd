@@ -515,19 +515,20 @@ rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: 
 :: 
 :: ПЕРЕМІЩЕННЯ в загальну папку після корректної прошивки!
-:: [ANCHOR-29]
 mkdir %BlackVueFolder%\Record_Finalize
 mkdir %BlackVueFolder%\Record_Finalize\jpg
 mkdir %BlackVueFolder%\Record_Finalize\gpx
 mkdir %BlackVueFolder%\Record\gpx
-:: [ANCHOR-30]
-@move /Y "%BlackVueFolder%\Record_Call\*.mp4" "%BlackVueFolder%\Record_Finalize"
-@move /Y "%BlackVueFolder%\Record_Call\jpg\*.jpg" "%BlackVueFolder%\Record_Finalize\jpg"
-@move /Y "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record\gpx"
-:: [ANCHOR-31]
+@echo.
+@move /Y "%BlackVueFolder%\Record_Call\*.mp4" "%BlackVueFolder%\Record_Finalize"          >nul
+@echo @move /Y "%BlackVueFolder%\Record_Call\*.mp4" "%BlackVueFolder%\Record_Finalize"
+@move /Y "%BlackVueFolder%\Record_Call\jpg\*.jpg" "%BlackVueFolder%\Record_Finalize\jpg"  >nul
+@echo @move /Y "%BlackVueFolder%\Record_Call\jpg\*.jpg" "%BlackVueFolder%\Record_Finalize\jpg"
+@move /Y "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record\gpx"           >nul
+@echo @move /Y "%BlackVueFolder%\Record_Call\gpx\*.gpx" "%BlackVueFolder%\Record\gpx"
+@echo.
 :: ВІДЛАДКА: (нижче - аналог).
 :: move /Y "F:\BlackVue\20190429-kyiv\09\Record\jpg\*.*" "%BlackVueFolder%\jpg2mapillary"
-:: [ANCHOR-32]
 @rmdir "%BlackVueFolder%\Record_Call\*fpx"
 @rmdir "%BlackVueFolder%\Record_Call\jpg"
 @rmdir "%BlackVueFolder%\Record_Call\gpx"
