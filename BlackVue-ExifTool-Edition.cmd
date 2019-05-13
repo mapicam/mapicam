@@ -149,10 +149,10 @@ set "cmdGpxTimeSS=%cmdGpxDateTime:~-2,2%"
 @echo.
 @echo cmdGpx : YYYYMMDDHHMMSS = %cmdGpxDateYYYY%%cmdGpxDateMM%%cmdGpxDateDD%%cmdGpxTimeHH%%cmdGpxTimeMM%%cmdGpxTimeSS%   //
 @echo.
-set /a "cmdFileTimeUnix=(%cmdFileTimeHH%*60*60)+(%cmdFileTimeMM%*60)+(%cmdFileTimeSS%)"
-set /a "cmdGpxTimeUnix=(%cmdGpxTimeHH%*60*60)+(%cmdGpxTimeMM%*60)+(%cmdGpxTimeSS%)"
-set /a "delthaGpxSec=%cmdFileTimeUnix%-%cmdGpxTimeUnix%-(3*60*60)"
-@echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = delthaGpxSec // %cmdFileTimeUnix% - %cmdGpxTimeUnix% - 10800 = %delthaGpxSec%
+set /a "cmdFileTimeSec=(%cmdFileTimeHH%*60*60)+(%cmdFileTimeMM%*60)+(%cmdFileTimeSS%)"
+set /a "cmdGpxTimeSec=(%cmdGpxTimeHH%*60*60)+(%cmdGpxTimeMM%*60)+(%cmdGpxTimeSS%)"
+set /a "delthaGpxSec=%cmdFileTimeSec%-%cmdGpxTimeSec%-(3*60*60)"
+@echo cmdFileTimeSec - cmdGpxTimeSec - 03:00:00 = delthaGpxSec // %cmdFileTimeSec% - %cmdGpxTimeSec% - 10800 = %delthaGpxSec%
 @echo.
 del "%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt"
 :: 
