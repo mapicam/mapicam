@@ -100,27 +100,27 @@ move /Y %BlackVueFolder%\Record_Call\gpx\*.gpx "%BlackVueFolder%\Record\gpx"
 :: 
 :: ФІКС глюку коли в файлі GPX є "здвиг" по координатам на декілька секунд. іноді навіть на 10 секунд. це дає похибку іноді на 20....100м
 :: README : https://superuser.com/questions/489240/how-to-get-filename-only-without-path-in-windows-command-line
-set "cmdFileNameFull=%BlackVueFolder%\Record\gpx\%BlackVueCallFileName%.gpx"
-set "cmdFileName=%BlackVueCallFileName%.gpx"
+@set "cmdFileNameFull=%BlackVueFolder%\Record\gpx\%BlackVueCallFileName%.gpx"
+@set "cmdFileName=%BlackVueCallFileName%.gpx"
 @echo cmdFileNameFull =%cmdFileNameFull%
 @echo cmdFileName     =%cmdFileName%
-set "cmdFileDateTime=%BlackVueCallFileName%"
+@set "cmdFileDateTime=%BlackVueCallFileName%"
 @echo cmdFileDateTime =%cmdFileDateTime% // YYYYMMDD_HHMMSS_XX
-set "cmdFileDateTime=%cmdFileDateTime:~0,-3%"
+@set "cmdFileDateTime=%cmdFileDateTime:~0,-3%"
 @echo cmdFileDateTime =%cmdFileDateTime% // YYYYMMDD_HHMMSS
-set "cmdFileDate=%cmdFileDateTime:~0,-7%"
+@set "cmdFileDate=%cmdFileDateTime:~0,-7%"
 @echo cmdFileDate     =%cmdFileDate%        // YYYYMMDD
-set "cmdFileTime=%cmdFileDateTime:~9,6%"
+@set "cmdFileTime=%cmdFileDateTime:~9,6%"
 @echo cmdFileTime     =%cmdFileTime%          // HHMMSS
-set "cmdFileDateTime=%cmdFileDate%%cmdFileTime%"
+@set "cmdFileDateTime=%cmdFileDate%%cmdFileTime%"
 @echo cmdFileDateTime =%cmdFileDateTime%  // YYYYMMDDHHMMSS
 @echo.
-set "cmdFileDateYYYY=%cmdFileDate:~0,4%"
-set "cmdFileDateMM=%cmdFileDate:~4,2%"
-set "cmdFileDateDD=%cmdFileDate:~6,2%"
-set "cmdFileTimeHH=%cmdFileTime:~0,2%"
-set "cmdFileTimeMM=%cmdFileTime:~2,2%"
-set "cmdFileTimeSS=%cmdFileTime:~4,2%"
+@set "cmdFileDateYYYY=%cmdFileDate:~0,4%"
+@set "cmdFileDateMM=%cmdFileDate:~4,2%"
+@set "cmdFileDateDD=%cmdFileDate:~6,2%"
+@set "cmdFileTimeHH=%cmdFileTime:~0,2%"
+@set "cmdFileTimeMM=%cmdFileTime:~2,2%"
+@set "cmdFileTimeSS=%cmdFileTime:~4,2%"
 @echo.
 @echo cmdFileDateYYYY =%cmdFileDateYYYY% // YYYY
 @echo cmdFileDateMM   =%cmdFileDateMM%   // MM
@@ -136,40 +136,64 @@ exiftool -s -xmp:GpxTrkTrksegTrkptTime %cmdFileNameFull%
 exiftool -s -xmp:GpxTrkTrksegTrkptTime %cmdFileNameFull% > %BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt
 for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt") do (call set "GpxTrkTrksegTrkptTime=%%~a")
 @echo GpxTrkTrksegTrkptTime = %GpxTrkTrksegTrkptTime%
-set "cmdGpxDateTime=%GpxTrkTrksegTrkptTime:~34,19%"
+@set "cmdGpxDateTime=%GpxTrkTrksegTrkptTime:~34,19%"
 @echo cmdGpxDateTime =%cmdGpxDateTime%        // ALL
 @echo.
-set "cmdGpxDateYYYY=%cmdGpxDateTime:~0,4%"
-set "cmdGpxDateMM=%cmdGpxDateTime:~5,2%"
-set "cmdGpxDateDD=%cmdGpxDateTime:~8,2%"
+@set "cmdGpxDateYYYY=%cmdGpxDateTime:~0,4%"
+@set "cmdGpxDateMM=%cmdGpxDateTime:~5,2%"
+@set "cmdGpxDateDD=%cmdGpxDateTime:~8,2%"
 @echo.
-set "cmdGpxTimeHH=%cmdGpxDateTime:~-8,2%"
-set "cmdGpxTimeMM=%cmdGpxDateTime:~-5,2%"
-set "cmdGpxTimeSS=%cmdGpxDateTime:~-2,2%"
+@set "cmdGpxTimeHH=%cmdGpxDateTime:~-8,2%"
+@set "cmdGpxTimeMM=%cmdGpxDateTime:~-5,2%"
+@set "cmdGpxTimeSS=%cmdGpxDateTime:~-2,2%"
 @echo.
 @echo cmdGpx : YYYYMMDDHHMMSS = %cmdGpxDateYYYY%%cmdGpxDateMM%%cmdGpxDateDD%%cmdGpxTimeHH%%cmdGpxTimeMM%%cmdGpxTimeSS%   //
 @echo.
-set /a "cmdFileTimeSec=(%cmdFileTimeHH%*60*60)+(%cmdFileTimeMM%*60)+(%cmdFileTimeSS%)"
-set /a "cmdGpxTimeSec=(%cmdGpxTimeHH%*60*60)+(%cmdGpxTimeMM%*60)+(%cmdGpxTimeSS%)"
-set /a "delthaGpxSec=%cmdFileTimeSec%-%cmdGpxTimeSec%-(3*60*60)"
+@set /a "cmdFileTimeSec=(%cmdFileTimeHH%*60*60)+(%cmdFileTimeMM%*60)+(%cmdFileTimeSS%)"
+@set /a "cmdGpxTimeSec=(%cmdGpxTimeHH%*60*60)+(%cmdGpxTimeMM%*60)+(%cmdGpxTimeSS%)"
+@set /a "delthaGpxSec=%cmdFileTimeSec%-%cmdGpxTimeSec%-(3*60*60)"
 @echo cmdFileTimeSec - cmdGpxTimeSec - 03:00:00 = delthaGpxSec // %cmdFileTimeSec% - %cmdGpxTimeSec% - 10800 = %delthaGpxSec%
 @echo.
-del "%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt"
-
-set /a "cmdGpxTimeHH2=(%cmdFileTimeSec%-%delthaGpxSec%)/60/60"
-set /a "cmdGpxDateMM2=(%cmdFileTimeSec%-%delthaGpxSec%)-(%cmdGpxTimeHH2%*60*60)/60"
-set /a "cmdGpxTimeSS2=(%cmdFileTimeSec%-%delthaGpxSec%)-(%cmdGpxTimeHH2%*60*60)-(%cmdGpxDateMM2%*60)"
-set    "cmdGpxTime2=%cmdGpxTimeHH2%:%cmdGpxTimeMM2%:%cmdGpxTimeSS2%"
-
-@echo cmdGpxTimeHH2   = %cmdGpxTimeHH2%
-@echo cmdGpxTimeMM2   = %cmdGpxTimeMM2%
-@echo cmdGpxTimeSS2   = %cmdGpxTimeSS2%
-@echo cmdGpxTime2     = %cmdGpxTimeHH2%:%cmdGpxTimeMM2%:%cmdGpxTimeSS2% = %cmdGpxTime2%
+@del "%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt"
 
 
-pause
-pause
-pause
+@set /a "fixTime1Sec=%cmdFileTimeSec%-10800"
+@set /a "fixTime1HH=(%fixTime1Sec%)/60/60"
+@set /a "fixTime1MM=((%fixTime1Sec%)-(%fixTime1HH%*60*60))/60"
+@set /a "fixTime1SS=((%fixTime1Sec%)-(%fixTime1HH%*60*60)-(%fixTime1MM%*60))"
+@set    "fixTime1=%fixTime1HH%:%fixTime1MM%:%fixTime1SS%"
+
+@set /a "fixTime2Sec=%cmdGpxTimeSec%"
+@set /a "fixTime2HH=(%fixTime2Sec%)/60/60"
+@set /a "fixTime2MM=((%fixTime2Sec%)-(%fixTime2HH%*60*60))/60"
+@set /a "fixTime2SS=((%fixTime2Sec%)-(%fixTime2HH%*60*60)-(%fixTime2MM%*60))"
+@set    "fixTime2=%fixTime2HH%:%fixTime2MM%:%fixTime2SS%"
+
+@set /a "fixTime3Sec=%cmdGpxTimeSec%+10800"
+@set /a "fixTime3HH=(%fixTime3Sec%)/60/60"
+@set /a "fixTime3MM=((%fixTime3Sec%)-(%fixTime3HH%*60*60))/60"
+@set /a "fixTime3SS=((%fixTime3Sec%)-(%fixTime3HH%*60*60)-(%fixTime3MM%*60))"
+@set    "fixTime3=%fixTime3HH%:%fixTime3MM%:%fixTime3SS%"
+
+
+@echo.
+@echo fixTime1HH = %fixTime1HH%
+@echo fixTime1MM = %fixTime1MM%
+@echo fixTime1SS = %fixTime1SS%
+@echo. 
+@echo fixTime2HH = %fixTime2HH%
+@echo fixTime2MM = %fixTime2MM%
+@echo fixTime2SS = %fixTime2SS%
+@echo. 
+@echo fixTime3HH = %fixTime3HH%
+@echo fixTime3MM = %fixTime3MM%
+@echo fixTime3SS = %fixTime3SS%
+@echo. 
+@echo FileName   = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
+@echo fixTime1   = %fixTime1% = %fixTime1HH%:%fixTime1MM%:%fixTime1SS% (file name time)
+@echo fixTime2   = %fixTime2% = %fixTime2HH%:%fixTime2MM%:%fixTime2SS% (first line time)
+@echo fixTime3   = %fixTime3% = %fixTime3HH%:%fixTime3MM%:%fixTime3SS% (local time)
+
 :: 
 :: 
 :: 
@@ -446,6 +470,32 @@ echo on
 @echo delthaGpxSec             (true)  = %delthaGpxSec%
 @echo delthaVideoSecFix        (true)  = %delthaVideoSecFix%
 @echo delthaGpsSecFix          (true)  = %delthaGpsSecFix%
+
+
+@set /a "fixTime2Sec=%cmdGpxTimeSec%-%delthaVideoSec%"
+@set /a "fixTime2HH=(%fixTime2Sec%)/60/60"
+@set /a "fixTime2MM=((%fixTime2Sec%)-(%fixTime2HH%*60*60))/60"
+@set /a "fixTime2SS=((%fixTime2Sec%)-(%fixTime2HH%*60*60)-(%fixTime2MM%*60))"
+@set    "fixTime2=%fixTime2HH%:%fixTime2MM%:%fixTime2SS%"
+
+@set /a "fixTime4Sec=%cmdFileTimeSec%"
+@set /a "fixTime4HH=(%fixTime4Sec%)/60/60"
+@set /a "fixTime4MM=((%fixTime4Sec%)-(%fixTime4HH%*60*60))/60"
+@set /a "fixTime4SS=((%fixTime4Sec%)-(%fixTime4HH%*60*60)-(%fixTime4MM%*60))"
+@set    "fixTime4=%fixTime4HH%:%fixTime4MM%:%fixTime4SS%"
+@echo. 
+@echo FileName        = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
+@echo fixTime1        = %fixTime1% (file name time)
+@echo fixTime2        = %fixTime2% (first line time)
+@echo fixTime3        = %fixTime3% (local time)
+@echo fixTime4        = %fixTime4% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS%  (fix deltha video time)
+
+pause 
+
+%MapiCamExifTool% "-DateTimeOriginal-=0:0:0 0:0:%delthaVideoSec%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+
+pause 
+
 :: 
 :: 
 :: Власне сама команда на прошивку (час файла синхронізується з таймінгом gpx файла за допомогою здвигу часу)
@@ -453,11 +503,14 @@ echo on
 :: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
 
 :: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
-%MapiCamExifTool% -geosync=00:00:%delthaGpsSecFix%@%cmdGpxTimeHH%:%cmdGpxTimeMM%:%cmdGpxTimeSS% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
+%MapiCamExifTool% -geosync=%cmdGpxTime2%@%cmdFileTime4%+03:00:00 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -geosync=+ -geotag "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\*.gpx" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original -v2
 
 
+@echo ############ RESTART ################
+@echo. 
+pause
 :: 
 :: 
 :: 
