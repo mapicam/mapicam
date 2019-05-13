@@ -435,6 +435,7 @@ echo on
 :: 
 :: 
 :: 
+%MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 ::
 :: 
 :: 
@@ -472,7 +473,7 @@ echo on
 @echo delthaGpsSecFix          (true)  = %delthaGpsSecFix%
 
 
-@set /a "fixTime2Sec=%cmdGpxTimeSec%-%delthaVideoSec%"
+@set /a "fixTime2Sec=%cmdGpxTimeSec%-%delthaVideoSec%-%delthaGpxSec%"
 @set /a "fixTime2HH=(%fixTime2Sec%)/60/60"
 @set /a "fixTime2MM=((%fixTime2Sec%)-(%fixTime2HH%*60*60))/60"
 @set /a "fixTime2SS=((%fixTime2Sec%)-(%fixTime2HH%*60*60)-(%fixTime2MM%*60))"
@@ -486,15 +487,16 @@ echo on
 @echo. 
 @echo FileName        = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
 @echo fixTime1        = %fixTime1% (file name time)
-@echo fixTime2        = %fixTime2% (first line time)
+@echo fixTime2        = %fixTime2% (first line time)&fixVideoTime&fixGpsTime
 @echo fixTime3        = %fixTime3% (local time)
 @echo fixTime4        = %fixTime4% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS%  (fix deltha video time)
 
-pause 
+@set /a "delthaFullSec=%delthaVideoSec%+%delthaGpxSec%"
 
-%MapiCamExifTool% "-DateTimeOriginal-=0:0:0 0:0:%delthaVideoSec%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+%MapiCamExifTool% "-DateTimeOriginal-=0:0:0 0:0:(%delthaFullSec%).000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 
-pause 
+%MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+
 
 :: 
 :: 
@@ -503,7 +505,7 @@ pause
 :: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
 
 :: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
-%MapiCamExifTool% -geosync=%cmdGpxTime2%@%cmdFileTime4%+03:00:00 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
+%MapiCamExifTool% -geosync=%cmdGpxTime2%@%cmdFileTime4%+03:00:00 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -geosync=+ -geotag "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\*.gpx" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original -v2
 
