@@ -376,19 +376,19 @@ mkdir %BlackVueFolder%\Record_Call\jpg
 :: ПРАЦЮЄ!
 :: ПЕРЕНЕСТИ ВСІ .jpg ФАЙЛИ до папки "jpg"
 
-mkdir %BlackVueFolder%\Record_Call\jpg
+@mkdir %BlackVueFolder%\Record_Call\jpg
 echo off
-echo.
-echo move /Y "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames\xxxxxxx\FILE.JPG" "%BlackVueFolder%\Record_Call\jpg"
-echo.
+@echo.
+@echo move /Y "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames\xxxxxxx\FILE.JPG" "%BlackVueFolder%\Record_Call\jpg"
+@echo.
 for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames" ^| findstr /i ".jpg"') do ( 
-  move /Y "%%I" "%BlackVueFolder%\Record_Call\jpg" > nul
+  @move /Y "%%I" "%BlackVueFolder%\Record_Call\jpg" > nul
 )
 echo on
 :: ВИДАЛИТИ порожню папку
-rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames\%BlackVueCallFileName%"
-rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames"
-rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
+@rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames\%BlackVueCallFileName%"
+@rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps\mapillary_sampled_video_frames"
+@rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: видалити ВСІ файли і підпіпки без запитів
 :: rmdir /S /Q "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: 
@@ -438,7 +438,7 @@ rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
 
 :: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
-%MapiCamExifTool% -geosync=%delthaGpsSecFix%@%BlackVueFolder%\Record_Call\jpg\%cmdGpxTimeHH%%cmdGpxTimeMM%%cmdGpxTimeSS%-0.jpg -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
+%MapiCamExifTool% -geosync=00:00:%delthaGpsSecFix%@%cmdGpxTimeHH%:%cmdGpxTimeMM%:%cmdGpxTimeSS% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -geosync=+ -geotag "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\*.gpx" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original -v2
 
@@ -515,10 +515,10 @@ rmdir "%BlackVueFolder%\Record_Call\%BlackVueFPS%fps"
 :: 
 :: 
 :: ПЕРЕМІЩЕННЯ в загальну папку після корректної прошивки!
-mkdir %BlackVueFolder%\Record_Finalize
-mkdir %BlackVueFolder%\Record_Finalize\jpg
-mkdir %BlackVueFolder%\Record_Finalize\gpx
-mkdir %BlackVueFolder%\Record\gpx
+@mkdir %BlackVueFolder%\Record_Finalize
+@mkdir %BlackVueFolder%\Record_Finalize\jpg
+@mkdir %BlackVueFolder%\Record_Finalize\gpx
+@mkdir %BlackVueFolder%\Record\gpx
 @echo.
 @move /Y "%BlackVueFolder%\Record_Call\*.mp4" "%BlackVueFolder%\Record_Finalize"          >nul
 @echo @move /Y "%BlackVueFolder%\Record_Call\*.mp4" "%BlackVueFolder%\Record_Finalize"
