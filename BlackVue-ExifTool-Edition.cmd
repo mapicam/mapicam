@@ -487,15 +487,137 @@ echo on
 @echo. 
 @echo FileName        = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
 @echo fixTime1        = %fixTime1% (file name time)
-@echo fixTime2        = %fixTime2% (first line time)&fixVideoTime&fixGpsTime
+@echo fixTime2        = %fixTime2% (first line time) AND fixVideoTime AND fixGpsTime
 @echo fixTime3        = %fixTime3% (local time)
 @echo fixTime4        = %fixTime4% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS%  (fix deltha video time)
 
-@set /a "delthaFullSec=%delthaVideoSec%+%delthaGpxSec%"
 
-%MapiCamExifTool% "-DateTimeOriginal-=0:0:0 0:0:(%delthaFullSec%).000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 
+
+:: 
+:: 
+:: 
+:: 
+:: 
+:: ---------------------------------------------------------------
+:: (для прошивки координат)
+:: КОРЕГУЄМО ЗДВИГ ЧАСУ ТА ЗМІНЮЄМО ІМЯ ФАЙЛА  беручи його з DateTimeOriginal. опрацьовується ВСЯ папка 
+:: ПЕРЕЙМЕНУВАТИ ФАЙЛИ
+:: exiftool "-FileName<DateTimeOriginal" -d "%%Y%%m%%d_%%H%%M%%S.%%%%e" image.jpg
+:: README: http://owl.phy.queensu.ca/~phil/exiftool/
+:: README: http://owl.phy.queensu.ca/~phil/exiftool/filename.html
+:: exiftool       -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S.%%e"                 DIR
+:: %MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+:: ВІДЛАДКА: (нижче - аналог: для файлів).
+:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<FileCreateDate" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg" -overwrite_original
+:: ВІДЛАДКА: (нижче - аналог: для консолі).
+:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<CreateDate" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg" -overwrite_original
+:: ТРЕБА: змінити час на значення ЗМІННОЇ (довжини відео файла). "поточнийЧас"-"довжинаВідеоФайла"=ПоточнийЧасРеальний
+:: УВАГА! НА СТАРИХ ВІДЕО ЦЕЙ ЕТАП РОБИТИ НЕ ТРЕБА, БО ТОДІ ІНОДІ ВИХОДИТЬ ПОДВІЙНИЙ ЗДВИГ
+
+:: ТРЕБА: ВИЗНАЧАТИ КОЕФІЦІЕНТ по формулі (проаналізувати параметри і придумати) 
+
+
+
+
+
+set /a "delthaFullSecCoeficient1=0"
+set /a "delthaFullSecCoeficient2=%delthaFullSecCoeficient1%"
+set /a "delthaFullSec1=%delthaVideoSec%+%delthaGpxSec%+%delthaFullSecCoeficient1%"
+set /a "delthaFullSec2=10800+%delthaGpxSec%+%delthaFullSecCoeficient2%"
+@echo.
+@echo delthaFullSecCoeficient1 = %delthaFullSecCoeficient1%
+@echo delthaFullSecCoeficient2 = %delthaFullSecCoeficient2%
+@echo delthaFullSec1 = %delthaFullSec1%
+@echo delthaFullSec2 = %delthaFullSec2%
+
+
+%MapiCamExifTool% "-DateTimeOriginal-=0:0:0 0:0:%delthaFullSec1%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 %MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+
+@set delthaFullSec1A=0
+echo off
+for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record_call\jpg" ^| findstr /i ".jpg"') do (set delthaFullSec1A=%%~nI)
+echo on
+@echo delthaFullSec1A = %delthaFullSec1A%
+@echo.
+@set fixTime5Sec=%delthaFullSec1A%
+@set fixTime5Sec=%fixTime5Sec:~9,8%
+@echo fixTime5Sec = %fixTime5Sec%
+@set /a fixTime5HH=%fixTime5Sec:~0,2%
+@set /a fixTime5MM=%fixTime5Sec:~2,2%
+@set /a fixTime5SS=%fixTime5Sec:~4,2%
+@set /a fixTime5MS=%fixTime5Sec:~7,1%
+@set /a fixTime5Sec=(%fixTime5HH%*60*60)+(%fixTime5MM%*60)+(%fixTime5SS%)
+@echo fixTime5Sec = %fixTime5Sec%
+
+:: 13:18:29  = (END-131527+183) = 47909
+
+
+
+
+
+
+
+@echo #############################################################################
+
+:: 131527-0.jpg   16:14:42 TIME-GPX (16:14:49 FILE)
+
+REM @set delthaFullSec1A=0
+REM echo off
+REM for /f %I in ('dir /b/s/a-d "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_call\jpg" ^| findstr /i ".jpg"') do (set delthaFullSec1A=%~nI)
+REM echo on
+REM echo delthaFullSec1A = %delthaFullSec1A%
+
+
+
+@echo #############################################################################
+
+
+pause
+
+set /a "delthaFullSecCoeficient3= sec 16:14:49 - (sec END-131527+183 - 183 ) "
+@echo cmdFileTimeSec=%cmdFileTimeSec% // fixTime5Sec=%fixTime5Sec% // delthaVideoSec=%delthaVideoSec% //
+set /a "delthaFullSecCoeficient3=%cmdFileTimeSec%-(%fixTime5Sec%-%delthaVideoSec%)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 :: 
@@ -510,8 +632,16 @@ echo on
 :: D:\mapicam\tools\exiftool\exiftool.exe -geosync=+ -geotag "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\*.gpx" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original -v2
 
 
+pause
+
+:: КОРЕГУЄМО ЗДВИГ ЧАСУ (після прошивки координат, для відновлення співпадіння з часом який на відео)
+%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%delthaFullSec2%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+%MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+
+
 @echo ############ RESTART ################
 @echo. 
+
 pause
 :: 
 :: 
@@ -519,44 +649,7 @@ pause
 :: 
 :: 
 :: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: ---------------------------------------------------------------
-:: КОРЕГУЄМО ЗДВИГ ЧАСУ (ОБОВЯЗКОВО ПІСЛЯ прошивки координат, бо обнуляються МІЛІСЕКУНДИ і прошивати після цього може лише з таймінгом 1fps)
-:: ТРЕБА: змінити час на значення ЗМІННОЇ (довжини відео файла). "поточнийЧас"-"довжинаВідеоФайла"=ПоточнийЧасРеальний
-:: УВАГА! НА СТАРИХ ВІДЕО ЦЕЙ ЕТАП РОБИТИ НЕ ТРЕБА, БО ТОДІ ВИХОДИТЬ ПОДВІЙНИЙ ЗДВИГ
-%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%delthaVideoSecFix%" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
-:: змінюємо ІМЯ ФАЙЛА  беручи його з DateTimeOriginal. опрацьовується ВСЯ папка
-:: ПЕРЕЙМЕНУВАТИ ФАЙЛИ
-:: exiftool "-FileName<DateTimeOriginal" -d "%%Y%%m%%d_%%H%%M%%S.%%%%e" image.jpg
-:: README: http://owl.phy.queensu.ca/~phil/exiftool/
-:: README: http://owl.phy.queensu.ca/~phil/exiftool/filename.html
-:: exiftool       -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S.%%e"                 DIR
-%MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
-:: ВІДЛАДКА: (нижче - аналог: для файлів).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<FileCreateDate" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg" -overwrite_original
-:: ВІДЛАДКА: (нижче - аналог: для консолі).
-:: D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<CreateDate" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg" -overwrite_original
-:: 
-:: 
-:: 
-:: 
-:: 
-:: 
+
 :: 
 :: 
 :: 
