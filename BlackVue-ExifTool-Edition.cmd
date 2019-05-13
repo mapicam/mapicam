@@ -33,7 +33,6 @@ CALL %MapiCamFolder%\BlackVue-Head.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueO
 @echo ##### HEAD (fix local error)#############################################
 @echo.
 mkdir %BlackVueFolder%\Record
-mkdir %BlackVueFolder%\Record\%BlackVueFPS%fps
 mkdir %BlackVueFolder%\Record\jpg
 mkdir %BlackVueFolder%\Record\gpx
 
@@ -100,62 +99,61 @@ move /Y %BlackVueFolder%\Record_Call\gpx\*.gpx "%BlackVueFolder%\Record\gpx"
 :: 
 :: 
 :: ФІКС глюку коли в файлі GPX є "здвиг" по координатам на декілька секунд. іноді навіть на 10 секунд. це дає похибку іноді на 20....100м
-:: позбутись цього циклу не можна, у звязку з певними обмеженнями
 :: README : https://superuser.com/questions/489240/how-to-get-filename-only-without-path-in-windows-command-line
-	set "cmdFileNameFull=%BlackVueFolder%\Record\gpx\%BlackVueCallFileName%.gpx"
-	set "cmdFileName=%BlackVueCallFileName%.gpx"
-	@echo cmdFileNameFull =%cmdFileNameFull%
-	@echo cmdFileName     =%cmdFileName%
-	set "cmdFileDateTime=%BlackVueCallFileName%"
-	@echo cmdFileDateTime =%cmdFileDateTime% // YYYYMMDD_HHMMSS_XX
-	set "cmdFileDateTime=%cmdFileDateTime:~0,-3%"
-	@echo cmdFileDateTime =%cmdFileDateTime% // YYYYMMDD_HHMMSS
-	set "cmdFileDate=%cmdFileDateTime:~0,-7%"
-	@echo cmdFileDate     =%cmdFileDate%        // YYYYMMDD
-	set "cmdFileTime=%cmdFileDateTime:~9,6%"
-	@echo cmdFileTime     =%cmdFileTime%          // HHMMSS
-	set "cmdFileDateTime=%cmdFileDate%%cmdFileTime%"
-	@echo cmdFileDateTime =%cmdFileDateTime%  // YYYYMMDDHHMMSS
-	@echo.
-	set "cmdFileDateYYYY=%cmdFileDate:~0,4%"
-	set "cmdFileDateMM=%cmdFileDate:~4,2%"
-	set "cmdFileDateDD=%cmdFileDate:~6,2%"
-	set "cmdFileTimeHH=%cmdFileTime:~0,2%"
-	set "cmdFileTimeMM=%cmdFileTime:~2,2%"
-	set "cmdFileTimeSS=%cmdFileTime:~4,2%"
-	@echo.
-	@echo cmdFileDateYYYY =%cmdFileDateYYYY% // YYYY
-	@echo cmdFileDateMM   =%cmdFileDateMM%   // MM
-	@echo cmdFileDateDD   =%cmdFileDateDD%   // DD
-	@echo cmdFileTimeHH   =%cmdFileTimeHH%   // HH
-	@echo cmdFileTimeMM   =%cmdFileTimeMM%   // MM
-	@echo cmdFileTimeSS   =%cmdFileTimeSS%   // SS
-	@echo.
-	@echo cmdFile: YYYYMMDDHHMMSS = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%   
-	@echo.
-	@echo https://sno.phy.queensu.ca/~phil/exiftool/geotag.html
-	exiftool -s -xmp:GpxTrkTrksegTrkptTime %cmdFileNameFull%
-	exiftool -s -xmp:GpxTrkTrksegTrkptTime %cmdFileNameFull% > %BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt
-	for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt") do (call set "GpxTrkTrksegTrkptTime=%%~a")
-	@echo GpxTrkTrksegTrkptTime = %GpxTrkTrksegTrkptTime%
-	set "cmdGpxDateTime=%GpxTrkTrksegTrkptTime:~34,19%"
-	@echo cmdGpxDateTime =%cmdGpxDateTime%        // ALL
-	@echo.
-	set "cmdGpxDateYYYY=%cmdGpxDateTime:~0,4%"
-	set "cmdGpxDateMM=%cmdGpxDateTime:~5,2%"
-	set "cmdGpxDateDD=%cmdGpxDateTime:~8,2%"
-	@echo.
-	set "cmdGpxTimeHH=%cmdGpxDateTime:~-8,2%"
-	set "cmdGpxTimeMM=%cmdGpxDateTime:~-5,2%"
-	set "cmdGpxTimeSS=%cmdGpxDateTime:~-2,2%"
-	@echo.
-	@echo cmdGpx : YYYYMMDDHHMMSS = %cmdGpxDateYYYY%%cmdGpxDateMM%%cmdGpxDateDD%%cmdGpxTimeHH%%cmdGpxTimeMM%%cmdGpxTimeSS%   //
-	@echo.
-	set /a "cmdFileTimeUnix=(%cmdFileTimeHH%*60*60)+(%cmdFileTimeMM%*60)+(%cmdFileTimeSS%)"
-	set /a "cmdGpxTimeUnix=(%cmdGpxTimeHH%*60*60)+(%cmdGpxTimeMM%*60)+(%cmdGpxTimeSS%)"
-	set /a "delthaGpxSec=%cmdFileTimeUnix%-%cmdGpxTimeUnix%-(3*60*60)"
-	@echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = delthaGpxSec // %cmdFileTimeUnix% - %cmdGpxTimeUnix% - 10800 = %delthaGpxSec%
-	@echo.
+set "cmdFileNameFull=%BlackVueFolder%\Record\gpx\%BlackVueCallFileName%.gpx"
+set "cmdFileName=%BlackVueCallFileName%.gpx"
+@echo cmdFileNameFull =%cmdFileNameFull%
+@echo cmdFileName     =%cmdFileName%
+set "cmdFileDateTime=%BlackVueCallFileName%"
+@echo cmdFileDateTime =%cmdFileDateTime% // YYYYMMDD_HHMMSS_XX
+set "cmdFileDateTime=%cmdFileDateTime:~0,-3%"
+@echo cmdFileDateTime =%cmdFileDateTime% // YYYYMMDD_HHMMSS
+set "cmdFileDate=%cmdFileDateTime:~0,-7%"
+@echo cmdFileDate     =%cmdFileDate%        // YYYYMMDD
+set "cmdFileTime=%cmdFileDateTime:~9,6%"
+@echo cmdFileTime     =%cmdFileTime%          // HHMMSS
+set "cmdFileDateTime=%cmdFileDate%%cmdFileTime%"
+@echo cmdFileDateTime =%cmdFileDateTime%  // YYYYMMDDHHMMSS
+@echo.
+set "cmdFileDateYYYY=%cmdFileDate:~0,4%"
+set "cmdFileDateMM=%cmdFileDate:~4,2%"
+set "cmdFileDateDD=%cmdFileDate:~6,2%"
+set "cmdFileTimeHH=%cmdFileTime:~0,2%"
+set "cmdFileTimeMM=%cmdFileTime:~2,2%"
+set "cmdFileTimeSS=%cmdFileTime:~4,2%"
+@echo.
+@echo cmdFileDateYYYY =%cmdFileDateYYYY% // YYYY
+@echo cmdFileDateMM   =%cmdFileDateMM%   // MM
+@echo cmdFileDateDD   =%cmdFileDateDD%   // DD
+@echo cmdFileTimeHH   =%cmdFileTimeHH%   // HH
+@echo cmdFileTimeMM   =%cmdFileTimeMM%   // MM
+@echo cmdFileTimeSS   =%cmdFileTimeSS%   // SS
+@echo.
+@echo cmdFile: YYYYMMDDHHMMSS = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%   
+@echo.
+@echo https://sno.phy.queensu.ca/~phil/exiftool/geotag.html
+exiftool -s -xmp:GpxTrkTrksegTrkptTime %cmdFileNameFull%
+exiftool -s -xmp:GpxTrkTrksegTrkptTime %cmdFileNameFull% > %BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt
+for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt") do (call set "GpxTrkTrksegTrkptTime=%%~a")
+@echo GpxTrkTrksegTrkptTime = %GpxTrkTrksegTrkptTime%
+set "cmdGpxDateTime=%GpxTrkTrksegTrkptTime:~34,19%"
+@echo cmdGpxDateTime =%cmdGpxDateTime%        // ALL
+@echo.
+set "cmdGpxDateYYYY=%cmdGpxDateTime:~0,4%"
+set "cmdGpxDateMM=%cmdGpxDateTime:~5,2%"
+set "cmdGpxDateDD=%cmdGpxDateTime:~8,2%"
+@echo.
+set "cmdGpxTimeHH=%cmdGpxDateTime:~-8,2%"
+set "cmdGpxTimeMM=%cmdGpxDateTime:~-5,2%"
+set "cmdGpxTimeSS=%cmdGpxDateTime:~-2,2%"
+@echo.
+@echo cmdGpx : YYYYMMDDHHMMSS = %cmdGpxDateYYYY%%cmdGpxDateMM%%cmdGpxDateDD%%cmdGpxTimeHH%%cmdGpxTimeMM%%cmdGpxTimeSS%   //
+@echo.
+set /a "cmdFileTimeUnix=(%cmdFileTimeHH%*60*60)+(%cmdFileTimeMM%*60)+(%cmdFileTimeSS%)"
+set /a "cmdGpxTimeUnix=(%cmdGpxTimeHH%*60*60)+(%cmdGpxTimeMM%*60)+(%cmdGpxTimeSS%)"
+set /a "delthaGpxSec=%cmdFileTimeUnix%-%cmdGpxTimeUnix%-(3*60*60)"
+@echo cmdFileTimeUnix - cmdGpxTimeUnix - 03:00:00 = delthaGpxSec // %cmdFileTimeUnix% - %cmdGpxTimeUnix% - 10800 = %delthaGpxSec%
+@echo.
 del "%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt"
 :: 
 :: 

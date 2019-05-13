@@ -97,7 +97,7 @@ set MapiCamTime=%hour%%min%%secs%
 @echo #-------------------------------------------------------------#
 @echo.
 
-setlocal enableextensions enabledelayedexpansion
+enableextensions enabledelayedexpansion
 ::   MapiCamFolder=D:\mapicam
 @set MapiCamFolder=D:\mapicam
 ::   version 0.4.2 - TRUE // version 0.5.0 - FALSE // 

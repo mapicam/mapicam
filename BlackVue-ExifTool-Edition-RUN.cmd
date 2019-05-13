@@ -102,6 +102,7 @@ mkdir %BlackVueFolder%\Record_Finalize\gpx
 @rmdir "%BlackVueFolder%\Record\10fpx"
 @rmdir "%BlackVueFolder%\Record\15fpx"
 @rmdir "%BlackVueFolder%\Record\20fpx"
+@rmdir "%BlackVueFolder%\Record\25fpx"
 @rmdir "%BlackVueFolder%\Record\30fpx"
 
 @rmdir "%BlackVueFolder%\Record_Call\*fpx"
