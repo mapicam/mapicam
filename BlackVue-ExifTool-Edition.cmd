@@ -551,36 +551,22 @@ echo on
 @set /a fixTime5Sec=(%fixTime5HH%*60*60)+(%fixTime5MM%*60)+(%fixTime5SS%)
 @echo fixTime5Sec = %fixTime5Sec%
 
-:: 13:18:29  = (END-131527+183) = 47909
-
-
-
-
-
-
-
-@echo #############################################################################
-
-:: 131527-0.jpg   16:14:42 TIME-GPX (16:14:49 FILE)
-
-REM @set delthaFullSec1A=0
-REM echo off
-REM for /f %I in ('dir /b/s/a-d "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_call\jpg" ^| findstr /i ".jpg"') do (set delthaFullSec1A=%~nI)
-REM echo on
-REM echo delthaFullSec1A = %delthaFullSec1A%
-
-
-
-@echo #############################################################################
+REM :: 13:18:29  = (END-131527+183) = 47909
 
 
 pause
 
-set /a "delthaFullSecCoeficient3= sec 16:14:49 - (sec END-131527+183 - 183 ) "
+
+@echo #############################################################################
+
+
+
+REM set /a "delthaFullSecCoeficient3= sec 16:14:49 - (sec END-131527+183 - 183 ) "
 @echo cmdFileTimeSec=%cmdFileTimeSec% // fixTime5Sec=%fixTime5Sec% // delthaVideoSec=%delthaVideoSec% //
 set /a "delthaFullSecCoeficient3=%cmdFileTimeSec%-(%fixTime5Sec%-%delthaVideoSec%)"
 
 
+pause
 
 
 
