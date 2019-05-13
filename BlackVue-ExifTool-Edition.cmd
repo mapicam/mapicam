@@ -155,6 +155,21 @@ set /a "delthaGpxSec=%cmdFileTimeSec%-%cmdGpxTimeSec%-(3*60*60)"
 @echo cmdFileTimeSec - cmdGpxTimeSec - 03:00:00 = delthaGpxSec // %cmdFileTimeSec% - %cmdGpxTimeSec% - 10800 = %delthaGpxSec%
 @echo.
 del "%BlackVueFolder%\Record_call\GpxTrkTrksegTrkptTime.txt"
+
+set /a "cmdGpxTimeHH2=(%cmdFileTimeSec%-%delthaGpxSec%)/60/60"
+set /a "cmdGpxDateMM2=(%cmdFileTimeSec%-%delthaGpxSec%)-(%cmdGpxTimeHH2%*60*60)/60"
+set /a "cmdGpxTimeSS2=(%cmdFileTimeSec%-%delthaGpxSec%)-(%cmdGpxTimeHH2%*60*60)-(%cmdGpxDateMM2%*60)"
+set    "cmdGpxTime2=%cmdGpxTimeHH2%:%cmdGpxTimeMM2%:%cmdGpxTimeSS2%"
+
+@echo cmdGpxTimeHH2   = %cmdGpxTimeHH2%
+@echo cmdGpxTimeMM2   = %cmdGpxTimeMM2%
+@echo cmdGpxTimeSS2   = %cmdGpxTimeSS2%
+@echo cmdGpxTime2     = %cmdGpxTimeHH2%:%cmdGpxTimeMM2%:%cmdGpxTimeSS2% = %cmdGpxTime2%
+
+
+pause
+pause
+pause
 :: 
 :: 
 :: 
