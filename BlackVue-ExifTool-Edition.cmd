@@ -193,6 +193,20 @@ if  %fixTime0YYYYMM%==20191001000000 (set /a "fixTime0YYYYMMunix=1569888000")
 if  %fixTime0YYYYMM%==20191101000000 (set /a "fixTime0YYYYMMunix=1572566400")
 if  %fixTime0YYYYMM%==20191201000000 (set /a "fixTime0YYYYMMunix=1575158400")
 if  %fixTime0YYYYMM%==20200101000000 (set /a "fixTime0YYYYMMunix=1577836800")
+if  %fixTime0YYYYMM%==20200201000000 (set /a "fixTime0YYYYMMunix=1580515200")
+if  %fixTime0YYYYMM%==20200301000000 (set /a "fixTime0YYYYMMunix=1583020800")
+if  %fixTime0YYYYMM%==20200401000000 (set /a "fixTime0YYYYMMunix=1585699200")
+if  %fixTime0YYYYMM%==20200501000000 (set /a "fixTime0YYYYMMunix=1588291200")
+if  %fixTime0YYYYMM%==20200601000000 (set /a "fixTime0YYYYMMunix=1590969600")
+if  %fixTime0YYYYMM%==20200701000000 (set /a "fixTime0YYYYMMunix=1593561600")
+if  %fixTime0YYYYMM%==20200801000000 (set /a "fixTime0YYYYMMunix=1596240000")
+if  %fixTime0YYYYMM%==20200901000000 (set /a "fixTime0YYYYMMunix=1598918400")
+if  %fixTime0YYYYMM%==20201001000000 (set /a "fixTime0YYYYMMunix=1601510400")
+if  %fixTime0YYYYMM%==20201101000000 (set /a "fixTime0YYYYMMunix=1604188800")
+if  %fixTime0YYYYMM%==20201201000000 (set /a "fixTime0YYYYMMunix=1606780800")
+
+
+
 
 @echo fixTime0YYYYMM=%fixTime0YYYYMM% fixTime0YYYYMMunix=%fixTime0YYYYMMunix%
 
@@ -239,12 +253,24 @@ set /a "fixTime1Sec=%cmdFileTimeSec%-10800"
 @set    "fixTime3=%fixTime3HH%:%fixTime3MM%:%fixTime3SS%"
 @set /a "fixTime3Unix=%fixTime0YYYYMMunix%+(%fixTime3DD%*24*60*60)+(%fixTime3HH%*60*60)+(%fixTime3MM%*60)+(%fixTime3SS%)-86400"
 
-
+@echo.
+@echo ----- EXAMPLE (start)
+@echo https://www.cy-pr.com/tools/time/
+@echo fixTime1Unix = 1554815689
+@echo GMT          = Tue, 09 Apr 2019 13:14:49 GMT
+@echo LOCAL        = 09.04.2019, 16:14:49
+@echo. 
+@echo FileName     = 20190409_161449_XX.GPX
+@echo fixTime1     = 13:14:49 = 13:14:49 = 1554815689 (VIDEO file name time)
+@echo fixTime2     = 13:14:42 = 13:14:42 = 1554815682 (GPX first line time)
+@echo fixTime3     = 16:14:42 = 16:14:42 = 1554826482 (GPX first line time LOCAL)
+@echo ----- EXAMPLE (end)
 @echo.
 @echo fixTime1HH   = %fixTime1HH%
 @echo fixTime1MM   = %fixTime1MM%
 @echo fixTime1SS   = %fixTime1SS%
 @echo fixTime1Unix = %fixTime1Unix%
+
 @echo. 
 @echo fixTime2HH   = %fixTime2HH%
 @echo fixTime2MM   = %fixTime2MM%
@@ -257,12 +283,11 @@ set /a "fixTime1Sec=%cmdFileTimeSec%-10800"
 @echo fixTime3Unix = %fixTime3Unix%
 @echo. 
 @echo FileName     = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
-@echo fixTime1     = %fixTime1% = %fixTime1HH%:%fixTime1MM%:%fixTime1SS% (VIDEO file name time)
-@echo fixTime2     = %fixTime2% = %fixTime2HH%:%fixTime2MM%:%fixTime2SS% (GPX first line time)
-@echo fixTime3     = %fixTime3% = %fixTime3HH%:%fixTime3MM%:%fixTime3SS% (GPX first line time LOCAL)
+@echo fixTime1     = %fixTime1% = %fixTime1HH%:%fixTime1MM%:%fixTime1SS% = %fixTime1Unix% (VIDEO file name time)
+@echo fixTime2     = %fixTime2% = %fixTime2HH%:%fixTime2MM%:%fixTime2SS% = %fixTime2Unix% (GPX first line time)
+@echo fixTime3     = %fixTime3% = %fixTime3HH%:%fixTime3MM%:%fixTime3SS% = %fixTime3Unix% (GPX first line time LOCAL)
 
 
-pause
 
 :: 
 :: 
@@ -548,21 +573,31 @@ echo on
 @set /a "fixTime2MM=((%fixTime2Sec%)-(%fixTime2HH%*60*60))/60"
 @set /a "fixTime2SS=((%fixTime2Sec%)-(%fixTime2HH%*60*60)-(%fixTime2MM%*60))"
 @set    "fixTime2=%fixTime2HH%:%fixTime2MM%:%fixTime2SS%"
+set /a "fixTime2Unix=%fixTime0YYYYMMunix%+(%fixTime2DD%*24*60*60)+(%fixTime2HH%*60*60)+(%fixTime2MM%*60)+(%fixTime2SS%)-86400"
 
+
+:: для fixTime4
+@set "fixTime4DD=%cmdFileDateDD%"
+@set "fixTime4DD=1%fixTime4DD%"
+@set /a "fixTime4DD=%fixTime4DD%-100"
+@echo fixTime4DD=%fixTime4DD% 
+::
 @set /a "fixTime4Sec=%cmdFileTimeSec%"
 @set /a "fixTime4HH=(%fixTime4Sec%)/60/60"
 @set /a "fixTime4MM=((%fixTime4Sec%)-(%fixTime4HH%*60*60))/60"
 @set /a "fixTime4SS=((%fixTime4Sec%)-(%fixTime4HH%*60*60)-(%fixTime4MM%*60))"
 @set    "fixTime4=%fixTime4HH%:%fixTime4MM%:%fixTime4SS%"
+set /a "fixTime4Unix=%fixTime0YYYYMMunix%+(%fixTime4DD%*24*60*60)+(%fixTime4HH%*60*60)+(%fixTime4MM%*60)+(%fixTime4SS%)-86400"
+
 @echo. 
 @echo FileName        = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
 @echo fixTime1        = %fixTime1% (VIDEO file name time)
 @echo fixTime2        = %fixTime2% (GPX first line time) AND fixVideoTime AND fixGpsTime
 @echo fixTime3        = %fixTime3% (GPX first line time LOCAL)
-@echo fixTime4        = %fixTime4% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS%  (fix deltha video time)
+@echo fixTime4        = %fixTime4% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS% = %fixTime4Unix% (fix deltha video time)
 
 
-
+pause
 
 :: 
 :: 
