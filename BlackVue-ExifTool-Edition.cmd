@@ -597,8 +597,6 @@ set /a "fixTime4Unix=%fixTime0YYYYMMunix%+(%fixTime4DD%*24*60*60)+(%fixTime4HH%*
 @echo fixTime4        = %fixTime4% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS% = %fixTime4Unix% (fix deltha video time)
 
 
-pause
-
 :: 
 :: 
 :: 
@@ -646,6 +644,14 @@ for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record_call\jpg" ^| findstr /i ".
 echo on
 @echo delthaFullSec1A = %delthaFullSec1A%
 @echo.
+
+:: для fixTime5
+:: час ОСТАННЬОГО кадру відео
+@set "fixTime5DD=%cmdFileDateDD%"
+@set "fixTime5DD=1%fixTime5DD%"
+@set /a "fixTime5DD=%fixTime5DD%-100"
+@echo fixTime5DD=%fixTime5DD% 
+::
 @set fixTime5Sec=%delthaFullSec1A%
 @set fixTime5Sec=%fixTime5Sec:~9,8%
 @echo fixTime5Sec = %fixTime5Sec%
@@ -654,9 +660,61 @@ echo on
 @set /a fixTime5SS=%fixTime5Sec:~4,2%
 @set /a fixTime5MS=%fixTime5Sec:~7,1%
 @set /a fixTime5Sec=(%fixTime5HH%*60*60)+(%fixTime5MM%*60)+(%fixTime5SS%)
+@set   "fixTime5=%fixTime5HH%:%fixTime5MM%:%fixTime5SS%"
 @echo fixTime5Sec = %fixTime5Sec%
+set /a "fixTime5Unix=%fixTime0YYYYMMunix%+(%fixTime5DD%*24*60*60)+(%fixTime5HH%*60*60)+(%fixTime5MM%*60)+(%fixTime5SS%)-86400"
+@echo. 
+@echo FileName        = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
+@echo fixTime1        = %fixTime1% = %fixTime1Unix%                                          (VIDEO file name time)
+@echo fixTime2        = %fixTime2% = %fixTime2Unix%                                          (GPX first line time) AND fixVideoTime AND fixGpsTime
+@echo fixTime3        = %fixTime3% = %fixTime3Unix%                                          (GPX first line time LOCAL)
+@echo fixTime4        = %fixTime4% = %fixTime4Unix% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS% (fix deltha video time)
+@echo fixTime5        = %fixTime5% = %fixTime5Unix% = %fixTime5HH%:%fixTime5MM%:%fixTime5SS% (ostnnij kadr video)
 
-REM :: 13:18:29  = (END-131527+183) = 47909
+:: для fixTime6
+:: час ПЕРШОГО кадру відео (= ЧасОстанньогоКадруВідео - ДовжинаВідеоВсекундах)
+@set "fixTime6DD=%cmdFileDateDD%"
+@set "fixTime6DD=1%fixTime6DD%"
+@set /a "fixTime6DD=%fixTime6DD%-100"
+@echo fixTime6DD=%fixTime6DD% 
+:: МЕТОДИКА: щоб дізнатись секундВідПочаткуДоби ПЕРШОГО кадру відео (fixTime6Sec): від unix часу останнього кадру (fixTime5Unix) --- віднімаємо СумуЧасуВсекундах YYYYMM+DD-ДобаЗдвигуВсекундах --- від того що вийшло віднімаємо ДовжинуВідеоВсекундах
+set /a "fixTime6Sec=%fixTime5Unix%-(%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)-86400)-%delthaVideoSec%"
+set /a "fixTime6HH=(%fixTime6Sec%)/60/60"
+set /a "fixTime6MM=((%fixTime6Sec%)-(%fixTime6HH%*60*60))/60"
+set /a "fixTime6SS=((%fixTime6Sec%)-(%fixTime6HH%*60*60)-(%fixTime6MM%*60))"
+set    "fixTime6=%fixTime6HH%:%fixTime6MM%:%fixTime6SS%"
+set /a "fixTime6Unix=%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)+(%fixTime6HH%*60*60)+(%fixTime6MM%*60)+(%fixTime6SS%)-86400"
+::
+@echo FileName        = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
+@echo fixTime1        = %fixTime1% = %fixTime1Unix%                                          (VIDEO file name time)
+@echo fixTime2        = %fixTime2% = %fixTime2Unix%                                          (GPX first line time) AND fixVideoTime AND fixGpsTime
+@echo fixTime3        = %fixTime3% = %fixTime3Unix%                                          (GPX first line time LOCAL)
+@echo fixTime4        = %fixTime4% = %fixTime4Unix% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS% (fix deltha video time)
+@echo fixTime5        = %fixTime5% = %fixTime5Unix% = %fixTime5HH%:%fixTime5MM%:%fixTime5SS% (ostnnij kadr video)
+@echo fixTime6        = %fixTime6% = %fixTime6Unix% = %fixTime6HH%:%fixTime6MM%:%fixTime6SS% (pershyi kadr video)
+
+
+@echo #############################################################################
+:: для fixTime7
+:: різниця в часі між першим кадром відео і першою фоткою з цього ж відео. необхідно щоб на ЦЕ значення зробити здвигв прошивці ЖПС 
+:: 
+@set "fixTime7DD=%cmdFileDateDD%"
+@set "fixTime7DD=1%fixTime7DD%"
+@set /a "fixTime7DD=%fixTime7DD%-100"
+@echo fixTime7DD=%fixTime7DD%
+::
+set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%"
+set /a "fixTime7HH=(%fixTime7Sec%)/60/60"
+set /a "fixTime7MM=((%fixTime7Sec%)-(%fixTime7HH%*60*60))/60"
+set /a "fixTime7SS=((%fixTime7Sec%)-(%fixTime7HH%*60*60)-(%fixTime7MM%*60))"
+set    "fixTime7=%fixTime7HH%:%fixTime7MM%:%fixTime7SS%"
+set /a "fixTime7Unix=none"
+
+
+
+
+
+
 
 
 pause
@@ -667,8 +725,15 @@ pause
 
 
 REM set /a "delthaFullSecCoeficient3= sec 16:14:49 - (sec END-131527+183 - 183 ) "
+:: ВСІ операції рахувати в секундах!
+:: A = fixTime4 = 1554826489 = 16:14:49 = ЧасПочаткуВідеоФайла 
+:: B = fixTime5 = 1554815909 = 13:18:29 = ДатаЧас_ОстанньогоФайлаJpg_ЩоСконвертованийІзВідео (останній кадр відео) = 20190409-131829-0.JPG
+:: C = delthaVideoSec = 183  =          = ДовжинаВідеоВсекундах (ми її віднімаємо від "В", для того щоб знати час першої секунди відео)
+:: D = 
+:: 
+:: A - ( B - C )
 @echo cmdFileTimeSec=%cmdFileTimeSec% // fixTime5Sec=%fixTime5Sec% // delthaVideoSec=%delthaVideoSec% //
-set /a "delthaFullSecCoeficient3=%cmdFileTimeSec%-(%fixTime5Sec%-%delthaVideoSec%)"
+set /a "delthaFullSecCoeficient3=%fixTime7Sec%"
 
 
 pause
