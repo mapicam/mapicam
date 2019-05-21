@@ -710,9 +710,32 @@ set /a "fixTime7SS=((%fixTime7Sec%)-(%fixTime7HH%*60*60)-(%fixTime7MM%*60))"
 set    "fixTime7=%fixTime7HH%:%fixTime7MM%:%fixTime7SS%"
 set /a "fixTime7Unix=none"
 
+:: для fixTime8
+:: "fixTime8Sec" сума часу в секундах мід здвигом глюка "fixTime7" та "delthaFullSec2". Саме ця сума буде використовуватись для другої ітерації перепрошивки часу фоток, щоб потім в саме цей час шити координати. 
+@set "fixTime8DD=%cmdFileDateDD%"
+@set "fixTime8DD=1%fixTime7DD%"
+@set /a "fixTime7DD=%fixTime7DD%-100"
+@echo fixTime7DD=%fixTime7DD%
+::
+set /a "fixTime8Sec=%fixTime7Unix%+(%delthaFullSec2%)"
+set /a "fixTime8HH=(%fixTime8Sec%)/60/60"
+set /a "fixTime8MM=((%fixTime8Sec%)-(%fixTime8HH%*60*60))/60"
+set /a "fixTime8SS=((%fixTime8Sec%)-(%fixTime8HH%*60*60)-(%fixTime8MM%*60))"
+set    "fixTime8=%fixTime8HH%:%fixTime8MM%:%fixTime8SS%"
+set /a "fixTime8Unix=none"
 
 
 
+
+@echo FileName        = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
+@echo fixTime1        = %fixTime1% = %fixTime1Unix%                                          (VIDEO file name time)
+@echo fixTime2        = %fixTime2% = %fixTime2Unix%                                          (GPX first line time) AND fixVideoTime AND fixGpsTime
+@echo fixTime3        = %fixTime3% = %fixTime3Unix%                                          (GPX first line time LOCAL)
+@echo fixTime4        = %fixTime4% = %fixTime4Unix% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS% (fix deltha video time)
+@echo fixTime5        = %fixTime5% = %fixTime5Unix% = %fixTime5HH%:%fixTime5MM%:%fixTime5SS% (ostnnij kadr video)
+@echo fixTime6        = %fixTime6% = %fixTime6Unix% = %fixTime6HH%:%fixTime6MM%:%fixTime6SS% (pershyi kadr video)
+@echo fixTime7        = %fixTime7% = %fixTime7Unix% = %fixTime7Sec% = %fixTime7HH%:%fixTime7MM%:%fixTime7SS% (zdvyg foto "v sekundah" vidnosno pershogo kadru video, yakshcho zdvyg e.)
+@echo fixTime8        = %fixTime8% = %fixTime8Unix% = %fixTime8Sec% = %fixTime8HH%:%fixTime8MM%:%fixTime8SS% (zdvyg foto "v sekundah" vidnosno pershogo kadru video, vkluchno z "delthaFullSec2".)
 
 
 
@@ -726,7 +749,7 @@ pause
 
 REM set /a "delthaFullSecCoeficient3= sec 16:14:49 - (sec END-131527+183 - 183 ) "
 :: ВСІ операції рахувати в секундах!
-:: A = fixTime4 = 1554826489 = 16:14:49 = ЧасПочаткуВідеоФайла 
+:: A = fixTime1 = 1554826489 = 16:14:49 = ЧасПочаткуВідеоФайла 
 :: B = fixTime5 = 1554815909 = 13:18:29 = ДатаЧас_ОстанньогоФайлаJpg_ЩоСконвертованийІзВідео (останній кадр відео) = 20190409-131829-0.JPG
 :: C = delthaVideoSec = 183  =          = ДовжинаВідеоВсекундах (ми її віднімаємо від "В", для того щоб знати час першої секунди відео)
 :: D = 
@@ -791,7 +814,7 @@ pause
 pause
 
 :: КОРЕГУЄМО ЗДВИГ ЧАСУ (після прошивки координат, для відновлення співпадіння з часом який на відео)
-%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%delthaFullSec2%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%fixTime8Sec%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 %MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 
 
