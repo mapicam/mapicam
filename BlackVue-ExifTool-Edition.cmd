@@ -701,18 +701,23 @@ set /a "fixTime6Sec=%fixTime5Unix%-(%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)
 @set /a "fixTime7DD=%fixTime7DD%-100"
 ::
 set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%+10800"
-if %fixTime7Sec% LSS 0 set /a fixTime7Sec=0
+set /a "fixTime7SecOld=0"
+if %fixTime7Sec% LSS -10000 (
+	set /a "fixTime7SecOld=%fixTime7Sec%" 
+	set /a fixTime7Sec=0
+	)
 @set /a "fixTime7HH=(%fixTime7Sec%)/60/60"
 @set /a "fixTime7MM=((%fixTime7Sec%)-(%fixTime7HH%*60*60))/60"
 @set /a "fixTime7SS=((%fixTime7Sec%)-(%fixTime7HH%*60*60)-(%fixTime7MM%*60))"
 @set    "fixTime7=%fixTime7HH%:%fixTime7MM%:%fixTime7SS%"
 @set /a "fixTime7Unix=none"
 @echo. 
-@echo fixTime7Sec  = %fixTime7Sec%
-@echo fixTime7HH   = %fixTime7HH%
-@echo fixTime7MM   = %fixTime7MM%
-@echo fixTime7SS   = %fixTime7SS%
-@echo fixTime7Unix = %fixTime7Unix%
+@echo fixTime7Sec    = %fixTime7Sec%
+@echo fixTime7SecOld = %fixTime7SecOld%
+@echo fixTime7HH     = %fixTime7HH%
+@echo fixTime7MM     = %fixTime7MM%
+@echo fixTime7SS     = %fixTime7SS%
+@echo fixTime7Unix   = %fixTime7Unix%
 @echo. 
 @echo #############################################################################
 :: для fixTime8
@@ -722,17 +727,23 @@ if %fixTime7Sec% LSS 0 set /a fixTime7Sec=0
 @set /a "fixTime8DD=%fixTime8DD%-100"
 ::
 set /a "fixTime8Sec=%fixTime7Sec%+(%delthaGpxSec%)"
+set /a "fixTime8SecOld=0"
+if %fixTime8Sec% LSS 0 (
+	set /a "fixTime8SecOld=%fixTime8Sec%"
+	set /a "fixTime8Sec=0"
+	)
 @set /a "fixTime8HH=(%fixTime8Sec%)/60/60"
 @set /a "fixTime8MM=((%fixTime8Sec%)-(%fixTime8HH%*60*60))/60"
 @set /a "fixTime8SS=((%fixTime8Sec%)-(%fixTime8HH%*60*60)-(%fixTime8MM%*60))"
 @set    "fixTime8=%fixTime8HH%:%fixTime8MM%:%fixTime8SS%"
 @set /a "fixTime8Unix=none"
 @echo. 
-@echo fixTime8Sec  = %fixTime8Sec%
-@echo fixTime8HH   = %fixTime8HH%
-@echo fixTime8MM   = %fixTime8MM%
-@echo fixTime8SS   = %fixTime8SS%
-@echo fixTime8Unix = %fixTime8Unix%
+@echo fixTime8Sec    = %fixTime8Sec%
+@echo fixTime8SecOld = %fixTime8SecOld%
+@echo fixTime8HH     = %fixTime8HH%
+@echo fixTime8MM     = %fixTime8MM%
+@echo fixTime8SS     = %fixTime8SS%
+@echo fixTime8Unix   = %fixTime8Unix%
 @echo. 
 @echo #############################################################################
 :: для fixTime9
@@ -741,18 +752,19 @@ set /a "fixTime8Sec=%fixTime7Sec%+(%delthaGpxSec%)"
 @set "fixTime9DD=1%fixTime9DD%"
 @set /a "fixTime9DD=%fixTime9DD%-100"
 ::
-set /a "fixTime9Sec=10800-%fixTime7Sec%-1"
+set /a "fixTime9Sec=10800-%fixTime7Sec%"
+::set /a "fixTime9Sec=10800-%fixTime8Sec%"
 @set /a "fixTime9HH=(%fixTime9Sec%)/60/60"
 @set /a "fixTime9MM=((%fixTime9Sec%)-(%fixTime9HH%*60*60))/60"
 @set /a "fixTime9SS=((%fixTime9Sec%)-(%fixTime9HH%*60*60)-(%fixTime9MM%*60))"
 @set    "fixTime9=%fixTime9HH%:%fixTime9MM%:%fixTime9SS%"
 @set /a "fixTime9Unix=none"
 @echo. 
-@echo fixTime9Sec  = %fixTime9Sec%
-@echo fixTime9HH   = %fixTime9HH%
-@echo fixTime9MM   = %fixTime9MM%
-@echo fixTime9SS   = %fixTime9SS%
-@echo fixTime9Unix = %fixTime9Unix%
+@echo fixTime9Sec    = %fixTime9Sec%
+@echo fixTime9HH     = %fixTime9HH%
+@echo fixTime9MM     = %fixTime9MM%
+@echo fixTime9SS     = %fixTime9SS%
+@echo fixTime9Unix   = %fixTime9Unix%
 @echo. 
 @echo #############################################################################
 :: 
