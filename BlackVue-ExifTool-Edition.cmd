@@ -745,23 +745,6 @@ pause
 
 
 
-REM set /a "delthaFullSecCoeficient3= sec 16:14:49 - (sec END-131527+183 - 183 ) "
-:: ВСІ операції рахувати в секундах!
-:: A = fixTime1 = 1554826489 = 16:14:49 = ЧасПочаткуВідеоФайла 
-:: B = fixTime5 = 1554815909 = 13:18:29 = ДатаЧас_ОстанньогоФайлаJpg_ЩоСконвертованийІзВідео (останній кадр відео) = 20190409-131829-0.JPG
-:: C = delthaVideoSec = 183  =          = ДовжинаВідеоВсекундах (ми її віднімаємо від "В", для того щоб знати час першої секунди відео)
-:: D = 
-:: 
-:: A - ( B - C )
-@echo cmdFileTimeSec=%cmdFileTimeSec% // fixTime5Sec=%fixTime5Sec% // delthaVideoSec=%delthaVideoSec% //
-set /a "delthaFullSecCoeficient3=%fixTime7Sec%"
-
-
-pause
-
-
-
-
 
 
 
@@ -809,7 +792,7 @@ pause
 :: D:\mapicam\tools\exiftool\exiftool.exe -geosync=+ -geotag "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\*.gpx" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original -v2
 
 
-pause
+
 
 :: КОРЕГУЄМО ЗДВИГ ЧАСУ (після прошивки координат, для відновлення співпадіння з часом який на відео)
 %MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%fixTime8Sec%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
@@ -819,7 +802,7 @@ pause
 @echo ############ RESTART ################
 @echo. 
 
-pause
+
 :: 
 :: 
 :: 
