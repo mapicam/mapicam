@@ -701,6 +701,7 @@ set /a "fixTime6Sec=%fixTime5Unix%-(%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)
 @set /a "fixTime7DD=%fixTime7DD%-100"
 ::
 set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%+10800"
+if %fixTime7Sec% LSS 0 set /a fixTime7Sec=0
 @set /a "fixTime7HH=(%fixTime7Sec%)/60/60"
 @set /a "fixTime7MM=((%fixTime7Sec%)-(%fixTime7HH%*60*60))/60"
 @set /a "fixTime7SS=((%fixTime7Sec%)-(%fixTime7HH%*60*60)-(%fixTime7MM%*60))"
@@ -740,7 +741,7 @@ set /a "fixTime8Sec=%fixTime7Sec%+(%delthaGpxSec%)"
 @set "fixTime9DD=1%fixTime9DD%"
 @set /a "fixTime9DD=%fixTime9DD%-100"
 ::
-set /a "fixTime9Sec=10800-%fixTime7Sec%"
+set /a "fixTime9Sec=10800-%fixTime7Sec%-1"
 @set /a "fixTime9HH=(%fixTime9Sec%)/60/60"
 @set /a "fixTime9MM=((%fixTime9Sec%)-(%fixTime9HH%*60*60))/60"
 @set /a "fixTime9SS=((%fixTime9Sec%)-(%fixTime9HH%*60*60)-(%fixTime9MM%*60))"
