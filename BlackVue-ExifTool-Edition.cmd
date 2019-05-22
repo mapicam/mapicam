@@ -672,21 +672,14 @@ set fixTime5Sec=%fixTime5Sec:~9,8%
 @echo fixTime5SS   = %fixTime5SS%
 @echo fixTime5Unix = %fixTime5Unix%
 @echo. 
-@echo FileName        = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
-@echo fixTime1        = %fixTime1% = %fixTime1HH%:%fixTime1MM%:%fixTime1SS% = %fixTime1Unix% (VIDEO FileNameTime  LOCAL )
-@echo fixTime2        = %fixTime2% = %fixTime2HH%:%fixTime2MM%:%fixTime2SS% = %fixTime2Unix% (VIDEO FileNameTime  GMT   )
-@echo fixTime3        = %fixTime3% = %fixTime3HH%:%fixTime3MM%:%fixTime3SS% = %fixTime3Unix% (GPX   FirstLineTime LOCAL )
-@echo fixTime4        = %fixTime4% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS% = %fixTime4Unix% (GPX   FirstLineTime GMT   )
-@echo fixTime5        = %fixTime5% = %fixTime5Unix% = %fixTime5HH%:%fixTime5MM%:%fixTime5SS% (ostnnij kadr video)
-@echo. 
 @echo #############################################################################
 :: для fixTime6
 :: час ПЕРШОГО кадру відео (= ЧасОстанньогоКадруВідео - ДовжинаВідеоВсекундах)
 @set "fixTime6DD=%cmdFileDateDD%"
 @set "fixTime6DD=1%fixTime6DD%"
 @set /a "fixTime6DD=%fixTime6DD%-100"
-:: МЕТОДИКА: щоб дізнатись секундВідПочаткуДоби ПЕРШОГО кадру відео (fixTime6Sec): від unix часу останнього кадру (fixTime5Unix) --- віднімаємо СумуЧасуВсекундах YYYYMM+DD-ДобаЗдвигуВсекундах --- від того що вийшло віднімаємо ДовжинуВідеоВсекундах --- і додаємо здвиг локальний час (10800)
-set /a "fixTime6Sec=%fixTime5Unix%-(%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)-86400)-%delthaVideoSec%+10800"
+:: МЕТОДИКА: щоб дізнатись секундВідПочаткуДоби ПЕРШОГО кадру відео (fixTime6Sec): від unix часу останнього кадру (fixTime5Unix) --- віднімаємо СумуЧасуВсекундах YYYYMM+DD-ДобаЗдвигуВсекундах --- від того що вийшло віднімаємо ДовжинуВідеоВсекундах
+set /a "fixTime6Sec=%fixTime5Unix%-(%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)-86400)-%delthaVideoSec%"
 @set /a "fixTime6HH=(%fixTime6Sec%)/60/60"
 @set /a "fixTime6MM=((%fixTime6Sec%)-(%fixTime6HH%*60*60))/60"
 @set /a "fixTime6SS=((%fixTime6Sec%)-(%fixTime6HH%*60*60)-(%fixTime6MM%*60))"
@@ -699,6 +692,7 @@ set /a "fixTime6Sec=%fixTime5Unix%-(%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)
 @echo fixTime6SS   = %fixTime6SS%
 @echo fixTime6Unix = %fixTime6Unix%
 @echo. 
+@echo #############################################################################
 :: для fixTime7
 :: різниця в часі між першим кадром відео і першою фоткою з цього ж відео. необхідно щоб на ЦЕ значення зробити здвигв прошивці ЖПС 
 :: 
@@ -706,7 +700,7 @@ set /a "fixTime6Sec=%fixTime5Unix%-(%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)
 @set "fixTime7DD=1%fixTime7DD%"
 @set /a "fixTime7DD=%fixTime7DD%-100"
 ::
-set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%"
+set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%+10800"
 @set /a "fixTime7HH=(%fixTime7Sec%)/60/60"
 @set /a "fixTime7MM=((%fixTime7Sec%)-(%fixTime7HH%*60*60))/60"
 @set /a "fixTime7SS=((%fixTime7Sec%)-(%fixTime7HH%*60*60)-(%fixTime7MM%*60))"
@@ -719,8 +713,7 @@ set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%"
 @echo fixTime7SS   = %fixTime7SS%
 @echo fixTime7Unix = %fixTime7Unix%
 @echo. 
-
-
+@echo #############################################################################
 :: для fixTime8
 :: "fixTime8Sec" сума часу в секундах між здвигом глюка "fixTime7" та "delthaGpxSec". Саме ця сума буде використовуватись для другої ітерації перепрошивки часу фоток, щоб потім в саме цей час шити координати. 
 @set "fixTime8DD=%cmdFileDateDD%"
@@ -740,7 +733,7 @@ set /a "fixTime8Sec=%fixTime7Sec%+(%delthaGpxSec%)"
 @echo fixTime8SS   = %fixTime8SS%
 @echo fixTime8Unix = %fixTime8Unix%
 @echo. 
-
+@echo #############################################################################
 :: для fixTime9
 :: "fixTime9Sec" доплюсовуємо до "fixTime7" чи "fixTime8" 10800 секунд=3години ЛокальнийЗдвиг. Саме ця сума буде використовуватись для другої ітерації перепрошивки часу фоток, щоб потім в саме цей час шити координати. 
 @set "fixTime9DD=%cmdFileDateDD%"
@@ -763,20 +756,16 @@ set /a "fixTime9Sec=%fixTime8Sec%+10800"
 @echo #############################################################################
 :: 
 @echo FileName        = %cmdFileDateYYYY%%cmdFileDateMM%%cmdFileDateDD%_%cmdFileTimeHH%%cmdFileTimeMM%%cmdFileTimeSS%_XX.GPX
-@echo fixTime1        = %fixTime1% = %fixTime1Unix% = %fixTime1HH%:%fixTime1MM%:%fixTime1SS% (VIDEO file name time)
-@echo fixTime2        = %fixTime2% = %fixTime2Unix% = %fixTime2HH%:%fixTime2MM%:%fixTime2SS% (GPX first line time)
-@echo fixTime3        = %fixTime3% = %fixTime3Unix% = %fixTime3HH%:%fixTime3MM%:%fixTime3SS% (GPX first line time LOCAL)
-@echo fixTime4        = %fixTime4% = %fixTime4Unix% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS% (fix deltha video time)
+@echo fixTime1        = %fixTime1% = %fixTime1HH%:%fixTime1MM%:%fixTime1SS% = %fixTime1Unix% (VIDEO FileNameTime  LOCAL )
+@echo fixTime2        = %fixTime2% = %fixTime2HH%:%fixTime2MM%:%fixTime2SS% = %fixTime2Unix% (VIDEO FileNameTime  GMT   )
+@echo fixTime3        = %fixTime3% = %fixTime3HH%:%fixTime3MM%:%fixTime3SS% = %fixTime3Unix% (GPX   FirstLineTime LOCAL )
+@echo fixTime4        = %fixTime4% = %fixTime4HH%:%fixTime4MM%:%fixTime4SS% = %fixTime4Unix% (GPX   FirstLineTime GMT   )
 @echo fixTime5        = %fixTime5% = %fixTime5Unix% = %fixTime5HH%:%fixTime5MM%:%fixTime5SS% (ostnnij kadr video)
 @echo fixTime6        = %fixTime6% = %fixTime6Unix% = %fixTime6HH%:%fixTime6MM%:%fixTime6SS% (pershyi kadr video)
 @echo fixTime7        = %fixTime7% = %fixTime7Unix% = %fixTime7Sec% = %fixTime7HH%:%fixTime7MM%:%fixTime7SS% (zdvyg foto "v sekundah" vidnosno pershogo kadru video, yakshcho zdvyg e.)
 @echo fixTime8        = %fixTime8% = %fixTime8Unix% = %fixTime8Sec% = %fixTime8HH%:%fixTime8MM%:%fixTime8SS% (zdvyg foto "v sekundah" vidnosno pershogo kadru video, vkluchno z "delthaGpxSec".)
 @echo fixTime9        = %fixTime9% = %fixTime9Unix% = %fixTime9Sec% = %fixTime9HH%:%fixTime9MM%:%fixTime9SS% (zdvyg foto "v sekundah" vidnosno pershogo kadru video, vkluchno z "delthaGpxSec".)
-
-:: 
-:: 
-:: 
-:: 
+@echo. 
 @echo #############################################################################
 :: 
 :: 
@@ -788,7 +777,7 @@ set /a "fixTime9Sec=%fixTime8Sec%+10800"
 :: 
 :: 
 :: КОРЕГУЄМО ЗДВИГ ЧАСУ (після прошивки координат, для відновлення співпадіння з часом який на відео)
-%MapiCamExifTool% "-DateTimeOriginal-=0:0:0 0:0:%fixTime9Sec%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+%MapiCamExifTool% "-DateTimeOriginal=0:0:0 0:0:%fixTime9Sec%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 ::%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:10800.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 %MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 :: 
@@ -798,12 +787,6 @@ set /a "fixTime9Sec=%fixTime8Sec%+10800"
 :: 
 :: 
 :: 
-
-
-
-
-
-:: 
 :: 
 :: 
 :: 
@@ -812,11 +795,11 @@ set /a "fixTime9Sec=%fixTime8Sec%+10800"
 :: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
 ::
 :: %MapiCamExifTool% -geosync=+%delthaGpsSecFix% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
-%MapiCamExifTool% -geosync=%fixTime4%@%fixTime1%+03:00:00 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
-::%MapiCamExifTool% -geosync=10800 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
+:: %MapiCamExifTool% -geosync=%fixTime3%@%fixTime1% -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
+:: %MapiCamExifTool% -geosync=10800 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
 
 
-		:: %MapiCamExifTool% -geosync=0 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
+%MapiCamExifTool% -geosync=%fixTime9Sec%.000 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -geosync=+ -geotag "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\*.gpx" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original -v2
 @echo. 
