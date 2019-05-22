@@ -170,17 +170,17 @@ for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\Record_call\GpxTrkTrksegTrk
 @echo 20191101000000 = 1572566400
 @echo 20191201000000 = 1575158400
 @echo 20200101000000 = 1577836800
-@echo 20200201000000 = 1580515200")
-@echo 20200301000000 = 1583020800")
-@echo 20200401000000 = 1585699200")
-@echo 20200501000000 = 1588291200")
-@echo 20200601000000 = 1590969600")
-@echo 20200701000000 = 1593561600")
-@echo 20200801000000 = 1596240000")
-@echo 20200901000000 = 1598918400")
-@echo 20201001000000 = 1601510400")
-@echo 20201101000000 = 1604188800")
-@echo 20201201000000 = 1606780800")
+@echo 20200201000000 = 1580515200
+@echo 20200301000000 = 1583020800
+@echo 20200401000000 = 1585699200
+@echo 20200501000000 = 1588291200
+@echo 20200601000000 = 1590969600
+@echo 20200701000000 = 1593561600
+@echo 20200801000000 = 1596240000
+@echo 20200901000000 = 1598918400
+@echo 20201001000000 = 1601510400
+@echo 20201101000000 = 1604188800
+@echo 20201201000000 = 1606780800
 
 
 @set  fixTime0YYYYMM=%cmdGpxDateYYYY%%cmdGpxDateMM%01000000
@@ -740,7 +740,7 @@ set /a "fixTime8Sec=%fixTime7Sec%+(%delthaGpxSec%)"
 @set "fixTime9DD=1%fixTime9DD%"
 @set /a "fixTime9DD=%fixTime9DD%-100"
 ::
-set /a "fixTime9Sec=%fixTime8Sec%+10800"
+set /a "fixTime9Sec=%fixTime8Sec%"
 @set /a "fixTime9HH=(%fixTime9Sec%)/60/60"
 @set /a "fixTime9MM=((%fixTime9Sec%)-(%fixTime9HH%*60*60))/60"
 @set /a "fixTime9SS=((%fixTime9Sec%)-(%fixTime9HH%*60*60)-(%fixTime9MM%*60))"
@@ -777,7 +777,7 @@ set /a "fixTime9Sec=%fixTime8Sec%+10800"
 :: 
 :: 
 :: КОРЕГУЄМО ЗДВИГ ЧАСУ (після прошивки координат, для відновлення співпадіння з часом який на відео)
-%MapiCamExifTool% "-DateTimeOriginal=0:0:0 0:0:%fixTime9Sec%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:%fixTime9Sec%+" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 ::%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:10800.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 %MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 :: 
@@ -799,7 +799,7 @@ set /a "fixTime9Sec=%fixTime8Sec%+10800"
 :: %MapiCamExifTool% -geosync=10800 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original -v2
 
 
-%MapiCamExifTool% -geosync=%fixTime9Sec%.000 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
+%MapiCamExifTool% -geosync=+0.000 -geotag "%BlackVueFolder%\Record\gpx\*.gpx" "%BlackVueFolder%\Record_Call\jpg\*.jpg" -gpsimgdirection=%ExifToolGpsImgDirection% -overwrite_original
 :: ВІДЛАДКА: (нижче - аналог).
 :: D:\mapicam\tools\exiftool\exiftool.exe -geosync=+ -geotag "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record\gpx\*.gpx" "G:\mapicam2upload\20190409-H-ALL-VARSHAVKA\Record_Call\jpg\*.jpg" -gpsimgdirection=0 -overwrite_original -v2
 @echo. 
