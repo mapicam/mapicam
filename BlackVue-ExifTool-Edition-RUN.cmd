@@ -122,7 +122,7 @@ set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 @echo.
 @echo ####################################################
 @echo #                                                  #
-@echo # END   : %MapiCamPhaseNum%                        #
+@echo # END   : %MapiCamPhaseNum%                         #
 @echo #                                                  #
 @echo ####################################################
 @echo.
