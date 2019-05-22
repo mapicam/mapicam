@@ -700,7 +700,7 @@ set /a "fixTime6Sec=%fixTime5Unix%-(%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)
 @set "fixTime7DD=1%fixTime7DD%"
 @set /a "fixTime7DD=%fixTime7DD%-100"
 ::
-set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%+10800"
+set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%+10800+1"
 set /a "fixTime7SecOld=0"
 if %fixTime7Sec% LSS -10000 (
 	set /a "fixTime7SecOld=%fixTime7Sec%" 
