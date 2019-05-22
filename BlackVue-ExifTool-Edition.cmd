@@ -745,7 +745,7 @@ set /a "fixTime8Unix=none"
 
 
 :: КОРЕГУЄМО ЗДВИГ ЧАСУ (після прошивки координат, для відновлення співпадіння з часом який на відео)
-%MapiCamExifTool% "-DateTimeOriginal-=0:0:0 0:0:%fixTime7Sec%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
+%MapiCamExifTool% "-DateTimeOriginal-=0:0:0 0:0:%fixTime8Sec%.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 ::%MapiCamExifTool% "-DateTimeOriginal+=0:0:0 0:0:10800.000" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 %MapiCamExifTool% -r "-FileName<DateTimeOriginal" -d "%%Y%%m%%d-%%H%%M%%S%%%%-.1c.%%%%e" "%BlackVueFolder%\Record_Call\jpg" -overwrite_original
 
@@ -772,7 +772,6 @@ set /a "fixTime8Unix=none"
 
 
 
-pause
 
 :: 
 :: 
