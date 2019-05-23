@@ -297,6 +297,11 @@ if  %fixTime0YYYYMM%==20201201000000 (set /a "fixTime0YYYYMMunix=1606780800")
 @echo fixTime2        = 13:14:49 = 13:14:49 = 1554815689 (VIDEO FileNameTime  GMT   )
 @echo fixTime3        = 16:14:42 = 16:14:42 = 1554826482 (GPX   FirstLineTime LOCAL )
 @echo fixTime4        = 13:14:42 = 13:14:42 = 1554815682 (GPX   FirstLineTime GMT   )
+@echo fixTime5        = 13:18:29 = 1554815909 = 13:18:29 (ostnnij kadr video)
+@echo fixTime6        = 13:15:27 = 1554815727 = 13:15:27 (pershyi kadr video)
+@echo fixTime7        = 0:0:38 = 0 = 38 = 0:0:38 (zdvyg foto "v sekundah" vidnosno pershogo kadru video, yakshcho zdvyg e.)
+@echo fixTime8        = 0:0:45 = 0 = 45 = 0:0:45 (zdvyg foto "v sekundah" vidnosno pershogo kadru video, vkluchno z "delthaGpxSec".)
+@echo fixTime9        = 2:59:22 = 0 = 10762 = 2:59:22 (zdvyg foto "v sekundah" vidnosno pershogo kadru video, vkluchno z "delthaGpxSec".)
 @echo.
 @echo FileName        = 20190409_162116_XX.GPX
 @echo fixTime1        = 16:21:16 = 16:21:16 = 1554826876 (VIDEO FileNameTime  LOCAL )
