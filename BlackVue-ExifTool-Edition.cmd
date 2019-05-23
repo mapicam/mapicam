@@ -700,12 +700,12 @@ set /a "fixTime6Sec=%fixTime5Unix%-(%fixTime0YYYYMMunix%+(%fixTime6DD%*24*60*60)
 @set "fixTime7DD=1%fixTime7DD%"
 @set /a "fixTime7DD=%fixTime7DD%-100"
 ::
-set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%+10800+1"
+set /a "fixTime7Sec=%fixTime6Unix%-%fixTime1Unix%"
 set /a "fixTime7SecOld=0"
-if %fixTime7Sec% LSS -10000 (
-	set /a "fixTime7SecOld=%fixTime7Sec%" 
-	set /a fixTime7Sec=0
-	)
+REM if %fixTime7Sec% LSS 0 ( 
+	REM set /a "fixTime7SecOld=%fixTime7Sec%" 
+	REM set /a fixTime7Sec=0
+	REM ) 
 @set /a "fixTime7HH=(%fixTime7Sec%)/60/60"
 @set /a "fixTime7MM=((%fixTime7Sec%)-(%fixTime7HH%*60*60))/60"
 @set /a "fixTime7SS=((%fixTime7Sec%)-(%fixTime7HH%*60*60)-(%fixTime7MM%*60))"
@@ -728,10 +728,10 @@ if %fixTime7Sec% LSS -10000 (
 ::
 set /a "fixTime8Sec=%fixTime7Sec%+(%delthaGpxSec%)"
 set /a "fixTime8SecOld=0"
-if %fixTime8Sec% LSS 0 (
-	set /a "fixTime8SecOld=%fixTime8Sec%"
-	set /a "fixTime8Sec=0"
-	)
+REM if %fixTime8Sec% LSS 0 ( 
+	REM set /a "fixTime8SecOld=%fixTime8Sec%" 
+	REM set /a "fixTime8Sec=0" 
+	REM ) 
 @set /a "fixTime8HH=(%fixTime8Sec%)/60/60"
 @set /a "fixTime8MM=((%fixTime8Sec%)-(%fixTime8HH%*60*60))/60"
 @set /a "fixTime8SS=((%fixTime8Sec%)-(%fixTime8HH%*60*60)-(%fixTime8MM%*60))"
@@ -752,7 +752,7 @@ if %fixTime8Sec% LSS 0 (
 @set "fixTime9DD=1%fixTime9DD%"
 @set /a "fixTime9DD=%fixTime9DD%-100"
 ::
-set /a "fixTime9Sec=10800-%fixTime7Sec%"
+set /a "fixTime9Sec=%fixTime7Sec%"
 ::set /a "fixTime9Sec=10800-%fixTime8Sec%"
 @set /a "fixTime9HH=(%fixTime9Sec%)/60/60"
 @set /a "fixTime9MM=((%fixTime9Sec%)-(%fixTime9HH%*60*60))/60"
