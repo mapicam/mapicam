@@ -116,11 +116,59 @@ move /Y %BlackVueFolder%\Record_Call\gpx\*.gpx "%BlackVueFolder%\Record\gpx"
 @echo cmdFileDateTime =%cmdFileDateTime%  // YYYYMMDDHHMMSS
 @echo.
 @set "cmdFileDateYYYY=%cmdFileDate:~0,4%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdFileDateYYYYfix=%cmdFileDateYYYY%"
+	@set    "cmdFileDateYYYYfix=1%cmdFileDateYYYYfix%"
+	@set /a "cmdFileDateYYYYfix=%cmdFileDateYYYYfix%-100"
+	:: КОСТИЛЬ-END: 
 @set "cmdFileDateMM=%cmdFileDate:~4,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdFileDateMMfix=%cmdFileDateMM%"
+	@set    "cmdFileDateMMfix=1%cmdFileDateMMfix%"
+	@set /a "cmdFileDateMMfix=%cmdFileDateMMfix%-100"
+	:: КОСТИЛЬ-END: 
 @set "cmdFileDateDD=%cmdFileDate:~6,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdFileDateDDfix=%cmdFileDateDD%"
+	@set    "cmdFileDateDDfix=1%cmdFileDateDDfix%"
+	@set /a "cmdFileDateDDfix=%cmdFileDateDDfix%-100"
+	:: КОСТИЛЬ-END: 
 @set "cmdFileTimeHH=%cmdFileTime:~0,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdFileTimeHHfix=%cmdFileTimeHH%"
+	@set    "cmdFileTimeHHfix=1%cmdFileTimeHHfix%"
+	@set /a "cmdFileTimeHHfix=%cmdFileTimeHHfix%-100"
+	:: КОСТИЛЬ-END: 
 @set "cmdFileTimeMM=%cmdFileTime:~2,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdFileTimeMMfix=%cmdFileTimeMM%"
+	@set    "cmdFileTimeMMfix=1%cmdFileTimeMMfix%"
+	@set /a "cmdFileTimeMMfix=%cmdFileTimeMMfix%-100"
+	:: КОСТИЛЬ-END: 
 @set "cmdFileTimeSS=%cmdFileTime:~4,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdFileTimeSSfix=%cmdFileTimeSS%"
+	@set    "cmdFileTimeSSfix=1%cmdFileTimeSSfix%"
+	@set /a "cmdFileTimeSSfix=%cmdFileTimeSSfix%-100"
+	:: КОСТИЛЬ-END: 
 @echo.
 @echo cmdFileDateYYYY =%cmdFileDateYYYY% // YYYY
 @echo cmdFileDateMM   =%cmdFileDateMM%   // MM
@@ -197,8 +245,8 @@ for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\Record_call\GpxTrkTrksegTrk
 @echo.
 @echo cmdGpx : YYYYMMDDHHMMSS = %cmdGpxDateYYYY%%cmdGpxDateMM%%cmdGpxDateDD%%cmdGpxTimeHH%%cmdGpxTimeMM%%cmdGpxTimeSS%   //
 @echo.
-@set /a "cmdFileTimeSec=(%cmdFileTimeHH%*60*60)+(%cmdFileTimeMM%*60)+(%cmdFileTimeSS%)"
-@set /a "cmdGpxTimeSec=(%cmdGpxTimeHH%*60*60)+(%cmdGpxTimeMM%*60)+(%cmdGpxTimeSS%)"
+@set /a "cmdFileTimeSec=(%cmdFileTimeHHfix%*60*60)+(%cmdFileTimeMMfix%*60)+(%cmdFileTimeSSfix%)"
+@set /a "cmdGpxTimeSec=(%cmdGpxTimeHHfix%*60*60)+(%cmdGpxTimeMMfix%*60)+(%cmdGpxTimeSSfix%)"
 @set /a "delthaGpxSec=%cmdFileTimeSec%-%cmdGpxTimeSec%-(3*60*60)"
 @echo cmdFileTimeSec - cmdGpxTimeSec - 03:00:00 = delthaGpxSec // %cmdFileTimeSec% - %cmdGpxTimeSec% - 10800 = %delthaGpxSec%
 @echo.
