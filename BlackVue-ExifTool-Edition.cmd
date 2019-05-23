@@ -140,12 +140,60 @@ for /f "usebackq tokens=*" %%a in ("%BlackVueFolder%\Record_call\GpxTrkTrksegTrk
 @echo cmdGpxDateTime =%cmdGpxDateTime%        // ALL
 @echo.
 @set "cmdGpxDateYYYY=%cmdGpxDateTime:~0,4%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdGpxDateYYYYfix=%cmdGpxDateYYYY%"
+	@set    "cmdGpxDateYYYYfix=1%cmdGpxDateYYYYfix%"
+	@set /a "cmdGpxDateYYYYfix=%cmdGpxDateYYYYfix%-100"
+	:: КОСТИЛЬ-END: 
 @set "cmdGpxDateMM=%cmdGpxDateTime:~5,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdGpxDateMMfix=%cmdGpxDateMM%"
+	@set    "cmdGpxDateMMfix=1%cmdGpxDateMMfix%"
+	@set /a "cmdGpxDateMMfix=%cmdGpxDateMMfix%-100"
+	:: КОСТИЛЬ-END: 
 @set "cmdGpxDateDD=%cmdGpxDateTime:~8,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdGpxDateDDfix=%cmdGpxDateDD%"
+	@set    "cmdGpxDateDDfix=1%cmdGpxDateDDfix%"
+	@set /a "cmdGpxDateDDfix=%cmdGpxDateDDfix%-100"
+	:: КОСТИЛЬ-END: 
 @echo.
 @set "cmdGpxTimeHH=%cmdGpxDateTime:~-8,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdGpxTimeHHfix=%cmdGpxTimeHH%"
+	@set    "cmdGpxTimeHHfix=1%cmdGpxTimeHHfix%"
+	@set /a "cmdGpxTimeHHfix=%cmdGpxTimeHHfix%-100"
+	:: КОСТИЛЬ-END: 
 @set "cmdGpxTimeMM=%cmdGpxDateTime:~-5,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdGpxTimeMMfix=%cmdGpxTimeMM%"
+	@set    "cmdGpxTimeMMfix=1%cmdGpxTimeMMfix%"
+	@set /a "cmdGpxTimeMMfix=%cmdGpxTimeMMfix%-100"
+	:: КОСТИЛЬ-END: 
 @set "cmdGpxTimeSS=%cmdGpxDateTime:~-2,2%"
+	:: КОСТИЛЬ: виправлення помилки двозначного числа, коли в роботі треба 10 число "decimal", а скрипт бачить його як 8 "hexadecimal".
+	:: "Invalid number. Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021)."
+	:: РІШЕННЯ: додати перед значеннм 1, а від утвореного відняти 100.
+	:: для fixTime1
+	@set    "cmdGpxTimeSSfix=%cmdGpxTimeSS%"
+	@set    "cmdGpxTimeSSfix=1%cmdGpxTimeSSfix%"
+	@set /a "cmdGpxTimeSSfix=%cmdGpxTimeSSfix%-100"
+	:: КОСТИЛЬ-END: 
 @echo.
 @echo cmdGpx : YYYYMMDDHHMMSS = %cmdGpxDateYYYY%%cmdGpxDateMM%%cmdGpxDateDD%%cmdGpxTimeHH%%cmdGpxTimeMM%%cmdGpxTimeSS%   //
 @echo.
