@@ -60,7 +60,7 @@ echo ############################################## END ########################
 @rmdir "%BlackVueFolder%\Record_Finalize\jpg"
 
 
-set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
+set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
 :: D:\mapicam\tools\mapillary\mapillary_tools-050.exe process --advanced -h
 %MapiCamMapillaryTools% process --advanced --version --verbose ^
 --import_path "%BlackVueFolder%\Record\jpg" ^
@@ -84,7 +84,7 @@ set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 --move_duplicates ^
 --move_uploaded
 
-:: D:\mapicam\tools\mapillary\mapillary_tools-042.exe process --advanced --version --verbose --import_path "F:\BlackVue\20190429-kyiv\09\Record\jpg2mapillary" --user_name velmyshanovnyi --skip_subfolders --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "exif" --geotag_source_path "F:\BlackVue\20190429-kyiv\09\Record\jpg2mapillary" --orientation 0 --offset_angle 0 --use_gps_start_time --interpolate_directions --duplicate_distance 0.5 --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --move_duplicates --move_uploaded
+:: D:\mapicam\tools\mapillary\mapillary_tools-042.exe process --advanced --version --verbose --import_path "F:\BlackVue\20190429-kyiv\09\Record\jpg2mapillary" --user_name velmyshanovnyi --skip_subfolders --device_make "Blackvue" --device_model "DR900S-1CH" --geotag_source "exif" --geotag_source_path "F:\BlackVue\20190429-kyiv\09\Record\jpg2mapillary" --orientation 0 --offset_angle 0 --use_gps_start_time --interpolate_directions --duplicate_distance 0.5 --duplicate_angle 5 --overwrite_all_EXIF_tags --overwrite_EXIF_time_tag --overwrite_EXIF_gps_tag --overwrite_EXIF_direction_tag --overwrite_EXIF_orientation_tag --move_duplicates --move_uploaded
 
 
 
@@ -136,7 +136,6 @@ RMDIR %BlackVueFolder%\%MapiCamPhaseNum%-PROCESSED
 @echo %date% %time% # %MapiCamPhaseNum%    
 :: НЕ СТАВИТИ ПАУЗУ - бо НЕ БУДЕ працювати пакетна обробка!
 
-REM D:\mapicam\tools\exiftool\exiftool.exe "-DateTimeOriginal+=0:0:1 0:0:0" "F:\BlackVue\20190429-kyiv\Record\jpg" -overwrite_original && D:\mapicam\tools\exiftool\exiftool.exe -r "-FileName<DateTimeOriginal" -d "%Y%m%d-%H%M%S%%-.1c.%%e" "F:\BlackVue\20190429-kyiv\Record\jpg" -overwrite_original && D:\mapicam\tools\exiftool\exiftool.exe -r "-AllDates<DateTimeOriginal" -r "-CreateDate<DateTimeOriginal" -r "-ModifyDate<DateTimeOriginal" -r "-FileCreateDate<DateTimeOriginal" -r "-FileModifyDate<DateTimeOriginal" -r "-SubSecCreateDate<DateTimeOriginal" -r "-SubSecModifyDate<DateTimeOriginal" -r "-SubSecDateTimeOriginal<DateTimeOriginal" "F:\BlackVue\20190429-kyiv\Record\jpg" -overwrite_original
 
 @echo.
 @echo delthaVideoSec           (true)  = %delthaVideoSec%
