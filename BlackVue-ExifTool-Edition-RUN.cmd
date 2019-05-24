@@ -61,7 +61,7 @@ echo ############################################## END ########################
 
 
 set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
-:: D:\mapicam\tools\mapillary\mapillary_tools-050.exe  process --advanced -h
+:: D:\mapicam\tools\mapillary\mapillary_tools-050.exe process --advanced -h
 %MapiCamMapillaryTools% process --advanced --version --verbose ^
 --import_path "%BlackVueFolder%\Record\jpg" ^
 --user_name %MapiCamUsernameAtMapillary% ^
@@ -75,6 +75,7 @@ set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-042.exe
 --use_gps_start_time ^
 --interpolate_directions ^
 --duplicate_distance %BlackVueDuplicateDistance% ^
+--duplicate_angle 5 ^
 --overwrite_all_EXIF_tags ^
 --overwrite_EXIF_time_tag ^
 --overwrite_EXIF_gps_tag ^
