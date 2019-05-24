@@ -13,11 +13,18 @@ Windows Registry Editor Version 5.00
 "subcommands"=""
 
 [HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\01low] 
-"MUIVerb"="Idle CPU, lowest IO, low paging" 
+"MUIVerb"="Idle CPU, lowest IO, low Paging" 
 "Icon"="comres.dll,9" 
 
 [HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\01low\command] 
 @="cmd /q /c echo Windows Registry Editor Version 5.00>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & for /f \"delims=<\" %%i in (\"%1\") do echo [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\%%~nxi\\PerfOptions]>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"CpuPriorityClass\"=dword:00000001>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"IoPriority\"=dword:00000000>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"PagePriority\"=dword:00000001>>%%TEMP%%\\pr.reg & regedit /s %%TEMP%%\\pr.reg & del %%TEMP%%\\pr.reg & msg * %~ni priority is set to IDLE" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\01low2] 
+"MUIVerb"="Idle CPU, normal IO, normal Paging" 
+"Icon"="comres.dll,9" 
+
+[HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\01low2\command] 
+@="cmd /q /c echo Windows Registry Editor Version 5.00>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & for /f \"delims=<\" %%i in (\"%1\") do echo [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\%%~nxi\\PerfOptions]>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"CpuPriorityClass\"=dword:00000001>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"IoPriority\"=dword:00000002>>%%TEMP%%\\pr.reg & echo.>>%%TEMP%%\\pr.reg & echo \"PagePriority\"=dword:00000005>>%%TEMP%%\\pr.reg & regedit /s %%TEMP%%\\pr.reg & del %%TEMP%%\\pr.reg & msg * %~ni priority is set to IDLE" 
 
 [HKEY_CLASSES_ROOT\exefile\shell\Bpc\shell\02below] 
 "MUIVerb"="Below normal CPU, low IO" 
