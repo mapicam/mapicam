@@ -763,9 +763,9 @@ set "fixTime5Sec=%delthaFullSec1A%"
 @echo fixTime5Sec=%fixTime5Sec%
 :: ЗВІДСИ ТРЕБА ПОЧИНАТИ-fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
 set "fixTime5Sec=%fixTime5Sec:~9,6%"
-:: отримали 6 значне "слово" з цифр
+:: отримали 6 значне "слово" з цифр. ОБОВЯЗКОВО опрацьовувати на цьому етапі як СЛОВО а не цифру - бо ГЛЮКИ!
 @echo fixTime5Sec=%fixTime5Sec%
-:: розбираємо його на частинки і відразу фіксимо!
+:: розбираємо його на частинки і відразу фіксимо - в цифру (лише в останньому кроці, бо все поламається)!
 set fixTime5HH=%fixTime5Sec:~0,2%
 @echo fixTime5HH   = %fixTime5HH%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
