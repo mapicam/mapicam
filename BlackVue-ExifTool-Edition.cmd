@@ -757,8 +757,13 @@ echo on
 @set "fixTime5DD=1%fixTime5DD%"
 @set /a "fixTime5DD=%fixTime5DD%-100"
 ::
-set fixTime5Sec=%delthaFullSec1A%
-set fixTime5Sec=%fixTime5Sec:~9,6%
+set "fixTime5Sec=%delthaFullSec1A%"
+set "fixTime5Sec=%fixTime5Sec:~9,6%"
+:: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
+@set "fixTime5Sec=%fixTime5Sec%"
+@set "fixTime5Sec=1%fixTime5Sec%"
+@set /a "fixTime5Sec=%fixTime5Sec%-1000000"
+::
 @set /a fixTime5HH=%fixTime5Sec:~0,2%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
 @set "fixTime5HH=%fixTime5HH%"
