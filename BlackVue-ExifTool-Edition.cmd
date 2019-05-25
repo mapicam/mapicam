@@ -753,18 +753,26 @@ echo on
 :: для fixTime5
 :: час ОСТАННЬОГО кадру відео
 ::
+@echo 1 - #############################################################################
 @set "fixTime5DD=%cmdFileDateDD%"
 @set "fixTime5DD=1%fixTime5DD%"
 @set /a "fixTime5DD=%fixTime5DD%-100"
+@echo 2 - #############################################################################
 ::
 set "fixTime5Sec=%delthaFullSec1A%"
-set "fixTime5Sec=%fixTime5Sec:~9,6%"
+@echo 3 - #############################################################################
+set "fixTime5Sec=1%fixTime5Sec:~9,6%"
+@echo 4 - #############################################################################
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
-@set "fixTime5Sec=%fixTime5Sec%"
-@set "fixTime5Sec=1%fixTime5Sec%"
-@set /a "fixTime5Sec=%fixTime5Sec%-1000000"
+::set "fixTime5Sec=%fixTime5Sec%"
+@echo 5 - #############################################################################
+::set "fixTime5Sec=1%fixTime5Sec%"
+@echo 6 - #############################################################################
+set /a "fixTime5Sec=%fixTime5Sec%-1000000"
 ::
+@echo 7 - #############################################################################
 @set /a fixTime5HH=%fixTime5Sec:~0,2%
+@echo 8 - #############################################################################
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
 @set "fixTime5HH=%fixTime5HH%"
 @set "fixTime5HH=1%fixTime5HH%"
