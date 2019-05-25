@@ -591,14 +591,14 @@ if  %fixTime0YYYYMM%==20201201000000 (set /a "fixTime0YYYYMMunix=1606780800")
 ::    VideoDurationFix = (КількістьГодинЗміщення * КількістьСекундВгодині) + ЧасЗмішенняСукундДовжинаВідео
 @echo -----
 
-set /a "VideoDurationFix=3*3600-%VideoDuration%"
-set /a "VideoTrackDurationFix=3*3600-%VideoTrackDuration%"
-set /a "delthaVideoSecFix=3*3600-%delthaVideoSec%"
-set /a "delthaGpsSecFix=3*3600-%delthaVideoSec%-%delthaGpxSec%"
+@set /a "VideoDurationFix=3*3600-%VideoDuration%"
+@set /a "VideoTrackDurationFix=3*3600-%VideoTrackDuration%"
+@set /a "delthaVideoSecFix=3*3600-%delthaVideoSec%"
+@set /a "delthaGpsSecFix=3*3600-%delthaVideoSec%-%delthaGpxSec%"
 :: тут застосовуємо ЗДВИГ який є в GPX файлі, віднімаючи його від здвигу відео.
 @echo -----
-set /a "VideoDurationFixGPS=%VideoDurationFix%-%delthaGpxSec%"
-set /a "VideoTrackDurationFixGPS=%VideoTrackDurationFix%-%delthaGpxSec%"
+@set /a "VideoDurationFixGPS=%VideoDurationFix%-%delthaGpxSec%"
+@set /a "VideoTrackDurationFixGPS=%VideoTrackDurationFix%-%delthaGpxSec%"
 
 @echo VideoDuration            (false) = %VideoDuration%
 @echo VideoTrackDuration       (true)  = %VideoTrackDuration%
