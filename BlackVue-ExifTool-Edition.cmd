@@ -758,7 +758,7 @@ echo on
 @set /a "fixTime5DD=%fixTime5DD%-100"
 ::
 set fixTime5Sec=%delthaFullSec1A%
-set fixTime5Sec=%fixTime5Sec:~9,8%
+set fixTime5Sec=%fixTime5Sec:~9,6%
 @set /a fixTime5HH=%fixTime5Sec:~0,2%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
 @set "fixTime5HH=%fixTime5HH%"
@@ -777,12 +777,13 @@ set fixTime5Sec=%fixTime5Sec:~9,8%
 @set "fixTime5SS=1%fixTime5SS%"
 @set /a "fixTime5SS=%fixTime5SS%-100"
 ::
-@set /a fixTime5MS=%fixTime5Sec:~7,1%
-:: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
-@set "fixTime5MS=%fixTime5MS%"
-@set "fixTime5MS=1%fixTime5MS%"
-@set /a "fixTime5MS=%fixTime5MS%-100"
-::
+			REM :: fixTime5MS ЗАКОМЕНТОВАНО (потім взагалі видалити бо не використовується в коді що нижче. створювався цей параметр для того "щоб було, провсяк випадок".) - для того щоб перевірити чи саме через цей параметр система починає бачити ЧАС не як десяткову цифру, а як 8-ричну.
+			REM @set /a fixTime5MS=%fixTime5Sec:~7,1%
+			REM :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
+			REM @set "fixTime5MS=%fixTime5MS%"
+			REM @set "fixTime5MS=1%fixTime5MS%"
+			REM @set /a "fixTime5MS=%fixTime5MS%-100"
+			REM ::
 @set /a fixTime5Sec=(%fixTime5HH%*60*60)+(%fixTime5MM%*60)+(%fixTime5SS%)
 @set   "fixTime5=%fixTime5HH%:%fixTime5MM%:%fixTime5SS%"
 @echo fixTime5Sec = %fixTime5Sec%
