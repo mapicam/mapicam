@@ -761,19 +761,27 @@ set fixTime5Sec=%delthaFullSec1A%
 set fixTime5Sec=%fixTime5Sec:~9,8%
 @set /a fixTime5HH=%fixTime5Sec:~0,2%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
-@set "fixTime5HH=%fixTime5HH%" && set "fixTime5HH=1%fixTime5HH%" && set /a "fixTime5HH=%fixTime5HH%-100"
+@set "fixTime5HH=%fixTime5HH%"
+@set "fixTime5HH=1%fixTime5HH%"
+@set /a "fixTime5HH=%fixTime5HH%-100"
 ::
 @set /a fixTime5MM=%fixTime5Sec:~2,2%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
-@set "fixTime5MM=%fixTime5MM%" && set "fixTime5MM=1%fixTime5MM%" && set /a "fixTime5MM=%fixTime5MM%-100"
+@set "fixTime5MM=%fixTime5MM%"
+@set "fixTime5MM=1%fixTime5MM%"
+@set /a "fixTime5MM=%fixTime5MM%-100"
 ::
 @set /a fixTime5SS=%fixTime5Sec:~4,2%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
-@set "fixTime5SS=%fixTime5SS%" && set "fixTime5SS=1%fixTime5SS%" && set /a "fixTime5SS=%fixTime5SS%-100"
+@set "fixTime5SS=%fixTime5SS%"
+@set "fixTime5SS=1%fixTime5SS%"
+@set /a "fixTime5SS=%fixTime5SS%-100"
 ::
 @set /a fixTime5MS=%fixTime5Sec:~7,1%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
-@set "fixTime5MS=%fixTime5MS%" && set "fixTime5MS=1%fixTime5MS%" && set /a "fixTime5MS=%fixTime5MS%-100"
+@set "fixTime5MS=%fixTime5MS%"
+@set "fixTime5MS=1%fixTime5MS%"
+@set /a "fixTime5MS=%fixTime5MS%-100"
 ::
 @set /a fixTime5Sec=(%fixTime5HH%*60*60)+(%fixTime5MM%*60)+(%fixTime5SS%)
 @set   "fixTime5=%fixTime5HH%:%fixTime5MM%:%fixTime5SS%"
