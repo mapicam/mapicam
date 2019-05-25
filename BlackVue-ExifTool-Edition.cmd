@@ -766,7 +766,7 @@ set "fixTime5Sec=%fixTime5Sec:~9,6%"
 :: отримали 6 значне "слово" з цифр
 @echo fixTime5Sec=%fixTime5Sec%
 :: розбираємо його на частинки і відразу фіксимо!
-set /a fixTime5HH=%fixTime5Sec:~0,2%
+set fixTime5HH=%fixTime5Sec:~0,2%
 @echo fixTime5HH   = %fixTime5HH%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
 set "fixTime5HH=%fixTime5HH%"
@@ -774,7 +774,7 @@ set "fixTime5HH=1%fixTime5HH%"
 set /a "fixTime5HH=%fixTime5HH%-100"
 @echo fixTime5HH   = %fixTime5HH%
 ::
-set /a fixTime5MM=%fixTime5Sec:~2,2%
+set fixTime5MM=%fixTime5Sec:~2,2%
 @echo fixTime5MM   = %fixTime5MM%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
 set "fixTime5MM=%fixTime5MM%"
@@ -782,7 +782,7 @@ set "fixTime5MM=1%fixTime5MM%"
 set /a "fixTime5MM=%fixTime5MM%-100"
 @echo fixTime5MM   = %fixTime5MM%
 ::
-set /a fixTime5SS=%fixTime5Sec:~4,2%
+set fixTime5SS=%fixTime5Sec:~4,2%
 @echo fixTime5SS   = %fixTime5SS%
 :: fix: Invalid number.  Numeric constants are either decimal (17), hexadecimal (0x11), or octal (021).
 set "fixTime5SS=%fixTime5SS%"
