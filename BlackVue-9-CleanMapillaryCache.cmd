@@ -28,6 +28,42 @@ RMDIR /Q/S %BlackVueFolder%\%uploadImportPath%\.mapillary
 cd %BlackVueFolder%\%uploadImportPath%
 dir
 
+:: відтестити чи видаляє!
+echo ######################################## START .mp4 ######################################
+for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record" ^| findstr /i ".mp4"') do (
+set BlackVueCall=%%I
+echo BlackVueCall = !BlackVueCall! = %BlackVueCall% = %%I
+DEL /F/Q/S %%I > NUL
+)
+echo ############################################## END .mp4 ##################################
+:: відтестити чи видаляє!
+echo ######################################## START .JPG ######################################
+for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record" ^| findstr /i ".jpg"') do (
+set BlackVueCall=%%I
+echo BlackVueCall = !BlackVueCall! = %BlackVueCall% = %%I
+DEL /F/Q/S %%I > NUL
+)
+echo ############################################## END .JPG ##################################
+:: відтестити чи видаляє!
+echo ######################################## START .json ######################################
+for /f %%I in ('dir /b/s/a-d "%BlackVueFolder%\Record" ^| findstr /i ".json"') do (
+set BlackVueCall=%%I
+echo BlackVueCall = !BlackVueCall! = %BlackVueCall% = %%I
+DEL /F/Q/S %%I > NUL
+DEL /F/Q/S geotag_process.*              > NUL
+DEL /F/Q/S geotag_process_*              > NUL
+DEL /F/Q/S import_meta_data_process.*    > NUL
+DEL /F/Q/S import_meta_data_process_*    > NUL
+DEL /F/Q/S manual_upload                 > NUL
+DEL /F/Q/S mapillary_image_description.* > NUL
+DEL /F/Q/S mapillary_image_description_* > NUL
+)
+echo ############################################## END .json ##################################
+
+
+
+
+
 @echo %date% %time% # %MapiCamPhaseNum%                                                                 >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% --------------------------------------------------------------- >> %MapiCamLOG%
 @echo %date% %time% # %MapiCamPhaseNum% DELETE - COMPLETE :-)                                           >> %MapiCamLOG%
