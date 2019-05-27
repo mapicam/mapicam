@@ -81,12 +81,17 @@ mkdir %BlackVueFolder%\Record\temp
 :: <?xml version="1.0" encoding="utf-8"?>
 echo ^<?xml version=^"1.0^" encoding=^"utf-8^"?^>                                                                        >"%BlackVueFolder%\Record\temp\_temp-1.txt"
 :: <gpx version="1.0" creator="GPSBabel - http://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/0">
-echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^> >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
+:: echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^> >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
+
+:: <gpx version="1.0" creator="ExifTool 11.42" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+echo ^<gpx version=^"1.0^" creator=^"ExifTool 11.42^" xmlns:xsi=^"http://www.w3.org/2001/XMLSchema-instance^" xmlns=^"http://www.topografix.com/GPX/1/0^" xsi:schemaLocation=^"http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd^"^> >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
+
+
 :: <time>2019-04-07T23:39:36.706Z</time>
-echo ^<time^>%datetimefull%^</time^>                                                                                    >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
+:: echo ^<time^>%datetimefull%^</time^>                                                                                    >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
 :: закоментовано через те що не можу вставляти значення правильних координат minlat/minlon/maxlat/maxlon - як параметрів
-echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>                            >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
+:: echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>                            >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
 
 
 
@@ -118,7 +123,8 @@ copy %BlackVueFolder%\Record\gpx\*.gpx "%BlackVueFolder%\Record\temp\_temp-2.txt
 :: <gpx>
 :: </gpx>
 :: взято тут http://itman.in/remove-lines-from-file/
-type "%BlackVueFolder%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^>>>"%BlackVueFolder%\Record\temp\_temp-4.txt"
+type "%BlackVueFolder%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^> | findstr /v '<?xml version="1.0" encoding="utf-8"?>' >>"%BlackVueFolder%\Record\temp\_temp-4.txt"
+
 
 
 
