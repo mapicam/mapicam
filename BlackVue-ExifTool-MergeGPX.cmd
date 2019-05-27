@@ -80,9 +80,6 @@ mkdir %BlackVueFolder%\Record\temp
 :: якщо "_temp-1.txt" існує, то його буде перезаписано!
 :: <?xml version="1.0" encoding="utf-8"?>
 echo ^<?xml version=^"1.0^" encoding=^"utf-8^"?^>                                                                        >"%BlackVueFolder%\Record\temp\_temp-1.txt"
-:: <gpx version="1.0" creator="GPSBabel - http://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/0">
-:: echo ^<gpx version=^"1.0^" creator=^"GPSBabel - http://www.gpsbabel.org^" xmlns=^"http://www.topografix.com/GPX/1/0^"^> >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
-
 :: <gpx version="1.0" creator="ExifTool 11.42" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
 echo ^<gpx version=^"1.0^" creator=^"ExifTool 11.42^" xmlns:xsi=^"http://www.w3.org/2001/XMLSchema-instance^" xmlns=^"http://www.topografix.com/GPX/1/0^" xsi:schemaLocation=^"http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd^"^> >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
 
