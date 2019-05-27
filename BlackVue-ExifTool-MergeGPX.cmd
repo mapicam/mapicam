@@ -1,7 +1,7 @@
 cd %1%
 @set MapiCamPhaseNum=[4]
 @echo ##### HEAD ##############################################################
-enableextensions enabledelayedexpansion
+SetLocal enableextensions enabledelayedexpansion
 @set MapiCamFolder=D:\mapicam
 @set BlackVueFolder=%1%
 @set BlackVueFPS=%2%
@@ -123,6 +123,38 @@ copy %BlackVueFolder%\Record\gpx\*.gpx "%BlackVueFolder%\Record\gpx\temp\_temp-2
 type "%BlackVueFolder%\Record\gpx\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^> | findstr /v ^<gpx | findstr /v ^<^?xml | findstr /v creator | findstr /v xmlns:xsi | findstr /v xmlns | findstr /v xsi:schemaLocation | findstr /v ^<number^> >>"%BlackVueFolder%\Record\gpx\temp\_temp-4.txt"
 
 
+
+:: позбутись переносів рядків
+:: рядки що містять "=" викликають "глюки" (((((
+:: http://www.cyberforum.ru/cmd-bat/thread2039468.html
+<"%BlackVueFolder%\Record\gpx\temp\_temp-4.txt" >"%BlackVueFolder%\Record\gpx\temp\_temp-4-1.txt" (for /f %%a in ('more') do set /p ="%%a")
+
+
+
+@echo off
+set "f=%BlackVueFolder%\Record\gpx\temp\_temp-4-1.txt"
+<"%f%">$ (
+ for /f "delims=" %%a in ('more') do @(
+  echo %%a|>nul findstr/ec:"</trkpt>" && (
+   for /f "tokens=1,2 delims=:" %%b in ("%%~a") do @(
+    echo %%b::
+    echo %%c
+   )
+  ) || (
+   echo %%a
+  )
+ )
+)& move $ "_temp-4-4.txt"
+exit
+
+
+
+
+
+:: позбутись дублікатів рядків
+:: http://www.cyberforum.ru/cmd-bat/thread1357901.html
+:: <"1.txt">"2.txt" (for /f "delims=" %%i in ('more') do @if not defined %%i (echo %%i& set %%i=*))
+<"%BlackVueFolder%\Record\gpx\temp\_temp-4.txt" >"%BlackVueFolder%\Record\gpx\temp\_temp-4-2.txt" (for /f "delims=" %%i in ('more') do @if not defined %%i (echo %%i& set %%i=*))
 
 
 
