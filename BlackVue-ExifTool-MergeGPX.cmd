@@ -1,7 +1,7 @@
 cd %1%
 @set MapiCamPhaseNum=[4]
 @echo ##### HEAD ##############################################################
-setlocal enableextensions enabledelayedexpansion
+enableextensions enabledelayedexpansion
 @set MapiCamFolder=D:\mapicam
 @set BlackVueFolder=%1%
 @set BlackVueFPS=%2%
@@ -23,7 +23,7 @@ CALL %MapiCamFolder%\BlackVue-Head.cmd %BlackVueFolder% %BlackVueFPS% %BlackVueO
 
 mkdir %BlackVueFolder%\Record\gpx
 mkdir %BlackVueFolder%\Record\gpx\0
-mkdir %BlackVueFolder%\Record\temp
+mkdir %BlackVueFolder%\Record\gpx\temp
 
 @echo.
 @echo #-------------------------------------------------------------#
@@ -70,37 +70,37 @@ set MapiCamTime=%hour%%min%%secs%
 
 mkdir %BlackVueFolder%\Record\gpx
 move "%BlackVueFolder%\Record\*.gpx" "%BlackVueFolder%\Record\gpx"
-mkdir %BlackVueFolder%\Record\temp
+mkdir %BlackVueFolder%\Record\gpx\temp
 
 @echo.
 @echo ----- CREATE PREFIX
 :: СТВОРЮЄМО ПРЕФІКС
-@echo CREATE "%BlackVueFolder%\Record\temp\_temp-1.txt"
+@echo CREATE "%BlackVueFolder%\Record\gpx\temp\_temp-1.txt"
 :: якщо "_temp-1.txt" не існує, тому його буде створено!
 :: якщо "_temp-1.txt" існує, то його буде перезаписано!
-:: <?xml version="1.0" encoding="utf-8"?>
-echo ^<?xml version=^"1.0^" encoding=^"utf-8^"?^>                                                                        >"%BlackVueFolder%\Record\temp\_temp-1.txt"
-:: <gpx version="1.0" creator="ExifTool 11.42" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
-echo ^<gpx version=^"1.0^" creator=^"ExifTool 11.42^" xmlns:xsi=^"http://www.w3.org/2001/XMLSchema-instance^" xmlns=^"http://www.topografix.com/GPX/1/0^" xsi:schemaLocation=^"http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd^"^> >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
 
+:: <?xml version="1.0" encoding="utf-8"?>
+echo ^<?xml version=^"1.0^" encoding=^"utf-8^"?^>    >"%BlackVueFolder%\Record\gpx\temp\_temp-1.txt"
+
+:: <gpx version="1.0" creator="ExifTool 11.42" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+echo ^<gpx version=^"1.0^" creator=^"ExifTool 11.42^" xmlns:xsi=^"http://www.w3.org/2001/XMLSchema-instance^" xmlns=^"http://www.topografix.com/GPX/1/0^" xsi:schemaLocation=^"http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd^"^> >>"%BlackVueFolder%\Record\gpx\temp\_temp-1.txt"
 
 :: <time>2019-04-07T23:39:36.706Z</time>
-:: echo ^<time^>%datetimefull%^</time^>                                                                                    >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
+:: echo ^<time^>%datetimefull%^</time^>    >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
 :: <bounds minlat="50.4346" minlon="30.6144" maxlat="50.4359" maxlon="30.6155"/>
 :: закоментовано через те що не можу вставляти значення правильних координат minlat/minlon/maxlat/maxlon - як параметрів
 :: echo ^<bounds minlat=^"50.4346^" minlon=^"30.6144^" maxlat=^"50.4359^" maxlon=^"30.6155^"/^>                            >>"%BlackVueFolder%\Record\temp\_temp-1.txt"
 
 
 
-
 @echo.
 @echo ----- CREATE SUFIX
 :: СТВОРЮЄМО СУФІКС
-if not exist "%BlackVueFolder%\Record\temp\_temp-3.txt" (
+if not exist "%BlackVueFolder%\Record\gpx\temp\_temp-3.txt" (
 :: якщо "mergeTemp-3.txt" не існує, тому його буде створено!
-echo CREATE "%BlackVueFolder%\Record\temp\_temp-3.txt"
+echo CREATE "%BlackVueFolder%\Record\gpx\temp\_temp-3.txt"
 :: </gpx>
-echo ^</gpx^>>"%BlackVueFolder%\Record\temp\_temp-3.txt"
+echo ^</gpx^>>"%BlackVueFolder%\Record\gpx\temp\_temp-3.txt"
 ) else (echo FILE "_temp-3.txt" = EXIST) 
 
 
@@ -109,7 +109,7 @@ echo ^</gpx^>>"%BlackVueFolder%\Record\temp\_temp-3.txt"
 @echo.
 @echo ----- CREATE BODY
 :: СТВОРЮЄМО ТІЛО
-copy %BlackVueFolder%\Record\gpx\*.gpx "%BlackVueFolder%\Record\temp\_temp-2.txt"
+copy %BlackVueFolder%\Record\gpx\*.gpx "%BlackVueFolder%\Record\gpx\temp\_temp-2.txt"
 
 
 
@@ -120,7 +120,9 @@ copy %BlackVueFolder%\Record\gpx\*.gpx "%BlackVueFolder%\Record\temp\_temp-2.txt
 :: <gpx>
 :: </gpx>
 :: взято тут http://itman.in/remove-lines-from-file/
-type "%BlackVueFolder%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^> | findstr /v '<?xml version="1.0" encoding="utf-8"?>' >>"%BlackVueFolder%\Record\temp\_temp-4.txt"
+type "%BlackVueFolder%\Record\gpx\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^> | findstr /v ^<gpx | findstr /v ^<^?xml | findstr /v creator | findstr /v xmlns:xsi | findstr /v xmlns | findstr /v xsi:schemaLocation | findstr /v ^<number^> >>"%BlackVueFolder%\Record\gpx\temp\_temp-4.txt"
+
+
 
 
 
@@ -130,10 +132,9 @@ type "%BlackVueFolder%\Record\temp\_temp-2.txt" | findstr /v ^<gpx^> | findstr /
 @echo.
 @echo ----- Prefix & Body & Sufix 
 :: СКЛЕЮЄМО ПРЕФІКС+ТІЛО+СУФІКС
-copy "%BlackVueFolder%\Record\temp\_temp-1.txt"+"%BlackVueFolder%\Record\temp\_temp-4.txt"+"%BlackVueFolder%\Record\temp\_temp-3.txt" "%BlackVueFolder%\Record\temp\_temp-5.txt"
+copy "%BlackVueFolder%\Record\gpx\temp\_temp-1.txt"+"%BlackVueFolder%\Record\gpx\temp\_temp-4.txt"+"%BlackVueFolder%\Record\gpx\temp\_temp-3.txt" "%BlackVueFolder%\Record\gpx\temp\_temp-5.txt"
 @echo.
 @echo #######################
-
 
 
 
@@ -141,21 +142,21 @@ copy "%BlackVueFolder%\Record\temp\_temp-1.txt"+"%BlackVueFolder%\Record\temp\_t
 :: ВИДАЛЯЄМО останній рядок, бо в ньому іноді зЯвляється символ переносу каретки, який спричиняє збої в подальшій обробці
 :: \x0D0A або \x0A
 :: взято тут http://itman.in/remove-lines-from-file/
-type "%BlackVueFolder%\Record\temp\_temp-5.txt" | findstr /v \x0D0A | findstr /v \x0A>>"%BlackVueFolder%\Record\temp\_temp-6.txt"
+type "%BlackVueFolder%\Record\gpx\temp\_temp-5.txt" | findstr /v \x0D0A | findstr /v \x0A>>"%BlackVueFolder%\Record\gpx\temp\_temp-6.txt"
 
 :: СТВОРЮЄМО базовий .gpx
-copy "%BlackVueFolder%\Record\temp\_temp-6.txt" "%BlackVueFolder%\Record\temp\merge.gpx"
+copy "%BlackVueFolder%\Record\gpx\temp\_temp-6.txt" "%BlackVueFolder%\Record\gpx\temp\merge.gpx"
 
 :: ВИДАЛЯЄМО тимчасові файли
-del "%BlackVueFolder%\Record\temp\_temp-?.txt"
+del "%BlackVueFolder%\Record\gpx\temp\_temp-?.txt"
 
 :: ВИДАЛЯЄМО тимчасову папку (якщо вона порожня)
-RMDIR %BlackVueFolder%\Record\temp
+RMDIR %BlackVueFolder%\Record\gpx\temp
 
 @echo.
 @echo Remove Duplicates (duplicate)
 :: https://www.gpsbabel.org/htmldoc-development/filter_duplicate.html
-%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVueFolder%\Record\temp\merge.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVueFolder%\Record\temp\duplicate.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVueFolder%\Record\gpx\temp\merge.gpx" -x duplicate,location,shortname -o gpx -F "%BlackVueFolder%\Record\gpx\temp\duplicate.gpx"
 @echo.
 
 
@@ -165,15 +166,18 @@ RMDIR %BlackVueFolder%\Record\temp
 :: це допомагає боротись з провалами під мостами, та в щільній забудові.
 :: Інтерполяцію не закоментовувати!!!!
 @echo https://www.gpsbabel.org/htmldoc-development/filter_interpolate.html
-%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVueFolder%\Record\temp\duplicate.gpx" -x interpolate,time=1 -o gpx -F "%BlackVueFolder%\Record\temp\interpolate.gpx"
+%MapiCamGBpath%\gpsbabel.exe -i gpx -f "%BlackVueFolder%\Record\gpx\temp\duplicate.gpx" -x interpolate,time=1 -o gpx -F "%BlackVueFolder%\Record\temp\interpolate.gpx"
 @echo.
 
 
 :: ПЕРЕНОСИМО готові .gpx до папки GPX
 mkdir %BlackVueFolder%\Record\gpx\0
-move /Y "%BlackVueFolder%\Record\temp\merge.gpx" "%BlackVueFolder%\Record\gpx\0"
-move /Y "%BlackVueFolder%\Record\temp\duplicate.gpx" "%BlackVueFolder%\Record\gpx\0"
-move /Y "%BlackVueFolder%\Record\temp\interpolate.gpx" "%BlackVueFolder%\Record\gpx\0"
+move /Y "%BlackVueFolder%\Record\gpx\temp\merge.gpx" "%BlackVueFolder%\Record\gpx\0"
+move /Y "%BlackVueFolder%\Record\gpx\temp\duplicate.gpx" "%BlackVueFolder%\Record\gpx\0"
+move /Y "%BlackVueFolder%\Record\gpx\temp\interpolate.gpx" "%BlackVueFolder%\Record\gpx\0"
+:: ВИДАЛЯЄМО тимчасову папку (якщо вона порожня)
+RMDIR %BlackVueFolder%\Record\gpx\temp
+
 %MapiCamGBpath%\gpsbabel.exe -t -i gpx -f "%BlackVueFolder%\Record\gpx\0\interpolate.gpx" -o ricoh -F "%BlackVueFolder%\Record\gpx\0\interpolate2.csv"
 
 :: https://gitlab.com/DerLinkshaender/csv2xlsx
@@ -184,8 +188,6 @@ move /Y "%BlackVueFolder%\Record\temp\interpolate.gpx" "%BlackVueFolder%\Record\
 :: D:\mapicam\tools\csv2xlsx\csv2xlsx_386.exe -infile "F:\BlackVue\20190409-C-irpin\Record\gpx\0\interpolate2.csv" -outfile "F:\BlackVue\20190409-C-irpin\Record\gpx\0\interpolate2a.xlsx" -colsep ","
 %MapiCamCSV2XLSX% -infile "%BlackVueFolder%\Record\gpx\0\interpolate2.csv" -outfile "%BlackVueFolder%\Record\gpx\0\interpolate3.xlsx" -colsep ","
 
-:: ВИДАЛЯЄМО тимчасову папку (якщо вона порожня)
-RMDIR %BlackVueFolder%\Record\temp
 
 @echo.
 @echo.
