@@ -124,15 +124,48 @@ type "%BlackVueFolder%\Record\gpx\temp\_temp-2.txt" | findstr /v ^<gpx^> | finds
 
 
 
+type "%BlackVueFolder%\Record\gpx\temp\_temp-4.txt" | findstr /v ^<gpx^> | findstr /v ^</gpx^> | findstr /v ^<gpx | findstr /v ^<^?xml | findstr /v creator | findstr /v xmlns:xsi | findstr /v xmlns | findstr /v xsi:schemaLocation | findstr /v ^<number^> >>"%BlackVueFolder%\Record\gpx\temp\_temp-4.txt"
+
+
+
+
+
+
+
 :: позбутись переносів рядків
 :: рядки що містять "=" викликають "глюки" (((((
 :: http://www.cyberforum.ru/cmd-bat/thread2039468.html
-<"%BlackVueFolder%\Record\gpx\temp\_temp-4.txt" >"%BlackVueFolder%\Record\gpx\temp\_temp-4-1.txt" (for /f %%a in ('more') do set /p ="%%a")
+@echo off
+::<file.txt>new.txt (for /f %%a in ('more') do @<nul set/p="%%a ")
+<%BlackVueFolder%\Record\gpx\temp\_temp-4.txt>%BlackVueFolder%\Record\gpx\temp\_temp-4-1.txt (for /f %%a in ('more') do @<nul set/p="%%a")
 
+pause
+
+
+
+
+cd %BlackVueFolder%\Record\gpx\temp\
+:: http://forum.oszone.net/thread-316638.html
+:: 
+@echo off
+set "f=1.txt"
+<"%f%">$ (
+ for /f "delims=" %%a in ('more') do @(
+  echo %%a|>nul findstr/ec:"== ))" && (
+   for /f "tokens=1,2 delims=:" %%b in ("%%~a") do @(
+    echo %%b::
+    echo %%c
+   )
+  ) || (
+   echo %%a
+  )
+ )
+)& move $ "1.txt"
+exit
 
 
 @echo off
-set "f=%BlackVueFolder%\Record\gpx\temp\_temp-4-1.txt"
+set "f=_temp-4-1.txt"
 <"%f%">$ (
  for /f "delims=" %%a in ('more') do @(
   echo %%a|>nul findstr/ec:"</trkpt>" && (
@@ -151,7 +184,7 @@ exit
 
 
 
-:: позбутись дублікатів рядків
+:: ПРАЦЮЄ! позбутись дублікатів рядків
 :: http://www.cyberforum.ru/cmd-bat/thread1357901.html
 :: <"1.txt">"2.txt" (for /f "delims=" %%i in ('more') do @if not defined %%i (echo %%i& set %%i=*))
 <"%BlackVueFolder%\Record\gpx\temp\_temp-4.txt" >"%BlackVueFolder%\Record\gpx\temp\_temp-4-2.txt" (for /f "delims=" %%i in ('more') do @if not defined %%i (echo %%i& set %%i=*))
