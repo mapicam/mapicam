@@ -52,7 +52,7 @@ D:\mapicam\tools\mapillary\mapillary_tools-050.exe video_process ^
 --version ^
 --verbose ^
 --rerun ^
---geotag_source "blackvue_videos"  ^
+--geotag_source "blackvue_videos" ^
 --geotag_source_path "Record" ^
 --use_gps_start_time ^
 --offset_angle 0 ^
@@ -60,7 +60,7 @@ D:\mapicam\tools\mapillary\mapillary_tools-050.exe video_process ^
 --interpolate_directions ^
 --duplicate_distance 0.3 ^
 --duplicate_angle 3 ^
---video_sample_interval 0.033 ^
+--video_sample_interval 0.05 ^
 --device_make "Blackvue" ^
 --device_model "DR900S-1CH" ^
 --overwrite_EXIF_gps_tag
