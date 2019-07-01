@@ -1,4 +1,3 @@
-
 @echo.
 @echo #-------------------------------------------------------------#
 @echo #  YYYYMMDD HHMMSS                                            #
@@ -43,6 +42,21 @@ setlocal enableextensions enabledelayedexpansion
 @set MapiCamMapillaryTools=D:\mapicam\tools\mapillary\mapillary_tools-050.exe
 
 mkdir jpg
-D:\mapicam\tools\mapillary\mapillary_tools-050.exe video_process --import_path "jpg" --video_import_path "Record" --user_name "velmyshanovnyi" --advanced --geotag_source "blackvue_videos" --geotag_source_path "Record" --use_gps_start_time --interpolate_directions --video_sample_interval 0.2 --device_make "Blackvue" --device_model "DR900S-1CH" --overwrite_EXIF_gps_tag
+
+D:\mapicam\tools\mapillary\mapillary_tools-050.exe video_process ^
+--advanced ^
+--version ^
+--video_import_path "Record" ^
+--skip_subfolders ^
+--import_path "jpg" ^
+--user_name "velmyshanovnyi" ^
+--geotag_source "blackvue_videos"  ^
+--geotag_source_path "Record" ^
+--use_gps_start_time ^
+--interpolate_directions ^
+--video_sample_interval 0.1 ^
+--device_make "Blackvue" ^
+--device_model "DR900S-1CH" ^
+--overwrite_EXIF_gps_tag
 
 cmd -k
