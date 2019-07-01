@@ -44,7 +44,7 @@ setlocal enableextensions enabledelayedexpansion
 
 mkdir jpg
 
-D:\mapicam\tools\mapillary\mapillary_tools-050.exe  video_process ^
+D:\mapicam\tools\mapillary\mapillary_tools-050.exe video_process ^
 --import_path "jpg" ^
 --video_import_path "Record" ^
 --user_name "velmyshanovnyi" ^
