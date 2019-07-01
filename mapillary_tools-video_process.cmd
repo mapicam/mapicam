@@ -1,3 +1,4 @@
+
 @echo.
 @echo #-------------------------------------------------------------#
 @echo #  YYYYMMDD HHMMSS                                            #
@@ -43,20 +44,28 @@ setlocal enableextensions enabledelayedexpansion
 
 mkdir jpg
 
-D:\mapicam\tools\mapillary\mapillary_tools-050.exe video_process ^
---advanced ^
---version ^
---video_import_path "Record" ^
---skip_subfolders ^
+D:\mapicam\tools\mapillary\mapillary_tools-050.exe  video_process ^
 --import_path "jpg" ^
+--video_import_path "Record" ^
 --user_name "velmyshanovnyi" ^
+--advanced  ^
+--version ^
+--verbose ^
+--rerun ^
 --geotag_source "blackvue_videos"  ^
 --geotag_source_path "Record" ^
 --use_gps_start_time ^
+--offset_angle 0 ^
+--cutoff_distance 500 ^
 --interpolate_directions ^
---video_sample_interval 0.1 ^
+--duplicate_distance 0.3 ^
+--duplicate_angle 3 ^
+--video_sample_interval 0.033 ^
 --device_make "Blackvue" ^
 --device_model "DR900S-1CH" ^
 --overwrite_EXIF_gps_tag
+
+@rem для 050 скрипта виокремив ще один БАГ. якщо містить параметр "--skip_subfolders" то не перестає прошивати координатами (((
+
 
 cmd -k
